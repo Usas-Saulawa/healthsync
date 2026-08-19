@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation"; // 1. Import router for navigation
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -12,8 +12,11 @@ import {
 import { db } from "@/db/offlineDB";
 import { encryptData } from "@/utils/encryption";
 
+// TOGGLE FLAG: Set to true when your friend's backend /api/auth/login endpoint is ready!
+const USE_LIVE_API = false;
+
 export function useLogin() {
-  const router = useRouter(); // 2. Initialize router instance
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [modalState, setModalState] = useState<{
     isOpen: boolean;
@@ -39,10 +42,31 @@ export function useLogin() {
     setIsLoading(true);
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      let authToken = "mock-jwt-secure-token-12345";
 
+      if (USE_LIVE_API) {
+        // --- REAL NEXT.JS API AUTH CALL ---
+        const response = await fetch("/api/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result.message || "Invalid credentials provided.");
+        }
+
+        authToken = result.token || authToken;
+      } else {
+        // --- SIMULATED OFFLINE/MOCK LOGIN WRAPPER ---
+        await new Promise((resolve) => setTimeout(resolve, 1500));
+      }
+
+      // Securely encrypt data before storing in local IndexedDB (Dexie)
       const encryptedEmail = await encryptData(data.email);
-      const encryptedToken = await encryptData("mock-jwt-secure-token-12345");
+      const encryptedToken = await encryptData(authToken);
 
       await db.users.clear();
       await db.users.add({
@@ -51,27 +75,31 @@ export function useLogin() {
         lastLogin: new Date().toISOString(),
       });
 
-      console.log("Encrypted doctor session successfully saved in IndexedDB.");
+      console.log(
+        "Authentication successful. Session encrypted and cached locally.",
+      );
 
       setModalState({
         isOpen: true,
         type: "success",
         title: "Login Successful & Encrypted!",
-        message:
-          "Credentials securely encrypted and cached locally. Redirecting to dashboard...",
+        message: USE_LIVE_API
+          ? "Server authenticated. Session securely cached for offline mode. Redirecting..."
+          : "Simulated login successful. Credentials cached locally. Redirecting...",
       });
 
-      // 3. Optional: Automatically redirect after a brief delay so they see the success modal
+      // Automatically redirect after a brief delay to display the success modal
       setTimeout(() => {
         router.push("/dashboard");
       }, 1200);
-    } catch (error) {
-      console.error("Login or encryption caching failed", error);
+    } catch (error: any) {
+      console.error("Login or encryption caching failed:", error);
       setModalState({
         isOpen: true,
         type: "error",
-        title: "Security Error",
-        message: "Failed to encrypt local storage data. Please try again.",
+        title: USE_LIVE_API ? "Authentication Failed" : "Security Error",
+        message:
+          error.message || "Failed to process login request. Please try again.",
       });
     } finally {
       setIsLoading(false);
@@ -95,7 +123,6 @@ export function useLogin() {
   const closeModal = () => {
     setModalState((prev) => ({ ...prev, isOpen: false }));
 
-    // If it was a success modal and they close it manually, redirect immediately
     if (modalState.type === "success") {
       router.push("/dashboard");
     }
@@ -107,5 +134,6 @@ export function useLogin() {
     modalState,
     closeModal,
     onSubmit: form.handleSubmit(onSubmit, onInvalid),
+    USE_LIVE_API, // Exposed for inspection or debugging if needed
   };
 }
