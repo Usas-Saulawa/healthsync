@@ -12,7 +12,7 @@ export function useHeader() {
   const [doctorEmail, setDoctorEmail] = useState("dr.bashir@healthcare.com"); // Fallback mock
 
   useEffect(() => {
-    async function loadUserSession() {
+    (async function loadUserSession() {
       try {
         const users = await db.users.toArray();
         if (users.length > 0 && users[0].email) {
@@ -24,9 +24,7 @@ export function useHeader() {
       } catch (error) {
         console.error("Failed to load local doctor session for header:", error);
       }
-    }
-
-    loadUserSession();
+    })();
   }, []);
 
   // Format email to a clean display name if needed (e.g. dr.bashir@healthcare.com -> Dr. Bashir)
