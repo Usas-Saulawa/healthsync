@@ -1,22 +1,32 @@
-// app/page.tsx
+// app/auth/ActivateAccount.tsx
 "use client";
 
 import { useState } from "react";
-import { useLogin } from "@/hooks/auth_hooks/useLogin";
+import { useForm } from "react-hook-form";
 import { CustomButton } from "@/components/ui/CustomButton";
-import { LoginModal } from "@/components/ui/loginModal";
-import { Activity, Lock, ShieldCheck, Zap, WifiOff } from "lucide-react";
+import { Activity, ShieldCheck, Zap, WifiOff } from "lucide-react";
 import Link from "next/link";
 
-export default function LoginPage() {
-  const { form, isLoading, modalState, closeModal, onSubmit } = useLogin();
-  const {
-    register,
-    formState: { errors },
-  } = form;
-
-  // Toggle state matching the design: 'staff' or 'resident'
+export default function ActivateAccountPage() {
+  // Toggle state: 'staff' or 'resident'
   const [loginType, setLoginType] = useState<"staff" | "resident">("staff");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { register, handleSubmit } = useForm({
+    defaultValues: {
+      uniqueId: "",
+      activationCode: "",
+    },
+  });
+
+  const onSubmit = (data: any) => {
+    setIsLoading(true);
+    // Simulate activation submission
+    setTimeout(() => {
+      setIsLoading(false);
+      console.log("Account activation submitted:", data);
+    }, 1500);
+  };
 
   return (
     <div className="flex min-h-screen w-full bg-blue-50 font-sans">
@@ -88,23 +98,21 @@ export default function LoginPage() {
         </div>
       </div>
 
-      {/* Right Side: Login Form Card Section */}
+      {/* Right Side: Activation Form Card Section with wide padding container */}
       <div className="flex flex-1 items-center justify-center p-6 sm:p-12">
         <div className="w-full max-w-xl rounded-3xl bg-white p-8 sm:p-12 shadow-xl border border-gray-100">
-          {/* Exact Design Header: Icon Badge, Title, and Subtitle */}
+          {/* Header matching screenshot */}
           <div className="flex flex-col items-center text-center mb-8">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-blue-600 text-white shadow-md mb-4">
-              <Activity className="h-8 w-8" />
-            </div>
-            <h1 className="text-2xl font-extrabold tracking-tight text-gray-900">
-              EHR
+            <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight text-gray-900 mb-2">
+              Activate Your Account
             </h1>
-            <p className="text-xs sm:text-sm text-gray-500 mt-1">
-              Enter your credentials to access the dashboard
+            <p className="text-xs sm:text-sm text-gray-500 max-w-md">
+              Enter the Staff ID or Patient ID and activation code provided by
+              your administrator.
             </p>
           </div>
 
-          {/* Screenshot-matched Staff ID / Residential ID Toggle Container */}
+          {/* Toggle Switch */}
           <div className="flex bg-gray-100/80 p-1.5 rounded-2xl mb-6 border border-gray-100">
             <button
               type="button"
@@ -130,10 +138,8 @@ export default function LoginPage() {
             </button>
           </div>
 
-          {/* Rest of your login form, inputs, and buttons... */}
-
-          {/* Login Form */}
-          <form onSubmit={onSubmit} className="space-y-4">
+          {/* Activation Form */}
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div>
               <div className="relative">
                 <input
@@ -143,59 +149,31 @@ export default function LoginPage() {
                       ? "Enter your unique ID"
                       : "Enter your unique Residential ID"
                   }
-                  suppressHydrationWarning
-                  {...register("email")}
+                  {...register("uniqueId")}
                   className="w-full rounded-xl border border-gray-200 bg-gray-50/50 py-3.5 px-4 text-gray-900 placeholder-gray-400 focus:border-blue-600 focus:bg-white focus:outline-none focus:ring-1 focus:ring-blue-600 transition-all text-sm"
                 />
               </div>
-              {errors.email && (
-                <p className="mt-1 text-xs text-red-600">
-                  {errors.email.message}
-                </p>
-              )}
             </div>
 
             <div>
               <div className="relative">
                 <input
                   type="password"
-                  placeholder="Enter password"
-                  suppressHydrationWarning
-                  {...register("password")}
+                  placeholder="Enter password / activation code"
+                  {...register("activationCode")}
                   className="w-full rounded-xl border border-gray-200 bg-gray-50/50 py-3.5 px-4 text-gray-900 placeholder-gray-400 focus:border-blue-600 focus:bg-white focus:outline-none focus:ring-1 focus:ring-blue-600 transition-all text-sm"
                 />
               </div>
-              {errors.password && (
-                <p className="mt-1 text-xs text-red-600">
-                  {errors.password.message}
-                </p>
-              )}
-            </div>
-
-            <div className="flex items-center justify-between text-xs sm:text-sm pt-1">
-              <label className="flex items-center text-gray-500 cursor-pointer select-none">
-                <input
-                  type="checkbox"
-                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 mr-2 h-4 w-4"
-                />
-                Remember me
-              </label>
-              <a
-                href="#"
-                className="font-medium text-gray-600 hover:text-blue-600 transition-colors"
-              >
-                Forgot Password?
-              </a>
             </div>
 
             <div className="pt-2">
               <CustomButton type="submit" isLoading={isLoading}>
-                Sign in
+                Activate account
               </CustomButton>
             </div>
           </form>
 
-          {/* Screenshot-matched "OR" divider line */}
+          {/* "OR" divider */}
           <div className="relative my-6">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-gray-200" />
@@ -206,25 +184,15 @@ export default function LoginPage() {
               </span>
             </div>
           </div>
-
-          {/* Account Activation Outline Button */}
+          {/* Sign in outline button returning to root */}
           <Link
-            href="auth/activate"
+            href="/"
             className="w-full flex items-center justify-center rounded-xl border border-blue-600/30 bg-white py-3.5 text-sm font-semibold text-blue-600 hover:bg-blue-50/50 transition-all shadow-sm"
           >
-            Activate your account
+            Sign in
           </Link>
         </div>
       </div>
-
-      {/* Animated Feedback Modal Component */}
-      <LoginModal
-        isOpen={modalState.isOpen}
-        onClose={closeModal}
-        type={modalState.type}
-        title={modalState.title}
-        message={modalState.message}
-      />
     </div>
   );
 }
