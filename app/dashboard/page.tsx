@@ -6,7 +6,7 @@ import { DashboardMetricsGrid } from "@/components/dashboard_components/Dashboar
 
 export default function DashboardPage() {
   return (
-    <div className="min-h-screen bg-gray-300 flex flex-col font-sans">
+    <div className="min-h-screen bg-blue-50 flex flex-col font-sans">
       <Header />
 
       <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6">

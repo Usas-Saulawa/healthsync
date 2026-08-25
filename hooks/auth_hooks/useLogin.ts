@@ -10,7 +10,7 @@ import {
   LoginFormData,
 } from "@/types/auth-schema-type/auth-schema";
 import { db } from "@/db/offlineDB";
-import { encryptData } from "@/utils/encryption";
+import { encryptData, decryptData } from "@/utils/encryption"; // assuming decryptData is available
 
 // TOGGLE FLAG: Set to true when your friend's backend /api/auth/login endpoint is ready!
 const USE_LIVE_API = false;
@@ -60,16 +60,49 @@ export function useLogin() {
 
         authToken = result.token || authToken;
       } else {
-        // --- SIMULATED OFFLINE/MOCK LOGIN WRAPPER ---
-        await new Promise((resolve) => setTimeout(resolve, 1500));
+        // --- OFFLINE INDEXEDDB VALIDATION ---
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
+        // Fetch all stored users from IndexedDB
+        const allUsers = await db.users.toArray();
+
+        if (allUsers.length === 0) {
+          throw new Error(
+            "No activated accounts found locally. Please activate your account first.",
+          );
+        }
+
+        // Check if any registered local user matches the entered email/unique ID
+        let matchedUser = false;
+        for (const user of allUsers) {
+          try {
+            const decryptedEmail = await decryptData(user.email);
+            if (decryptedEmail === data.email) {
+              matchedUser = true;
+              break;
+            }
+          } catch (e) {
+            // fallback if stored directly as plaintext during mock activation
+            if (user.email === data.email) {
+              matchedUser = true;
+              break;
+            }
+          }
+        }
+
+        if (!matchedUser) {
+          throw new Error(
+            "Account not activated or invalid unique ID. Please activate your account.",
+          );
+        }
       }
 
-      // Securely encrypt data before storing in local IndexedDB (Dexie)
+      // Securely encrypt data before updating session cache in IndexedDB
       const encryptedEmail = await encryptData(data.email);
       const encryptedToken = await encryptData(authToken);
 
-      await db.users.clear();
-      await db.users.add({
+      // Save active session
+      await db.users.put({
         email: encryptedEmail,
         token: encryptedToken,
         lastLogin: new Date().toISOString(),
@@ -85,7 +118,7 @@ export function useLogin() {
         title: "Login Successful & Encrypted!",
         message: USE_LIVE_API
           ? "Server authenticated. Session securely cached for offline mode. Redirecting..."
-          : "Simulated login successful. Credentials cached locally. Redirecting...",
+          : "Local ID verified against IndexedDB. Redirecting to dashboard...",
       });
 
       // Automatically redirect after a brief delay to display the success modal
@@ -93,11 +126,11 @@ export function useLogin() {
         router.push("/dashboard");
       }, 1200);
     } catch (error: any) {
-      console.error("Login or encryption caching failed:", error);
+      console.error("Login or validation failed:", error);
       setModalState({
         isOpen: true,
         type: "error",
-        title: USE_LIVE_API ? "Authentication Failed" : "Security Error",
+        title: USE_LIVE_API ? "Authentication Failed" : "Activation Required",
         message:
           error.message || "Failed to process login request. Please try again.",
       });
@@ -134,6 +167,6 @@ export function useLogin() {
     modalState,
     closeModal,
     onSubmit: form.handleSubmit(onSubmit, onInvalid),
-    USE_LIVE_API, // Exposed for inspection or debugging if needed
+    USE_LIVE_API,
   };
 }

@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useLogin } from "@/hooks/auth_hooks/useLogin";
 import { CustomButton } from "@/components/ui/CustomButton";
 import { LoginModal } from "@/components/ui/loginModal";
-import { Activity, Lock, ShieldCheck, Zap, WifiOff } from "lucide-react";
+import { Activity, ShieldCheck, Zap, WifiOff } from "lucide-react";
 import Link from "next/link";
 
 export default function LoginPage() {

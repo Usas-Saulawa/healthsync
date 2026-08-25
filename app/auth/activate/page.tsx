@@ -1,42 +1,38 @@
-// app/auth/ActivateAccount.tsx
+// app/auth/activate/page.tsx
 "use client";
 
-import { useState } from "react";
-import { useForm } from "react-hook-form";
 import { CustomButton } from "@/components/ui/CustomButton";
 import { Activity, ShieldCheck, Zap, WifiOff } from "lucide-react";
 import Link from "next/link";
+import { OtpModal } from "@/components/ui/otpModal";
+import { LoginModal } from "@/components/ui/loginModal";
+import { useActivation } from "@/hooks/auth_hooks/useActivation";
 
 export default function ActivateAccountPage() {
-  // Toggle state: 'staff' or 'resident'
-  const [loginType, setLoginType] = useState<"staff" | "resident">("staff");
-  const [isLoading, setIsLoading] = useState(false);
-
-  const { register, handleSubmit } = useForm({
-    defaultValues: {
-      uniqueId: "",
-      activationCode: "",
-    },
-  });
-
-  const onSubmit = (data: any) => {
-    setIsLoading(true);
-    // Simulate activation submission
-    setTimeout(() => {
-      setIsLoading(false);
-      console.log("Account activation submitted:", data);
-    }, 1500);
-  };
+  const {
+    loginType,
+    setLoginType,
+    isLoading,
+    isOtpOpen,
+    isFeedbackOpen,
+    setIsFeedbackOpen,
+    feedbackType,
+    feedbackTitle,
+    feedbackMessage,
+    register,
+    handleSubmit,
+    onSubmit,
+    handleVerifyOtp,
+    handleResendOtp,
+  } = useActivation();
 
   return (
     <div className="flex min-h-screen w-full bg-blue-50 font-sans">
       {/* Left Side: Desktop Blue Gradient Hero Panel */}
       <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-primary-700 via-primary-600 to-primary-900 p-12 flex-col justify-between text-white relative overflow-hidden">
-        {/* Subtle background glow effect */}
         <div className="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-white/10 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-24 -right-24 w-96 h-96 rounded-full bg-black/10 blur-3xl pointer-events-none" />
 
-        {/* Top Brand Tag */}
         <div className="flex items-center gap-3 z-10">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/20 backdrop-blur-md">
             <Activity className="h-6 w-6 text-white" />
@@ -46,7 +42,6 @@ export default function ActivateAccountPage() {
           </span>
         </div>
 
-        {/* Center Typography */}
         <div className="z-10 max-w-lg space-y-6 my-auto">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-xs font-medium text-primary-100 border border-white/10">
             <Zap className="h-3.5 w-3.5 text-primary-300" />
@@ -61,7 +56,6 @@ export default function ActivateAccountPage() {
             securely—all in one fast, easy-to-use platform.
           </p>
 
-          {/* Quick feature highlights */}
           <div className="grid grid-cols-2 gap-4 pt-4">
             <div className="flex items-start gap-3">
               <div className="p-2 rounded-lg bg-white/10 text-primary-200 mt-1">
@@ -92,16 +86,14 @@ export default function ActivateAccountPage() {
           </div>
         </div>
 
-        {/* Footer copyright */}
         <div className="z-10 text-xs text-primary-200">
           © 2026 HealthCare EHR System. All rights reserved.
         </div>
       </div>
 
-      {/* Right Side: Activation Form Card Section with wide padding container */}
+      {/* Right Side: Activation Form Card Section */}
       <div className="flex flex-1 items-center justify-center p-6 sm:p-12">
         <div className="w-full max-w-xl rounded-3xl bg-white p-8 sm:p-12 shadow-xl border border-gray-100">
-          {/* Header matching screenshot */}
           <div className="flex flex-col items-center text-center mb-8">
             <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight text-gray-900 mb-2">
               Activate Your Account
@@ -184,7 +176,7 @@ export default function ActivateAccountPage() {
               </span>
             </div>
           </div>
-          {/* Sign in outline button returning to root */}
+
           <Link
             href="/"
             className="w-full flex items-center justify-center rounded-xl border border-blue-600/30 bg-white py-3.5 text-sm font-semibold text-blue-600 hover:bg-blue-50/50 transition-all shadow-sm"
@@ -193,6 +185,23 @@ export default function ActivateAccountPage() {
           </Link>
         </div>
       </div>
+
+      {/* OTP Verification Modal */}
+      <OtpModal
+        isOpen={isOtpOpen}
+        onVerify={handleVerifyOtp}
+        onResend={handleResendOtp}
+        isLoading={isLoading}
+      />
+
+      {/* Feedback Notification Modal (Success / Error) */}
+      <LoginModal
+        isOpen={isFeedbackOpen}
+        onClose={() => setIsFeedbackOpen(false)}
+        type={feedbackType}
+        title={feedbackTitle}
+        message={feedbackMessage}
+      />
     </div>
   );
 }
