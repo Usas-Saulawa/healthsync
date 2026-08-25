@@ -1,4 +1,4 @@
-// data/mockDashboardData.ts
+// mock/mockDashboardData.ts
 
 export const mockDashboardMetrics = {
   totalPatients: {

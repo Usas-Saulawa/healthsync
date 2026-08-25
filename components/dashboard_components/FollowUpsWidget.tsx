@@ -1,0 +1,96 @@
+// components/dashboard_components/FollowUpsWidget.tsx
+"use client";
+
+import Link from "next/link";
+import { Calendar } from "lucide-react";
+import { FollowUpItem } from "@/lib/validations/dashboard";
+import { mockFollowUps } from "@/mock/mockDashboardData";
+
+interface FollowUpsWidgetProps {
+  followUps?: FollowUpItem[];
+  className?: string;
+}
+
+export function FollowUpsWidget({
+  followUps = mockFollowUps,
+  className = "",
+}: FollowUpsWidgetProps) {
+  return (
+    <div
+      className={`bg-white rounded-3xl p-6 sm:p-8 shadow-xs border border-blue-100/50 space-y-6 ${className}`}
+    >
+      {/* Widget Header */}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center space-x-3.5">
+          <div className="w-12 h-12 rounded-2xl bg-blue-50/80 flex items-center justify-center text-blue-600 shadow-inner">
+            <Calendar className="w-6 h-6" />
+          </div>
+          <h2 className="text-xl font-bold text-slate-900 tracking-tight">
+            Follow-ups
+          </h2>
+        </div>
+        <Link
+          href="/dashboard/follow-ups"
+          className="text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors"
+        >
+          View All
+        </Link>
+      </div>
+
+      {/* Status Legend Indicators */}
+      <div className="flex items-center space-x-6 text-xs text-slate-500 font-medium pt-1">
+        <div className="flex items-center space-x-2">
+          <span className="w-2 h-2 rounded-full bg-blue-600 inline-block"></span>
+          <span>Available</span>
+        </div>
+        <div className="flex items-center space-x-2">
+          <span className="w-2 h-2 rounded-full bg-blue-200 inline-block"></span>
+          <span>Unselected</span>
+        </div>
+        <div className="flex items-center space-x-2">
+          <span className="w-2 h-2 rounded-full bg-slate-300 inline-block"></span>
+          <span>Unavailable</span>
+        </div>
+      </div>
+
+      {/* Follow-ups List Container */}
+      <div className="space-y-3.5">
+        {followUps.map((item) => {
+          // Dynamic status pill styling based on state
+          const isCheckedIn = item.status === "Checked In";
+          const statusBadgeStyle = isCheckedIn
+            ? "bg-[#cce5ff] text-[#004085] border border-[#b8daff]"
+            : "bg-[#fff3cd] text-[#856404] border border-[#ffeeba]";
+
+          return (
+            <div
+              key={item.id}
+              className="bg-blue-50 hover:bg-blue-100/60 transition-all p-5 rounded-2xl border border-transparent hover:border-blue-200/50 flex items-center justify-between gap-4"
+            >
+              <div className="space-y-1">
+                <span className="text-xs font-bold text-blue-600 tracking-wide uppercase">
+                  {item.time}
+                </span>
+                <h3 className="text-base font-bold text-slate-900">
+                  {item.name}
+                </h3>
+                <p className="text-xs text-slate-500 font-medium">
+                  {item.description}
+                </p>
+              </div>
+
+              {/* Status Badge */}
+              <div className="flex-shrink-0">
+                <span
+                  className={`inline-flex items-center px-3.5 py-1.5 rounded-full text-xs font-bold shadow-2xs whitespace-nowrap ${statusBadgeStyle}`}
+                >
+                  {item.status}
+                </span>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}

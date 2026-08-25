@@ -1,16 +1,7 @@
 // components/dashboard_components/DashboardMetricsGrid.tsx
 "use client";
 
-import {
-  Users,
-  Calendar,
-  AlertTriangle,
-  Activity,
-  ArrowUpRight,
-  ShieldAlert,
-  Info,
-  Loader2,
-} from "lucide-react";
+import { Users, ArrowUpRight, ShieldAlert, Info, Loader2 } from "lucide-react";
 import { AreaChart, Area, ResponsiveContainer } from "recharts";
 import { useDashboardData } from "@/hooks/dashboard_hooks/useDashboardData";
 

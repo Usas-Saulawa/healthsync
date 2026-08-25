@@ -12,12 +12,12 @@ export function Header() {
   return (
     <div className="w-full px-4 sm:px-6 pt-4 space-y-4 relative">
       {/* 1. Main Navigation Bar */}
-      <header className="w-full bg-white px-4 sm:px-6 py-3 sm:py-4 rounded-3xl border border-gray-100 shadow-sm flex items-center justify-between">
+      <header className="w-full bg-white px-6 py-4 rounded-3xl border border-blue-100/50 shadow-xs flex items-center justify-between">
         {/* Left: Brand Logo & Title + Mobile Menu Trigger */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3.5">
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden h-9 w-9 rounded-xl bg-gray-50 border border-gray-200 flex items-center justify-center text-gray-700 hover:bg-gray-100 transition-colors"
+            className="md:hidden h-10 w-10 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-700 hover:bg-slate-100 transition-colors"
             aria-label="Toggle Menu"
           >
             {isMobileMenuOpen ? (
@@ -28,30 +28,30 @@ export function Header() {
           </button>
 
           <div
-            className="flex items-center gap-2.5 cursor-pointer"
+            className="flex items-center gap-3 cursor-pointer"
             onClick={() => router.push("/dashboard")}
           >
-            <div className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-2xl bg-primary-600 text-white shadow-md">
-              <Activity className="h-5 w-5 sm:h-6 sm:w-6" />
+            <div className="flex h-11 w-11 items-center justify-center rounded-full bg-blue-600 text-white shadow-sm">
+              <Activity className="h-6 w-6" />
             </div>
-            <span className="font-bold text-lg sm:text-xl tracking-tight text-gray-900 hidden xs:inline-block">
+            <span className="font-bold text-xl tracking-tight text-slate-900 hidden xs:inline-block">
               HealthCare
             </span>
           </div>
         </div>
 
         {/* Center: Floating Pill Navigation Switcher (Desktop Only) */}
-        <nav className="hidden md:flex items-center bg-gray-50 p-1.5 rounded-full border border-gray-200/60 shadow-inner">
+        <nav className="hidden md:flex items-center bg-[#f1f5f9]/80 p-1.5 rounded-full border border-slate-200/50 shadow-inner">
           {navItems.map((item) => {
             const isActive = currentPath === item.path;
             return (
               <button
                 key={item.name}
                 onClick={() => router.push(item.path)}
-                className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                className={`px-7 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 ${
                   isActive
-                    ? "bg-gray-900 text-white shadow-sm"
-                    : "text-gray-600 hover:text-gray-900 hover:bg-gray-200/50"
+                    ? "bg-[#1e293b] text-white shadow-xs"
+                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-200/50"
                 }`}
               >
                 {item.name}
@@ -61,28 +61,35 @@ export function Header() {
         </nav>
 
         {/* Right: Actions & Doctor Profile Badge */}
-        <div className="flex items-center gap-2.5 sm:gap-4">
-          <button className="h-9 w-9 sm:h-10 sm:w-10 rounded-full bg-gray-50 border border-gray-200/60 flex items-center justify-center text-gray-600 hover:bg-gray-100 transition-colors">
-            <Settings className="h-4 w-4 sm:h-5 sm:w-5" />
+        <div className="flex items-center gap-3 sm:gap-4">
+          <button className="h-11 w-11 rounded-full bg-white border border-slate-200/80 flex items-center justify-center text-slate-700 hover:bg-slate-50 transition-colors shadow-2xs">
+            <Settings className="h-5 w-5" />
           </button>
 
-          <button className="h-9 w-9 sm:h-10 sm:w-10 rounded-full bg-gray-50 border border-gray-200/60 flex items-center justify-center text-gray-600 hover:bg-gray-100 transition-colors relative">
-            <Bell className="h-4 w-4 sm:h-5 sm:w-5" />
-            <span className="absolute top-2 right-2 h-2 w-2 rounded-full bg-red-500 animate-pulse" />
+          <button className="h-11 w-11 rounded-full bg-white border border-slate-200/80 flex items-center justify-center text-slate-700 hover:bg-slate-50 transition-colors relative shadow-2xs">
+            <Bell className="h-5 w-5" />
+            <span className="absolute top-2.5 right-2.5 h-2 w-2 rounded-full bg-red-500 animate-pulse" />
           </button>
 
-          <div className="flex items-center gap-2.5 pl-2 border-l border-gray-200">
-            <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-full bg-amber-100 border border-amber-200 overflow-hidden flex items-end justify-center">
-              <div className="h-full w-full bg-amber-300 flex items-end justify-center overflow-hidden">
-                <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-full bg-amber-700 mt-2" />
-              </div>
+          <div className="flex items-center gap-3 pl-3 border-l border-slate-200/80">
+            <div className="h-11 w-11 rounded-full bg-amber-200 overflow-hidden flex-shrink-0 flex items-center justify-center border border-amber-300/50 shadow-2xs">
+              {/* Clean Vector Avatar Graphic */}
+              <svg
+                className="w-full h-full text-amber-900 mt-1"
+                viewBox="0 0 36 36"
+                fill="currentColor"
+              >
+                <path d="M18 16c3.313 0 6-2.687 6-6s-2.687-6-6-6-6 2.687-6 6 2.687 6 6 6zm0 3c-4.418 0-12 2.239-12 6.667V30h24v-4.333C30 21.239 22.418 19 18 19z" />
+              </svg>
             </div>
 
             <div className="hidden lg:block text-left">
-              <h4 className="text-sm font-bold text-gray-900 leading-tight">
+              <h4 className="text-sm font-bold text-slate-900 leading-tight">
                 {doctorName}
               </h4>
-              <p className="text-xs text-gray-400 font-medium">Surgeon</p>
+              <p className="text-xs text-slate-400 font-medium mt-0.5">
+                Surgeon
+              </p>
             </div>
           </div>
         </div>
@@ -90,14 +97,14 @@ export function Header() {
 
       {/* Mobile Navigation Dropdown Menu */}
       {isMobileMenuOpen && (
-        <div className="absolute top-20 left-4 right-4 z-50 bg-white rounded-2xl border border-gray-100 shadow-xl p-4 md:hidden flex flex-col gap-3 animate-in fade-in slide-in-from-top-2 duration-200">
-          <div className="flex items-center gap-3 pb-3 border-b border-gray-100 px-2">
+        <div className="absolute top-20 left-4 right-4 z-50 bg-white rounded-2xl border border-slate-100 shadow-xl p-4 md:hidden flex flex-col gap-3 animate-in fade-in slide-in-from-top-2 duration-200">
+          <div className="flex items-center gap-3 pb-3 border-b border-slate-100 px-2">
             <div className="h-10 w-10 rounded-full bg-amber-700 flex items-center justify-center text-white font-bold">
               {doctorName.charAt(4) || "D"}
             </div>
             <div>
-              <h4 className="text-sm font-bold text-gray-900">{doctorName}</h4>
-              <p className="text-xs text-gray-500">Surgeon • Active Session</p>
+              <h4 className="text-sm font-bold text-slate-900">{doctorName}</h4>
+              <p className="text-xs text-slate-500">Surgeon • Active Session</p>
             </div>
           </div>
 
@@ -111,10 +118,10 @@ export function Header() {
                     router.push(item.path);
                     setIsMobileMenuOpen(false);
                   }}
-                  className={`w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${
+                  className={`w-full text-left px-4 py-2.5 rounded-xl text-sm font-semibold transition-colors ${
                     isActive
-                      ? "bg-gray-900 text-white"
-                      : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                      ? "bg-slate-900 text-white"
+                      : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                   }`}
                 >
                   {item.name}
@@ -125,9 +132,9 @@ export function Header() {
         </div>
       )}
 
-      {/* 2. Simple Welcome Greeting Bar (Search & Monthly Filters reserved for metrics area) */}
+      {/* 2. Simple Welcome Greeting Bar */}
       <div className="flex items-center justify-between px-2 py-2">
-        <h1 className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight flex items-center gap-2.5">
+        <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2.5">
           Welcome Back {doctorName}
           <Sun className="h-6 w-6 text-amber-500 fill-amber-400" />
         </h1>
