@@ -4,10 +4,12 @@
 import { useState } from "react";
 import { Activity, Settings, Bell, Menu, X, Sun } from "lucide-react";
 import { useHeader } from "@/hooks/dashboard_hooks/useHeader";
+import { NotificationDrawer } from "@/components/dashboard_components/NotificationDrawer";
 
 export function Header() {
   const { doctorName, currentPath, router, navItems } = useHeader();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false); // State for drawer
 
   return (
     <div className="w-full px-4 sm:px-6 pt-4 space-y-4 relative">
@@ -66,14 +68,18 @@ export function Header() {
             <Settings className="h-5 w-5" />
           </button>
 
-          <button className="h-11 w-11 rounded-full bg-white border border-slate-200/80 flex items-center justify-center text-slate-700 hover:bg-slate-50 transition-colors relative shadow-2xs">
+          {/* Notification Button Trigger */}
+          <button
+            onClick={() => setIsNotificationsOpen(true)}
+            className="h-11 w-11 rounded-full bg-white border border-slate-200/80 flex items-center justify-center text-slate-700 hover:bg-slate-50 transition-colors relative shadow-2xs"
+            aria-label="Open notifications"
+          >
             <Bell className="h-5 w-5" />
             <span className="absolute top-2.5 right-2.5 h-2 w-2 rounded-full bg-red-500 animate-pulse" />
           </button>
 
           <div className="flex items-center gap-3 pl-3 border-l border-slate-200/80">
             <div className="h-11 w-11 rounded-full bg-amber-200 overflow-hidden flex-shrink-0 flex items-center justify-center border border-amber-300/50 shadow-2xs">
-              {/* Clean Vector Avatar Graphic */}
               <svg
                 className="w-full h-full text-amber-900 mt-1"
                 viewBox="0 0 36 36"
@@ -139,6 +145,12 @@ export function Header() {
           <Sun className="h-6 w-6 text-amber-500 fill-amber-400" />
         </h1>
       </div>
+
+      {/* 3. Notification Drawer Component */}
+      <NotificationDrawer
+        isOpen={isNotificationsOpen}
+        onClose={() => setIsNotificationsOpen(false)}
+      />
     </div>
   );
 }
