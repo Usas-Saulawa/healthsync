@@ -1,4 +1,4 @@
-// components/dashboard/Header.tsx
+// components/dashboard_components/Header.tsx
 "use client";
 
 import { useState } from "react";
@@ -6,20 +6,24 @@ import { Activity, Settings, Bell, Menu, X, Sun } from "lucide-react";
 import { useHeader } from "@/hooks/dashboard_hooks/useHeader";
 import { NotificationDrawer } from "@/components/dashboard_components/NotificationDrawer";
 
-export function Header() {
+interface HeaderProps {
+  showGreeting?: boolean;
+}
+
+export function Header({ showGreeting = true }: HeaderProps) {
   const { doctorName, currentPath, router, navItems } = useHeader();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false); // State for drawer
+  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
 
   return (
     <div className="w-full px-4 sm:px-6 pt-4 space-y-4 relative">
-      {/* 1. Main Navigation Bar */}
-      <header className="w-full bg-white px-6 py-4 rounded-3xl border border-blue-100/50 shadow-xs flex items-center justify-between">
+      {/* 1. Main Unified Pill Navigation Bar */}
+      <header className="w-full bg-white px-4 sm:px-6 py-3 rounded-full border border-blue-100/60 shadow-xs flex items-center justify-between gap-4">
         {/* Left: Brand Logo & Title + Mobile Menu Trigger */}
-        <div className="flex items-center gap-3.5">
+        <div className="flex items-center gap-3">
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden h-10 w-10 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-700 hover:bg-slate-100 transition-colors"
+            className="md:hidden h-10 w-10 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-700 hover:bg-slate-100 transition-colors shrink-0"
             aria-label="Toggle Menu"
           >
             {isMobileMenuOpen ? (
@@ -30,13 +34,13 @@ export function Header() {
           </button>
 
           <div
-            className="flex items-center gap-3 cursor-pointer"
+            className="flex items-center gap-3 cursor-pointer shrink-0"
             onClick={() => router.push("/dashboard")}
           >
-            <div className="flex h-11 w-11 items-center justify-center rounded-full bg-blue-600 text-white shadow-sm">
+            <div className="flex h-11 w-11 items-center justify-center rounded-full bg-blue-600 text-white shadow-sm shrink-0">
               <Activity className="h-6 w-6" />
             </div>
-            <span className="font-bold text-xl tracking-tight text-slate-900 hidden xs:inline-block">
+            <span className="font-bold text-xl tracking-tight text-slate-900 inline-block">
               HealthCare
             </span>
           </div>
@@ -63,15 +67,18 @@ export function Header() {
         </nav>
 
         {/* Right: Actions & Doctor Profile Badge */}
-        <div className="flex items-center gap-3 sm:gap-4">
-          <button className="h-11 w-11 rounded-full bg-white border border-slate-200/80 flex items-center justify-center text-slate-700 hover:bg-slate-50 transition-colors shadow-2xs">
+        <div className="flex items-center gap-3 shrink-0">
+          <button
+            className="h-11 w-11 rounded-full bg-white border border-slate-200/80 flex items-center justify-center text-slate-700 hover:bg-slate-50 transition-colors shadow-2xs shrink-0"
+            aria-label="Settings"
+          >
             <Settings className="h-5 w-5" />
           </button>
 
           {/* Notification Button Trigger */}
           <button
             onClick={() => setIsNotificationsOpen(true)}
-            className="h-11 w-11 rounded-full bg-white border border-slate-200/80 flex items-center justify-center text-slate-700 hover:bg-slate-50 transition-colors relative shadow-2xs"
+            className="h-11 w-11 rounded-full bg-white border border-slate-200/80 flex items-center justify-center text-slate-700 hover:bg-slate-50 transition-colors relative shadow-2xs shrink-0"
             aria-label="Open notifications"
           >
             <Bell className="h-5 w-5" />
@@ -79,7 +86,7 @@ export function Header() {
           </button>
 
           <div className="flex items-center gap-3 pl-3 border-l border-slate-200/80">
-            <div className="h-11 w-11 rounded-full bg-amber-200 overflow-hidden flex-shrink-0 flex items-center justify-center border border-amber-300/50 shadow-2xs">
+            <div className="h-11 w-11 rounded-full bg-amber-200 overflow-hidden shrink-0 flex items-center justify-center border border-amber-300/50 shadow-2xs">
               <svg
                 className="w-full h-full text-amber-900 mt-1"
                 viewBox="0 0 36 36"
@@ -138,13 +145,15 @@ export function Header() {
         </div>
       )}
 
-      {/* 2. Simple Welcome Greeting Bar */}
-      <div className="flex items-center justify-between px-2 py-2">
-        <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2.5">
-          Welcome Back {doctorName}
-          <Sun className="h-6 w-6 text-amber-500 fill-amber-400" />
-        </h1>
-      </div>
+      {/* 2. Conditionally Rendered Welcome Greeting Bar */}
+      {showGreeting && (
+        <div className="flex items-center justify-between px-2 py-2">
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2.5">
+            Welcome Back {doctorName}
+            <Sun className="h-6 w-6 text-amber-500 fill-amber-400" />
+          </h1>
+        </div>
+      )}
 
       {/* 3. Notification Drawer Component */}
       <NotificationDrawer
