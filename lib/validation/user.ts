@@ -1,4 +1,12 @@
 import { z } from "zod";
+ 
+const userRoles = [
+  "ADMIN",
+  "DOCTOR",
+  "NURSE",
+  "LAB_TECHNICIAN",
+  "PHARMACIST",
+] as const;
 
 export const createUserSchema = z.object({
   firstName: z
@@ -19,20 +27,12 @@ export const createUserSchema = z.object({
     .email("Invalid email address")
     .max(255, "Email is too long"),
 
-  password: z
+  role: z.enum(userRoles),
+
+  departmentId: z
     .string()
-    .min(8, "Password must be at least 8 characters")
-    .max(128, "Password is too long"),
-
-  role: z.enum([
-    "ADMIN",
-    "DOCTOR",
-    "NURSE",
-    "LAB_TECHNICIAN",
-    "PHARMACIST",
-  ]),
-
-  departmentId: z.string().uuid("Invalid department ID").optional(),
+    .uuid("Invalid department ID")
+    .optional(),
 
   isActive: z.boolean().optional(),
 });
@@ -59,23 +59,45 @@ export const updateUserSchema = z.object({
     .max(255, "Email is too long")
     .optional(),
 
-  password: z
-    .string()
-    .min(8, "Password must be at least 8 characters")
-    .max(128, "Password is too long")
-    .optional(),
-
   role: z
-    .enum([
-      "ADMIN",
-      "DOCTOR",
-      "NURSE",
-      "LAB_TECHNICIAN",
-      "PHARMACIST",
-    ])
+    .enum(userRoles)
     .optional(),
 
-  departmentId: z.string().uuid("Invalid department ID").nullable().optional(),
+  departmentId: z
+    .string()
+    .uuid("Invalid department ID")
+    .nullable()
+    .optional(),
 
   isActive: z.boolean().optional(),
 });
+
+export const changePasswordSchema = z.object({
+  currentPassword: z
+    .string()
+    .min(1, "Current password is required")
+    .max(128, "Current password is too long"),
+
+  newPassword: z
+    .string()
+    .min(8, "New password must be at least 8 characters")
+    .max(128, "New password is too long")
+    .regex(
+      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*@)[A-Za-z\d@]+$/,
+      "Password must contain uppercase, lowercase, number, and @ only",
+    )
+    .refine(
+      (password) => !password.includes(" "),
+      "Password cannot contain spaces",
+    ),
+
+  confirmPassword: z
+    .string()
+    .min(1, "Password confirmation is required"),
+}).refine(
+  (data) => data.newPassword === data.confirmPassword,
+  {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  },
+);

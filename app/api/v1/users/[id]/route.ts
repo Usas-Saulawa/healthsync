@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import argon2 from "argon2";
-
 import { prisma } from "@/lib/prisma";
 import { requireUser } from "@/lib/auth/require-user";
 import { updateUserSchema } from "@/lib/validation/user";
@@ -186,10 +184,6 @@ export async function PATCH(
       }
     }
 
-    const passwordHash = data.password
-      ? await argon2.hash(data.password)
-      : undefined;
-
     const user = await prisma.user.update({
       where: {
         id,
@@ -205,10 +199,6 @@ export async function PATCH(
 
         ...(data.email !== undefined && {
           email: data.email,
-        }),
-
-        ...(passwordHash !== undefined && {
-          passwordHash,
         }),
 
         ...(data.role !== undefined && {

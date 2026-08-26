@@ -15,6 +15,12 @@ enum UserRole {
   PHARMACIST
 }
 
+enum OtpPurpose {
+  DEVICE_VERIFICATION
+  ACCOUNT_ACTIVATION
+  PASSWORD_RESET
+}
+
 model Hospital {
   id        String   @id @default(uuid())
   name      String
@@ -24,9 +30,10 @@ model Hospital {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  departments Department[]
-  users       User[]
-  patients    Patient[]
+  departments        Department[]
+  users              User[]
+  patients           Patient[]
+  authorizedNetworks AuthorizedNetwork[]
 
   @@index([name])
 }
@@ -47,29 +54,36 @@ model Department {
 }
 
 model User {
-  id           String    @id @default(uuid())
-  hospitalId   String
-  departmentId String?
-  email        String    @unique
-  passwordHash String
-  firstName    String
-  lastName     String
-  role         UserRole  @default(NURSE)
-  isActive     Boolean   @default(true)
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-  sessions     Session[]
+  id                 String   @id @default(uuid())
+  staffId            String?  @unique
+  hospitalId         String
+  departmentId       String?
+  email              String   @unique
+  passwordHash       String
+  firstName          String
+  lastName           String
+  role               UserRole @default(NURSE)
+  isActive           Boolean  @default(true)
+  mustChangePassword Boolean  @default(true)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
 
-  hospital   Hospital    @relation(fields: [hospitalId], references: [id], onDelete: Restrict)
-  department Department? @relation(fields: [departmentId], references: [id], onDelete: Restrict)
+  hospital       Hospital        @relation(fields: [hospitalId], references: [id], onDelete: Restrict)
+  department     Department?     @relation(fields: [departmentId], references: [id], onDelete: Restrict)
+  sessions       Session[]
+  trustedDevices TrustedDevice[]
+  authOtps       AuthOtp[]
+  authChallenges AuthChallenge[]
 
   @@index([hospitalId])
   @@index([departmentId])
   @@index([role])
+  @@index([isActive])
 }
 
 model Session {
   id        String   @id @default(uuid())
+  tokenHash String   @unique
   userId    String
   expiresAt DateTime
   createdAt DateTime @default(now())
@@ -78,6 +92,79 @@ model Session {
 
   @@index([userId])
   @@index([expiresAt])
+}
+
+enum AuthChallengePurpose {
+  DEVICE_VERIFICATION
+  PASSWORD_CHANGE
+}
+
+model AuthChallenge {
+  id          String               @id @default(uuid())
+  userId      String
+  purpose     AuthChallengePurpose
+  tokenHash   String               @unique
+  expiresAt   DateTime
+  completedAt DateTime?
+  createdAt   DateTime             @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, purpose])
+  @@index([expiresAt])
+  @@index([completedAt])
+}
+
+model AuthorizedNetwork {
+  id         String   @id @default(uuid())
+  hospitalId String
+  name       String
+  cidr       String
+  isActive   Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  hospital Hospital @relation(fields: [hospitalId], references: [id], onDelete: Cascade)
+
+  @@index([hospitalId])
+  @@index([isActive])
+}
+
+model TrustedDevice {
+  id         String    @id @default(uuid())
+  userId     String
+  tokenHash  String    @unique
+  deviceName String?
+  lastIp     String?
+  trustedAt  DateTime  @default(now())
+  lastUsedAt DateTime  @default(now())
+  expiresAt  DateTime?
+  revokedAt  DateTime?
+  createdAt  DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+  @@index([revokedAt])
+}
+
+model AuthOtp {
+  id        String     @id @default(uuid())
+  userId    String
+  purpose   OtpPurpose
+  codeHash  String
+  attempts  Int        @default(0)
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime   @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([purpose])
+  @@index([expiresAt])
+  @@index([usedAt])
 }
 
 enum PatientStatus {
