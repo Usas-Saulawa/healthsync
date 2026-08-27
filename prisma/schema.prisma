@@ -35,6 +35,12 @@ model Hospital {
   patients           Patient[]
   authorizedNetworks AuthorizedNetwork[]
 
+  wards        Ward[]
+  admissions   PatientAdmission[]
+  appointments Appointment[]
+  encounters   Encounter[]
+  followUps    FollowUp[]
+
   @@index([name])
 }
 
@@ -74,6 +80,11 @@ model User {
   trustedDevices TrustedDevice[]
   authOtps       AuthOtp[]
   authChallenges AuthChallenge[]
+
+  appointmentsAsDoctor Appointment[]      @relation("DoctorAppointments")
+  encountersAsDoctor   Encounter[]        @relation("DoctorEncounters")
+  admissionsAsDoctor   PatientAdmission[] @relation("AdmissionAttendingDoctor")
+  followUpsAsDoctor    FollowUp[]         @relation("DoctorFollowUps")
 
   @@index([hospitalId])
   @@index([departmentId])
@@ -184,12 +195,342 @@ model Patient {
   address        String?
   bloodGroup     String?
   status         PatientStatus @default(ACTIVE)
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime      @updatedAt
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   hospital Hospital @relation(fields: [hospitalId], references: [id], onDelete: Restrict)
+
+  admissions   PatientAdmission[]
+  appointments Appointment[]
+  encounters   Encounter[]
+  diagnoses    Diagnosis[]
+  treatments   Treatment[]
+  vitals       Vital[]
+  alerts       ClinicalAlert[]
+  followUps    FollowUp[]
+  insurances   PatientInsurance[]
 
   @@unique([hospitalId, hospitalNumber])
   @@index([hospitalId])
   @@index([lastName, firstName])
+  @@index([status])
+}
+
+model Ward {
+  id         String   @id @default(uuid())
+  hospitalId String
+  name       String
+  code       String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  hospital   Hospital           @relation(fields: [hospitalId], references: [id], onDelete: Restrict)
+  beds       Bed[]
+  admissions PatientAdmission[]
+
+  @@unique([hospitalId, code])
+  @@index([hospitalId])
+}
+
+model Bed {
+  id        String   @id @default(uuid())
+  wardId    String
+  bedNumber String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  ward       Ward               @relation(fields: [wardId], references: [id], onDelete: Restrict)
+  admissions PatientAdmission[]
+
+  @@unique([wardId, bedNumber])
+  @@index([wardId])
+}
+
+enum AdmissionStatus {
+  ADMITTED
+  DISCHARGED
+  CANCELLED
+}
+
+model PatientAdmission {
+  id                String  @id @default(uuid())
+  patientId         String
+  hospitalId        String
+  wardId            String?
+  bedId             String?
+  attendingDoctorId String?
+
+  admissionDate DateTime
+  dischargeDate DateTime?
+  status        AdmissionStatus @default(ADMITTED)
+  reason        String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  patient         Patient  @relation(fields: [patientId], references: [id], onDelete: Restrict)
+  hospital        Hospital @relation(fields: [hospitalId], references: [id], onDelete: Restrict)
+  ward            Ward?    @relation(fields: [wardId], references: [id], onDelete: Restrict)
+  bed             Bed?     @relation(fields: [bedId], references: [id], onDelete: Restrict)
+  attendingDoctor User?    @relation("AdmissionAttendingDoctor", fields: [attendingDoctorId], references: [id], onDelete: SetNull)
+
+  @@index([patientId])
+  @@index([hospitalId])
+  @@index([wardId])
+  @@index([bedId])
+  @@index([attendingDoctorId])
+  @@index([status])
+  @@index([admissionDate])
+}
+
+enum AppointmentStatus {
+  SCHEDULED
+  CHECKED_IN
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  NO_SHOW
+}
+
+enum AppointmentType {
+  CONSULTATION
+  FOLLOW_UP
+  PROCEDURE
+  OTHER
+}
+
+model Appointment {
+  id         String @id @default(uuid())
+  patientId  String
+  hospitalId String
+  doctorId   String
+
+  scheduledAt DateTime
+  type        AppointmentType   @default(CONSULTATION)
+  status      AppointmentStatus @default(SCHEDULED)
+  reason      String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  patient  Patient  @relation(fields: [patientId], references: [id], onDelete: Restrict)
+  hospital Hospital @relation(fields: [hospitalId], references: [id], onDelete: Restrict)
+  doctor   User     @relation("DoctorAppointments", fields: [doctorId], references: [id], onDelete: Restrict)
+
+  @@index([patientId])
+  @@index([hospitalId])
+  @@index([doctorId])
+  @@index([scheduledAt])
+  @@index([status])
+}
+
+enum EncounterType {
+  OUTPATIENT
+  INPATIENT
+  EMERGENCY
+  FOLLOW_UP
+}
+
+enum EncounterStatus {
+  OPEN
+  COMPLETED
+  CANCELLED
+}
+
+model Encounter {
+  id         String @id @default(uuid())
+  patientId  String
+  hospitalId String
+  doctorId   String
+
+  type         EncounterType   @default(OUTPATIENT)
+  status       EncounterStatus @default(OPEN)
+  startedAt    DateTime
+  endedAt      DateTime?
+  clinicalNote String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  patient  Patient  @relation(fields: [patientId], references: [id], onDelete: Restrict)
+  hospital Hospital @relation(fields: [hospitalId], references: [id], onDelete: Restrict)
+  doctor   User     @relation("DoctorEncounters", fields: [doctorId], references: [id], onDelete: Restrict)
+
+  diagnoses  Diagnosis[]
+  treatments Treatment[]
+  vitals     Vital[]
+  alerts     ClinicalAlert[]
+
+  @@index([patientId])
+  @@index([hospitalId])
+  @@index([doctorId])
+  @@index([startedAt])
+  @@index([type])
+}
+
+model Diagnosis {
+  id          String   @id @default(uuid())
+  patientId   String
+  encounterId String?
+  name        String
+  code        String?
+  isPrimary   Boolean  @default(false)
+  diagnosedAt DateTime @default(now())
+
+  patient   Patient    @relation(fields: [patientId], references: [id], onDelete: Restrict)
+  encounter Encounter? @relation(fields: [encounterId], references: [id], onDelete: SetNull)
+
+  @@index([patientId])
+  @@index([encounterId])
+  @@index([isPrimary])
+  @@index([diagnosedAt])
+}
+
+enum TreatmentStatus {
+  ACTIVE
+  COMPLETED
+  CANCELLED
+}
+
+model Treatment {
+  id          String          @id @default(uuid())
+  patientId   String
+  encounterId String?
+  name        String
+  type        String?
+  status      TreatmentStatus @default(ACTIVE)
+  startedAt   DateTime        @default(now())
+  endedAt     DateTime?
+
+  patient   Patient    @relation(fields: [patientId], references: [id], onDelete: Restrict)
+  encounter Encounter? @relation(fields: [encounterId], references: [id], onDelete: SetNull)
+
+  @@index([patientId])
+  @@index([encounterId])
+  @@index([status])
+  @@index([name])
+}
+
+model Vital {
+  id          String  @id @default(uuid())
+  patientId   String
+  encounterId String?
+
+  recordedAt DateTime @default(now())
+
+  weightKg         Float?
+  temperatureC     Float?
+  heartRate        Int?
+  oxygenSaturation Float?
+  systolicBp       Int?
+  diastolicBp      Int?
+  glucoseMgDl      Float?
+
+  patient   Patient    @relation(fields: [patientId], references: [id], onDelete: Restrict)
+  encounter Encounter? @relation(fields: [encounterId], references: [id], onDelete: SetNull)
+
+  @@index([patientId])
+  @@index([encounterId])
+  @@index([recordedAt])
+}
+
+enum AlertSeverity {
+  INFO
+  WARNING
+  CRITICAL
+}
+
+enum AlertStatus {
+  ACTIVE
+  ACKNOWLEDGED
+  RESOLVED
+}
+
+enum AlertType {
+  CRITICAL_VITAL
+  ABNORMAL_LAB
+  MEDICATION
+  OTHER
+}
+
+model ClinicalAlert {
+  id          String  @id @default(uuid())
+  patientId   String
+  encounterId String?
+
+  type     AlertType     @default(OTHER)
+  severity AlertSeverity @default(INFO)
+  status   AlertStatus   @default(ACTIVE)
+
+  title      String
+  message    String
+  createdAt  DateTime  @default(now())
+  resolvedAt DateTime?
+
+  patient   Patient    @relation(fields: [patientId], references: [id], onDelete: Restrict)
+  encounter Encounter? @relation(fields: [encounterId], references: [id], onDelete: SetNull)
+
+  @@index([patientId])
+  @@index([encounterId])
+  @@index([severity])
+  @@index([status])
+  @@index([createdAt])
+}
+
+enum FollowUpStatus {
+  SCHEDULED
+  COMPLETED
+  CANCELLED
+  MISSED
+}
+
+model FollowUp {
+  id         String @id @default(uuid())
+  patientId  String
+  doctorId   String
+  hospitalId String
+
+  scheduledAt DateTime
+  reason      String?
+  status      FollowUpStatus @default(SCHEDULED)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  patient  Patient  @relation(fields: [patientId], references: [id], onDelete: Restrict)
+  doctor   User     @relation("DoctorFollowUps", fields: [doctorId], references: [id], onDelete: Restrict)
+  hospital Hospital @relation(fields: [hospitalId], references: [id], onDelete: Restrict)
+
+  @@index([patientId])
+  @@index([doctorId])
+  @@index([hospitalId])
+  @@index([scheduledAt])
+  @@index([status])
+}
+
+enum InsuranceStatus {
+  PENDING
+  VERIFIED
+  EXPIRED
+  NOT_VERIFIED
+}
+
+model PatientInsurance {
+  id           String          @id @default(uuid())
+  patientId    String
+  provider     String
+  policyNumber String?
+  status       InsuranceStatus @default(PENDING)
+  validFrom    DateTime?
+  validUntil   DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  patient Patient @relation(fields: [patientId], references: [id], onDelete: Restrict)
+
+  @@index([patientId])
+  @@index([status])
+  @@index([provider])
 }

@@ -103,6 +103,7 @@ export async function POST(request: NextRequest) {
     );
   }
 }
+
 export async function GET(request: NextRequest) {
   try {
     const user = await requireUser();
@@ -111,43 +112,371 @@ export async function GET(request: NextRequest) {
 
     const search = searchParams.get("search")?.trim() || "";
 
+    const type = searchParams.get("type")?.trim().toUpperCase() || "";
+
+    const status = searchParams.get("status")?.trim().toUpperCase() || "";
+
+    const wardId = searchParams.get("wardId")?.trim() || "";
+
+    const attendingDoctorId =
+      searchParams.get("attendingDoctorId")?.trim() || "";
+
+    const dateFrom = searchParams.get("dateFrom")?.trim() || "";
+
+    const dateTo = searchParams.get("dateTo")?.trim() || "";
+
+    const sortBy = searchParams.get("sortBy")?.trim() || "createdAt";
+
+    const sortOrderParam =
+      searchParams.get("sortOrder")?.trim().toLowerCase() || "desc";
+
     const pageParam = Number(searchParams.get("page") || "1");
+
     const limitParam = Number(searchParams.get("limit") || "20");
 
-    const page = Number.isInteger(pageParam) && pageParam > 0 ? pageParam : 1;
+    const page =
+      Number.isInteger(pageParam) && pageParam > 0 ? pageParam : 1;
+
     const limit =
-      Number.isInteger(limitParam) && limitParam > 0 && limitParam <= 100
+      Number.isInteger(limitParam) &&
+      limitParam > 0 &&
+      limitParam <= 100
         ? limitParam
         : 20;
 
     const skip = (page - 1) * limit;
 
+    /*
+     * Validate patient type.
+     */
+    const validTypes = ["INPATIENT", "OUTPATIENT"];
+
+    if (type && !validTypes.includes(type)) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Invalid patient type",
+        },
+        { status: 400 },
+      );
+    }
+
+    /*
+     * Validate patient status.
+     */
+    const validStatuses = ["ACTIVE", "INACTIVE"];
+
+    if (status && !validStatuses.includes(status)) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Invalid patient status",
+        },
+        { status: 400 },
+      );
+    }
+
+    /*
+     * Parse date range.
+     *
+     * The meaning depends on patient type:
+     *
+     * INPATIENT  -> admissionDate
+     * OUTPATIENT -> patient.createdAt
+     */
+    let parsedDateFrom: Date | undefined;
+    let parsedDateTo: Date | undefined;
+
+    if (dateFrom) {
+      parsedDateFrom = new Date(dateFrom);
+
+      if (Number.isNaN(parsedDateFrom.getTime())) {
+        return NextResponse.json(
+          {
+            success: false,
+            message: "Invalid dateFrom",
+          },
+          { status: 400 },
+        );
+      }
+    }
+
+    if (dateTo) {
+      parsedDateTo = new Date(dateTo);
+
+      if (Number.isNaN(parsedDateTo.getTime())) {
+        return NextResponse.json(
+          {
+            success: false,
+            message: "Invalid dateTo",
+          },
+          { status: 400 },
+        );
+      }
+
+      /*
+       * If the frontend sends only YYYY-MM-DD,
+       * include the entire day.
+       */
+      if (/^\d{4}-\d{2}-\d{2}$/.test(dateTo)) {
+        parsedDateTo.setHours(23, 59, 59, 999);
+      }
+    }
+
+    if (
+      parsedDateFrom &&
+      parsedDateTo &&
+      parsedDateFrom > parsedDateTo
+    ) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "dateFrom cannot be later than dateTo",
+        },
+        { status: 400 },
+      );
+    }
+
+    /*
+     * Only allow known fields for sorting.
+     */
+    const allowedSortFields = [
+      "createdAt",
+      "firstName",
+      "lastName",
+      "hospitalNumber",
+      "dateOfBirth",
+      "gender",
+      "status",
+    ] as const;
+
+    type SortField = (typeof allowedSortFields)[number];
+
+    const sortField: SortField = allowedSortFields.includes(
+      sortBy as SortField,
+    )
+      ? (sortBy as SortField)
+      : "createdAt";
+
+    const sortOrder =
+      sortOrderParam === "asc" || sortOrderParam === "desc"
+        ? sortOrderParam
+        : "desc";
+
+    /*
+     * Build the patient filters.
+     */
+    const conditions: Record<string, unknown>[] = [];
+
+    /*
+     * Search by hospital number, first name or last name.
+     */
+    if (search) {
+      conditions.push({
+        OR: [
+          {
+            hospitalNumber: {
+              contains: search,
+              mode: "insensitive",
+            },
+          },
+          {
+            firstName: {
+              contains: search,
+              mode: "insensitive",
+            },
+          },
+          {
+            lastName: {
+              contains: search,
+              mode: "insensitive",
+            },
+          },
+        ],
+      });
+    }
+
+    /*
+     * Patient status.
+     */
+    if (status) {
+      conditions.push({
+        status,
+      });
+    }
+
+    /*
+     * Build the admission filters.
+     *
+     * These are used for:
+     * - inpatient filtering
+     * - ward filtering
+     * - attending doctor filtering
+     * - inpatient date filtering
+     */
+    const admissionConditions: Record<string, unknown> = {};
+
+    /*
+     * Only current admissions count as inpatient.
+     */
+    if (type === "INPATIENT") {
+      admissionConditions.status = "ADMITTED";
+    }
+
+    /*
+     * Ward filter.
+     */
+    if (wardId) {
+      admissionConditions.wardId = wardId;
+    }
+
+    /*
+     * Attending doctor filter.
+     */
+    if (attendingDoctorId) {
+      admissionConditions.attendingDoctorId = attendingDoctorId;
+    }
+
+    /*
+     * INPATIENT date filtering:
+     * date range applies to admissionDate.
+     */
+    if (
+      type === "INPATIENT" &&
+      (parsedDateFrom || parsedDateTo)
+    ) {
+      admissionConditions.admissionDate = {
+        ...(parsedDateFrom
+          ? {
+              gte: parsedDateFrom,
+            }
+          : {}),
+
+        ...(parsedDateTo
+          ? {
+              lte: parsedDateTo,
+            }
+          : {}),
+      };
+    }
+
+    /*
+     * OUTPATIENT:
+     *
+     * A patient is considered outpatient when there
+     * is no current ADMITTED admission.
+     */
+    if (type === "OUTPATIENT") {
+      conditions.push({
+        admissions: {
+          none: {
+            status: "ADMITTED",
+          },
+        },
+      });
+
+      /*
+       * Outpatient date filtering uses patient.createdAt.
+       */
+      if (parsedDateFrom || parsedDateTo) {
+        conditions.push({
+          createdAt: {
+            ...(parsedDateFrom
+              ? {
+                  gte: parsedDateFrom,
+                }
+              : {}),
+
+            ...(parsedDateTo
+              ? {
+                  lte: parsedDateTo,
+                }
+              : {}),
+          },
+        });
+      }
+    }
+
+    /*
+     * If the user selected inpatient, or supplied
+     * ward/doctor filters, the patient must have a
+     * matching current admission.
+     */
+    if (
+      type === "INPATIENT" ||
+      wardId ||
+      attendingDoctorId
+    ) {
+      conditions.push({
+        admissions: {
+          some: {
+            ...admissionConditions,
+            status: "ADMITTED",
+          },
+        },
+      });
+    }
+
+    /*
+     * If no patient type is selected but a date range
+     * is supplied, support both workflows:
+     *
+     * - patients created during the range
+     * - patients with an admission during the range
+     *
+     * This keeps the "All Patients" view useful.
+     */
+    if (
+      !type &&
+      (parsedDateFrom || parsedDateTo)
+    ) {
+      conditions.push({
+        OR: [
+          {
+            createdAt: {
+              ...(parsedDateFrom
+                ? {
+                    gte: parsedDateFrom,
+                  }
+                : {}),
+
+              ...(parsedDateTo
+                ? {
+                    lte: parsedDateTo,
+                  }
+                : {}),
+            },
+          },
+
+          {
+            admissions: {
+              some: {
+                admissionDate: {
+                  ...(parsedDateFrom
+                    ? {
+                        gte: parsedDateFrom,
+                      }
+                    : {}),
+
+                  ...(parsedDateTo
+                    ? {
+                        lte: parsedDateTo,
+                      }
+                    : {}),
+                },
+              },
+            },
+          },
+        ],
+      });
+    }
+
+    /*
+     * Hospital isolation is always applied.
+     */
     const where = {
       hospitalId: user.hospitalId,
-      ...(search
-        ? {
-            OR: [
-              {
-                hospitalNumber: {
-                  contains: search,
-                  mode: "insensitive" as const,
-                },
-              },
-              {
-                firstName: {
-                  contains: search,
-                  mode: "insensitive" as const,
-                },
-              },
-              {
-                lastName: {
-                  contains: search,
-                  mode: "insensitive" as const,
-                },
-              },
-            ],
-          }
-        : {}),
+      AND: conditions,
     };
 
     const [patients, total] = await Promise.all([
@@ -155,19 +484,71 @@ export async function GET(request: NextRequest) {
         where,
         skip,
         take: limit,
+
         orderBy: {
-          createdAt: "desc",
+          [sortField]: sortOrder,
         },
+
         select: {
           id: true,
+          hospitalId: true,
           hospitalNumber: true,
           firstName: true,
           lastName: true,
           dateOfBirth: true,
           gender: true,
           phone: true,
+          address: true,
           bloodGroup: true,
+          status: true,
           createdAt: true,
+          updatedAt: true,
+
+          /*
+           * Return the current admission when available.
+           */
+          admissions: {
+            where: {
+              status: "ADMITTED",
+            },
+
+            orderBy: {
+              admissionDate: "desc",
+            },
+
+            take: 1,
+
+            select: {
+              id: true,
+              admissionDate: true,
+              status: true,
+
+              ward: {
+                select: {
+                  id: true,
+                  name: true,
+                  code: true,
+                },
+              },
+
+              bed: {
+                select: {
+                  id: true,
+                  bedNumber: true,
+                },
+              },
+
+              attendingDoctor: {
+                select: {
+                  id: true,
+                  staffId: true,
+                  firstName: true,
+                  lastName: true,
+                  role: true,
+                },
+              },
+            },
+          },
         },
       }),
 
@@ -176,15 +557,73 @@ export async function GET(request: NextRequest) {
       }),
     ]);
 
+    /*
+     * Convert the current admission into
+     * a simple directory representation.
+     */
+    const formattedPatients = patients.map((patient) => {
+      const currentAdmission = patient.admissions[0] ?? null;
+
+      return {
+        id: patient.id,
+        hospitalId: patient.hospitalId,
+        hospitalNumber: patient.hospitalNumber,
+
+        firstName: patient.firstName,
+        lastName: patient.lastName,
+
+        dateOfBirth: patient.dateOfBirth,
+        gender: patient.gender,
+
+        phone: patient.phone,
+        address: patient.address,
+        bloodGroup: patient.bloodGroup,
+
+        status: patient.status,
+
+        type: currentAdmission
+          ? "INPATIENT"
+          : "OUTPATIENT",
+
+        ward: currentAdmission?.ward ?? null,
+
+        bed: currentAdmission?.bed ?? null,
+
+        attendingDoctor:
+          currentAdmission?.attendingDoctor ?? null,
+
+        admissionDate:
+          currentAdmission?.admissionDate ?? null,
+
+        createdAt: patient.createdAt,
+        updatedAt: patient.updatedAt,
+      };
+    });
+
     return NextResponse.json({
       success: true,
+
       data: {
-        patients,
+        patients: formattedPatients,
+
         pagination: {
           page,
           limit,
           total,
           totalPages: Math.ceil(total / limit),
+        },
+
+        filters: {
+          search: search || null,
+          type: type || null,
+          status: status || null,
+          wardId: wardId || null,
+          attendingDoctorId:
+            attendingDoctorId || null,
+          dateFrom: dateFrom || null,
+          dateTo: dateTo || null,
+          sortBy: sortField,
+          sortOrder,
         },
       },
     });
@@ -196,7 +635,7 @@ export async function GET(request: NextRequest) {
         success: false,
         message: "An unexpected error occurred",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+
 import { getCurrentUser } from "@/lib/auth/session";
 
 export async function GET() {
@@ -19,6 +20,7 @@ export async function GET() {
     data: {
       user: {
         id: user.id,
+        staffId: user.staffId,
         hospitalId: user.hospitalId,
         departmentId: user.departmentId,
         email: user.email,
