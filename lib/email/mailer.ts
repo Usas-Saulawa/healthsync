@@ -9,25 +9,43 @@ export async function sendEmail({
   subject,
   text,
 }: SendEmailOptions): Promise<void> {
-  /*
-   * Email delivery is intentionally isolated from authentication logic.
-   *
-   * In development, we log the email metadata so the authentication
-   * flow can be tested without depending on an external email provider.
-   *
-   * In production, this function will be connected to the approved
-   * transactional email provider.
-   */
+  const mailServiceUrl = process.env.MAIL_SERVICE_URL;
+  const mailServiceKey = process.env.MAIL_SERVICE_KEY;
 
-  if (process.env.NODE_ENV !== "production") {
-    console.log("Development email:", {
+  if (!mailServiceUrl || !mailServiceKey) {
+    throw new Error("Mail service is not configured");
+  }
+
+  const response = await fetch(`${mailServiceUrl}/send`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-mail-service-key": mailServiceKey,
+    },
+    body: JSON.stringify({
       to,
       subject,
       text,
-    });
+    }),
+  });
 
-    return;
+  let data: {
+    success?: boolean;
+    message?: string;
+  };
+
+  try {
+    data = await response.json();
+  } catch {
+    throw new Error("Invalid response from mail service");
   }
 
-  throw new Error("Production email provider is not configured");
+  if (!response.ok || !data.success) {
+    console.error("Mail service request failed:", {
+      status: response.status,
+      message: data.message,
+    });
+
+    throw new Error("Unable to send email");
+  }
 }
