@@ -369,14 +369,43 @@ model Encounter {
   @@index([type])
 }
 
+enum DiagnosisStatus {
+  ACTIVE
+  RESOLVED
+  INACTIVE
+}
+
+enum DiagnosisSeverity {
+  MILD
+  MODERATE
+  SEVERE
+  CRITICAL
+}
+
+enum DiagnosisOnsetType {
+  ACUTE
+  SUBACUTE
+  CHRONIC
+  GRADUAL
+  UNKNOWN
+}
+
 model Diagnosis {
-  id          String   @id @default(uuid())
+  id          String  @id @default(uuid())
   patientId   String
   encounterId String?
-  name        String
-  code        String?
-  isPrimary   Boolean  @default(false)
-  diagnosedAt DateTime @default(now())
+
+  name String
+  code String?
+
+  status     DiagnosisStatus     @default(ACTIVE)
+  severity   DiagnosisSeverity?
+  onsetType  DiagnosisOnsetType?
+  bodySystem String?
+
+  isPrimary   Boolean   @default(false)
+  diagnosedAt DateTime  @default(now())
+  resolvedAt  DateTime?
 
   patient   Patient    @relation(fields: [patientId], references: [id], onDelete: Restrict)
   encounter Encounter? @relation(fields: [encounterId], references: [id], onDelete: SetNull)
@@ -385,6 +414,7 @@ model Diagnosis {
   @@index([encounterId])
   @@index([isPrimary])
   @@index([diagnosedAt])
+  @@index([status])
 }
 
 enum TreatmentStatus {

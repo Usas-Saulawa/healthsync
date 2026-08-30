@@ -607,6 +607,186 @@ export const openApiSpec = {
     },
   },
 
+  DiagnosisHistoryItem: {
+  type: "object",
+  properties: {
+    id: {
+      type: "string",
+      format: "uuid",
+      example: "8d5c9c5e-4a8d-4f13-9b3c-2f2e7d4a1234",
+    },
+    date: {
+      type: "string",
+      format: "date-time",
+      example: "2023-10-12T00:00:00.000Z",
+    },
+    type: {
+      type: "string",
+      enum: ["DIAGNOSIS", "TREATMENT"],
+      example: "DIAGNOSIS",
+    },
+    condition: {
+      type: "string",
+      example: "Type 2 Diabetes Mellitus",
+    },
+    provider: {
+      nullable: true,
+      type: "object",
+      properties: {
+        id: {
+          type: "string",
+          format: "uuid",
+        },
+        name: {
+          type: "string",
+          example: "Dr. Sarah Jenkins",
+        },
+      },
+    },
+    facility: {
+      type: "string",
+      example: "Metro Cardiology Group",
+    },
+    notes: {
+      type: "string",
+      nullable: true,
+      example:
+        "First diagnosed, initiated Metformin 500mg BID.",
+    },
+  },
+},
+
+MedicalHistoryListResponse: {
+  type: "object",
+  properties: {
+    success: {
+      type: "boolean",
+      example: true,
+    },
+    data: {
+      type: "object",
+      properties: {
+        history: {
+          type: "array",
+          items: {
+            $ref: "#/components/schemas/DiagnosisHistoryItem",
+          },
+        },
+        pagination: {
+          $ref: "#/components/schemas/Pagination",
+        },
+        filters: {
+          type: "object",
+          properties: {
+            search: {
+              type: "string",
+              nullable: true,
+              example: "diabetes",
+            },
+            dateFrom: {
+              type: "string",
+              format: "date-time",
+              nullable: true,
+            },
+            dateTo: {
+              type: "string",
+              format: "date-time",
+              nullable: true,
+            },
+            sortOrder: {
+              type: "string",
+              enum: ["asc", "desc"],
+              example: "desc",
+            },
+          },
+        },
+      },
+    },
+  },
+},
+
+      DiagnosisDetail: {
+        type: "object",
+        properties: {
+          id: {
+            type: "string",
+            format: "uuid",
+          },
+          patientId: {
+            type: "string",
+            format: "uuid",
+          },
+          encounterId: {
+            type: "string",
+            format: "uuid",
+            nullable: true,
+          },
+          name: {
+            type: "string",
+            example: "Type 2 Diabetes Mellitus",
+          },
+          code: {
+            type: "string",
+            nullable: true,
+            example: "E11.9",
+          },
+          status: {
+            type: "string",
+            enum: ["ACTIVE", "RESOLVED", "INACTIVE"],
+            example: "ACTIVE",
+          },
+          severity: {
+            type: "string",
+            enum: ["MILD", "MODERATE", "SEVERE", "CRITICAL"],
+            nullable: true,
+            example: "MODERATE",
+          },
+          onsetType: {
+            type: "string",
+            enum: ["ACUTE", "SUBACUTE", "CHRONIC", "GRADUAL", "UNKNOWN"],
+            nullable: true,
+            example: "GRADUAL",
+          },
+          bodySystem: {
+            type: "string",
+            nullable: true,
+            example: "Endocrine",
+          },
+          isPrimary: {
+            type: "boolean",
+            example: true,
+          },
+          diagnosedAt: {
+            type: "string",
+            format: "date-time",
+            example: "2023-10-12T00:00:00.000Z",
+          },
+          resolvedAt: {
+            type: "string",
+            format: "date-time",
+            nullable: true,
+          },
+        },
+      },
+
+      MedicalHistoryDetailResponse: {
+        type: "object",
+        properties: {
+          success: {
+            type: "boolean",
+            example: true,
+          },
+          data: {
+            type: "object",
+            properties: {
+              diagnosis: {
+                $ref: "#/components/schemas/DiagnosisDetail",
+              },
+            },
+          },
+        },
+      },
+
   paths: {
     "/auth/login": {
       post: {
@@ -1074,6 +1254,175 @@ export const openApiSpec = {
       },
 
     },
+
+    "/patients/{id}/medical-history": {
+  get: {
+    tags: ["Patients"],
+    summary: "Get patient medical history",
+    description:
+      "Returns the patient's longitudinal medical history shown in the Medical History screen, including diagnoses and treatments. Supports search, date filtering, sorting and pagination.",
+    security: [{ sessionCookie: [] }],
+
+    parameters: [
+      {
+        name: "id",
+        in: "path",
+        required: true,
+        description: "The UUID of the patient.",
+        schema: {
+          type: "string",
+          format: "uuid",
+        },
+        example: "14b64474-576a-41c8-9293-8343da2700f5",
+      },
+      {
+        name: "search",
+        in: "query",
+        required: false,
+        description:
+          "Searches medical history by diagnosis/treatment name and related code/type.",
+        schema: {
+          type: "string",
+        },
+        example: "Diabetes",
+      },
+      {
+        name: "dateFrom",
+        in: "query",
+        required: false,
+        description: "Return history from this date.",
+        schema: {
+          type: "string",
+          format: "date-time",
+        },
+        example: "2023-01-01T00:00:00.000Z",
+      },
+      {
+        name: "dateTo",
+        in: "query",
+        required: false,
+        description: "Return history up to this date.",
+        schema: {
+          type: "string",
+          format: "date-time",
+        },
+        example: "2024-12-31T23:59:59.999Z",
+      },
+      {
+        name: "sortOrder",
+        in: "query",
+        required: false,
+        description: "Sort medical history by date.",
+        schema: {
+          type: "string",
+          enum: ["asc", "desc"],
+          default: "desc",
+        },
+      },
+      {
+        name: "page",
+        in: "query",
+        required: false,
+        description: "Page number.",
+        schema: {
+          type: "integer",
+          minimum: 1,
+          default: 1,
+        },
+      },
+      {
+        name: "limit",
+        in: "query",
+        required: false,
+        description:
+          "Number of medical history records per page. Maximum is 100.",
+        schema: {
+          type: "integer",
+          minimum: 1,
+          maximum: 100,
+          default: 20,
+        },
+      },
+    ],
+
+    responses: {
+      "200": {
+        description: "Medical history retrieved successfully",
+        content: {
+          "application/json": {
+            schema: {
+              $ref: "#/components/schemas/MedicalHistoryListResponse",
+            },
+          },
+        },
+      },
+      "400": {
+        description: "Invalid medical history filter or pagination parameter",
+      },
+      "401": {
+        description: "Authentication required",
+      },
+      "404": {
+        description: "Patient not found",
+      },
+    },
+  },
+},
+
+"/patients/{id}/medical-history/{diagnosisId}": {
+  get: {
+    tags: ["Patients"],
+    summary: "Get medical history diagnosis details",
+    description:
+      "Returns the detailed information for a specific diagnosis belonging to the selected patient.",
+    security: [{ sessionCookie: [] }],
+
+    parameters: [
+      {
+        name: "id",
+        in: "path",
+        required: true,
+        description: "The UUID of the patient.",
+        schema: {
+          type: "string",
+          format: "uuid",
+        },
+        example: "14b64474-576a-41c8-9293-8343da2700f5",
+      },
+      {
+        name: "diagnosisId",
+        in: "path",
+        required: true,
+        description: "The UUID of the diagnosis.",
+        schema: {
+          type: "string",
+          format: "uuid",
+        },
+        example: "8d5c9c5e-4a8d-4f13-9b3c-2f2e7d4a1234",
+      },
+    ],
+
+    responses: {
+      "200": {
+        description: "Diagnosis details retrieved successfully",
+        content: {
+          "application/json": {
+            schema: {
+              $ref: "#/components/schemas/MedicalHistoryDetailResponse",
+            },
+          },
+        },
+      },
+      "401": {
+        description: "Authentication required",
+      },
+      "404": {
+        description:
+          "Patient or diagnosis not found",
+      },
+    },
+  },
+},
 
     /*
      * ============================================================
