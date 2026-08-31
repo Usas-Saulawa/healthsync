@@ -34,7 +34,8 @@ export default function PatientsPage() {
     <div className="min-h-screen bg-blue-50 flex flex-col font-sans">
       <Header showGreeting={false} />
 
-      <main className="flex-1 px-4 sm:px-6 py-6 space-y-6 max-w-[1440px] w-full mx-auto">
+      {/* Fluid width container matching your dashboard layout rules */}
+      <main className="flex-1 w-full py-6 space-y-6">
         {/* Combined Header & Filter Toolbar */}
         <PatientFiltersHeader
           activeTab={activeTab}

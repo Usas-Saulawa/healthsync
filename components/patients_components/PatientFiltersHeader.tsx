@@ -61,95 +61,97 @@ export function PatientFiltersHeader({
   onDateRangeSelect,
 }: PatientFiltersHeaderProps) {
   return (
-    <div className="w-full bg-white rounded-3xl border border-blue-100/60 p-6 shadow-xs space-y-6">
-      {/* Top Row: Title, Out/In-Patient Radios, and Top Action Pills */}
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-        {/* Left: Title & Type Switcher */}
-        <div className="flex flex-wrap items-center gap-6">
-          <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
-            All Patient
-          </h2>
+    <div className="w-full">
+      <div className="w-full bg-white rounded-[2.5rem] border border-blue-100/60 p-6 sm:p-8 shadow-xs space-y-6">
+        {/* Top Row: Title, Out/In-Patient Radios, and Top Action Pills */}
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+          {/* Left: Title & Type Switcher */}
+          <div className="flex flex-wrap items-center gap-6">
+            <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
+              All Patient
+            </h2>
 
-          <div className="flex items-center gap-5">
-            <label className="flex items-center gap-2 cursor-pointer text-sm font-medium text-slate-700">
-              <input
-                type="radio"
-                name="patient-type"
-                checked={activeTab === "out-patient"}
-                onChange={() => onTabChange("out-patient")}
-                className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500"
-              />
-              Out-patient
-            </label>
+            <div className="flex items-center gap-5">
+              <label className="flex items-center gap-2 cursor-pointer text-sm font-medium text-slate-700">
+                <input
+                  type="radio"
+                  name="patient-type"
+                  checked={activeTab === "out-patient"}
+                  onChange={() => onTabChange("out-patient")}
+                  className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500"
+                />
+                Out-patient
+              </label>
 
-            <label className="flex items-center gap-2 cursor-pointer text-sm font-medium text-slate-700">
-              <input
-                type="radio"
-                name="patient-type"
-                checked={activeTab === "in-patient"}
-                onChange={() => onTabChange("in-patient")}
-                className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500"
-              />
-              In-patient
-            </label>
+              <label className="flex items-center gap-2 cursor-pointer text-sm font-medium text-slate-700">
+                <input
+                  type="radio"
+                  name="patient-type"
+                  checked={activeTab === "in-patient"}
+                  onChange={() => onTabChange("in-patient")}
+                  className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500"
+                />
+                In-patient
+              </label>
+            </div>
+          </div>
+
+          {/* Right: Search, Filter, Sort Pills */}
+          <div className="flex flex-wrap items-center gap-3">
+            <SearchBar
+              value={searchValue}
+              onChange={onSearchChange}
+              placeholder="Search"
+              className="w-full sm:w-auto"
+            />
+            <FilterDropdown
+              label="Filter"
+              selectedOption=""
+              options={statusOptions}
+              onSelect={() => {}}
+            />
+            <FilterDropdown
+              label="Sort by"
+              selectedOption=""
+              options={[
+                { label: "Name", value: "name" },
+                { label: "Date", value: "date" },
+              ]}
+              onSelect={() => {}}
+            />
           </div>
         </div>
 
-        {/* Right: Search, Filter, Sort Pills */}
-        <div className="flex flex-wrap items-center gap-3">
-          <SearchBar
-            value={searchValue}
-            onChange={onSearchChange}
-            placeholder="Search"
-            className="w-full sm:w-auto"
-          />
+        {/* Secondary Filtering Toolbar Row */}
+        <div className="flex flex-wrap items-center gap-3 pt-4 border-t border-slate-100">
           <FilterDropdown
-            label="Filter"
-            selectedOption=""
+            label="Ward/Clinic"
+            selectedOption={selectedWard}
+            options={wardOptions}
+            onSelect={onWardSelect}
+          />
+
+          <FilterDropdown
+            label="Status"
+            selectedOption={selectedStatus}
             options={statusOptions}
-            onSelect={() => {}}
+            onSelect={onStatusSelect}
           />
+
           <FilterDropdown
-            label="Sort by"
-            selectedOption=""
-            options={[
-              { label: "Name", value: "name" },
-              { label: "Date", value: "date" },
-            ]}
-            onSelect={() => {}}
+            label="Attending Doctor"
+            selectedOption={selectedDoctor}
+            options={doctorOptions}
+            onSelect={onDoctorSelect}
+          />
+
+          <FilterDropdown
+            label="Select date range"
+            selectedOption={dateRange}
+            options={dateOptions}
+            onSelect={onDateRangeSelect}
           />
         </div>
-      </div>
-
-      {/* Secondary Filtering Toolbar Row */}
-      <div className="flex flex-wrap items-center gap-3 pt-4 border-t border-slate-100">
-        <FilterDropdown
-          label="Ward/Clinic"
-          selectedOption={selectedWard}
-          options={wardOptions}
-          onSelect={onWardSelect}
-        />
-
-        <FilterDropdown
-          label="Status"
-          selectedOption={selectedStatus}
-          options={statusOptions}
-          onSelect={onStatusSelect}
-        />
-
-        <FilterDropdown
-          label="Attending Doctor"
-          selectedOption={selectedDoctor}
-          options={doctorOptions}
-          onSelect={onDoctorSelect}
-        />
-
-        <FilterDropdown
-          label="Select date range"
-          selectedOption={dateRange}
-          options={dateOptions}
-          onSelect={onDateRangeSelect}
-        />
       </div>
     </div>
   );

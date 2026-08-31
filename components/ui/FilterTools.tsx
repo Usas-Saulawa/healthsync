@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Search, SlidersHorizontal } from "lucide-react";
+import { SlidersHorizontal } from "lucide-react";
 
 // ==========================================
 // 1. TYPES & INTERFACES
@@ -63,6 +63,7 @@ export function SearchBar({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
+        suppressHydrationWarning // <--- Prevents browser extensions from causing hydration mismatches
         className="bg-transparent text-sm font-normal text-slate-800 placeholder:text-slate-500 focus:outline-none w-full truncate"
       />
 

@@ -294,73 +294,75 @@ export function DashboardMetricsGrid() {
             </div>
           </div>
         </div>
-
-        {/* Card 4: Top Treatment */}
-        <div className="bg-white p-5 sm:p-6 rounded-3xl border border-blue-100/50 shadow-xs flex flex-col justify-between">
+        {/* Card 4: Top Treatment (Exact Rectangular Match) */}
+        <div className="bg-white p-6 sm:p-7 rounded-[2rem] border border-blue-100/60 shadow-xs flex flex-col justify-between">
+          {/* Top Row: Icon + Title on left, View All on far right */}
           <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-2.5 min-w-0">
-              <div className="h-10 w-10 rounded-full bg-blue-50/90 text-blue-600 flex items-center justify-center shrink-0">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="h-10 w-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
                 <Users className="h-5 w-5 fill-blue-600 text-blue-600" />
               </div>
-              <h3 className="font-bold text-slate-900 text-sm xl:text-base truncate">
+              <h3 className="font-bold text-slate-900 text-sm sm:text-base tracking-tight truncate">
                 Top Treatment
               </h3>
             </div>
-            <button className="text-[11px] xl:text-xs font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-0.5 shrink-0">
-              View All <ArrowUpRight className="h-3.5 w-3.5" />
+            <button className="text-xs sm:text-sm font-semibold text-blue-600 hover:text-blue-700 shrink-0">
+              View All
             </button>
           </div>
 
-          <div className="flex flex-wrap items-baseline gap-2 mb-3">
-            <span className="text-3xl xl:text-4xl font-extrabold text-slate-900 tracking-tight">
+          {/* Main Count & Inline Pill Badge */}
+          <div className="flex items-center gap-3 mb-4">
+            <span className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
               {topTreatments.count}
             </span>
-            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] xl:text-xs font-semibold bg-blue-50 text-blue-600 whitespace-nowrap">
-              Active Breakdown
+            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-blue-100/80 text-blue-700">
+              +23
             </span>
           </div>
 
-          <div className="space-y-3 pt-1 flex-1 flex flex-col justify-center">
-            <div className="flex items-center justify-between text-[10px] xl:text-xs text-slate-500 px-0.5">
-              {topTreatments.stats.map((stat) => (
-                <div
-                  key={stat.name}
-                  className="flex items-center gap-1.5 truncate"
-                >
-                  <div
-                    className={`h-2 w-2 rounded-full ${stat.color} shrink-0`}
-                  />
-                  <span className="truncate">{stat.name}</span>
-                </div>
-              ))}
+          {/* Category Legends Row */}
+          <div className="grid grid-cols-3 gap-2 mb-3 text-xs font-medium text-slate-500">
+            <div className="flex items-center gap-1.5 truncate">
+              <span className="h-2 w-2 rounded-full bg-blue-600 shrink-0" />
+              <span className="truncate">Sugery</span>
+            </div>
+            <div className="flex items-center gap-1.5 truncate">
+              <span className="h-2 w-2 rounded-full bg-blue-200 shrink-0" />
+              <span className="truncate">Consultation</span>
+            </div>
+            <div className="flex items-center gap-1.5 truncate">
+              <span className="h-2 w-2 rounded-full bg-slate-300 shrink-0" />
+              <span className="truncate">Diagnosis</span>
+            </div>
+          </div>
+
+          {/* Split Metric Columns with Dashed Dividers & Rectangular Bars */}
+          <div className="grid grid-cols-3 gap-2 pt-1">
+            {/* Column 1: Surgery */}
+            <div className="flex flex-col gap-2 relative pr-1">
+              <div className="absolute right-0 top-1 bottom-1 w-[1px] border-r border-dashed border-slate-200 hidden sm:block" />
+              <span className="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight">
+                200
+              </span>
+              <div className="h-10 w-full rounded-xl bg-blue-600 shadow-xs flex items-center justify-center transition-all" />
             </div>
 
-            <div className="grid grid-cols-3 gap-2 text-center">
-              {topTreatments.stats.map((stat) => (
-                <div
-                  key={stat.name}
-                  className="bg-slate-50/80 p-2 rounded-xl border border-slate-100 truncate"
-                >
-                  <span className="text-xs xl:text-sm font-extrabold text-slate-900">
-                    {stat.value}
-                  </span>
-                </div>
-              ))}
+            {/* Column 2: Consultation */}
+            <div className="flex flex-col gap-2 relative px-1">
+              <div className="absolute right-0 top-1 bottom-1 w-[1px] border-r border-dashed border-slate-200 hidden sm:block" />
+              <span className="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight">
+                40
+              </span>
+              <div className="h-10 w-full rounded-xl bg-blue-100/80 flex items-center justify-center transition-all" />
             </div>
 
-            <div className="flex h-2.5 w-full rounded-xl overflow-hidden bg-slate-100 gap-1.5 p-0.5">
-              <div
-                className="bg-blue-600 rounded-lg h-full transition-all duration-500"
-                style={{ width: "60%" }}
-              />
-              <div
-                className="bg-blue-200 rounded-lg h-full transition-all duration-500"
-                style={{ width: "15%" }}
-              />
-              <div
-                className="bg-slate-200 rounded-lg h-full transition-all duration-500"
-                style={{ width: "25%" }}
-              />
+            {/* Column 3: Diagnosis */}
+            <div className="flex flex-col gap-2 relative pl-1">
+              <span className="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight">
+                80
+              </span>
+              <div className="h-10 w-full rounded-xl bg-slate-100/90 flex items-center justify-center transition-all" />
             </div>
           </div>
         </div>
