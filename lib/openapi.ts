@@ -458,6 +458,68 @@ export const openApiSpec = {
                 additionalProperties: true,
               },
 
+              allergies: {
+                type: "object",
+                properties: {
+                  items: {
+                    type: "array",
+                    items: {
+                      type: "object",
+                      properties: {
+                        id: { type: "string", format: "uuid" },
+                        substance: { type: "string", example: "Penicillin" },
+                        reaction: { type: "string", nullable: true, example: "Anaphylaxis" },
+                        severity: { type: "string", enum: ["MILD", "MODERATE", "SEVERE", "CRITICAL"] },
+                        status: { type: "string", enum: ["ACTIVE", "INACTIVE", "RESOLVED"] },
+                        recordedAt: { type: "string", format: "date-time" },
+                        notes: { type: "string", nullable: true },
+                      },
+                    },
+                  },
+                  message: { type: "string", nullable: true, example: "No known allergies" },
+                },
+              },
+
+              activeMedications: {
+                type: "object",
+                properties: {
+                  items: {
+                    type: "array",
+                    items: {
+                      type: "object",
+                      properties: {
+                        id: { type: "string", format: "uuid" },
+                        medicationName: { type: "string", example: "Metformin" },
+                        dosage: { type: "string", nullable: true, example: "500mg" },
+                        frequency: { type: "string", nullable: true, example: "Twice daily" },
+                        route: { type: "string", nullable: true, example: "Oral" },
+                        startDate: { type: "string", format: "date-time" },
+                        endDate: { type: "string", format: "date-time", nullable: true },
+                        status: { type: "string", example: "ACTIVE" },
+                        reason: { type: "string", nullable: true },
+                      },
+                    },
+                  },
+                  message: { type: "string", nullable: true, example: "No active medications" },
+                },
+              },
+
+              latestLabResults: {
+                type: "array",
+                items: {
+                  type: "object",
+                  properties: {
+                    id: { type: "string", format: "uuid" },
+                    testType: { type: "string", example: "HBA1C" },
+                    testName: { type: "string", example: "HbA1c" },
+                    value: { type: "string", nullable: true, example: "7.2%" },
+                    valueNumeric: { type: "number", nullable: true, example: 7.2 },
+                    unit: { type: "string", nullable: true, example: "%" },
+                    performedAt: { type: "string", format: "date-time" },
+                  },
+                },
+              },
+
               timeline: {
                 type: "array",
                 items: {
@@ -779,8 +841,103 @@ MedicalHistoryListResponse: {
           data: {
             type: "object",
             properties: {
-              diagnosis: {
+              patient: {
+                $ref: "#/components/schemas/Patient",
+              },
+              history: {
                 $ref: "#/components/schemas/DiagnosisDetail",
+              },
+              encounter: {
+                nullable: true,
+                type: "object",
+                additionalProperties: true,
+              },
+              treatmentHistory: {
+                type: "array",
+                items: {
+                  type: "object",
+                  additionalProperties: true,
+                },
+              },
+              encounterHistory: {
+                type: "array",
+                items: {
+                  type: "object",
+                  additionalProperties: true,
+                },
+              },
+              latestVitals: {
+                nullable: true,
+                type: "object",
+                additionalProperties: true,
+              },
+              hba1cTrend: {
+                type: "object",
+                properties: {
+                  items: {
+                    type: "array",
+                    items: {
+                      type: "object",
+                      properties: {
+                        id: { type: "string", format: "uuid" },
+                        testName: { type: "string", example: "HbA1c" },
+                        value: { type: "string", nullable: true, example: "7.2%" },
+                        valueNumeric: { type: "number", nullable: true, example: 7.2 },
+                        unit: { type: "string", nullable: true, example: "%" },
+                        performedAt: { type: "string", format: "date-time" },
+                      },
+                    },
+                  },
+                  message: { type: "string", nullable: true, example: "No HbA1c results available" },
+                },
+              },
+              conditionMedications: {
+                type: "object",
+                properties: {
+                  items: {
+                    type: "array",
+                    items: {
+                      type: "object",
+                      properties: {
+                        id: { type: "string", format: "uuid" },
+                        medicationName: { type: "string", example: "Metformin" },
+                        dosage: { type: "string", nullable: true, example: "500mg" },
+                        frequency: { type: "string", nullable: true, example: "Twice daily" },
+                        route: { type: "string", nullable: true, example: "Oral" },
+                        startDate: { type: "string", format: "date-time" },
+                        endDate: { type: "string", format: "date-time", nullable: true },
+                        reason: { type: "string", nullable: true },
+                      },
+                    },
+                  },
+                  message: { type: "string", nullable: true, example: "No active medications for this condition" },
+                },
+              },
+              relatedOrders: {
+                type: "array",
+                items: {
+                  type: "object",
+                  additionalProperties: true,
+                },
+              },
+              keyDocuments: {
+                type: "object",
+                properties: {
+                  items: {
+                    type: "array",
+                    items: {
+                      type: "object",
+                      properties: {
+                        id: { type: "string", format: "uuid" },
+                        fileName: { type: "string", example: "Lab Results.pdf" },
+                        documentType: { type: "string", enum: ["LAB_REPORT", "IMAGING_REPORT", "DISCHARGE_SUMMARY", "OPERATIVE_REPORT", "MEDICAL_RECORD", "PRESCRIPTION", "CONSULTATION_NOTE", "OTHER"] },
+                        description: { type: "string", nullable: true },
+                        uploadedAt: { type: "string", format: "date-time" },
+                      },
+                    },
+                  },
+                  message: { type: "string", nullable: true, example: "No documents available" },
+                },
               },
             },
           },
@@ -977,7 +1134,7 @@ MedicalHistoryListResponse: {
         tags: ["Patients"],
         summary: "List patients",
         description:
-          "Returns patients belonging to the authenticated user's hospital. Supports search, inpatient/outpatient filtering, status filtering, ward filtering, attending doctor filtering, date filtering, sorting and server-side pagination. For inpatient records, dateFrom/dateTo filter by admission date. For outpatient records, dateFrom/dateTo filter by patient creation date.",
+          "Returns patients belonging to the authenticated user's hospital. Supports search, inpatient/outpatient filtering, status filtering, ward filtering, attending doctor filtering, date filtering, sorting and server-side pagination. Results are prioritized by doctor assignment: patients assigned to the logged-in doctor appear first, followed by other hospital patients. For inpatient records, dateFrom/dateTo filter by admission date. For outpatient records, dateFrom/dateTo filter by patient creation date.",
 
         security: [{ sessionCookie: [] }],
 
@@ -1212,7 +1369,7 @@ MedicalHistoryListResponse: {
         summary: "Get patient details",
 
         description:
-          "Returns the complete Patient Detail foundation for one patient identified by UUID. Includes patient header information, current admission, current diagnosis, current treatments, latest vitals, alerts, primary doctor and clinical timeline.",
+          "Returns the complete Patient Detail foundation for one patient identified by UUID. Includes patient header information, current admission, current diagnosis, current treatments, latest vitals, alerts, primary doctor, allergies, active medications, latest lab results and clinical timeline.",
 
         security: [{ sessionCookie: [] }],
 
@@ -1374,7 +1531,7 @@ MedicalHistoryListResponse: {
     tags: ["Patients"],
     summary: "Get medical history diagnosis details",
     description:
-      "Returns the detailed information for a specific diagnosis belonging to the selected patient.",
+      "Returns the detailed information for a specific diagnosis belonging to the selected patient, including diagnosis metadata, related treatments, encounter history, latest vitals, HbA1c trends, medications related to the condition, and key documents.",
     security: [{ sessionCookie: [] }],
 
     parameters: [

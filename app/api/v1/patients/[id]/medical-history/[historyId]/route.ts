@@ -107,6 +107,9 @@ export async function GET(
         relatedTreatments,
         encounterHistory,
         latestVitals,
+        hba1cTrends,
+        conditionMedications,
+        keyDocuments,
       ] = await Promise.all([
         prisma.hospital.findUnique({
           where: {
@@ -227,6 +230,80 @@ export async function GET(
             glucoseMgDl: true,
           },
         }),
+
+        /*
+         * HbA1c trend data for diabetes-related diagnoses
+         */
+        prisma.labResult.findMany({
+          where: {
+            patientId: patient.id,
+            testType: "HBA1C",
+          },
+
+          orderBy: {
+            performedAt: "asc",
+          },
+
+          take: 12,
+
+          select: {
+            id: true,
+            testName: true,
+            value: true,
+            valueNumeric: true,
+            unit: true,
+            performedAt: true,
+          },
+        }),
+
+        /*
+         * Active medications related to this diagnosis
+         */
+        prisma.prescription.findMany({
+          where: {
+            patientId: patient.id,
+            status: "ACTIVE",
+            diagnosisId: diagnosis.id,
+          },
+
+          orderBy: {
+            startDate: "desc",
+          },
+
+          select: {
+            id: true,
+            medicationName: true,
+            dosage: true,
+            frequency: true,
+            route: true,
+            startDate: true,
+            endDate: true,
+            reason: true,
+          },
+        }),
+
+        /*
+         * Key documents related to this patient
+         */
+        prisma.document.findMany({
+          where: {
+            patientId: patient.id,
+          },
+
+          orderBy: {
+            uploadedAt: "desc",
+          },
+
+          take: 5,
+
+          select: {
+            id: true,
+            fileName: true,
+            documentType: true,
+            description: true,
+            uploadedAt: true,
+          },
+        }),
       ]);
 
       return NextResponse.json({
@@ -301,13 +378,53 @@ export async function GET(
 
           latestVitals,
 
-          /*
-           * These sections are intentionally not returned yet.
-           * Their database models belong to their respective modules.
-           */
+          hba1cTrend: {
+            items: hba1cTrends.map((result) => ({
+              id: result.id,
+              testName: result.testName,
+              value: result.value,
+              valueNumeric: result.valueNumeric,
+              unit: result.unit,
+              performedAt: result.performedAt,
+            })),
+            message:
+              hba1cTrends.length === 0
+                ? "No HbA1c results available"
+                : undefined,
+          },
+
+          conditionMedications: {
+            items: conditionMedications.map((med) => ({
+              id: med.id,
+              medicationName: med.medicationName,
+              dosage: med.dosage,
+              frequency: med.frequency,
+              route: med.route,
+              startDate: med.startDate,
+              endDate: med.endDate,
+              reason: med.reason,
+            })),
+            message:
+              conditionMedications.length === 0
+                ? "No active medications for this condition"
+                : undefined,
+          },
+
           relatedOrders: [],
-          medications: [],
-          keyDocuments: [],
+
+          keyDocuments: {
+            items: keyDocuments.map((doc) => ({
+              id: doc.id,
+              fileName: doc.fileName,
+              documentType: doc.documentType,
+              description: doc.description,
+              uploadedAt: doc.uploadedAt,
+            })),
+            message:
+              keyDocuments.length === 0
+                ? "No documents available"
+                : undefined,
+          },
         },
       });
     }
@@ -436,9 +553,22 @@ export async function GET(
 
         treatmentHistory: [treatment],
 
+        hba1cTrend: {
+          items: [],
+          message: "No HbA1c results available",
+        },
+
+        conditionMedications: {
+          items: [],
+          message: "No active medications for this condition",
+        },
+
         relatedOrders: [],
-        medications: [],
-        keyDocuments: [],
+
+        keyDocuments: {
+          items: [],
+          message: "No documents available",
+        },
       },
     });
   } catch (error) {

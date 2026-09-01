@@ -190,6 +190,68 @@ export async function GET(
             },
           },
         },
+
+        allergies: {
+          where: {
+            status: {
+              in: ["ACTIVE", "INACTIVE"],
+            },
+          },
+          orderBy: {
+            recordedAt: "desc",
+          },
+          select: {
+            id: true,
+            substance: true,
+            reaction: true,
+            severity: true,
+            status: true,
+            recordedAt: true,
+            notes: true,
+          },
+        },
+
+        prescriptions: {
+          where: {
+            status: "ACTIVE",
+          },
+          orderBy: {
+            startDate: "desc",
+          },
+          take: 10,
+          select: {
+            id: true,
+            medicationName: true,
+            dosage: true,
+            frequency: true,
+            route: true,
+            startDate: true,
+            endDate: true,
+            status: true,
+            reason: true,
+          },
+        },
+
+        labResults: {
+          where: {
+            testType: {
+              in: ["HBA1C", "GLUCOSE", "CHOLESTEROL"],
+            },
+          },
+          orderBy: {
+            performedAt: "desc",
+          },
+          take: 10,
+          select: {
+            id: true,
+            testType: true,
+            testName: true,
+            value: true,
+            valueNumeric: true,
+            unit: true,
+            performedAt: true,
+          },
+        },
       },
     });
 
@@ -337,6 +399,42 @@ export async function GET(
               role: currentAdmission.attendingDoctor.role,
             }
           : null,
+
+        allergies: {
+          items: patient.allergies.map((allergy) => ({
+            id: allergy.id,
+            substance: allergy.substance,
+            reaction: allergy.reaction,
+            severity: allergy.severity,
+            status: allergy.status,
+            recordedAt: allergy.recordedAt,
+            notes: allergy.notes,
+          })),
+          message:
+            patient.allergies.length === 0
+              ? "No known allergies"
+              : undefined,
+        },
+
+        activeMedications: {
+          items: patient.prescriptions.map((prescription) => ({
+            id: prescription.id,
+            medicationName: prescription.medicationName,
+            dosage: prescription.dosage,
+            frequency: prescription.frequency,
+            route: prescription.route,
+            startDate: prescription.startDate,
+            endDate: prescription.endDate,
+            status: prescription.status,
+            reason: prescription.reason,
+          })),
+          message:
+            patient.prescriptions.length === 0
+              ? "No active medications"
+              : undefined,
+        },
+
+        latestLabResults: patient.labResults.slice(0, 5),
 
         timeline,
       },

@@ -479,90 +479,206 @@ export async function GET(request: NextRequest) {
       AND: conditions,
     };
 
-    const [patients, total] = await Promise.all([
-      prisma.patient.findMany({
-        where,
-        skip,
-        take: limit,
+    /*
+     * Fetch all matching patients with their doctor relationships
+     * to enable client-side prioritization.
+     * 
+     * Doctor prioritization:
+     * 1. Patients where the logged-in doctor is the attending doctor
+     * 2. Patients where the logged-in doctor has recent encounters
+     * 3. Other hospital patients
+     */
+    const allPatients = await prisma.patient.findMany({
+      where,
 
-        orderBy: {
-          [sortField]: sortOrder,
-        },
+      select: {
+        id: true,
+        hospitalId: true,
+        hospitalNumber: true,
+        firstName: true,
+        lastName: true,
+        dateOfBirth: true,
+        gender: true,
+        phone: true,
+        address: true,
+        bloodGroup: true,
+        status: true,
+        createdAt: true,
+        updatedAt: true,
 
-        select: {
-          id: true,
-          hospitalId: true,
-          hospitalNumber: true,
-          firstName: true,
-          lastName: true,
-          dateOfBirth: true,
-          gender: true,
-          phone: true,
-          address: true,
-          bloodGroup: true,
-          status: true,
-          createdAt: true,
-          updatedAt: true,
+        /*
+         * Return the current admission when available.
+         */
+        admissions: {
+          where: {
+            status: "ADMITTED",
+          },
 
-          /*
-           * Return the current admission when available.
-           */
-          admissions: {
-            where: {
-              status: "ADMITTED",
+          orderBy: {
+            admissionDate: "desc",
+          },
+
+          take: 1,
+
+          select: {
+            id: true,
+            admissionDate: true,
+            status: true,
+            attendingDoctorId: true,
+
+            ward: {
+              select: {
+                id: true,
+                name: true,
+                code: true,
+              },
             },
 
-            orderBy: {
-              admissionDate: "desc",
+            bed: {
+              select: {
+                id: true,
+                bedNumber: true,
+              },
             },
 
-            take: 1,
-
-            select: {
-              id: true,
-              admissionDate: true,
-              status: true,
-
-              ward: {
-                select: {
-                  id: true,
-                  name: true,
-                  code: true,
-                },
-              },
-
-              bed: {
-                select: {
-                  id: true,
-                  bedNumber: true,
-                },
-              },
-
-              attendingDoctor: {
-                select: {
-                  id: true,
-                  staffId: true,
-                  firstName: true,
-                  lastName: true,
-                  role: true,
-                },
+            attendingDoctor: {
+              select: {
+                id: true,
+                staffId: true,
+                firstName: true,
+                lastName: true,
+                role: true,
               },
             },
           },
         },
-      }),
 
-      prisma.patient.count({
-        where,
-      }),
-    ]);
+        /*
+         * Get recent encounters to determine if the logged-in doctor
+         * is associated with this patient.
+         */
+        encounters: {
+          orderBy: {
+            startedAt: "desc",
+          },
+
+          take: 3,
+
+          select: {
+            id: true,
+            doctorId: true,
+            startedAt: true,
+          },
+        },
+
+        /*
+         * Get primary diagnosis for display
+         */
+        diagnoses: {
+          where: {
+            isPrimary: true,
+          },
+
+          take: 1,
+
+          select: {
+            id: true,
+            name: true,
+            code: true,
+          },
+        },
+      },
+    });
 
     /*
-     * Convert the current admission into
-     * a simple directory representation.
+     * Determine doctor priority: is this patient associated with the logged-in doctor?
+     * A patient is associated if:
+     * 1. They have a current admission with this doctor as attending
+     * 2. They have recent encounters with this doctor (within last 30 days)
      */
-    const formattedPatients = patients.map((patient) => {
+    const withPriority = allPatients.map((patient) => {
       const currentAdmission = patient.admissions[0] ?? null;
+      const isAssignedToLoggedInDoctor =
+        currentAdmission?.attendingDoctorId === user.id ||
+        patient.encounters.some((enc) => enc.doctorId === user.id);
+
+      return {
+        ...patient,
+        isAssignedToLoggedInDoctor,
+        currentAdmission,
+      };
+    });
+
+    /*
+     * Sort by priority (assigned to doctor first, then others)
+     * Then apply user's requested sorting within each group.
+     */
+    const sortedPatients = withPriority.sort((a, b) => {
+      /*
+       * Priority 1: Patients assigned to logged-in doctor
+       */
+      if (a.isAssignedToLoggedInDoctor && !b.isAssignedToLoggedInDoctor) {
+        return -1;
+      }
+      if (!a.isAssignedToLoggedInDoctor && b.isAssignedToLoggedInDoctor) {
+        return 1;
+      }
+
+      /*
+       * Within each group, apply requested sorting
+       */
+      if (sortField === "createdAt") {
+        const timeA = a.createdAt.getTime();
+        const timeB = b.createdAt.getTime();
+        return sortOrder === "asc" ? timeA - timeB : timeB - timeA;
+      }
+
+      if (sortField === "dateOfBirth") {
+        const timeA = new Date(a.dateOfBirth).getTime();
+        const timeB = new Date(b.dateOfBirth).getTime();
+        return sortOrder === "asc" ? timeA - timeB : timeB - timeA;
+      }
+
+      if (sortField === "firstName") {
+        const cmp = a.firstName.localeCompare(b.firstName);
+        return sortOrder === "asc" ? cmp : -cmp;
+      }
+
+      if (sortField === "lastName") {
+        const cmp = a.lastName.localeCompare(b.lastName);
+        return sortOrder === "asc" ? cmp : -cmp;
+      }
+
+      if (sortField === "hospitalNumber") {
+        const cmp = a.hospitalNumber.localeCompare(b.hospitalNumber);
+        return sortOrder === "asc" ? cmp : -cmp;
+      }
+
+      if (sortField === "status") {
+        const cmp = a.status.localeCompare(b.status);
+        return sortOrder === "asc" ? cmp : -cmp;
+      }
+
+      if (sortField === "gender") {
+        const cmp = (a.gender ?? "").localeCompare(b.gender ?? "");
+        return sortOrder === "asc" ? cmp : -cmp;
+      }
+
+      return 0;
+    });
+
+    /*
+     * Apply pagination after sorting
+     */
+    const total = sortedPatients.length;
+    const paginatedPatients = sortedPatients.slice(skip, skip + limit);
+
+    /*
+     * Format the response
+     */
+    const formattedPatients = paginatedPatients.map((patient) => {
+      const currentAdmission = patient.currentAdmission;
+      const primaryDiagnosis = patient.diagnoses[0] ?? null;
 
       return {
         id: patient.id,
@@ -584,6 +700,14 @@ export async function GET(request: NextRequest) {
         type: currentAdmission
           ? "INPATIENT"
           : "OUTPATIENT",
+
+        primaryDiagnosis: primaryDiagnosis
+          ? {
+              id: primaryDiagnosis.id,
+              name: primaryDiagnosis.name,
+              code: primaryDiagnosis.code,
+            }
+          : null,
 
         ward: currentAdmission?.ward ?? null,
 

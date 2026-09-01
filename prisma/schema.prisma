@@ -201,15 +201,19 @@ model Patient {
 
   hospital Hospital @relation(fields: [hospitalId], references: [id], onDelete: Restrict)
 
-  admissions   PatientAdmission[]
-  appointments Appointment[]
-  encounters   Encounter[]
-  diagnoses    Diagnosis[]
-  treatments   Treatment[]
-  vitals       Vital[]
-  alerts       ClinicalAlert[]
-  followUps    FollowUp[]
-  insurances   PatientInsurance[]
+  admissions    PatientAdmission[]
+  appointments  Appointment[]
+  encounters    Encounter[]
+  diagnoses     Diagnosis[]
+  treatments    Treatment[]
+  vitals        Vital[]
+  alerts        ClinicalAlert[]
+  followUps     FollowUp[]
+  insurances    PatientInsurance[]
+  allergies     Allergy[]
+  prescriptions Prescription[]
+  labResults    LabResult[]
+  documents     Document[]
 
   @@unique([hospitalId, hospitalNumber])
   @@index([hospitalId])
@@ -357,10 +361,13 @@ model Encounter {
   hospital Hospital @relation(fields: [hospitalId], references: [id], onDelete: Restrict)
   doctor   User     @relation("DoctorEncounters", fields: [doctorId], references: [id], onDelete: Restrict)
 
-  diagnoses  Diagnosis[]
-  treatments Treatment[]
-  vitals     Vital[]
-  alerts     ClinicalAlert[]
+  diagnoses     Diagnosis[]
+  treatments    Treatment[]
+  vitals        Vital[]
+  alerts        ClinicalAlert[]
+  prescriptions Prescription[]
+  labResults    LabResult[]
+  documents     Document[]
 
   @@index([patientId])
   @@index([hospitalId])
@@ -407,8 +414,9 @@ model Diagnosis {
   diagnosedAt DateTime  @default(now())
   resolvedAt  DateTime?
 
-  patient   Patient    @relation(fields: [patientId], references: [id], onDelete: Restrict)
-  encounter Encounter? @relation(fields: [encounterId], references: [id], onDelete: SetNull)
+  patient       Patient        @relation(fields: [patientId], references: [id], onDelete: Restrict)
+  encounter     Encounter?     @relation(fields: [encounterId], references: [id], onDelete: SetNull)
+  prescriptions Prescription[]
 
   @@index([patientId])
   @@index([encounterId])
@@ -563,4 +571,152 @@ model PatientInsurance {
   @@index([patientId])
   @@index([status])
   @@index([provider])
+}
+
+enum AllergyStatus {
+  ACTIVE
+  INACTIVE
+  RESOLVED
+}
+
+enum AllergySeverity {
+  MILD
+  MODERATE
+  SEVERE
+  CRITICAL
+}
+
+model Allergy {
+  id         String          @id @default(uuid())
+  patientId  String
+  substance  String
+  reaction   String?
+  severity   AllergySeverity @default(MODERATE)
+  status     AllergyStatus   @default(ACTIVE)
+  recordedAt DateTime        @default(now())
+  resolvedAt DateTime?
+  notes      String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  patient Patient @relation(fields: [patientId], references: [id], onDelete: Restrict)
+
+  @@index([patientId])
+  @@index([status])
+  @@index([severity])
+  @@index([recordedAt])
+}
+
+enum PrescriptionStatus {
+  ACTIVE
+  PAUSED
+  DISCONTINUED
+  COMPLETED
+}
+
+model Prescription {
+  id             String             @id @default(uuid())
+  patientId      String
+  encounterId    String?
+  diagnosisId    String?
+  medicationName String
+  dosage         String?
+  frequency      String?
+  route          String?
+  status         PrescriptionStatus @default(ACTIVE)
+  startDate      DateTime
+  endDate        DateTime?
+  prescribedBy   String?
+  reason         String?
+  notes          String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  patient   Patient    @relation(fields: [patientId], references: [id], onDelete: Restrict)
+  encounter Encounter? @relation(fields: [encounterId], references: [id], onDelete: SetNull)
+  diagnosis Diagnosis? @relation(fields: [diagnosisId], references: [id], onDelete: SetNull)
+
+  @@index([patientId])
+  @@index([encounterId])
+  @@index([diagnosisId])
+  @@index([status])
+  @@index([startDate])
+  @@index([medicationName])
+}
+
+enum LabTestType {
+  HBA1C
+  GLUCOSE
+  BLOOD_PRESSURE
+  CHOLESTEROL
+  CBC
+  METABOLIC_PANEL
+  LIVER_FUNCTION
+  KIDNEY_FUNCTION
+  URINALYSIS
+  OTHER
+}
+
+model LabResult {
+  id             String      @id @default(uuid())
+  patientId      String
+  encounterId    String?
+  testType       LabTestType
+  testName       String
+  value          String?
+  valueNumeric   Float?
+  unit           String?
+  referenceRange String?
+  status         String      @default("COMPLETED")
+  performedAt    DateTime
+  resultedAt     DateTime?
+  notes          String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  patient   Patient    @relation(fields: [patientId], references: [id], onDelete: Restrict)
+  encounter Encounter? @relation(fields: [encounterId], references: [id], onDelete: SetNull)
+
+  @@index([patientId])
+  @@index([encounterId])
+  @@index([testType])
+  @@index([performedAt])
+  @@index([testName])
+}
+
+enum DocumentType {
+  LAB_REPORT
+  IMAGING_REPORT
+  DISCHARGE_SUMMARY
+  OPERATIVE_REPORT
+  MEDICAL_RECORD
+  PRESCRIPTION
+  CONSULTATION_NOTE
+  OTHER
+}
+
+model Document {
+  id           String       @id @default(uuid())
+  patientId    String
+  encounterId  String?
+  fileName     String
+  documentType DocumentType @default(OTHER)
+  description  String?
+  url          String?
+  uploadedAt   DateTime     @default(now())
+  notes        String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  patient   Patient    @relation(fields: [patientId], references: [id], onDelete: Restrict)
+  encounter Encounter? @relation(fields: [encounterId], references: [id], onDelete: SetNull)
+
+  @@index([patientId])
+  @@index([encounterId])
+  @@index([documentType])
+  @@index([uploadedAt])
 }
