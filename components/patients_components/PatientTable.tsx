@@ -22,19 +22,21 @@ export function PatientTable({
 }: PatientTableProps) {
   const [selectedIds, setSelectedIds] = useState<(string | number)[]>([]);
 
-  // Handle master select all toggle
+  // Select or clear all patients currently shown on this page.
   const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
-      setSelectedIds(patients.map((p) => p.id));
+      setSelectedIds(patients.map((patient) => patient.id));
     } else {
       setSelectedIds([]);
     }
   };
 
-  // Handle individual row checkbox toggle
+  // Toggle selection for one patient.
   const handleToggleSelect = (id: string | number) => {
-    setSelectedIds((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
+    setSelectedIds((current) =>
+      current.includes(id)
+        ? current.filter((item) => item !== id)
+        : [...current, id],
     );
   };
 
@@ -42,161 +44,227 @@ export function PatientTable({
     patients.length > 0 && selectedIds.length === patients.length;
 
   return (
-    <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6">
-      <div className="w-full bg-white rounded-[2.5rem] border border-blue-100/60 p-6 sm:p-8 shadow-xs space-y-6">
-        {/* Table Grid Container */}
-        <div className="w-full overflow-x-auto">
-          <div className="min-w-[1050px] space-y-3">
-            {/* Table Header Row */}
-            <div className="grid grid-cols-[44px_1.4fr_1.1fr_0.8fr_1.1fr_1.4fr_1fr_0.9fr] items-center px-6 py-3 text-xs font-bold text-slate-400 uppercase tracking-wider">
-              <div className="flex items-center">
-                <input
-                  type="checkbox"
-                  aria-label="Select all patients"
-                  checked={isAllSelected}
-                  onChange={handleSelectAll}
-                  className="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500 cursor-pointer"
-                />
-              </div>
-              <div className="flex items-center gap-1.5 cursor-pointer hover:text-slate-700">
-                Patient Name <ArrowUpDown className="h-3.5 w-3.5" />
-              </div>
-              <div className="flex items-center gap-1.5 cursor-pointer hover:text-slate-700">
-                Hospital No. <ArrowUpDown className="h-3.5 w-3.5" />
-              </div>
-              <div className="flex items-center gap-1.5 cursor-pointer hover:text-slate-700">
-                Age/Sex <ArrowUpDown className="h-3.5 w-3.5" />
-              </div>
-              <div className="flex items-center gap-1.5 cursor-pointer hover:text-slate-700">
-                Ward/Bed <ArrowUpDown className="h-3.5 w-3.5" />
-              </div>
-              <div className="flex items-center gap-1.5 cursor-pointer hover:text-slate-700">
-                Primary Diagnosis <ArrowUpDown className="h-3.5 w-3.5" />
-              </div>
-              <div className="flex items-center gap-1.5 cursor-pointer hover:text-slate-700">
-                Status <ArrowUpDown className="h-3.5 w-3.5" />
-              </div>
-              <div className="flex items-center justify-end gap-1.5 cursor-pointer hover:text-slate-700 pr-2">
-                Insurance <ArrowUpDown className="h-3.5 w-3.5" />
-              </div>
+    <div className="w-full px-7 bg-[#eef4fb] pb-6">
+      <div className="w-full overflow-x-auto">
+        <div className="min-w-[1100px] w-full overflow-hidden rounded-[14px] bg-white shadow-2xs">
+          {/* Table heading - Perfectly aligned with px-7 (28px) matching the header */}
+          <div className="grid h-[91px] grid-cols-[44px_1.42fr_1.15fr_0.9fr_1.15fr_1.55fr_1fr_0.95fr] items-center px-[28px] text-[13px] font-medium text-[#64748B]">
+            {/* Select all */}
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                aria-label="Select all patients"
+                checked={isAllSelected}
+                onChange={handleSelectAll}
+                className="h-[13px] w-[13px] cursor-pointer appearance-none rounded-[2px] border-[1.5px] border-[#71859A] bg-white checked:border-[#1769FF] checked:bg-[#1769FF]"
+              />
             </div>
 
-            {/* Table Rows */}
+            {/* Patient Name */}
+            <div className="flex items-center gap-[7px] whitespace-nowrap">
+              <span>Patient Name</span>
+              <ArrowUpDown
+                className="h-[13px] w-[13px] text-[#607286]"
+                strokeWidth={1.5}
+              />
+            </div>
+
+            {/* Hospital Number */}
+            <div className="flex items-center gap-[7px] whitespace-nowrap">
+              <span>Hospital No.</span>
+              <ArrowUpDown
+                className="h-[13px] w-[13px] text-[#607286]"
+                strokeWidth={1.5}
+              />
+            </div>
+
+            {/* Age / Sex */}
+            <div className="flex items-center gap-[7px] whitespace-nowrap">
+              <span>Age/Sex</span>
+              <ArrowUpDown
+                className="h-[13px] w-[13px] text-[#607286]"
+                strokeWidth={1.5}
+              />
+            </div>
+
+            {/* Ward / Bed */}
+            <div className="flex items-center gap-[7px] whitespace-nowrap">
+              <span>Ward/bed</span>
+              <ArrowUpDown
+                className="h-[13px] w-[13px] text-[#607286]"
+                strokeWidth={1.5}
+              />
+            </div>
+
+            {/* Primary Diagnosis */}
+            <div className="flex items-center gap-[7px] whitespace-nowrap">
+              <span>Primary Diagnosis</span>
+              <ArrowUpDown
+                className="h-[13px] w-[13px] text-[#607286]"
+                strokeWidth={1.5}
+              />
+            </div>
+
+            {/* Status */}
+            <div className="flex items-center gap-[7px] whitespace-nowrap">
+              <span>Status</span>
+              <ArrowUpDown
+                className="h-[13px] w-[13px] text-[#607286]"
+                strokeWidth={1.5}
+              />
+            </div>
+
+            {/* Insurance */}
+            <div className="flex items-center justify-end gap-[7px] whitespace-nowrap pr-2">
+              <span>Insurance</span>
+              <ArrowUpDown
+                className="h-[13px] w-[13px] text-[#607286]"
+                strokeWidth={1.5}
+              />
+            </div>
+          </div>
+
+          {/* Patient rows container */}
+          <div className="space-y-[7px] px-[20px] pb-4">
             {patients.map((patient) => {
               const isSelected = selectedIds.includes(patient.id);
+
               return (
                 <div
                   key={patient.id}
-                  className={`grid grid-cols-[44px_1.4fr_1.1fr_0.8fr_1.1fr_1.4fr_1fr_0.9fr] items-center transition-all px-6 py-4 rounded-2xl gap-3 shadow-2xs border ${
+                  className={[
+                    "grid h-[50px]",
+                    "grid-cols-[44px_1.42fr_1.15fr_0.9fr_1.15fr_1.55fr_1fr_0.95fr]",
+                    "items-center",
+                    "px-[8px]",
+                    "rounded-[6px]",
+                    "transition-colors",
                     isSelected
-                      ? "bg-blue-50/80 border-blue-200"
-                      : "bg-[#f8fbff]/70 hover:bg-blue-50/60 border-transparent hover:border-blue-100/80"
-                  }`}
+                      ? "bg-[#E4F0FF]"
+                      : "bg-[#EDF6FF] hover:bg-[#E8F3FF]",
+                  ].join(" ")}
                 >
-                  {/* Row Checkbox */}
+                  {/* Row checkbox */}
                   <div className="flex items-center">
                     <input
                       type="checkbox"
                       aria-label={`Select patient ${patient.name}`}
                       checked={isSelected}
                       onChange={() => handleToggleSelect(patient.id)}
-                      className="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500 cursor-pointer"
+                      className="h-[13px] w-[13px] cursor-pointer appearance-none rounded-[2px] border-[1.5px] border-[#71859A] bg-transparent checked:border-[#1769FF] checked:bg-[#1769FF]"
                     />
                   </div>
 
-                  {/* Patient Name with Avatar */}
-                  <div className="flex items-center space-x-3 min-w-0">
-                    <div className="w-10 h-10 rounded-full bg-amber-200/70 overflow-hidden shrink-0 flex items-center justify-center border border-amber-300/40 shadow-xs">
+                  {/* Patient name and avatar */}
+                  <div className="flex min-w-0 items-center gap-[9px]">
+                    <div className="flex h-[31px] w-[31px] shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#FFF2A8]">
                       <svg
-                        className="w-full h-full text-amber-900 mt-1"
+                        className="h-[24px] w-[24px] text-[#4B2200]"
                         viewBox="0 0 36 36"
                         fill="currentColor"
+                        aria-hidden="true"
                       >
                         <path d="M18 16c3.313 0 6-2.687 6-6s-2.687-6-6-6-6 2.687-6 6 2.687 6 6 6zm0 3c-4.418 0-12 2.239-12 6.667V30h24v-4.333C30 21.239 22.418 19 18 19z" />
                       </svg>
                     </div>
-                    <span className="font-bold text-slate-900 text-xs sm:text-sm truncate">
+
+                    <span className="truncate text-[11px] font-semibold leading-[15px] text-[#172033]">
                       {patient.name}
                     </span>
                   </div>
 
-                  {/* Hospital No */}
-                  <div className="text-xs sm:text-sm text-slate-600 font-medium truncate">
+                  {/* Hospital number */}
+                  <div className="truncate text-[11px] font-normal leading-[15px] text-[#718096]">
                     {patient.hospNo}
                   </div>
 
-                  {/* Age/Sex */}
-                  <div className="text-xs sm:text-sm text-slate-600 font-medium truncate">
+                  {/* Age / sex */}
+                  <div className="truncate text-[11px] font-normal leading-[15px] text-[#718096]">
                     {patient.ageSex}
                   </div>
 
-                  {/* Ward/Bed */}
-                  <div className="text-xs sm:text-sm text-slate-600 font-medium truncate">
+                  {/* Ward / bed */}
+                  <div className="truncate text-[11px] font-normal leading-[15px] text-[#718096]">
                     {patient.wardBed}
                   </div>
 
-                  {/* Primary Diagnosis */}
-                  <div className="text-xs sm:text-sm font-semibold text-slate-900 truncate">
+                  {/* Primary diagnosis */}
+                  <div className="truncate text-[11px] font-medium leading-[15px] text-[#172033]">
                     {patient.diagnosis}
                   </div>
 
-                  {/* Status Badge */}
-                  <div className="truncate">
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-[#fff3cd] text-[#856404] border border-[#ffeeba] shadow-2xs whitespace-nowrap">
+                  {/* Status */}
+                  <div className="flex items-center">
+                    <span className="inline-flex h-[23px] items-center rounded-full bg-[#FFF0A6] px-[11px] text-[10px] font-medium leading-none text-[#D99A00]">
                       {patient.status}
                     </span>
                   </div>
 
                   {/* Insurance */}
-                  <div className="text-xs sm:text-sm text-slate-600 font-medium text-right pr-2 truncate">
+                  <div className="truncate text-right text-[11px] font-normal leading-[15px] text-[#718096] pr-2">
                     {patient.insurance}
                   </div>
                 </div>
               );
             })}
           </div>
-        </div>
 
-        {/* Pagination Footer */}
-        <div className="flex flex-col sm:flex-row items-center justify-between pt-6 border-t border-slate-100 gap-4">
-          <p className="text-xs sm:text-sm text-slate-500 font-medium">
-            Showing 1-{Math.min(5, totalPatients)} of {totalPatients} patients
-          </p>
+          {/* Pagination */}
+          <div className="flex h-[74px] items-center justify-between border-t border-slate-100 px-[28px] bg-white">
+            <p className="text-[12px] font-normal leading-[16px] text-[#64748B]">
+              Showing 1-{Math.min(5, patients.length)} of {totalPatients}{" "}
+              patients
+            </p>
 
-          <div className="flex items-center gap-1.5">
-            <button
-              onClick={() => onPageChange?.(Math.max(1, currentPage - 1))}
-              disabled={currentPage === 1}
-              className="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-2xs"
-            >
-              Previous
-            </button>
+            <div className="flex items-center gap-[6px]">
+              {/* Previous */}
+              <button
+                type="button"
+                onClick={() => onPageChange?.(Math.max(1, currentPage - 1))}
+                disabled={currentPage === 1}
+                className="flex h-[35px] items-center justify-center rounded-[6px] border border-[#E1E6ED] bg-white px-[12px] text-[12px] font-medium text-[#1E293B] transition-colors hover:bg-[#F7F9FC] disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
+              >
+                Previous
+              </button>
 
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-              (pageNum) => (
-                <button
-                  key={pageNum}
-                  onClick={() => onPageChange?.(pageNum)}
-                  className={`h-9 w-9 rounded-xl text-xs sm:text-sm font-bold transition-colors shadow-2xs ${
-                    currentPage === pageNum
-                      ? "bg-blue-600 text-white shadow-sm"
-                      : "bg-white text-slate-700 border border-slate-200 hover:bg-slate-50"
-                  }`}
-                >
-                  {pageNum}
-                </button>
-              ),
-            )}
+              {/* Page numbers */}
+              {Array.from({ length: totalPages }, (_, index) => index + 1).map(
+                (pageNumber) => {
+                  const isCurrentPage = currentPage === pageNumber;
 
-            <button
-              onClick={() =>
-                onPageChange?.(Math.min(totalPages, currentPage + 1))
-              }
-              disabled={currentPage === totalPages}
-              className="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-2xs"
-            >
-              Next
-            </button>
+                  return (
+                    <button
+                      key={pageNumber}
+                      type="button"
+                      onClick={() => onPageChange?.(pageNumber)}
+                      aria-current={isCurrentPage ? "page" : undefined}
+                      className={[
+                        "flex h-[35px] w-[35px] items-center justify-center rounded-[6px]",
+                        "text-[12px] font-medium",
+                        "transition-colors cursor-pointer",
+                        isCurrentPage
+                          ? "bg-[#2167F3] text-white"
+                          : "border border-[#E1E6ED] bg-white text-[#1E293B] hover:bg-[#F7F9FC]",
+                      ].join(" ")}
+                    >
+                      {pageNumber}
+                    </button>
+                  );
+                },
+              )}
+
+              {/* Next */}
+              <button
+                type="button"
+                onClick={() =>
+                  onPageNumberHandler(Math.min(totalPages, currentPage + 1))
+                }
+                disabled={currentPage === totalPages}
+                className="flex h-[35px] items-center justify-center rounded-[6px] border border-[#E1E6ED] bg-white px-[15px] text-[12px] font-medium text-[#1E293B] transition-colors hover:bg-[#F7F9FC] disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
+              >
+                Next
+              </button>
+            </div>
           </div>
         </div>
       </div>

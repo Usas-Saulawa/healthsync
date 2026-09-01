@@ -1,11 +1,9 @@
 // components/patients/PatientFiltersHeader.tsx
 "use client";
 
-import {
-  SearchBar,
-  FilterDropdown,
-  FilterOption,
-} from "@/components/ui/FilterTools";
+import { Calendar, ChevronDown } from "lucide-react";
+import { MasterFilterToolbar } from "@/components/tools/filterTools";
+import { useState } from "react";
 
 interface PatientFiltersHeaderProps {
   activeTab: "out-patient" | "in-patient";
@@ -22,30 +20,6 @@ interface PatientFiltersHeaderProps {
   onDateRangeSelect: (value: string) => void;
 }
 
-const wardOptions: FilterOption[] = [
-  { label: "All Wards", value: "all" },
-  { label: "Ward 3A", value: "ward-3a" },
-  { label: "Ward 3B", value: "ward-3b" },
-  { label: "ICU", value: "icu" },
-];
-
-const statusOptions: FilterOption[] = [
-  { label: "All Patients", value: "all" },
-  { label: "Active Admitted", value: "admitted" },
-  { label: "Discharged", value: "discharged" },
-];
-
-const doctorOptions: FilterOption[] = [
-  { label: "Dr. Sarah Jenkins", value: "sarah-jenkins" },
-  { label: "Dr. Bashir Musa", value: "bashir-musa" },
-];
-
-const dateOptions: FilterOption[] = [
-  { label: "Today", value: "today" },
-  { label: "Last 7 Days", value: "7-days" },
-  { label: "Last 30 Days", value: "30-days" },
-];
-
 export function PatientFiltersHeader({
   activeTab,
   onTabChange,
@@ -60,99 +34,218 @@ export function PatientFiltersHeader({
   dateRange,
   onDateRangeSelect,
 }: PatientFiltersHeaderProps) {
+  // Local states for the MasterFilterToolbar labels
+  const [filterLabel, setFilterLabel] = useState("Filter");
+  const [sortLabel, setSortLabel] = useState("Sort by");
+
   return (
-    <div className="w-full">
-      <div className="w-full bg-white rounded-[2.5rem] border border-blue-100/60 p-6 sm:p-8 shadow-xs space-y-6">
-        {/* Top Row: Title, Out/In-Patient Radios, and Top Action Pills */}
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-          {/* Left: Title & Type Switcher */}
-          <div className="flex flex-wrap items-center gap-6">
-            <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
-              All Patient
-            </h2>
+    <section className="w-full bg-[#eef4fb] px-7 pt-5 pb-0">
+      {/* =========================================================
+          TOP HEADER
+          ========================================================= */}
+      <div className="flex min-h-[34px] items-center justify-between">
+        {/* ---------------------------------------------------------
+            LEFT SIDE - Title + Patient Type (Bolder text & sharp radios)
+            --------------------------------------------------------- */}
+        <div className="flex items-center">
+          {/* Page Title */}
+          <h2 className="text-[16px] font-bold leading-[20px] tracking-[-0.2px] text-[#253246]">
+            All Patient
+          </h2>
 
-            <div className="flex items-center gap-5">
-              <label className="flex items-center gap-2 cursor-pointer text-sm font-medium text-slate-700">
-                <input
-                  type="radio"
-                  name="patient-type"
-                  checked={activeTab === "out-patient"}
-                  onChange={() => onTabChange("out-patient")}
-                  className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500"
-                />
+          {/* Patient Type Selector */}
+          <div className="ml-[44px] flex items-center gap-[34px]">
+            {/* Out-patient */}
+            <label className="flex cursor-pointer items-center gap-[7px] select-none">
+              <input
+                type="radio"
+                name="patient-type"
+                value="out-patient"
+                checked={activeTab === "out-patient"}
+                onChange={() => onTabChange("out-patient")}
+                className="peer sr-only"
+              />
+
+              <span
+                className={[
+                  "relative flex h-[13px] w-[13px] items-center justify-center",
+                  "rounded-full border-[2px] transition-all shadow-2xs",
+                  activeTab === "out-patient"
+                    ? "border-[#1769ff] bg-white ring-2 ring-[#1769ff]/10"
+                    : "border-[#1769ff] bg-white",
+                ].join(" ")}
+              >
+                {activeTab === "out-patient" && (
+                  <span className="h-[6px] w-[6px] rounded-full bg-[#1769ff]" />
+                )}
+              </span>
+
+              <span
+                className={[
+                  "text-[10px] leading-[14px] tracking-wide",
+                  activeTab === "out-patient"
+                    ? "font-bold text-[#1769ff]"
+                    : "font-semibold text-[#1769ff]/80 hover:text-[#1769ff]",
+                ].join(" ")}
+              >
                 Out-patient
-              </label>
+              </span>
+            </label>
 
-              <label className="flex items-center gap-2 cursor-pointer text-sm font-medium text-slate-700">
-                <input
-                  type="radio"
-                  name="patient-type"
-                  checked={activeTab === "in-patient"}
-                  onChange={() => onTabChange("in-patient")}
-                  className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500"
-                />
+            {/* In-patient */}
+            <label className="flex cursor-pointer items-center gap-[7px] select-none">
+              <input
+                type="radio"
+                name="patient-type"
+                value="in-patient"
+                checked={activeTab === "in-patient"}
+                onChange={() => onTabChange("in-patient")}
+                className="peer sr-only"
+              />
+
+              <span
+                className={[
+                  "relative flex h-[13px] w-[13px] items-center justify-center",
+                  "rounded-full border-[2px] transition-all shadow-2xs",
+                  activeTab === "in-patient"
+                    ? "border-[#1769ff] bg-white ring-2 ring-[#1769ff]/10"
+                    : "border-[#1769ff] bg-white",
+                ].join(" ")}
+              >
+                {activeTab === "in-patient" && (
+                  <span className="h-[6px] w-[6px] rounded-full bg-[#1769ff]" />
+                )}
+              </span>
+
+              <span
+                className={[
+                  "text-[10px] leading-[14px] tracking-wide",
+                  activeTab === "in-patient"
+                    ? "font-bold text-[#1769ff]"
+                    : "font-semibold text-[#1769ff]/80 hover:text-[#1769ff]",
+                ].join(" ")}
+              >
                 In-patient
-              </label>
-            </div>
-          </div>
-
-          {/* Right: Search, Filter, Sort Pills */}
-          <div className="flex flex-wrap items-center gap-3">
-            <SearchBar
-              value={searchValue}
-              onChange={onSearchChange}
-              placeholder="Search"
-              className="w-full sm:w-auto"
-            />
-            <FilterDropdown
-              label="Filter"
-              selectedOption=""
-              options={statusOptions}
-              onSelect={() => {}}
-            />
-            <FilterDropdown
-              label="Sort by"
-              selectedOption=""
-              options={[
-                { label: "Name", value: "name" },
-                { label: "Date", value: "date" },
-              ]}
-              onSelect={() => {}}
-            />
+              </span>
+            </label>
           </div>
         </div>
 
-        {/* Secondary Filtering Toolbar Row */}
-        <div className="flex flex-wrap items-center gap-3 pt-4 border-t border-slate-100">
-          <FilterDropdown
-            label="Ward/Clinic"
-            selectedOption={selectedWard}
-            options={wardOptions}
-            onSelect={onWardSelect}
-          />
-
-          <FilterDropdown
-            label="Status"
-            selectedOption={selectedStatus}
-            options={statusOptions}
-            onSelect={onStatusSelect}
-          />
-
-          <FilterDropdown
-            label="Attending Doctor"
-            selectedOption={selectedDoctor}
-            options={doctorOptions}
-            onSelect={onDoctorSelect}
-          />
-
-          <FilterDropdown
-            label="Select date range"
-            selectedOption={dateRange}
-            options={dateOptions}
-            onSelect={onDateRangeSelect}
-          />
-        </div>
+        {/* ---------------------------------------------------------
+            RIGHT SIDE
+            Imported MasterFilterToolbar with expansion animations
+            --------------------------------------------------------- */}
+        <MasterFilterToolbar
+          showSearch={true}
+          searchValue={searchValue}
+          onSearchChange={onSearchChange}
+          searchPlaceholder="Search"
+          showFilter={true}
+          filterLabel={filterLabel}
+          filterOptions={[
+            { label: "All Status", value: "all" },
+            { label: "Critical", value: "critical" },
+            { label: "Stable", value: "stable" },
+            { label: "Recovering", value: "recovering" },
+          ]}
+          onFilterSelect={(value, label) => {
+            setFilterLabel(label);
+            onStatusSelect(value);
+          }}
+          showSort={true}
+          sortLabel={sortLabel}
+          sortOptions={[
+            { label: "Name (A-Z)", value: "name_asc" },
+            { label: "Newest Admitted", value: "date_desc" },
+            { label: "Room No.", value: "room" },
+          ]}
+          onSortSelect={(value, label) => {
+            setSortLabel(label);
+            // Hook up your sorting state/logic here using value
+          }}
+        />
       </div>
-    </div>
+
+      {/* =========================================================
+          FILTER ROW
+          ========================================================= */}
+      <div className="mt-[17px] flex h-[47px] w-full items-center rounded-[7px] bg-white px-[10px]">
+        {/* Ward / Clinic */}
+        <button
+          type="button"
+          onClick={() => onWardSelect(selectedWard)}
+          className="flex h-[25px] items-center gap-[5px] rounded-[4px] bg-[#f0f6ff] px-[10px] text-[9px] leading-none cursor-pointer font-medium"
+        >
+          <span className="font-normal text-[#7d8795]">Ward/Clinic:</span>
+
+          <span className="font-semibold text-[#26364a]">
+            {selectedWard || "All Wards"}
+          </span>
+
+          <ChevronDown
+            className="ml-[1px] h-[10px] w-[10px] text-[#718096]"
+            strokeWidth={1.8}
+          />
+        </button>
+
+        {/* Status */}
+        <button
+          type="button"
+          onClick={() => onStatusSelect(selectedStatus)}
+          className="ml-[9px] flex h-[25px] items-center gap-[5px] rounded-[4px] bg-[#f0f6ff] px-[10px] text-[9px] leading-none cursor-pointer font-medium"
+        >
+          <span className="font-normal text-[#7d8795]">Status:</span>
+
+          <span className="font-semibold text-[#26364a]">
+            {selectedStatus || "All Patients"}
+          </span>
+
+          <ChevronDown
+            className="ml-[1px] h-[10px] w-[10px] text-[#718096]"
+            strokeWidth={1.8}
+          />
+        </button>
+
+        {/* Attending Doctor */}
+        <button
+          type="button"
+          onClick={() => onDoctorSelect(selectedDoctor)}
+          className="ml-[9px] flex h-[25px] items-center gap-[5px] rounded-[4px] bg-[#f0f6ff] px-[10px] text-[9px] leading-none cursor-pointer font-medium"
+        >
+          <span className="font-normal text-[#7d8795]">Attending Doctor:</span>
+
+          <span className="font-semibold text-[#26364a]">
+            {selectedDoctor || "Dr. Sarah Jenkins"}
+          </span>
+
+          <ChevronDown
+            className="ml-[1px] h-[10px] w-[10px] text-[#718096]"
+            strokeWidth={1.8}
+          />
+        </button>
+
+        {/* Date Range */}
+        <button
+          type="button"
+          onClick={() => onDateRangeSelect(dateRange)}
+          className="ml-[9px] flex h-[25px] items-center gap-[6px] rounded-[4px] bg-[#f0f6ff] px-[10px] text-[9px] leading-none cursor-pointer font-medium"
+        >
+          <Calendar
+            className="h-[11px] w-[11px] text-[#596b80]"
+            strokeWidth={1.8}
+          />
+
+          <span
+            className={
+              dateRange
+                ? "font-semibold text-[#26364a]"
+                : "font-normal text-[#64748b]"
+            }
+          >
+            {dateRange || "Select date range"}
+          </span>
+        </button>
+      </div>
+    </section>
   );
 }

@@ -4,7 +4,7 @@
 import { Users, ArrowUpRight, ShieldAlert, Info, Loader2 } from "lucide-react";
 import { AreaChart, Area, ResponsiveContainer } from "recharts";
 import { useDashboardData } from "@/hooks/dashboard_hooks/useDashboardData";
-import { SearchBar, FilterDropdown } from "@/components/ui/FilterTools";
+import { MasterFilterToolbar } from "@/components/tools/filterTools";
 import { useState } from "react";
 
 // Dynamic chart data points derived or scaled from metric properties
@@ -27,14 +27,14 @@ export function DashboardMetricsGrid() {
   // State for the filter tools
   const [searchQuery, setSearchQuery] = useState("");
   const [timeFilter, setTimeFilter] = useState("Monthly");
+  const [timeFilterValue, setTimeFilterValue] = useState("monthly");
 
   if (isLoading) {
     return (
       <div className="space-y-6 w-full">
         {/* Loading state filter placeholder bar */}
-        <div className="flex items-center justify-end gap-3 w-full">
+        <div className="flex items-center justify-end w-full">
           <div className="w-72 h-10 bg-slate-100 rounded-full animate-pulse" />
-          <div className="w-36 h-10 bg-slate-100 rounded-full animate-pulse" />
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6 w-full">
           {[1, 2, 3, 4].map((i) => (
@@ -63,23 +63,28 @@ export function DashboardMetricsGrid() {
 
   return (
     <div className="space-y-6 w-full">
-      {/* Search and Filter Toolbar Row */}
-      <div className="flex items-center justify-end gap-3 w-full">
-        <SearchBar
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Search"
-        />
-        <FilterDropdown
-          label="Monthly"
-          selectedOption={timeFilter}
-          options={[
+      {/* Search and Filter Toolbar Row using MasterFilterToolbar */}
+      <div className="flex items-center justify-end w-full">
+        <MasterFilterToolbar
+          showSearch={true}
+          searchValue={searchQuery}
+          onSearchChange={(e) => setSearchQuery(e.target.value)}
+          searchPlaceholder="Search"
+          showFilter={true}
+          filterLabel={timeFilter}
+          filterOptions={[
             { label: "Daily", value: "daily" },
             { label: "Weekly", value: "weekly" },
             { label: "Monthly", value: "monthly" },
             { label: "Yearly", value: "yearly" },
           ]}
-          onSelect={(val) => setTimeFilter(val)}
+          onFilterSelect={(val, label) => {
+            // Update both the value for your query hooks and the display label
+            setTimeFilterValue(val);
+            setTimeFilter(label);
+            // TODO: Pass timeFilterValue into your useDashboardData hook params when ready!
+          }}
+          showSort={false} // Hidden for this view as requested
         />
       </div>
 
@@ -294,9 +299,9 @@ export function DashboardMetricsGrid() {
             </div>
           </div>
         </div>
-        {/* Card 4: Top Treatment (Exact Rectangular Match) */}
+
+        {/* Card 4: Top Treatment */}
         <div className="bg-white p-6 sm:p-7 rounded-[2rem] border border-blue-100/60 shadow-xs flex flex-col justify-between">
-          {/* Top Row: Icon + Title on left, View All on far right */}
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-3 min-w-0">
               <div className="h-10 w-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
@@ -311,7 +316,6 @@ export function DashboardMetricsGrid() {
             </button>
           </div>
 
-          {/* Main Count & Inline Pill Badge */}
           <div className="flex items-center gap-3 mb-4">
             <span className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
               {topTreatments.count}
@@ -321,11 +325,10 @@ export function DashboardMetricsGrid() {
             </span>
           </div>
 
-          {/* Category Legends Row */}
           <div className="grid grid-cols-3 gap-2 mb-3 text-xs font-medium text-slate-500">
             <div className="flex items-center gap-1.5 truncate">
               <span className="h-2 w-2 rounded-full bg-blue-600 shrink-0" />
-              <span className="truncate">Sugery</span>
+              <span className="truncate">Surgery</span>
             </div>
             <div className="flex items-center gap-1.5 truncate">
               <span className="h-2 w-2 rounded-full bg-blue-200 shrink-0" />
@@ -337,32 +340,28 @@ export function DashboardMetricsGrid() {
             </div>
           </div>
 
-          {/* Split Metric Columns with Dashed Dividers & Rectangular Bars */}
           <div className="grid grid-cols-3 gap-2 pt-1">
-            {/* Column 1: Surgery */}
             <div className="flex flex-col gap-2 relative pr-1">
               <div className="absolute right-0 top-1 bottom-1 w-[1px] border-r border-dashed border-slate-200 hidden sm:block" />
               <span className="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight">
                 200
               </span>
-              <div className="h-10 w-full rounded-xl bg-blue-600 shadow-xs flex items-center justify-center transition-all" />
+              <div className="h-10 w-full rounded-xl bg-blue-600 shadow-xs flex items-center justify-center" />
             </div>
 
-            {/* Column 2: Consultation */}
             <div className="flex flex-col gap-2 relative px-1">
               <div className="absolute right-0 top-1 bottom-1 w-[1px] border-r border-dashed border-slate-200 hidden sm:block" />
               <span className="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight">
                 40
               </span>
-              <div className="h-10 w-full rounded-xl bg-blue-100/80 flex items-center justify-center transition-all" />
+              <div className="h-10 w-full rounded-xl bg-blue-100/80 flex items-center justify-center" />
             </div>
 
-            {/* Column 3: Diagnosis */}
             <div className="flex flex-col gap-2 relative pl-1">
               <span className="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight">
                 80
               </span>
-              <div className="h-10 w-full rounded-xl bg-slate-100/90 flex items-center justify-center transition-all" />
+              <div className="h-10 w-full rounded-xl bg-slate-100/90 flex items-center justify-center" />
             </div>
           </div>
         </div>
