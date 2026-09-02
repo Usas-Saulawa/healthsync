@@ -3,8 +3,8 @@
 
 import { useState } from "react";
 import { Header } from "@/components/dashboard_components/Header";
-import { PatientFiltersHeader } from "@/components/patients_components/PatientFiltersHeader";
-import { PatientTable } from "@/components/patients_components/PatientTable";
+import { PatientFiltersHeader } from "@/components/patients_components/headers/PatientFiltersHeader";
+import { PatientTable } from "@/components/patients_components/table/PatientTable";
 import { mockPatientsList } from "@/mock/mockDashboardData";
 
 export default function PatientsPage() {

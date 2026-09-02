@@ -1,7 +1,8 @@
-// components/patients_components/PatientTable.tsx
+// components/patients_components/table/PatientTable.tsx
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { ArrowUpDown } from "lucide-react";
 import { PatientListItem } from "@/lib/validations/dashboard";
 
@@ -21,6 +22,7 @@ export function PatientTable({
   onPageChange,
 }: PatientTableProps) {
   const [selectedIds, setSelectedIds] = useState<(string | number)[]>([]);
+  const router = useRouter();
 
   // Select or clear all patients currently shown on this page.
   const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -132,8 +134,11 @@ export function PatientTable({
               return (
                 <div
                   key={patient.id}
+                  onClick={() =>
+                    router.push(`/dashboard/patients/${patient.id}`)
+                  }
                   className={[
-                    "grid h-[50px]",
+                    "grid h-[50px] cursor-pointer",
                     "grid-cols-[44px_1.42fr_1.15fr_0.9fr_1.15fr_1.55fr_1fr_0.95fr]",
                     "items-center",
                     "px-[8px]",
@@ -144,8 +149,11 @@ export function PatientTable({
                       : "bg-[#EDF6FF] hover:bg-[#E8F3FF]",
                   ].join(" ")}
                 >
-                  {/* Row checkbox */}
-                  <div className="flex items-center">
+                  {/* Row checkbox - Stops propagation so clicking checkbox doesn't trigger row navigation */}
+                  <div
+                    className="flex items-center"
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     <input
                       type="checkbox"
                       aria-label={`Select patient ${patient.name}`}
@@ -257,7 +265,7 @@ export function PatientTable({
               <button
                 type="button"
                 onClick={() =>
-                  onPageNumberHandler(Math.min(totalPages, currentPage + 1))
+                  onPageChange?.(Math.min(totalPages, currentPage + 1))
                 }
                 disabled={currentPage === totalPages}
                 className="flex h-[35px] items-center justify-center rounded-[6px] border border-[#E1E6ED] bg-white px-[15px] text-[12px] font-medium text-[#1E293B] transition-colors hover:bg-[#F7F9FC] disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"

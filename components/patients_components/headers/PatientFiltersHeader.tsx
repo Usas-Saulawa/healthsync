@@ -1,4 +1,4 @@
-// components/patients/PatientFiltersHeader.tsx
+// components/patients_components/headers/PatientFiltersHeader.tsx
 "use client";
 
 import { Calendar, ChevronDown } from "lucide-react";
