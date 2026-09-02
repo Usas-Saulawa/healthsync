@@ -25,9 +25,9 @@ const mockPatient: PatientProfile = {
   patientId: "40600",
   age: 29,
   sex: "Male",
-  bloodGroup: "Male",
+  bloodGroup: "O+",
   height: "180cm",
-  primaryPhysician: "180cm",
+  primaryPhysician: "Dr. Sarah Jenkins",
   admissionType: "In-Patient",
   riskLevel: "High Risk",
 };
@@ -36,105 +36,96 @@ export function PatientsProfileHeader({
   patient = mockPatient,
 }: PatientsProfileHeaderProps) {
   return (
-    <section className="w-full px-0">
-      <div className="relative flex h-[76px] w-full items-center rounded-[8px] bg-white px-[16px]">
-        {/* Patient photo */}
-        <div className="relative flex h-[48px] w-[48px] shrink-0 items-center justify-center">
-          <div className="flex h-[48px] w-[48px] items-center justify-center overflow-hidden rounded-[7px] bg-[#FFF3A8]">
-            {/* Temporary patient avatar. Replace this with the real patient image later. */}
+    /* Outer section wrapper using matching horizontal padding (px-4 sm:px-6) to align perfectly with the top navigation pill */
+    <section className="w-full px-4 sm:px-6">
+      <div className="relative flex h-[84px] w-full items-center rounded-2xl bg-white px-6 shadow-xs border border-blue-100/60">
+        {/* Patient photo & Admission Badge Container */}
+        <div className="relative flex shrink-0 items-center justify-center mr-4">
+          <div className="flex h-[52px] w-[52px] items-center justify-center overflow-hidden rounded-xl bg-[#FFF2A8] shadow-2xs">
             <svg
-              viewBox="0 0 48 48"
-              className="h-[45px] w-[45px]"
+              className="w-full h-full text-[#4B2200] mt-1.5"
+              viewBox="0 0 36 36"
+              fill="currentColor"
               aria-hidden="true"
             >
-              <circle cx="24" cy="17" r="9" fill="#321500" />
-              <path
-                d="M13 42c.7-9.1 5.2-14 11-14s10.3 4.9 11 14"
-                fill="#321500"
-              />
-              <path
-                d="M15.5 16.5c.4-6.2 4-10 8.8-10 5.3 0 8.7 4 8.7 9.5-.8-1.3-2.3-2.5-4.4-3.1-3.1 2.2-7.6 3.1-13.1 3.6Z"
-                fill="#170B02"
-              />
-              <circle cx="20.5" cy="18" r="1" fill="#fff" />
-              <circle cx="27.5" cy="18" r="1" fill="#fff" />
-              <path
-                d="M21 22.5c1.7 1.3 4.3 1.3 6 0"
-                stroke="#170B02"
-                strokeWidth="1.2"
-                strokeLinecap="round"
-              />
+              <path d="M18 16c3.313 0 6-2.687 6-6s-2.687-6-6-6-6 2.687-6 6 2.687 6 6 6zm0 3c-4.418 0-12 2.239-12 6.667V30h24v-4.333C30 21.239 22.418 19 18 19z" />
             </svg>
           </div>
 
-          {/* Admission type badge */}
-          <span className="absolute -bottom-[4px] left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-[4px] bg-[#1769FF] px-[7px] py-[2px] text-[8px] font-medium leading-[10px] text-white">
+          {/* Admission type badge cleanly anchored below the avatar */}
+          <span className="absolute -bottom-2 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-md bg-[#1769FF] px-2 py-0.5 text-[9px] font-semibold leading-none text-white shadow-xs">
             {patient.admissionType}
           </span>
         </div>
 
-        {/* Patient information */}
-        <div className="ml-[13px] min-w-0 flex-1 self-stretch py-[15px]">
-          {/* Name and risk */}
-          <div className="flex h-[21px] items-start gap-[10px]">
-            <h2 className="truncate text-[14px] font-bold leading-[18px] text-[#111827]">
+        {/* Patient information stack */}
+        <div className="min-w-0 flex-1 flex flex-col justify-center gap-1.5">
+          {/* Name and risk badge */}
+          <div className="flex items-center gap-3">
+            <h2 className="truncate text-base font-bold tracking-tight text-slate-900">
               {patient.name}
             </h2>
 
-            <span className="mt-[1px] inline-flex h-[14px] shrink-0 items-center rounded-[3px] border border-[#F5C7C7] bg-[#FFF5F5] px-[6px] text-[7px] font-medium leading-none text-[#F04444]">
+            <span className="inline-flex h-5 items-center rounded-md border border-rose-200 bg-rose-50 px-2 text-[10px] font-semibold text-rose-600 shadow-2xs">
               {patient.riskLevel}
             </span>
           </div>
 
-          {/* Patient details */}
-          <div className="flex items-center gap-[10px] whitespace-nowrap text-[9px] leading-[13px]">
-            <div className="flex items-center gap-[3px]">
-              <span className="text-[#7B8798]">Patient ID:</span>
-              <span className="font-medium text-[#5F6C7D]">
+          {/* Patient metadata details row with refined typography colors */}
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-1 text-xs text-slate-500">
+            <div className="flex items-center gap-1.5">
+              <span className="font-normal text-slate-400">Patient ID:</span>
+              <span className="font-semibold text-slate-700">
                 {patient.patientId}
               </span>
             </div>
 
-            <div className="flex items-center gap-[3px]">
-              <span className="text-[#7B8798]">Age:</span>
-              <span className="font-medium text-[#5F6C7D]">{patient.age}</span>
+            <div className="flex items-center gap-1.5">
+              <span className="font-normal text-slate-400">Age:</span>
+              <span className="font-semibold text-slate-700">
+                {patient.age}
+              </span>
             </div>
 
-            <div className="flex items-center gap-[3px]">
-              <span className="text-[#7B8798]">Sex:</span>
-              <span className="font-medium text-[#5F6C7D]">{patient.sex}</span>
+            <div className="flex items-center gap-1.5">
+              <span className="font-normal text-slate-400">Sex:</span>
+              <span className="font-semibold text-slate-700">
+                {patient.sex}
+              </span>
             </div>
 
-            <div className="flex items-center gap-[3px]">
-              <span className="text-[#7B8798]">Blood group:</span>
-              <span className="font-medium text-[#5F6C7D]">
+            <div className="flex items-center gap-1.5">
+              <span className="font-normal text-slate-400">Blood group:</span>
+              <span className="font-semibold text-slate-700">
                 {patient.bloodGroup}
               </span>
             </div>
 
-            <div className="flex items-center gap-[3px]">
-              <span className="text-[#7B8798]">Height:</span>
-              <span className="font-medium text-[#5F6C7D]">
+            <div className="flex items-center gap-1.5">
+              <span className="font-normal text-slate-400">Height:</span>
+              <span className="font-semibold text-slate-700">
                 {patient.height}
               </span>
             </div>
 
-            <div className="flex items-center gap-[3px]">
-              <span className="text-[#7B8798]">Primary Physician:</span>
-              <span className="font-medium text-[#5F6C7D]">
+            <div className="flex items-center gap-1.5">
+              <span className="font-normal text-slate-400">
+                Primary Physician:
+              </span>
+              <span className="font-semibold text-slate-700">
                 {patient.primaryPhysician}
               </span>
             </div>
           </div>
         </div>
 
-        {/* More options */}
+        {/* More options button */}
         <button
           type="button"
           aria-label="Patient options"
-          className="ml-auto flex h-[30px] w-[30px] shrink-0 items-center justify-center rounded-full text-[#64748B] transition-colors hover:bg-[#F4F7FB] hover:text-[#334155]"
+          className="ml-4 flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-900 cursor-pointer"
         >
-          <MoreVertical className="h-[16px] w-[16px]" strokeWidth={2} />
+          <MoreVertical className="h-5 w-5" strokeWidth={2} />
         </button>
       </div>
     </section>
