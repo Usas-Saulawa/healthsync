@@ -122,6 +122,7 @@ export async function POST(request: NextRequest) {
         success: true,
         message: "Device verified. Password change required",
         data: {
+          requiresAccountActivation: false,
           requiresPasswordChange: true,
           requiresDeviceVerification: false,
           user: {
@@ -146,6 +147,7 @@ export async function POST(request: NextRequest) {
       success: true,
       message: "Device verified and login successful",
       data: {
+        requiresAccountActivation: false,
         requiresPasswordChange: false,
         requiresDeviceVerification: false,
         user: {

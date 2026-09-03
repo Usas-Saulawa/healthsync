@@ -39,7 +39,7 @@ async function main() {
     data: {
       hospitalId: hospital.id,
       departmentId: department.id,
-      email: "admin@healthsync.local",
+      email: "aliyubinahmad2022@gmail.com",
       passwordHash,
       firstName: "System",
       lastName: "Administrator",

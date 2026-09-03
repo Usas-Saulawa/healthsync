@@ -89,6 +89,23 @@ export const openApiSpec = {
         },
       },
 
+      AccountActivationRequestInput: {
+        type: "object",
+        required: ["userId"],
+        properties: {
+          userId: { type: "string", format: "uuid", example: "14b64474-576a-41c8-9293-8343da2700f5" },
+        },
+      },
+
+      AccountActivationVerifyInput: {
+        type: "object",
+        required: ["userId", "code"],
+        properties: {
+          userId: { type: "string", format: "uuid", example: "14b64474-576a-41c8-9293-8343da2700f5" },
+          code: { type: "string", pattern: "^[0-9]{6}$", minLength: 6, maxLength: 6, example: "123456" },
+        },
+      },
+
       VerifyInput: {
         type: "object",
         required: ["userId", "code"],
@@ -1026,6 +1043,52 @@ MedicalHistoryListResponse: {
           },
           "401": {
             description: "Authentication required",
+          },
+        },
+      },
+    },
+
+    "/auth/activate/request": {
+      post: {
+        tags: ["Authentication"],
+        summary: "Request account activation code",
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: { $ref: "#/components/schemas/AccountActivationRequestInput" },
+            },
+          },
+        },
+        responses: {
+          "200": {
+            description: "Account activation code requested",
+          },
+          "404": {
+            description: "User not found",
+          },
+        },
+      },
+    },
+
+    "/auth/activate/verify": {
+      post: {
+        tags: ["Authentication"],
+        summary: "Verify account activation code",
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: { $ref: "#/components/schemas/AccountActivationVerifyInput" },
+            },
+          },
+        },
+        responses: {
+          "200": {
+            description: "Account activation successful",
+          },
+          "401": {
+            description: "Invalid or expired activation code",
           },
         },
       },

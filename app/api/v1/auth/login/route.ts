@@ -81,20 +81,35 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (!user.isActive) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "User account is inactive",
-        },
-        { status: 403 },
-      );
-    }
-
     const passwordValid = await argon2.verify(
       user.passwordHash,
       password,
     );
+
+    if (!user.isActive) {
+      return NextResponse.json(
+        {
+          success: true,
+          message: "Account activation required",
+          data: {
+            requiresAccountActivation: true,
+            requiresDeviceVerification: false,
+            requiresPasswordChange: false,
+            user: {
+              id: user.id,
+              staffId: user.staffId,
+              hospitalId: user.hospitalId,
+              departmentId: user.departmentId,
+              email: user.email,
+              firstName: user.firstName,
+              lastName: user.lastName,
+              role: user.role,
+            },
+          },
+        },
+        { status: 200 },
+      );
+    }
 
     if (!passwordValid) {
       return NextResponse.json(
@@ -131,6 +146,7 @@ export async function POST(request: NextRequest) {
           ? "Password change required"
           : "Device verification required",
         data: {
+          requiresAccountActivation: false,
           requiresPasswordChange: true,
           requiresDeviceVerification: !trustedDevice,
           user: {
@@ -160,6 +176,7 @@ export async function POST(request: NextRequest) {
         success: true,
         message: "Login successful",
         data: {
+          requiresAccountActivation: false,
           requiresPasswordChange: false,
           requiresDeviceVerification: false,
           user: {
@@ -190,6 +207,7 @@ export async function POST(request: NextRequest) {
       success: true,
       message: "Device verification required",
       data: {
+        requiresAccountActivation: false,
         requiresPasswordChange: false,
         requiresDeviceVerification: true,
         user: {
