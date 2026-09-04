@@ -1153,8 +1153,34 @@ MedicalHistoryListResponse: {
       },
       get: {
         tags: ["Encounter"], summary: "List patient encounters", security: [{ sessionCookie: [] }],
-        parameters: [{ name: "patientId", in: "path", required: true, schema: { type: "string", format: "uuid" } }, { name: "page", in: "query", schema: { type: "integer", minimum: 1 } }, { name: "limit", in: "query", schema: { type: "integer", minimum: 1, maximum: 100 } }],
+        parameters: [{ name: "patientId", in: "path", required: true, schema: { type: "string", format: "uuid" } }, { name: "page", in: "query", schema: { type: "integer", minimum: 1 } }, { name: "limit", in: "query", schema: { type: "integer", minimum: 1, maximum: 100 } }, { name: "search", in: "query", schema: { type: "string" } }, { name: "type", in: "query", schema: { type: "string", enum: ["OUTPATIENT", "INPATIENT", "EMERGENCY", "FOLLOW_UP"] } }, { name: "status", in: "query", schema: { type: "string", enum: ["OPEN", "LOCKED", "COMPLETED", "CANCELLED"] } }, { name: "dateFrom", in: "query", schema: { type: "string", format: "date-time" } }, { name: "dateTo", in: "query", schema: { type: "string", format: "date-time" } }],
         responses: { "200": { description: "Encounter history" }, "404": { description: "Patient not found" } },
+      },
+    },
+
+    "/patients/{patientId}/vitals": {
+      get: {
+        tags: ["Patients"], summary: "List patient vitals", security: [{ sessionCookie: [] }],
+        parameters: [{ name: "patientId", in: "path", required: true, schema: { type: "string", format: "uuid" } }, { name: "page", in: "query", schema: { type: "integer", minimum: 1 } }, { name: "limit", in: "query", schema: { type: "integer", minimum: 1, maximum: 100 } }, { name: "dateFrom", in: "query", schema: { type: "string", format: "date-time" } }, { name: "dateTo", in: "query", schema: { type: "string", format: "date-time" } }, { name: "sortOrder", in: "query", schema: { type: "string", enum: ["asc", "desc"] } }],
+        responses: { "200": { description: "Paginated vital records, summaries, and trends" }, "400": { description: "Invalid filters" }, "401": { description: "Authentication required" }, "404": { description: "Patient not found" } },
+      },
+      post: {
+        tags: ["Patients"], summary: "Record patient vitals", security: [{ sessionCookie: [] }],
+        parameters: [{ name: "patientId", in: "path", required: true, schema: { type: "string", format: "uuid" } }],
+        requestBody: { required: true, content: { "application/json": { schema: { type: "object", properties: { encounterId: { type: "string", format: "uuid" }, recordedAt: { type: "string", format: "date-time" }, weightKg: { type: "number" }, temperatureC: { type: "number" }, heartRate: { type: "integer" }, oxygenSaturation: { type: "number" }, systolicBp: { type: "integer" }, diastolicBp: { type: "integer" }, respiratoryRate: { type: "integer", description: "Breaths per minute" }, glucoseMgDl: { type: "number" } } } } } },
+        responses: { "201": { description: "Vital record created" }, "400": { description: "Invalid vital data" }, "403": { description: "Not authorized" }, "404": { description: "Patient not found" } },
+      },
+    },
+
+    "/patients/{patientId}/vitals/{vitalId}": {
+      get: {
+        tags: ["Patients"], summary: "Get vital detail", security: [{ sessionCookie: [] }], parameters: [{ name: "patientId", in: "path", required: true, schema: { type: "string", format: "uuid" } }, { name: "vitalId", in: "path", required: true, schema: { type: "string", format: "uuid" } }], responses: { "200": { description: "Vital detail" }, "401": { description: "Authentication required" }, "404": { description: "Vital record not found" } },
+      },
+    },
+
+    "/patients/{patientId}/vitals/export": {
+      get: {
+        tags: ["Patients"], summary: "Export patient vitals as CSV", security: [{ sessionCookie: [] }], parameters: [{ name: "patientId", in: "path", required: true, schema: { type: "string", format: "uuid" } }, { name: "dateFrom", in: "query", schema: { type: "string", format: "date-time" } }, { name: "dateTo", in: "query", schema: { type: "string", format: "date-time" } }], responses: { "200": { description: "CSV vital export", content: { "text/csv": {} } }, "400": { description: "Invalid date filters" }, "404": { description: "Patient not found" } },
       },
     },
 

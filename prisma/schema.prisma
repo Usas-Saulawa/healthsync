@@ -92,6 +92,7 @@ model User {
   ordersAsOrderingProvider  Order[]            @relation("OrderingProviderOrders")
   lockedEncounters          Encounter[]        @relation("EncounterLockedBy")
   nurseNotesAsAuthor        NurseNote[]        @relation("NurseNoteAuthor")
+  vitalsRecorded            Vital[]            @relation("VitalRecordedBy")
 
   @@index([hospitalId])
   @@index([departmentId])
@@ -473,9 +474,10 @@ model Treatment {
 }
 
 model Vital {
-  id          String  @id @default(uuid())
-  patientId   String
-  encounterId String?
+  id           String  @id @default(uuid())
+  patientId    String
+  encounterId  String?
+  recordedById String?
 
   recordedAt DateTime @default(now())
 
@@ -485,13 +487,17 @@ model Vital {
   oxygenSaturation Float?
   systolicBp       Int?
   diastolicBp      Int?
+  respiratoryRate  Int?
   glucoseMgDl      Float?
 
-  patient   Patient    @relation(fields: [patientId], references: [id], onDelete: Restrict)
-  encounter Encounter? @relation(fields: [encounterId], references: [id], onDelete: SetNull)
+  patient    Patient     @relation(fields: [patientId], references: [id], onDelete: Restrict)
+  encounter  Encounter?  @relation(fields: [encounterId], references: [id], onDelete: SetNull)
+  recordedBy User?       @relation("VitalRecordedBy", fields: [recordedById], references: [id], onDelete: SetNull)
+  nurseNotes NurseNote[]
 
   @@index([patientId])
   @@index([encounterId])
+  @@index([recordedById])
   @@index([recordedAt])
 }
 
@@ -639,6 +645,7 @@ model NurseNote {
   id          String   @id @default(uuid())
   patientId   String
   encounterId String
+  vitalId     String?
   hospitalId  String
   authorId    String
   content     String
@@ -647,11 +654,13 @@ model NurseNote {
 
   patient   Patient   @relation(fields: [patientId], references: [id], onDelete: Restrict)
   encounter Encounter @relation(fields: [encounterId], references: [id], onDelete: Restrict)
+  vital     Vital?    @relation(fields: [vitalId], references: [id], onDelete: SetNull)
   hospital  Hospital  @relation(fields: [hospitalId], references: [id], onDelete: Restrict)
   author    User      @relation("NurseNoteAuthor", fields: [authorId], references: [id], onDelete: Restrict)
 
   @@index([patientId])
   @@index([encounterId])
+  @@index([vitalId])
   @@index([hospitalId])
   @@index([authorId])
   @@index([createdAt])
