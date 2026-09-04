@@ -29,6 +29,10 @@ export const openApiSpec = {
       description: "Patient management and patient records",
     },
     {
+      name: "Encounter",
+      description: "Clinical encounter workspace and related orders",
+    },
+    {
       name: "Departments",
       description: "Hospital department management",
     },
@@ -1137,6 +1141,91 @@ MedicalHistoryListResponse: {
             description: "Invalid verification data",
           },
         },
+      },
+    },
+
+    "/patients/{patientId}/encounters": {
+      post: {
+        tags: ["Encounter"], summary: "Create a draft encounter", security: [{ sessionCookie: [] }],
+        parameters: [{ name: "patientId", in: "path", required: true, schema: { type: "string", format: "uuid" } }],
+        requestBody: { required: false, content: { "application/json": { schema: { type: "object", required: ["type"], properties: { type: { type: "string", enum: ["OUTPATIENT", "INPATIENT", "EMERGENCY", "FOLLOW_UP"] }, startedAt: { type: "string", format: "date-time" } } } } } },
+        responses: { "201": { description: "Encounter created" }, "400": { description: "Invalid encounter data" }, "403": { description: "Not authorized" }, "404": { description: "Patient not found" } },
+      },
+      get: {
+        tags: ["Encounter"], summary: "List patient encounters", security: [{ sessionCookie: [] }],
+        parameters: [{ name: "patientId", in: "path", required: true, schema: { type: "string", format: "uuid" } }, { name: "page", in: "query", schema: { type: "integer", minimum: 1 } }, { name: "limit", in: "query", schema: { type: "integer", minimum: 1, maximum: 100 } }],
+        responses: { "200": { description: "Encounter history" }, "404": { description: "Patient not found" } },
+      },
+    },
+
+    "/encounters/{id}": {
+      get: {
+        tags: ["Encounter"], summary: "Get encounter workspace", security: [{ sessionCookie: [] }],
+        parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }],
+        responses: { "200": { description: "Complete encounter workspace" }, "404": { description: "Encounter not found" } },
+      },
+      patch: {
+        tags: ["Encounter"], summary: "Save encounter draft", security: [{ sessionCookie: [] }],
+        parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }],
+        requestBody: { required: true, content: { "application/json": { schema: { type: "object", properties: { chiefComplaint: { type: "string" }, objective: { type: "string" }, subjective: { type: "string" }, assessmentPlan: { type: "string" }, clinicalNote: { type: "string" }, endedAt: { type: "string", format: "date-time", nullable: true } } } } } },
+        responses: { "200": { description: "Draft saved" }, "400": { description: "Invalid encounter data" }, "403": { description: "Not authorized" }, "409": { description: "Encounter is locked" } },
+      },
+    },
+
+    "/encounters/{id}/lock": {
+      patch: {
+        tags: ["Encounter"], summary: "Lock and sign encounter note", security: [{ sessionCookie: [] }],
+        parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }],
+        requestBody: { required: true, content: { "application/json": { schema: { type: "object", required: ["confirmation"], properties: { confirmation: { type: "boolean", enum: [true] } } } } } },
+        responses: { "200": { description: "Encounter locked" }, "400": { description: "Confirmation required" }, "403": { description: "Not authorized" }, "404": { description: "Encounter not found" }, "409": { description: "Already locked or not open" } },
+      },
+    },
+
+    "/encounters/{id}/orders": {
+      get: {
+        tags: ["Encounter"], summary: "List encounter orders", security: [{ sessionCookie: [] }],
+        parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }, { name: "page", in: "query", schema: { type: "integer" } }, { name: "limit", in: "query", schema: { type: "integer", maximum: 100 } }],
+        responses: { "200": { description: "Orders" }, "404": { description: "Encounter not found" } },
+      },
+      post: {
+        tags: ["Encounter"], summary: "Request an order", security: [{ sessionCookie: [] }],
+        parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }],
+        requestBody: { required: true, content: { "application/json": { schema: { type: "object", required: ["type", "name"], properties: { type: { type: "string", enum: ["LABORATORY", "DIAGNOSTIC", "REFERRAL", "OTHER"] }, name: { type: "string" }, priority: { type: "string", enum: ["ROUTINE", "URGENT", "STAT", "ASAP"] }, indication: { type: "string" }, instructions: { type: "string" }, frequency: { type: "string" }, scheduledAt: { type: "string", format: "date-time", nullable: true } } } } } },
+        responses: { "201": { description: "Order requested" }, "400": { description: "Invalid order" }, "403": { description: "Not authorized" }, "409": { description: "Encounter is locked" } },
+      },
+    },
+
+    "/encounters/{id}/prescriptions": {
+      get: {
+        tags: ["Encounter"], summary: "List encounter prescriptions", security: [{ sessionCookie: [] }],
+        parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }, { name: "page", in: "query", schema: { type: "integer" } }, { name: "limit", in: "query", schema: { type: "integer", maximum: 100 } }],
+        responses: { "200": { description: "Prescriptions" }, "404": { description: "Encounter not found" } },
+      },
+      post: {
+        tags: ["Encounter"], summary: "Submit a prescription", security: [{ sessionCookie: [] }],
+        parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }],
+        requestBody: { required: true, content: { "application/json": { schema: { type: "object", required: ["medicationName", "dosage", "route", "frequency", "duration", "durationUnit", "quantity"], properties: { medicationName: { type: "string" }, dosage: { type: "string" }, route: { type: "string" }, frequency: { type: "string" }, duration: { type: "integer", minimum: 1 }, durationUnit: { type: "string" }, quantity: { type: "integer", minimum: 1 }, refills: { type: "integer", minimum: 0 }, reason: { type: "string" }, notes: { type: "string" } } } } } },
+        responses: { "201": { description: "Prescription submitted" }, "400": { description: "Invalid prescription" }, "403": { description: "Not authorized" }, "409": { description: "Encounter is locked" } },
+      },
+    },
+
+    "/encounters/{id}/follow-ups": {
+      get: {
+        tags: ["Encounter"], summary: "List encounter follow-ups", security: [{ sessionCookie: [] }], parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }], responses: { "200": { description: "Follow-ups" }, "404": { description: "Encounter not found" } },
+      },
+      post: {
+        tags: ["Encounter"], summary: "Request a follow-up", security: [{ sessionCookie: [] }], parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }],
+        requestBody: { required: true, content: { "application/json": { schema: { type: "object", required: ["type", "departmentId", "providerId", "preferredDate", "reason"], properties: { type: { type: "string" }, departmentId: { type: "string", format: "uuid" }, providerId: { type: "string", format: "uuid" }, priority: { type: "string", enum: ["ROUTINE", "URGENT", "ASAP"] }, preferredDate: { type: "string", format: "date-time" }, reason: { type: "string" }, specialInstructions: { type: "string" } } } } } },
+        responses: { "201": { description: "Follow-up requested" }, "400": { description: "Invalid follow-up or provider" }, "403": { description: "Not authorized" }, "409": { description: "Encounter is locked" } },
+      },
+    },
+
+    "/encounters/{id}/nurse-notes": {
+      get: {
+        tags: ["Encounter"], summary: "List nurse notes", security: [{ sessionCookie: [] }], parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }], responses: { "200": { description: "Nurse notes" }, "404": { description: "Encounter not found" } },
+      },
+      post: {
+        tags: ["Encounter"], summary: "Create a nurse note", security: [{ sessionCookie: [] }], parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }], requestBody: { required: true, content: { "application/json": { schema: { type: "object", required: ["content"], properties: { content: { type: "string" } } } } } }, responses: { "201": { description: "Nurse note created" }, "400": { description: "Invalid nurse note" }, "403": { description: "Nurse role required" }, "409": { description: "Encounter is locked" } },
       },
     },
 
