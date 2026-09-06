@@ -29,6 +29,10 @@ export const openApiSpec = {
       description: "Patient management and patient records",
     },
     {
+      name: "Medication",
+      description: "Prescription history and medication workflows",
+    },
+    {
       name: "Encounter",
       description: "Clinical encounter workspace and related orders",
     },
@@ -965,6 +969,49 @@ MedicalHistoryListResponse: {
         },
       },
 
+      PrescriptionStatus: {
+        type: "string",
+        enum: ["ACTIVE", "PAUSED", "DISCONTINUED", "COMPLETED"],
+      },
+
+      PrescriptionInput: {
+        type: "object",
+        required: ["medicationName", "dosage", "route", "frequency", "duration", "durationUnit", "quantity"],
+        properties: {
+          medicationName: { type: "string", minLength: 1, maxLength: 200 },
+          dosage: { type: "string", minLength: 1, maxLength: 200 },
+          route: { type: "string", minLength: 1, maxLength: 100 },
+          frequency: { type: "string", minLength: 1, maxLength: 100 },
+          duration: { type: "integer", minimum: 1, maximum: 3650 },
+          durationUnit: { type: "string", enum: ["DAY", "DAYS", "WEEK", "WEEKS", "MONTH", "MONTHS"] },
+          quantity: { type: "integer", minimum: 1, maximum: 100000 },
+          refills: { type: "integer", minimum: 0, maximum: 99, default: 0 },
+          pharmacyNotes: { type: "string", maxLength: 2000 },
+          notes: { type: "string", maxLength: 2000 },
+          reason: { type: "string", maxLength: 2000 },
+          encounterId: { type: "string", format: "uuid" },
+          diagnosisId: { type: "string", format: "uuid" },
+          startDate: { type: "string", format: "date-time" },
+          endDate: { type: "string", format: "date-time", nullable: true },
+        },
+      },
+
+      PrescriptionUpdateInput: {
+        type: "object",
+        minProperties: 1,
+        properties: {
+          dosage: { type: "string", minLength: 1, maxLength: 200 },
+          route: { type: "string", minLength: 1, maxLength: 100 },
+          frequency: { type: "string", minLength: 1, maxLength: 100 },
+          duration: { type: "integer", minimum: 1, maximum: 3650 },
+          durationUnit: { type: "string", enum: ["DAY", "DAYS", "WEEK", "WEEKS", "MONTH", "MONTHS"] },
+          quantity: { type: "integer", minimum: 1, maximum: 100000 },
+          notes: { type: "string", maxLength: 2000 },
+          pharmacyNotes: { type: "string", maxLength: 2000 },
+          reason: { type: "string", maxLength: 2000 },
+        },
+      },
+
   paths: {
     "/auth/login": {
       post: {
@@ -1181,6 +1228,73 @@ MedicalHistoryListResponse: {
     "/patients/{patientId}/vitals/export": {
       get: {
         tags: ["Patients"], summary: "Export patient vitals as CSV", security: [{ sessionCookie: [] }], parameters: [{ name: "patientId", in: "path", required: true, schema: { type: "string", format: "uuid" } }, { name: "dateFrom", in: "query", schema: { type: "string", format: "date-time" } }, { name: "dateTo", in: "query", schema: { type: "string", format: "date-time" } }], responses: { "200": { description: "CSV vital export", content: { "text/csv": {} } }, "400": { description: "Invalid date filters" }, "404": { description: "Patient not found" } },
+      },
+    },
+
+    "/patients/{patientId}/prescriptions": {
+      get: {
+        tags: ["Medication"],
+        summary: "List patient prescription history",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          { name: "patientId", in: "path", required: true, schema: { type: "string", format: "uuid" } },
+          { name: "page", in: "query", schema: { type: "integer", minimum: 1, default: 1 } },
+          { name: "limit", in: "query", schema: { type: "integer", minimum: 1, maximum: 100, default: 20 } },
+          { name: "search", in: "query", schema: { type: "string" } },
+          { name: "status", in: "query", schema: { $ref: "#/components/schemas/PrescriptionStatus" } },
+          { name: "dateFrom", in: "query", schema: { type: "string", format: "date-time" } },
+          { name: "dateTo", in: "query", schema: { type: "string", format: "date-time" } },
+          { name: "sortBy", in: "query", schema: { type: "string", enum: ["startDate", "endDate", "medicationName", "status", "createdAt"], default: "createdAt" } },
+          { name: "sortOrder", in: "query", schema: { type: "string", enum: ["asc", "desc"], default: "desc" } },
+        ],
+        responses: { "200": { description: "Paginated prescription history" }, "400": { description: "Invalid filter or sort value" }, "401": { description: "Authentication required" }, "404": { description: "Patient not found" } },
+      },
+      post: {
+        tags: ["Medication"],
+        summary: "Create a patient prescription",
+        security: [{ sessionCookie: [] }],
+        parameters: [{ name: "patientId", in: "path", required: true, schema: { type: "string", format: "uuid" } }],
+        requestBody: { required: true, content: { "application/json": { schema: { $ref: "#/components/schemas/PrescriptionInput" } } } },
+        responses: { "201": { description: "Prescription created" }, "400": { description: "Invalid prescription or relationship" }, "401": { description: "Authentication required" }, "403": { description: "Doctor role required" }, "404": { description: "Patient not found" } },
+      },
+    },
+
+    "/patients/{patientId}/prescriptions/export": {
+      get: {
+        tags: ["Medication"],
+        summary: "Export patient prescriptions as CSV",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          { name: "patientId", in: "path", required: true, schema: { type: "string", format: "uuid" } },
+          { name: "search", in: "query", schema: { type: "string" } },
+          { name: "status", in: "query", schema: { $ref: "#/components/schemas/PrescriptionStatus" } },
+          { name: "dateFrom", in: "query", schema: { type: "string", format: "date-time" } },
+          { name: "dateTo", in: "query", schema: { type: "string", format: "date-time" } },
+        ],
+        responses: { "200": { description: "CSV prescription export", content: { "text/csv": {} } }, "400": { description: "Invalid filters" }, "401": { description: "Authentication required" }, "404": { description: "Patient not found" } },
+      },
+    },
+
+    "/prescriptions/{id}": {
+      get: {
+        tags: ["Medication"], summary: "Get prescription details", security: [{ sessionCookie: [] }],
+        parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }],
+        responses: { "200": { description: "Prescription details" }, "401": { description: "Authentication required" }, "404": { description: "Prescription not found" } },
+      },
+      patch: {
+        tags: ["Medication"], summary: "Update editable prescription fields", security: [{ sessionCookie: [] }],
+        parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }],
+        requestBody: { required: true, content: { "application/json": { schema: { $ref: "#/components/schemas/PrescriptionUpdateInput" } } } },
+        responses: { "200": { description: "Prescription updated" }, "400": { description: "Invalid update" }, "403": { description: "Doctor role required" }, "404": { description: "Prescription not found" }, "409": { description: "Prescription is no longer editable" } },
+      },
+    },
+
+    "/prescriptions/{id}/discontinue": {
+      patch: {
+        tags: ["Medication"], summary: "Discontinue a prescription", security: [{ sessionCookie: [] }],
+        parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }],
+        requestBody: { required: false, content: { "application/json": { schema: { type: "object", properties: { reason: { type: "string", maxLength: 2000 } } } } } },
+        responses: { "200": { description: "Prescription discontinued" }, "400": { description: "Invalid discontinuation data" }, "403": { description: "Doctor role required" }, "404": { description: "Prescription not found" }, "409": { description: "Invalid prescription state transition" } },
       },
     },
 
