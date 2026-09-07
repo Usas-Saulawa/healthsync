@@ -1012,7 +1012,56 @@ MedicalHistoryListResponse: {
         },
       },
 
+      ClinicalNoteInput: {
+        type: "object",
+        required: ["notes"],
+        properties: { notes: { type: "string", minLength: 1, maxLength: 10000 } },
+      },
+
+      ClinicalResultFilters: {
+        type: "object",
+        properties: {
+          page: { type: "integer", minimum: 1, default: 1 },
+          limit: { type: "integer", minimum: 1, maximum: 100, default: 20 },
+          dateFrom: { type: "string", format: "date-time" },
+          dateTo: { type: "string", format: "date-time" },
+          search: { type: "string", maxLength: 200 },
+          type: { type: "string", maxLength: 50 },
+          status: { type: "string", maxLength: 50 },
+        },
+      },
+
   paths: {
+    "/patients/{id}/lab-results": {
+      get: {
+        tags: ["Patients"], summary: "List patient laboratory results", security: [{ sessionCookie: [] }],
+        parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }, { name: "page", in: "query", schema: { type: "integer", minimum: 1 } }, { name: "limit", in: "query", schema: { type: "integer", minimum: 1, maximum: 100 } }, { name: "dateFrom", in: "query", schema: { type: "string", format: "date-time" } }, { name: "dateTo", in: "query", schema: { type: "string", format: "date-time" } }, { name: "search", in: "query", schema: { type: "string" } }, { name: "type", in: "query", schema: { type: "string" } }, { name: "status", in: "query", schema: { type: "string" } }],
+        responses: { "200": { description: "Laboratory result history" }, "401": { description: "Authentication required" }, "403": { description: "Not authorized" }, "404": { description: "Patient not found" } },
+      },
+    },
+
+    "/lab-results/{id}": {
+      get: { tags: ["Patients"], summary: "Get laboratory result detail", security: [{ sessionCookie: [] }], parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }], responses: { "200": { description: "Laboratory result detail" }, "404": { description: "Result not found" } } },
+      patch: { tags: ["Patients"], summary: "Add laboratory clinical note", security: [{ sessionCookie: [] }], parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }], requestBody: { required: true, content: { "application/json": { schema: { $ref: "#/components/schemas/ClinicalNoteInput" } } } }, responses: { "200": { description: "Clinical note saved" }, "400": { description: "Invalid note" }, "403": { description: "Not authorized" } } },
+    },
+
+    "/lab-results/{id}/acknowledge": {
+      patch: { tags: ["Patients"], summary: "Acknowledge laboratory result", security: [{ sessionCookie: [] }], parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }], responses: { "200": { description: "Result acknowledged" }, "403": { description: "Doctor role required" }, "404": { description: "Result not found" } } },
+    },
+
+    "/patients/{id}/imaging-studies": {
+      get: { tags: ["Patients"], summary: "List patient imaging studies", security: [{ sessionCookie: [] }], parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }, { name: "page", in: "query", schema: { type: "integer", minimum: 1 } }, { name: "limit", in: "query", schema: { type: "integer", minimum: 1, maximum: 100 } }, { name: "dateFrom", in: "query", schema: { type: "string", format: "date-time" } }, { name: "dateTo", in: "query", schema: { type: "string", format: "date-time" } }, { name: "search", in: "query", schema: { type: "string" } }, { name: "type", in: "query", schema: { type: "string", description: "Modality" } }, { name: "status", in: "query", schema: { type: "string", enum: ["ORDERED", "IN_PROGRESS", "COMPLETED", "CANCELLED"] } }], responses: { "200": { description: "Imaging study history" }, "403": { description: "Not authorized" }, "404": { description: "Patient not found" } } },
+    },
+
+    "/imaging-studies/{id}": {
+      get: { tags: ["Patients"], summary: "Get imaging study detail", security: [{ sessionCookie: [] }], parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }], responses: { "200": { description: "Imaging study detail" }, "404": { description: "Study not found" } } },
+      patch: { tags: ["Patients"], summary: "Add imaging clinical note", security: [{ sessionCookie: [] }], parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }], requestBody: { required: true, content: { "application/json": { schema: { $ref: "#/components/schemas/ClinicalNoteInput" } } } }, responses: { "200": { description: "Clinical note saved" }, "403": { description: "Not authorized" } } },
+    },
+
+    "/imaging-studies/{id}/acknowledge": {
+      patch: { tags: ["Patients"], summary: "Acknowledge imaging result", security: [{ sessionCookie: [] }], parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }], responses: { "200": { description: "Imaging result acknowledged" }, "403": { description: "Doctor role required" }, "404": { description: "Study not found" } } },
+    },
+
     "/auth/login": {
       post: {
         tags: ["Authentication"],
@@ -1330,7 +1379,7 @@ MedicalHistoryListResponse: {
       post: {
         tags: ["Encounter"], summary: "Request an order", security: [{ sessionCookie: [] }],
         parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }],
-        requestBody: { required: true, content: { "application/json": { schema: { type: "object", required: ["type", "name"], properties: { type: { type: "string", enum: ["LABORATORY", "DIAGNOSTIC", "REFERRAL", "OTHER"] }, name: { type: "string" }, priority: { type: "string", enum: ["ROUTINE", "URGENT", "STAT", "ASAP"] }, indication: { type: "string" }, instructions: { type: "string" }, frequency: { type: "string" }, scheduledAt: { type: "string", format: "date-time", nullable: true } } } } } },
+        requestBody: { required: true, content: { "application/json": { schema: { type: "object", required: ["type", "name"], properties: { type: { type: "string", enum: ["LABORATORY", "DIAGNOSTIC", "REFERRAL", "OTHER"] }, name: { type: "string" }, priority: { type: "string", enum: ["ROUTINE", "URGENT", "STAT", "ASAP"] }, indication: { type: "string" }, instructions: { type: "string" }, frequency: { type: "string" }, scheduledAt: { type: "string", format: "date-time", nullable: true }, specimenType: { type: "string", maxLength: 100 }, fastingRequired: { type: "boolean" }, bodyPart: { type: "string", maxLength: 200 }, contrastRequired: { type: "boolean" }, sedationRequired: { type: "boolean" } } } } } },
         responses: { "201": { description: "Order requested" }, "400": { description: "Invalid order" }, "403": { description: "Not authorized" }, "409": { description: "Encounter is locked" } },
       },
     },

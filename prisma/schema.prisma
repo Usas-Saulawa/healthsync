@@ -35,13 +35,15 @@ model Hospital {
   patients           Patient[]
   authorizedNetworks AuthorizedNetwork[]
 
-  wards        Ward[]
-  admissions   PatientAdmission[]
-  appointments Appointment[]
-  encounters   Encounter[]
-  followUps    FollowUp[]
-  orders       Order[]
-  nurseNotes   NurseNote[]
+  wards          Ward[]
+  admissions     PatientAdmission[]
+  appointments   Appointment[]
+  encounters     Encounter[]
+  followUps      FollowUp[]
+  orders         Order[]
+  nurseNotes     NurseNote[]
+  labResults     LabResult[]
+  imagingStudies ImagingStudy[]
 
   @@index([name])
 }
@@ -84,15 +86,17 @@ model User {
   authOtps       AuthOtp[]
   authChallenges AuthChallenge[]
 
-  appointmentsAsDoctor      Appointment[]      @relation("DoctorAppointments")
-  encountersAsDoctor        Encounter[]        @relation("DoctorEncounters")
-  admissionsAsDoctor        PatientAdmission[] @relation("AdmissionAttendingDoctor")
-  followUpsAsDoctor         FollowUp[]         @relation("DoctorFollowUps")
-  prescriptionsAsPrescriber Prescription[]     @relation("PrescriberPrescriptions")
-  ordersAsOrderingProvider  Order[]            @relation("OrderingProviderOrders")
-  lockedEncounters          Encounter[]        @relation("EncounterLockedBy")
-  nurseNotesAsAuthor        NurseNote[]        @relation("NurseNoteAuthor")
-  vitalsRecorded            Vital[]            @relation("VitalRecordedBy")
+  appointmentsAsDoctor       Appointment[]      @relation("DoctorAppointments")
+  encountersAsDoctor         Encounter[]        @relation("DoctorEncounters")
+  admissionsAsDoctor         PatientAdmission[] @relation("AdmissionAttendingDoctor")
+  followUpsAsDoctor          FollowUp[]         @relation("DoctorFollowUps")
+  prescriptionsAsPrescriber  Prescription[]     @relation("PrescriberPrescriptions")
+  ordersAsOrderingProvider   Order[]            @relation("OrderingProviderOrders")
+  labResultsAcknowledged     LabResult[]        @relation("LabResultAcknowledgedBy")
+  imagingStudiesAcknowledged ImagingStudy[]     @relation("ImagingStudyAcknowledgedBy")
+  lockedEncounters           Encounter[]        @relation("EncounterLockedBy")
+  nurseNotesAsAuthor         NurseNote[]        @relation("NurseNoteAuthor")
+  vitalsRecorded             Vital[]            @relation("VitalRecordedBy")
 
   @@index([hospitalId])
   @@index([departmentId])
@@ -209,21 +213,22 @@ model Patient {
 
   hospital Hospital @relation(fields: [hospitalId], references: [id], onDelete: Restrict)
 
-  admissions    PatientAdmission[]
-  appointments  Appointment[]
-  encounters    Encounter[]
-  diagnoses     Diagnosis[]
-  treatments    Treatment[]
-  vitals        Vital[]
-  alerts        ClinicalAlert[]
-  followUps     FollowUp[]
-  orders        Order[]
-  nurseNotes    NurseNote[]
-  insurances    PatientInsurance[]
-  allergies     Allergy[]
-  prescriptions Prescription[]
-  labResults    LabResult[]
-  documents     Document[]
+  admissions     PatientAdmission[]
+  appointments   Appointment[]
+  encounters     Encounter[]
+  diagnoses      Diagnosis[]
+  treatments     Treatment[]
+  vitals         Vital[]
+  alerts         ClinicalAlert[]
+  followUps      FollowUp[]
+  orders         Order[]
+  nurseNotes     NurseNote[]
+  insurances     PatientInsurance[]
+  allergies      Allergy[]
+  prescriptions  Prescription[]
+  labResults     LabResult[]
+  imagingStudies ImagingStudy[]
+  documents      Document[]
 
   @@unique([hospitalId, hospitalNumber])
   @@index([hospitalId])
@@ -379,16 +384,17 @@ model Encounter {
   doctor   User     @relation("DoctorEncounters", fields: [doctorId], references: [id], onDelete: Restrict)
   lockedBy User?    @relation("EncounterLockedBy", fields: [lockedById], references: [id], onDelete: SetNull)
 
-  diagnoses     Diagnosis[]
-  treatments    Treatment[]
-  vitals        Vital[]
-  alerts        ClinicalAlert[]
-  prescriptions Prescription[]
-  orders        Order[]
-  followUps     FollowUp[]
-  nurseNotes    NurseNote[]
-  labResults    LabResult[]
-  documents     Document[]
+  diagnoses      Diagnosis[]
+  treatments     Treatment[]
+  vitals         Vital[]
+  alerts         ClinicalAlert[]
+  prescriptions  Prescription[]
+  orders         Order[]
+  followUps      FollowUp[]
+  nurseNotes     NurseNote[]
+  labResults     LabResult[]
+  documents      Document[]
+  imagingStudies ImagingStudy[]
 
   @@index([patientId])
   @@index([hospitalId])
@@ -612,26 +618,33 @@ enum OrderStatus {
 }
 
 model Order {
-  id           String        @id @default(uuid())
-  patientId    String
-  encounterId  String
-  hospitalId   String
-  orderedById  String
-  type         OrderType     @default(LABORATORY)
-  name         String
-  priority     OrderPriority @default(ROUTINE)
-  indication   String?
-  instructions String?
-  frequency    String?
-  scheduledAt  DateTime?
-  status       OrderStatus   @default(REQUESTED)
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
+  id               String        @id @default(uuid())
+  patientId        String
+  encounterId      String
+  hospitalId       String
+  orderedById      String
+  type             OrderType     @default(LABORATORY)
+  name             String
+  priority         OrderPriority @default(ROUTINE)
+  indication       String?
+  instructions     String?
+  frequency        String?
+  scheduledAt      DateTime?
+  status           OrderStatus   @default(REQUESTED)
+  specimenType     String?
+  fastingRequired  Boolean?
+  bodyPart         String?
+  contrastRequired Boolean?
+  sedationRequired Boolean?
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
 
-  patient   Patient   @relation(fields: [patientId], references: [id], onDelete: Restrict)
-  encounter Encounter @relation(fields: [encounterId], references: [id], onDelete: Restrict)
-  hospital  Hospital  @relation(fields: [hospitalId], references: [id], onDelete: Restrict)
-  orderedBy User      @relation("OrderingProviderOrders", fields: [orderedById], references: [id], onDelete: Restrict)
+  patient      Patient       @relation(fields: [patientId], references: [id], onDelete: Restrict)
+  encounter    Encounter     @relation(fields: [encounterId], references: [id], onDelete: Restrict)
+  hospital     Hospital      @relation(fields: [hospitalId], references: [id], onDelete: Restrict)
+  orderedBy    User          @relation("OrderingProviderOrders", fields: [orderedById], references: [id], onDelete: Restrict)
+  labResult    LabResult?
+  imagingStudy ImagingStudy?
 
   @@index([patientId])
   @@index([encounterId])
@@ -784,31 +797,81 @@ enum LabTestType {
 }
 
 model LabResult {
-  id             String      @id @default(uuid())
-  patientId      String
-  encounterId    String?
-  testType       LabTestType
-  testName       String
-  value          String?
-  valueNumeric   Float?
-  unit           String?
-  referenceRange String?
-  status         String      @default("COMPLETED")
-  performedAt    DateTime
-  resultedAt     DateTime?
-  notes          String?
+  id               String      @id @default(uuid())
+  patientId        String
+  encounterId      String?
+  testType         LabTestType
+  testName         String
+  value            String?
+  valueNumeric     Float?
+  unit             String?
+  referenceRange   String?
+  status           String      @default("COMPLETED")
+  performedAt      DateTime
+  resultedAt       DateTime?
+  notes            String?
+  hospitalId       String?
+  orderId          String?     @unique
+  acknowledgedAt   DateTime?
+  acknowledgedById String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  patient   Patient    @relation(fields: [patientId], references: [id], onDelete: Restrict)
-  encounter Encounter? @relation(fields: [encounterId], references: [id], onDelete: SetNull)
+  patient        Patient    @relation(fields: [patientId], references: [id], onDelete: Restrict)
+  encounter      Encounter? @relation(fields: [encounterId], references: [id], onDelete: SetNull)
+  hospital       Hospital?  @relation(fields: [hospitalId], references: [id], onDelete: Restrict)
+  order          Order?     @relation(fields: [orderId], references: [id], onDelete: SetNull)
+  acknowledgedBy User?      @relation("LabResultAcknowledgedBy", fields: [acknowledgedById], references: [id], onDelete: SetNull)
 
   @@index([patientId])
   @@index([encounterId])
   @@index([testType])
   @@index([performedAt])
   @@index([testName])
+  @@index([hospitalId])
+  @@index([acknowledgedById])
+}
+
+enum ImagingStatus {
+  ORDERED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+model ImagingStudy {
+  id               String        @id @default(uuid())
+  patientId        String
+  encounterId      String?
+  hospitalId       String
+  orderId          String?       @unique
+  studyType        String
+  modality         String?
+  bodyPart         String?
+  status           ImagingStatus @default(ORDERED)
+  orderedAt        DateTime      @default(now())
+  completedAt      DateTime?
+  findings         String?
+  impression       String?
+  notes            String?
+  acknowledgedAt   DateTime?
+  acknowledgedById String?
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  patient        Patient    @relation(fields: [patientId], references: [id], onDelete: Restrict)
+  encounter      Encounter? @relation(fields: [encounterId], references: [id], onDelete: SetNull)
+  hospital       Hospital   @relation(fields: [hospitalId], references: [id], onDelete: Restrict)
+  order          Order?     @relation(fields: [orderId], references: [id], onDelete: SetNull)
+  acknowledgedBy User?      @relation("ImagingStudyAcknowledgedBy", fields: [acknowledgedById], references: [id], onDelete: SetNull)
+
+  @@index([patientId])
+  @@index([hospitalId])
+  @@index([orderedAt])
+  @@index([studyType])
+  @@index([modality])
+  @@index([status])
 }
 
 enum DocumentType {

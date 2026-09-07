@@ -33,6 +33,11 @@ export const orderSchema = z.object({
   instructions: optionalText(2000),
   frequency: optionalText(100),
   scheduledAt: dateTime.nullable().optional(),
+  specimenType: optionalText(100),
+  fastingRequired: z.boolean().optional(),
+  bodyPart: optionalText(200),
+  contrastRequired: z.boolean().optional(),
+  sedationRequired: z.boolean().optional(),
 });
 
 export const prescriptionSchema = z.object({
