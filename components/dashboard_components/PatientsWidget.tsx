@@ -58,13 +58,11 @@ export function PatientsWidget({
             {/* Patient Name with Avatar */}
             <div className="col-span-1 flex items-center space-x-3 min-w-0">
               <div className="w-9 h-9 rounded-full bg-amber-200/60 overflow-hidden shrink-0 flex items-center justify-center border border-amber-300/40 shadow-xs">
-                <svg
-                  className="w-full h-full text-amber-800"
-                  viewBox="0 0 36 36"
-                  fill="currentColor"
-                >
-                  <path d="M18 16c3.313 0 6-2.687 6-6s-2.687-6-6-6-6 2.687-6 6 2.687 6 6 6zm0 3c-4.418 0-12 2.239-12 6.667V30h24v-4.333C30 21.239 22.418 19 18 19z" />
-                </svg>
+                <img
+                  src="/images/profile.jpeg"
+                  alt={patient.name}
+                  className="h-full w-full object-cover"
+                />
               </div>
               <span className="font-bold text-slate-900 text-xs xl:text-sm truncate">
                 {patient.name}

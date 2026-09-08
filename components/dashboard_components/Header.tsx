@@ -21,21 +21,21 @@ export function Header({ showGreeting = true }: HeaderProps) {
       {/* Main Header */}
       <header
         className="
-    relative
-    z-40
-    flex
-    min-h-[72px]
-    w-full
-    items-center
-    justify-between
-    gap-4
-    rounded-[36px]
-    bg-white
-    px-4
-    py-3
-    sm:px-5
-    lg:px-6
-  "
+          relative
+          z-40
+          flex
+          min-h-[72px]
+          w-full
+          items-center
+          justify-between
+          gap-4
+          rounded-[36px]
+          bg-white
+          px-4
+          py-3
+          sm:px-5
+          lg:px-6
+        "
       >
         {/* ---------------------------------------------------------- */}
         {/* LEFT SIDE - LOGO */}
@@ -240,7 +240,7 @@ export function Header({ showGreeting = true }: HeaderProps) {
               sm:pl-2
             "
           >
-            {/* Avatar Placeholder */}
+            {/* Avatar Image */}
             <div
               className="
                 h-12
@@ -252,7 +252,7 @@ export function Header({ showGreeting = true }: HeaderProps) {
               "
             >
               <img
-                src="/images/doctor-avatar.png"
+                src="/images/profile.jpeg"
                 alt="Doctor profile"
                 className="h-full w-full object-cover"
               />
@@ -335,7 +335,7 @@ export function Header({ showGreeting = true }: HeaderProps) {
               "
             >
               <img
-                src="/images/doctor-avatar.png"
+                src="/images/profile.jpeg"
                 alt="Doctor profile"
                 className="h-full w-full object-cover"
               />
@@ -385,7 +385,7 @@ export function Header({ showGreeting = true }: HeaderProps) {
       )}
 
       {/* ---------------------------------------------------------- */}
-      {/* GREETING - Relaxed top margin to fix tightness */}
+      {/* GREETING */}
       {/* ---------------------------------------------------------- */}
 
       {showGreeting && (
@@ -407,6 +407,7 @@ export function Header({ showGreeting = true }: HeaderProps) {
           </h1>
         </div>
       )}
+
       {/* ---------------------------------------------------------- */}
       {/* NOTIFICATION DRAWER */}
       {/* ---------------------------------------------------------- */}

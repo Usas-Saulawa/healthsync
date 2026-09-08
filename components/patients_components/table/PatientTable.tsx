@@ -166,14 +166,11 @@ export function PatientTable({
                   {/* Patient name and avatar */}
                   <div className="flex min-w-0 items-center gap-[9px]">
                     <div className="flex h-[31px] w-[31px] shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#FFF2A8]">
-                      <svg
-                        className="h-[24px] w-[24px] text-[#4B2200]"
-                        viewBox="0 0 36 36"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path d="M18 16c3.313 0 6-2.687 6-6s-2.687-6-6-6-6 2.687-6 6 2.687 6 6 6zm0 3c-4.418 0-12 2.239-12 6.667V30h24v-4.333C30 21.239 22.418 19 18 19z" />
-                      </svg>
+                      <img
+                        src="/images/profile.jpeg"
+                        alt={patient.name}
+                        className="h-full w-full object-cover"
+                      />
                     </div>
 
                     <span className="truncate text-[11px] font-semibold leading-[15px] text-[#172033]">

@@ -14,6 +14,7 @@ interface PatientProfile {
   primaryPhysician: string;
   admissionType: "In-Patient" | "Out-Patient";
   riskLevel: "High Risk" | "Low Risk";
+  avatarUrl?: string; // Optional custom avatar path
 }
 
 interface PatientsProfileHeaderProps {
@@ -30,6 +31,7 @@ const mockPatient: PatientProfile = {
   primaryPhysician: "Dr. Sarah Jenkins",
   admissionType: "In-Patient",
   riskLevel: "High Risk",
+  avatarUrl: "/images/profile.jpeg", // Using your project's profile image asset
 };
 
 export function PatientsProfileHeader({
@@ -42,14 +44,11 @@ export function PatientsProfileHeader({
         {/* Patient photo & Admission Badge Container */}
         <div className="relative flex shrink-0 items-center justify-center mr-4">
           <div className="flex h-[52px] w-[52px] items-center justify-center overflow-hidden rounded-xl bg-[#FFF2A8] shadow-2xs">
-            <svg
-              className="w-full h-full text-[#4B2200] mt-1.5"
-              viewBox="0 0 36 36"
-              fill="currentColor"
-              aria-hidden="true"
-            >
-              <path d="M18 16c3.313 0 6-2.687 6-6s-2.687-6-6-6-6 2.687-6 6 2.687 6 6 6zm0 3c-4.418 0-12 2.239-12 6.667V30h24v-4.333C30 21.239 22.418 19 18 19z" />
-            </svg>
+            <img
+              src={patient.avatarUrl || "/images/profile.jpeg"}
+              alt={patient.name}
+              className="h-full w-full object-cover"
+            />
           </div>
 
           {/* Admission type badge cleanly anchored below the avatar */}
