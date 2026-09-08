@@ -36,9 +36,7 @@ function ipToNumber(ip: string): number | null {
   const numbers = parts.map(Number);
 
   if (
-    numbers.some(
-      (part) => !Number.isInteger(part) || part < 0 || part > 255,
-    )
+    numbers.some((part) => !Number.isInteger(part) || part < 0 || part > 255)
   ) {
     return null;
   }

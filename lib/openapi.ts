@@ -60,7 +60,6 @@ export const openApiSpec = {
       },
     },
 
-    
     schemas: {
       LoginInput: {
         type: "object",
@@ -83,9 +82,23 @@ export const openApiSpec = {
         type: "object",
         required: ["currentPassword", "newPassword", "confirmPassword"],
         properties: {
-          currentPassword: { type: "string", format: "password", example: "TemporaryPassword123@" },
-          newPassword: { type: "string", format: "password", minLength: 8, example: "SecurePassword1@" },
-          confirmPassword: { type: "string", format: "password", minLength: 8, example: "SecurePassword1@" },
+          currentPassword: {
+            type: "string",
+            format: "password",
+            example: "TemporaryPassword123@",
+          },
+          newPassword: {
+            type: "string",
+            format: "password",
+            minLength: 8,
+            example: "SecurePassword1@",
+          },
+          confirmPassword: {
+            type: "string",
+            format: "password",
+            minLength: 8,
+            example: "SecurePassword1@",
+          },
         },
       },
 
@@ -93,7 +106,11 @@ export const openApiSpec = {
         type: "object",
         required: ["userId"],
         properties: {
-          userId: { type: "string", format: "uuid", example: "14b64474-576a-41c8-9293-8343da2700f5" },
+          userId: {
+            type: "string",
+            format: "uuid",
+            example: "14b64474-576a-41c8-9293-8343da2700f5",
+          },
         },
       },
 
@@ -101,7 +118,11 @@ export const openApiSpec = {
         type: "object",
         required: ["userId"],
         properties: {
-          userId: { type: "string", format: "uuid", example: "14b64474-576a-41c8-9293-8343da2700f5" },
+          userId: {
+            type: "string",
+            format: "uuid",
+            example: "14b64474-576a-41c8-9293-8343da2700f5",
+          },
         },
       },
 
@@ -109,8 +130,18 @@ export const openApiSpec = {
         type: "object",
         required: ["userId", "code"],
         properties: {
-          userId: { type: "string", format: "uuid", example: "14b64474-576a-41c8-9293-8343da2700f5" },
-          code: { type: "string", pattern: "^[0-9]{6}$", minLength: 6, maxLength: 6, example: "123456" },
+          userId: {
+            type: "string",
+            format: "uuid",
+            example: "14b64474-576a-41c8-9293-8343da2700f5",
+          },
+          code: {
+            type: "string",
+            pattern: "^[0-9]{6}$",
+            minLength: 6,
+            maxLength: 6,
+            example: "123456",
+          },
         },
       },
 
@@ -118,8 +149,18 @@ export const openApiSpec = {
         type: "object",
         required: ["userId", "code"],
         properties: {
-          userId: { type: "string", format: "uuid", example: "14b64474-576a-41c8-9293-8343da2700f5" },
-          code: { type: "string", pattern: "^[0-9]{6}$", minLength: 6, maxLength: 6, example: "123456" },
+          userId: {
+            type: "string",
+            format: "uuid",
+            example: "14b64474-576a-41c8-9293-8343da2700f5",
+          },
+          code: {
+            type: "string",
+            pattern: "^[0-9]{6}$",
+            minLength: 6,
+            maxLength: 6,
+            example: "123456",
+          },
         },
       },
 
@@ -127,16 +168,36 @@ export const openApiSpec = {
         type: "object",
         required: ["name", "code"],
         properties: {
-          name: { type: "string", minLength: 1, maxLength: 100, example: "Cardiology" },
-          code: { type: "string", minLength: 1, maxLength: 30, example: "CARD" },
+          name: {
+            type: "string",
+            minLength: 1,
+            maxLength: 100,
+            example: "Cardiology",
+          },
+          code: {
+            type: "string",
+            minLength: 1,
+            maxLength: 30,
+            example: "CARD",
+          },
         },
       },
 
       DepartmentUpdateInput: {
         type: "object",
         properties: {
-          name: { type: "string", minLength: 1, maxLength: 100, example: "Cardiology" },
-          code: { type: "string", minLength: 1, maxLength: 30, example: "CARD" },
+          name: {
+            type: "string",
+            minLength: 1,
+            maxLength: 100,
+            example: "Cardiology",
+          },
+          code: {
+            type: "string",
+            minLength: 1,
+            maxLength: 30,
+            example: "CARD",
+          },
         },
       },
 
@@ -144,11 +205,33 @@ export const openApiSpec = {
         type: "object",
         required: ["firstName", "lastName", "email", "role"],
         properties: {
-          firstName: { type: "string", minLength: 1, maxLength: 100, example: "Ada" },
-          lastName: { type: "string", minLength: 1, maxLength: 100, example: "Lovelace" },
-          email: { type: "string", format: "email", example: "ada@example.com" },
-          role: { type: "string", enum: ["ADMIN", "DOCTOR", "NURSE", "LAB_TECHNICIAN", "PHARMACIST"], example: "DOCTOR" },
-          departmentId: { type: "string", format: "uuid", example: "14b64474-576a-41c8-9293-8343da2700f5" },
+          firstName: {
+            type: "string",
+            minLength: 1,
+            maxLength: 100,
+            example: "Ada",
+          },
+          lastName: {
+            type: "string",
+            minLength: 1,
+            maxLength: 100,
+            example: "Lovelace",
+          },
+          email: {
+            type: "string",
+            format: "email",
+            example: "ada@example.com",
+          },
+          role: {
+            type: "string",
+            enum: ["ADMIN", "DOCTOR", "NURSE", "LAB_TECHNICIAN", "PHARMACIST"],
+            example: "DOCTOR",
+          },
+          departmentId: {
+            type: "string",
+            format: "uuid",
+            example: "14b64474-576a-41c8-9293-8343da2700f5",
+          },
           isActive: { type: "boolean", example: true },
         },
       },
@@ -156,10 +239,27 @@ export const openApiSpec = {
       UserUpdateInput: {
         type: "object",
         properties: {
-          firstName: { type: "string", minLength: 1, maxLength: 100, example: "Ada" },
-          lastName: { type: "string", minLength: 1, maxLength: 100, example: "Lovelace" },
-          email: { type: "string", format: "email", example: "ada@example.com" },
-          role: { type: "string", enum: ["ADMIN", "DOCTOR", "NURSE", "LAB_TECHNICIAN", "PHARMACIST"] },
+          firstName: {
+            type: "string",
+            minLength: 1,
+            maxLength: 100,
+            example: "Ada",
+          },
+          lastName: {
+            type: "string",
+            minLength: 1,
+            maxLength: 100,
+            example: "Lovelace",
+          },
+          email: {
+            type: "string",
+            format: "email",
+            example: "ada@example.com",
+          },
+          role: {
+            type: "string",
+            enum: ["ADMIN", "DOCTOR", "NURSE", "LAB_TECHNICIAN", "PHARMACIST"],
+          },
           departmentId: { type: "string", format: "uuid", nullable: true },
           isActive: { type: "boolean", example: true },
         },
@@ -493,15 +593,29 @@ export const openApiSpec = {
                       properties: {
                         id: { type: "string", format: "uuid" },
                         substance: { type: "string", example: "Penicillin" },
-                        reaction: { type: "string", nullable: true, example: "Anaphylaxis" },
-                        severity: { type: "string", enum: ["MILD", "MODERATE", "SEVERE", "CRITICAL"] },
-                        status: { type: "string", enum: ["ACTIVE", "INACTIVE", "RESOLVED"] },
+                        reaction: {
+                          type: "string",
+                          nullable: true,
+                          example: "Anaphylaxis",
+                        },
+                        severity: {
+                          type: "string",
+                          enum: ["MILD", "MODERATE", "SEVERE", "CRITICAL"],
+                        },
+                        status: {
+                          type: "string",
+                          enum: ["ACTIVE", "INACTIVE", "RESOLVED"],
+                        },
                         recordedAt: { type: "string", format: "date-time" },
                         notes: { type: "string", nullable: true },
                       },
                     },
                   },
-                  message: { type: "string", nullable: true, example: "No known allergies" },
+                  message: {
+                    type: "string",
+                    nullable: true,
+                    example: "No known allergies",
+                  },
                 },
               },
 
@@ -514,18 +628,41 @@ export const openApiSpec = {
                       type: "object",
                       properties: {
                         id: { type: "string", format: "uuid" },
-                        medicationName: { type: "string", example: "Metformin" },
-                        dosage: { type: "string", nullable: true, example: "500mg" },
-                        frequency: { type: "string", nullable: true, example: "Twice daily" },
-                        route: { type: "string", nullable: true, example: "Oral" },
+                        medicationName: {
+                          type: "string",
+                          example: "Metformin",
+                        },
+                        dosage: {
+                          type: "string",
+                          nullable: true,
+                          example: "500mg",
+                        },
+                        frequency: {
+                          type: "string",
+                          nullable: true,
+                          example: "Twice daily",
+                        },
+                        route: {
+                          type: "string",
+                          nullable: true,
+                          example: "Oral",
+                        },
                         startDate: { type: "string", format: "date-time" },
-                        endDate: { type: "string", format: "date-time", nullable: true },
+                        endDate: {
+                          type: "string",
+                          format: "date-time",
+                          nullable: true,
+                        },
                         status: { type: "string", example: "ACTIVE" },
                         reason: { type: "string", nullable: true },
                       },
                     },
                   },
-                  message: { type: "string", nullable: true, example: "No active medications" },
+                  message: {
+                    type: "string",
+                    nullable: true,
+                    example: "No active medications",
+                  },
                 },
               },
 
@@ -538,7 +675,11 @@ export const openApiSpec = {
                     testType: { type: "string", example: "HBA1C" },
                     testName: { type: "string", example: "HbA1c" },
                     value: { type: "string", nullable: true, example: "7.2%" },
-                    valueNumeric: { type: "number", nullable: true, example: 7.2 },
+                    valueNumeric: {
+                      type: "number",
+                      nullable: true,
+                      example: 7.2,
+                    },
                     unit: { type: "string", nullable: true, example: "%" },
                     performedAt: { type: "string", format: "date-time" },
                   },
@@ -695,371 +836,627 @@ export const openApiSpec = {
   },
 
   DiagnosisHistoryItem: {
-  type: "object",
-  properties: {
-    id: {
-      type: "string",
-      format: "uuid",
-      example: "8d5c9c5e-4a8d-4f13-9b3c-2f2e7d4a1234",
-    },
-    date: {
-      type: "string",
-      format: "date-time",
-      example: "2023-10-12T00:00:00.000Z",
-    },
-    type: {
-      type: "string",
-      enum: ["DIAGNOSIS", "TREATMENT"],
-      example: "DIAGNOSIS",
-    },
-    condition: {
-      type: "string",
-      example: "Type 2 Diabetes Mellitus",
-    },
-    provider: {
-      nullable: true,
-      type: "object",
-      properties: {
-        id: {
-          type: "string",
-          format: "uuid",
-        },
-        name: {
-          type: "string",
-          example: "Dr. Sarah Jenkins",
-        },
+    type: "object",
+    properties: {
+      id: {
+        type: "string",
+        format: "uuid",
+        example: "8d5c9c5e-4a8d-4f13-9b3c-2f2e7d4a1234",
       },
-    },
-    facility: {
-      type: "string",
-      example: "Metro Cardiology Group",
-    },
-    notes: {
-      type: "string",
-      nullable: true,
-      example:
-        "First diagnosed, initiated Metformin 500mg BID.",
-    },
-  },
-},
-
-MedicalHistoryListResponse: {
-  type: "object",
-  properties: {
-    success: {
-      type: "boolean",
-      example: true,
-    },
-    data: {
-      type: "object",
-      properties: {
-        history: {
-          type: "array",
-          items: {
-            $ref: "#/components/schemas/DiagnosisHistoryItem",
-          },
-        },
-        pagination: {
-          $ref: "#/components/schemas/Pagination",
-        },
-        filters: {
-          type: "object",
-          properties: {
-            search: {
-              type: "string",
-              nullable: true,
-              example: "diabetes",
-            },
-            dateFrom: {
-              type: "string",
-              format: "date-time",
-              nullable: true,
-            },
-            dateTo: {
-              type: "string",
-              format: "date-time",
-              nullable: true,
-            },
-            sortOrder: {
-              type: "string",
-              enum: ["asc", "desc"],
-              example: "desc",
-            },
-          },
-        },
+      date: {
+        type: "string",
+        format: "date-time",
+        example: "2023-10-12T00:00:00.000Z",
       },
-    },
-  },
-},
-
-      DiagnosisDetail: {
+      type: {
+        type: "string",
+        enum: ["DIAGNOSIS", "TREATMENT"],
+        example: "DIAGNOSIS",
+      },
+      condition: {
+        type: "string",
+        example: "Type 2 Diabetes Mellitus",
+      },
+      provider: {
+        nullable: true,
         type: "object",
         properties: {
           id: {
             type: "string",
             format: "uuid",
           },
-          patientId: {
-            type: "string",
-            format: "uuid",
-          },
-          encounterId: {
-            type: "string",
-            format: "uuid",
-            nullable: true,
-          },
           name: {
             type: "string",
-            example: "Type 2 Diabetes Mellitus",
-          },
-          code: {
-            type: "string",
-            nullable: true,
-            example: "E11.9",
-          },
-          status: {
-            type: "string",
-            enum: ["ACTIVE", "RESOLVED", "INACTIVE"],
-            example: "ACTIVE",
-          },
-          severity: {
-            type: "string",
-            enum: ["MILD", "MODERATE", "SEVERE", "CRITICAL"],
-            nullable: true,
-            example: "MODERATE",
-          },
-          onsetType: {
-            type: "string",
-            enum: ["ACUTE", "SUBACUTE", "CHRONIC", "GRADUAL", "UNKNOWN"],
-            nullable: true,
-            example: "GRADUAL",
-          },
-          bodySystem: {
-            type: "string",
-            nullable: true,
-            example: "Endocrine",
-          },
-          isPrimary: {
-            type: "boolean",
-            example: true,
-          },
-          diagnosedAt: {
-            type: "string",
-            format: "date-time",
-            example: "2023-10-12T00:00:00.000Z",
-          },
-          resolvedAt: {
-            type: "string",
-            format: "date-time",
-            nullable: true,
+            example: "Dr. Sarah Jenkins",
           },
         },
       },
+      facility: {
+        type: "string",
+        example: "Metro Cardiology Group",
+      },
+      notes: {
+        type: "string",
+        nullable: true,
+        example: "First diagnosed, initiated Metformin 500mg BID.",
+      },
+    },
+  },
 
-      MedicalHistoryDetailResponse: {
+  MedicalHistoryListResponse: {
+    type: "object",
+    properties: {
+      success: {
+        type: "boolean",
+        example: true,
+      },
+      data: {
         type: "object",
         properties: {
-          success: {
-            type: "boolean",
-            example: true,
+          history: {
+            type: "array",
+            items: {
+              $ref: "#/components/schemas/DiagnosisHistoryItem",
+            },
           },
-          data: {
+          pagination: {
+            $ref: "#/components/schemas/Pagination",
+          },
+          filters: {
             type: "object",
             properties: {
-              patient: {
-                $ref: "#/components/schemas/Patient",
-              },
-              history: {
-                $ref: "#/components/schemas/DiagnosisDetail",
-              },
-              encounter: {
+              search: {
+                type: "string",
                 nullable: true,
-                type: "object",
-                additionalProperties: true,
+                example: "diabetes",
               },
-              treatmentHistory: {
-                type: "array",
-                items: {
-                  type: "object",
-                  additionalProperties: true,
-                },
-              },
-              encounterHistory: {
-                type: "array",
-                items: {
-                  type: "object",
-                  additionalProperties: true,
-                },
-              },
-              latestVitals: {
+              dateFrom: {
+                type: "string",
+                format: "date-time",
                 nullable: true,
-                type: "object",
-                additionalProperties: true,
               },
-              hba1cTrend: {
-                type: "object",
-                properties: {
-                  items: {
-                    type: "array",
-                    items: {
-                      type: "object",
-                      properties: {
-                        id: { type: "string", format: "uuid" },
-                        testName: { type: "string", example: "HbA1c" },
-                        value: { type: "string", nullable: true, example: "7.2%" },
-                        valueNumeric: { type: "number", nullable: true, example: 7.2 },
-                        unit: { type: "string", nullable: true, example: "%" },
-                        performedAt: { type: "string", format: "date-time" },
-                      },
-                    },
-                  },
-                  message: { type: "string", nullable: true, example: "No HbA1c results available" },
-                },
+              dateTo: {
+                type: "string",
+                format: "date-time",
+                nullable: true,
               },
-              conditionMedications: {
-                type: "object",
-                properties: {
-                  items: {
-                    type: "array",
-                    items: {
-                      type: "object",
-                      properties: {
-                        id: { type: "string", format: "uuid" },
-                        medicationName: { type: "string", example: "Metformin" },
-                        dosage: { type: "string", nullable: true, example: "500mg" },
-                        frequency: { type: "string", nullable: true, example: "Twice daily" },
-                        route: { type: "string", nullable: true, example: "Oral" },
-                        startDate: { type: "string", format: "date-time" },
-                        endDate: { type: "string", format: "date-time", nullable: true },
-                        reason: { type: "string", nullable: true },
-                      },
-                    },
-                  },
-                  message: { type: "string", nullable: true, example: "No active medications for this condition" },
-                },
-              },
-              relatedOrders: {
-                type: "array",
-                items: {
-                  type: "object",
-                  additionalProperties: true,
-                },
-              },
-              keyDocuments: {
-                type: "object",
-                properties: {
-                  items: {
-                    type: "array",
-                    items: {
-                      type: "object",
-                      properties: {
-                        id: { type: "string", format: "uuid" },
-                        fileName: { type: "string", example: "Lab Results.pdf" },
-                        documentType: { type: "string", enum: ["LAB_REPORT", "IMAGING_REPORT", "DISCHARGE_SUMMARY", "OPERATIVE_REPORT", "MEDICAL_RECORD", "PRESCRIPTION", "CONSULTATION_NOTE", "OTHER"] },
-                        description: { type: "string", nullable: true },
-                        uploadedAt: { type: "string", format: "date-time" },
-                      },
-                    },
-                  },
-                  message: { type: "string", nullable: true, example: "No documents available" },
-                },
+              sortOrder: {
+                type: "string",
+                enum: ["asc", "desc"],
+                example: "desc",
               },
             },
           },
         },
       },
+    },
+  },
 
-      PrescriptionStatus: {
+  DiagnosisDetail: {
+    type: "object",
+    properties: {
+      id: {
         type: "string",
-        enum: ["ACTIVE", "PAUSED", "DISCONTINUED", "COMPLETED"],
+        format: "uuid",
       },
+      patientId: {
+        type: "string",
+        format: "uuid",
+      },
+      encounterId: {
+        type: "string",
+        format: "uuid",
+        nullable: true,
+      },
+      name: {
+        type: "string",
+        example: "Type 2 Diabetes Mellitus",
+      },
+      code: {
+        type: "string",
+        nullable: true,
+        example: "E11.9",
+      },
+      status: {
+        type: "string",
+        enum: ["ACTIVE", "RESOLVED", "INACTIVE"],
+        example: "ACTIVE",
+      },
+      severity: {
+        type: "string",
+        enum: ["MILD", "MODERATE", "SEVERE", "CRITICAL"],
+        nullable: true,
+        example: "MODERATE",
+      },
+      onsetType: {
+        type: "string",
+        enum: ["ACUTE", "SUBACUTE", "CHRONIC", "GRADUAL", "UNKNOWN"],
+        nullable: true,
+        example: "GRADUAL",
+      },
+      bodySystem: {
+        type: "string",
+        nullable: true,
+        example: "Endocrine",
+      },
+      isPrimary: {
+        type: "boolean",
+        example: true,
+      },
+      diagnosedAt: {
+        type: "string",
+        format: "date-time",
+        example: "2023-10-12T00:00:00.000Z",
+      },
+      resolvedAt: {
+        type: "string",
+        format: "date-time",
+        nullable: true,
+      },
+    },
+  },
 
-      PrescriptionInput: {
+  MedicalHistoryDetailResponse: {
+    type: "object",
+    properties: {
+      success: {
+        type: "boolean",
+        example: true,
+      },
+      data: {
         type: "object",
-        required: ["medicationName", "dosage", "route", "frequency", "duration", "durationUnit", "quantity"],
         properties: {
-          medicationName: { type: "string", minLength: 1, maxLength: 200 },
-          dosage: { type: "string", minLength: 1, maxLength: 200 },
-          route: { type: "string", minLength: 1, maxLength: 100 },
-          frequency: { type: "string", minLength: 1, maxLength: 100 },
-          duration: { type: "integer", minimum: 1, maximum: 3650 },
-          durationUnit: { type: "string", enum: ["DAY", "DAYS", "WEEK", "WEEKS", "MONTH", "MONTHS"] },
-          quantity: { type: "integer", minimum: 1, maximum: 100000 },
-          refills: { type: "integer", minimum: 0, maximum: 99, default: 0 },
-          pharmacyNotes: { type: "string", maxLength: 2000 },
-          notes: { type: "string", maxLength: 2000 },
-          reason: { type: "string", maxLength: 2000 },
-          encounterId: { type: "string", format: "uuid" },
-          diagnosisId: { type: "string", format: "uuid" },
-          startDate: { type: "string", format: "date-time" },
-          endDate: { type: "string", format: "date-time", nullable: true },
+          patient: {
+            $ref: "#/components/schemas/Patient",
+          },
+          history: {
+            $ref: "#/components/schemas/DiagnosisDetail",
+          },
+          encounter: {
+            nullable: true,
+            type: "object",
+            additionalProperties: true,
+          },
+          treatmentHistory: {
+            type: "array",
+            items: {
+              type: "object",
+              additionalProperties: true,
+            },
+          },
+          encounterHistory: {
+            type: "array",
+            items: {
+              type: "object",
+              additionalProperties: true,
+            },
+          },
+          latestVitals: {
+            nullable: true,
+            type: "object",
+            additionalProperties: true,
+          },
+          hba1cTrend: {
+            type: "object",
+            properties: {
+              items: {
+                type: "array",
+                items: {
+                  type: "object",
+                  properties: {
+                    id: { type: "string", format: "uuid" },
+                    testName: { type: "string", example: "HbA1c" },
+                    value: { type: "string", nullable: true, example: "7.2%" },
+                    valueNumeric: {
+                      type: "number",
+                      nullable: true,
+                      example: 7.2,
+                    },
+                    unit: { type: "string", nullable: true, example: "%" },
+                    performedAt: { type: "string", format: "date-time" },
+                  },
+                },
+              },
+              message: {
+                type: "string",
+                nullable: true,
+                example: "No HbA1c results available",
+              },
+            },
+          },
+          conditionMedications: {
+            type: "object",
+            properties: {
+              items: {
+                type: "array",
+                items: {
+                  type: "object",
+                  properties: {
+                    id: { type: "string", format: "uuid" },
+                    medicationName: { type: "string", example: "Metformin" },
+                    dosage: {
+                      type: "string",
+                      nullable: true,
+                      example: "500mg",
+                    },
+                    frequency: {
+                      type: "string",
+                      nullable: true,
+                      example: "Twice daily",
+                    },
+                    route: { type: "string", nullable: true, example: "Oral" },
+                    startDate: { type: "string", format: "date-time" },
+                    endDate: {
+                      type: "string",
+                      format: "date-time",
+                      nullable: true,
+                    },
+                    reason: { type: "string", nullable: true },
+                  },
+                },
+              },
+              message: {
+                type: "string",
+                nullable: true,
+                example: "No active medications for this condition",
+              },
+            },
+          },
+          relatedOrders: {
+            type: "array",
+            items: {
+              type: "object",
+              additionalProperties: true,
+            },
+          },
+          keyDocuments: {
+            type: "object",
+            properties: {
+              items: {
+                type: "array",
+                items: {
+                  type: "object",
+                  properties: {
+                    id: { type: "string", format: "uuid" },
+                    fileName: { type: "string", example: "Lab Results.pdf" },
+                    documentType: {
+                      type: "string",
+                      enum: [
+                        "LAB_REPORT",
+                        "IMAGING_REPORT",
+                        "DISCHARGE_SUMMARY",
+                        "OPERATIVE_REPORT",
+                        "MEDICAL_RECORD",
+                        "PRESCRIPTION",
+                        "CONSULTATION_NOTE",
+                        "OTHER",
+                      ],
+                    },
+                    description: { type: "string", nullable: true },
+                    uploadedAt: { type: "string", format: "date-time" },
+                  },
+                },
+              },
+              message: {
+                type: "string",
+                nullable: true,
+                example: "No documents available",
+              },
+            },
+          },
         },
       },
+    },
+  },
 
-      PrescriptionUpdateInput: {
-        type: "object",
-        minProperties: 1,
-        properties: {
-          dosage: { type: "string", minLength: 1, maxLength: 200 },
-          route: { type: "string", minLength: 1, maxLength: 100 },
-          frequency: { type: "string", minLength: 1, maxLength: 100 },
-          duration: { type: "integer", minimum: 1, maximum: 3650 },
-          durationUnit: { type: "string", enum: ["DAY", "DAYS", "WEEK", "WEEKS", "MONTH", "MONTHS"] },
-          quantity: { type: "integer", minimum: 1, maximum: 100000 },
-          notes: { type: "string", maxLength: 2000 },
-          pharmacyNotes: { type: "string", maxLength: 2000 },
-          reason: { type: "string", maxLength: 2000 },
-        },
-      },
+  PrescriptionStatus: {
+    type: "string",
+    enum: ["ACTIVE", "PAUSED", "DISCONTINUED", "COMPLETED"],
+  },
 
-      ClinicalNoteInput: {
-        type: "object",
-        required: ["notes"],
-        properties: { notes: { type: "string", minLength: 1, maxLength: 10000 } },
+  PrescriptionInput: {
+    type: "object",
+    required: [
+      "medicationName",
+      "dosage",
+      "route",
+      "frequency",
+      "duration",
+      "durationUnit",
+      "quantity",
+    ],
+    properties: {
+      medicationName: { type: "string", minLength: 1, maxLength: 200 },
+      dosage: { type: "string", minLength: 1, maxLength: 200 },
+      route: { type: "string", minLength: 1, maxLength: 100 },
+      frequency: { type: "string", minLength: 1, maxLength: 100 },
+      duration: { type: "integer", minimum: 1, maximum: 3650 },
+      durationUnit: {
+        type: "string",
+        enum: ["DAY", "DAYS", "WEEK", "WEEKS", "MONTH", "MONTHS"],
       },
+      quantity: { type: "integer", minimum: 1, maximum: 100000 },
+      refills: { type: "integer", minimum: 0, maximum: 99, default: 0 },
+      pharmacyNotes: { type: "string", maxLength: 2000 },
+      notes: { type: "string", maxLength: 2000 },
+      reason: { type: "string", maxLength: 2000 },
+      encounterId: { type: "string", format: "uuid" },
+      diagnosisId: { type: "string", format: "uuid" },
+      startDate: { type: "string", format: "date-time" },
+      endDate: { type: "string", format: "date-time", nullable: true },
+    },
+  },
 
-      ClinicalResultFilters: {
-        type: "object",
-        properties: {
-          page: { type: "integer", minimum: 1, default: 1 },
-          limit: { type: "integer", minimum: 1, maximum: 100, default: 20 },
-          dateFrom: { type: "string", format: "date-time" },
-          dateTo: { type: "string", format: "date-time" },
-          search: { type: "string", maxLength: 200 },
-          type: { type: "string", maxLength: 50 },
-          status: { type: "string", maxLength: 50 },
-        },
+  PrescriptionUpdateInput: {
+    type: "object",
+    minProperties: 1,
+    properties: {
+      dosage: { type: "string", minLength: 1, maxLength: 200 },
+      route: { type: "string", minLength: 1, maxLength: 100 },
+      frequency: { type: "string", minLength: 1, maxLength: 100 },
+      duration: { type: "integer", minimum: 1, maximum: 3650 },
+      durationUnit: {
+        type: "string",
+        enum: ["DAY", "DAYS", "WEEK", "WEEKS", "MONTH", "MONTHS"],
       },
+      quantity: { type: "integer", minimum: 1, maximum: 100000 },
+      notes: { type: "string", maxLength: 2000 },
+      pharmacyNotes: { type: "string", maxLength: 2000 },
+      reason: { type: "string", maxLength: 2000 },
+    },
+  },
+
+  ClinicalNoteInput: {
+    type: "object",
+    required: ["notes"],
+    properties: { notes: { type: "string", minLength: 1, maxLength: 10000 } },
+  },
+
+  ClinicalResultFilters: {
+    type: "object",
+    properties: {
+      page: { type: "integer", minimum: 1, default: 1 },
+      limit: { type: "integer", minimum: 1, maximum: 100, default: 20 },
+      dateFrom: { type: "string", format: "date-time" },
+      dateTo: { type: "string", format: "date-time" },
+      search: { type: "string", maxLength: 200 },
+      type: { type: "string", maxLength: 50 },
+      status: { type: "string", maxLength: 50 },
+    },
+  },
 
   paths: {
     "/patients/{id}/lab-results": {
       get: {
-        tags: ["Patients"], summary: "List patient laboratory results", security: [{ sessionCookie: [] }],
-        parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }, { name: "page", in: "query", schema: { type: "integer", minimum: 1 } }, { name: "limit", in: "query", schema: { type: "integer", minimum: 1, maximum: 100 } }, { name: "dateFrom", in: "query", schema: { type: "string", format: "date-time" } }, { name: "dateTo", in: "query", schema: { type: "string", format: "date-time" } }, { name: "search", in: "query", schema: { type: "string" } }, { name: "type", in: "query", schema: { type: "string" } }, { name: "status", in: "query", schema: { type: "string" } }],
-        responses: { "200": { description: "Laboratory result history" }, "401": { description: "Authentication required" }, "403": { description: "Not authorized" }, "404": { description: "Patient not found" } },
+        tags: ["Patients"],
+        summary: "List patient laboratory results",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+          {
+            name: "page",
+            in: "query",
+            schema: { type: "integer", minimum: 1 },
+          },
+          {
+            name: "limit",
+            in: "query",
+            schema: { type: "integer", minimum: 1, maximum: 100 },
+          },
+          {
+            name: "dateFrom",
+            in: "query",
+            schema: { type: "string", format: "date-time" },
+          },
+          {
+            name: "dateTo",
+            in: "query",
+            schema: { type: "string", format: "date-time" },
+          },
+          { name: "search", in: "query", schema: { type: "string" } },
+          { name: "type", in: "query", schema: { type: "string" } },
+          { name: "status", in: "query", schema: { type: "string" } },
+        ],
+        responses: {
+          "200": { description: "Laboratory result history" },
+          "401": { description: "Authentication required" },
+          "403": { description: "Not authorized" },
+          "404": { description: "Patient not found" },
+        },
       },
     },
 
     "/lab-results/{id}": {
-      get: { tags: ["Patients"], summary: "Get laboratory result detail", security: [{ sessionCookie: [] }], parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }], responses: { "200": { description: "Laboratory result detail" }, "404": { description: "Result not found" } } },
-      patch: { tags: ["Patients"], summary: "Add laboratory clinical note", security: [{ sessionCookie: [] }], parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }], requestBody: { required: true, content: { "application/json": { schema: { $ref: "#/components/schemas/ClinicalNoteInput" } } } }, responses: { "200": { description: "Clinical note saved" }, "400": { description: "Invalid note" }, "403": { description: "Not authorized" } } },
+      get: {
+        tags: ["Patients"],
+        summary: "Get laboratory result detail",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+        ],
+        responses: {
+          "200": { description: "Laboratory result detail" },
+          "404": { description: "Result not found" },
+        },
+      },
+      patch: {
+        tags: ["Patients"],
+        summary: "Add laboratory clinical note",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+        ],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: { $ref: "#/components/schemas/ClinicalNoteInput" },
+            },
+          },
+        },
+        responses: {
+          "200": { description: "Clinical note saved" },
+          "400": { description: "Invalid note" },
+          "403": { description: "Not authorized" },
+        },
+      },
     },
 
     "/lab-results/{id}/acknowledge": {
-      patch: { tags: ["Patients"], summary: "Acknowledge laboratory result", security: [{ sessionCookie: [] }], parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }], responses: { "200": { description: "Result acknowledged" }, "403": { description: "Doctor role required" }, "404": { description: "Result not found" } } },
+      patch: {
+        tags: ["Patients"],
+        summary: "Acknowledge laboratory result",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+        ],
+        responses: {
+          "200": { description: "Result acknowledged" },
+          "403": { description: "Doctor role required" },
+          "404": { description: "Result not found" },
+        },
+      },
     },
 
     "/patients/{id}/imaging-studies": {
-      get: { tags: ["Patients"], summary: "List patient imaging studies", security: [{ sessionCookie: [] }], parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }, { name: "page", in: "query", schema: { type: "integer", minimum: 1 } }, { name: "limit", in: "query", schema: { type: "integer", minimum: 1, maximum: 100 } }, { name: "dateFrom", in: "query", schema: { type: "string", format: "date-time" } }, { name: "dateTo", in: "query", schema: { type: "string", format: "date-time" } }, { name: "search", in: "query", schema: { type: "string" } }, { name: "type", in: "query", schema: { type: "string", description: "Modality" } }, { name: "status", in: "query", schema: { type: "string", enum: ["ORDERED", "IN_PROGRESS", "COMPLETED", "CANCELLED"] } }], responses: { "200": { description: "Imaging study history" }, "403": { description: "Not authorized" }, "404": { description: "Patient not found" } } },
+      get: {
+        tags: ["Patients"],
+        summary: "List patient imaging studies",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+          {
+            name: "page",
+            in: "query",
+            schema: { type: "integer", minimum: 1 },
+          },
+          {
+            name: "limit",
+            in: "query",
+            schema: { type: "integer", minimum: 1, maximum: 100 },
+          },
+          {
+            name: "dateFrom",
+            in: "query",
+            schema: { type: "string", format: "date-time" },
+          },
+          {
+            name: "dateTo",
+            in: "query",
+            schema: { type: "string", format: "date-time" },
+          },
+          { name: "search", in: "query", schema: { type: "string" } },
+          {
+            name: "type",
+            in: "query",
+            schema: { type: "string", description: "Modality" },
+          },
+          {
+            name: "status",
+            in: "query",
+            schema: {
+              type: "string",
+              enum: ["ORDERED", "IN_PROGRESS", "COMPLETED", "CANCELLED"],
+            },
+          },
+        ],
+        responses: {
+          "200": { description: "Imaging study history" },
+          "403": { description: "Not authorized" },
+          "404": { description: "Patient not found" },
+        },
+      },
     },
 
     "/imaging-studies/{id}": {
-      get: { tags: ["Patients"], summary: "Get imaging study detail", security: [{ sessionCookie: [] }], parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }], responses: { "200": { description: "Imaging study detail" }, "404": { description: "Study not found" } } },
-      patch: { tags: ["Patients"], summary: "Add imaging clinical note", security: [{ sessionCookie: [] }], parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }], requestBody: { required: true, content: { "application/json": { schema: { $ref: "#/components/schemas/ClinicalNoteInput" } } } }, responses: { "200": { description: "Clinical note saved" }, "403": { description: "Not authorized" } } },
+      get: {
+        tags: ["Patients"],
+        summary: "Get imaging study detail",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+        ],
+        responses: {
+          "200": { description: "Imaging study detail" },
+          "404": { description: "Study not found" },
+        },
+      },
+      patch: {
+        tags: ["Patients"],
+        summary: "Add imaging clinical note",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+        ],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: { $ref: "#/components/schemas/ClinicalNoteInput" },
+            },
+          },
+        },
+        responses: {
+          "200": { description: "Clinical note saved" },
+          "403": { description: "Not authorized" },
+        },
+      },
     },
 
     "/imaging-studies/{id}/acknowledge": {
-      patch: { tags: ["Patients"], summary: "Acknowledge imaging result", security: [{ sessionCookie: [] }], parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }], responses: { "200": { description: "Imaging result acknowledged" }, "403": { description: "Doctor role required" }, "404": { description: "Study not found" } } },
+      patch: {
+        tags: ["Patients"],
+        summary: "Acknowledge imaging result",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+        ],
+        responses: {
+          "200": { description: "Imaging result acknowledged" },
+          "403": { description: "Doctor role required" },
+          "404": { description: "Study not found" },
+        },
+      },
     },
 
     "/auth/login": {
@@ -1156,7 +1553,9 @@ MedicalHistoryListResponse: {
           required: true,
           content: {
             "application/json": {
-              schema: { $ref: "#/components/schemas/AccountActivationRequestInput" },
+              schema: {
+                $ref: "#/components/schemas/AccountActivationRequestInput",
+              },
             },
           },
         },
@@ -1179,7 +1578,9 @@ MedicalHistoryListResponse: {
           required: true,
           content: {
             "application/json": {
-              schema: { $ref: "#/components/schemas/AccountActivationVerifyInput" },
+              schema: {
+                $ref: "#/components/schemas/AccountActivationVerifyInput",
+              },
             },
           },
         },
@@ -1202,7 +1603,9 @@ MedicalHistoryListResponse: {
           required: true,
           content: {
             "application/json": {
-              schema: { $ref: "#/components/schemas/DeviceVerificationRequestInput" },
+              schema: {
+                $ref: "#/components/schemas/DeviceVerificationRequestInput",
+              },
             },
           },
         },
@@ -1242,41 +1645,402 @@ MedicalHistoryListResponse: {
 
     "/patients/{patientId}/encounters": {
       post: {
-        tags: ["Encounter"], summary: "Create a draft encounter", security: [{ sessionCookie: [] }],
-        parameters: [{ name: "patientId", in: "path", required: true, schema: { type: "string", format: "uuid" } }],
-        requestBody: { required: false, content: { "application/json": { schema: { type: "object", required: ["type"], properties: { type: { type: "string", enum: ["OUTPATIENT", "INPATIENT", "EMERGENCY", "FOLLOW_UP"] }, startedAt: { type: "string", format: "date-time" } } } } } },
-        responses: { "201": { description: "Encounter created" }, "400": { description: "Invalid encounter data" }, "403": { description: "Not authorized" }, "404": { description: "Patient not found" } },
+        tags: ["Encounter"],
+        summary: "Create a draft encounter",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "patientId",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+        ],
+        requestBody: {
+          required: false,
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                required: ["type"],
+                properties: {
+                  type: {
+                    type: "string",
+                    enum: ["OUTPATIENT", "INPATIENT", "EMERGENCY", "FOLLOW_UP"],
+                  },
+                  startedAt: { type: "string", format: "date-time" },
+                },
+              },
+            },
+          },
+        },
+        responses: {
+          "201": { description: "Encounter created" },
+          "400": { description: "Invalid encounter data" },
+          "403": { description: "Not authorized" },
+          "404": { description: "Patient not found" },
+        },
       },
       get: {
-        tags: ["Encounter"], summary: "List patient encounters", security: [{ sessionCookie: [] }],
-        parameters: [{ name: "patientId", in: "path", required: true, schema: { type: "string", format: "uuid" } }, { name: "page", in: "query", schema: { type: "integer", minimum: 1 } }, { name: "limit", in: "query", schema: { type: "integer", minimum: 1, maximum: 100 } }, { name: "search", in: "query", schema: { type: "string" } }, { name: "type", in: "query", schema: { type: "string", enum: ["OUTPATIENT", "INPATIENT", "EMERGENCY", "FOLLOW_UP"] } }, { name: "status", in: "query", schema: { type: "string", enum: ["OPEN", "LOCKED", "COMPLETED", "CANCELLED"] } }, { name: "dateFrom", in: "query", schema: { type: "string", format: "date-time" } }, { name: "dateTo", in: "query", schema: { type: "string", format: "date-time" } }],
-        responses: { "200": { description: "Encounter history" }, "404": { description: "Patient not found" } },
+        tags: ["Encounter"],
+        summary: "List patient encounters",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "patientId",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+          {
+            name: "page",
+            in: "query",
+            schema: { type: "integer", minimum: 1 },
+          },
+          {
+            name: "limit",
+            in: "query",
+            schema: { type: "integer", minimum: 1, maximum: 100 },
+          },
+          { name: "search", in: "query", schema: { type: "string" } },
+          {
+            name: "type",
+            in: "query",
+            schema: {
+              type: "string",
+              enum: ["OUTPATIENT", "INPATIENT", "EMERGENCY", "FOLLOW_UP"],
+            },
+          },
+          {
+            name: "status",
+            in: "query",
+            schema: {
+              type: "string",
+              enum: ["OPEN", "LOCKED", "COMPLETED", "CANCELLED"],
+            },
+          },
+          {
+            name: "dateFrom",
+            in: "query",
+            schema: { type: "string", format: "date-time" },
+          },
+          {
+            name: "dateTo",
+            in: "query",
+            schema: { type: "string", format: "date-time" },
+          },
+        ],
+        responses: {
+          "200": { description: "Encounter history" },
+          "404": { description: "Patient not found" },
+        },
+      },
+    },
+
+    "/patients/{patientId}/orders": {
+      get: {
+        tags: ["Patients"],
+        summary: "List patient orders",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "patientId",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+          {
+            name: "page",
+            in: "query",
+            schema: { type: "integer", minimum: 1 },
+          },
+          {
+            name: "limit",
+            in: "query",
+            schema: { type: "integer", minimum: 1, maximum: 100 },
+          },
+          { name: "search", in: "query", schema: { type: "string" } },
+          {
+            name: "type",
+            in: "query",
+            schema: {
+              type: "string",
+              enum: ["LABORATORY", "DIAGNOSTIC", "REFERRAL", "OTHER"],
+            },
+          },
+          {
+            name: "status",
+            in: "query",
+            schema: {
+              type: "string",
+              enum: ["REQUESTED", "IN_PROGRESS", "COMPLETED", "CANCELLED"],
+            },
+          },
+          {
+            name: "priority",
+            in: "query",
+            schema: {
+              type: "string",
+              enum: ["ROUTINE", "URGENT", "STAT", "ASAP"],
+            },
+          },
+          {
+            name: "dateFrom",
+            in: "query",
+            schema: { type: "string", format: "date-time" },
+          },
+          {
+            name: "dateTo",
+            in: "query",
+            schema: { type: "string", format: "date-time" },
+          },
+          {
+            name: "sortBy",
+            in: "query",
+            schema: {
+              type: "string",
+              enum: ["date", "orderName", "category", "priority", "status"],
+              default: "date",
+            },
+          },
+          {
+            name: "sortOrder",
+            in: "query",
+            schema: { type: "string", enum: ["asc", "desc"], default: "desc" },
+          },
+        ],
+        responses: {
+          "200": { description: "Patient order history" },
+          "400": { description: "Invalid patient ID or order filters" },
+          "404": { description: "Patient not found" },
+        },
+      },
+    },
+
+    "/patients/{patientId}/follow-ups": {
+      get: {
+        tags: ["Patients"],
+        summary: "List patient follow-up history",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "patientId",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+          {
+            name: "page",
+            in: "query",
+            schema: { type: "integer", minimum: 1 },
+          },
+          {
+            name: "limit",
+            in: "query",
+            schema: { type: "integer", minimum: 1, maximum: 100 },
+          },
+          {
+            name: "status",
+            in: "query",
+            schema: {
+              type: "string",
+              enum: ["SCHEDULED", "COMPLETED", "CANCELLED", "MISSED"],
+            },
+          },
+          {
+            name: "departmentId",
+            in: "query",
+            schema: { type: "string", format: "uuid" },
+          },
+          {
+            name: "providerId",
+            in: "query",
+            schema: { type: "string", format: "uuid" },
+          },
+          {
+            name: "dateFrom",
+            in: "query",
+            schema: { type: "string", format: "date-time" },
+          },
+          {
+            name: "dateTo",
+            in: "query",
+            schema: { type: "string", format: "date-time" },
+          },
+          {
+            name: "sortBy",
+            in: "query",
+            schema: {
+              type: "string",
+              enum: ["scheduledDate", "followUpType", "status"],
+              default: "scheduledDate",
+            },
+          },
+          {
+            name: "sortOrder",
+            in: "query",
+            schema: { type: "string", enum: ["asc", "desc"], default: "desc" },
+          },
+        ],
+        responses: {
+          "200": { description: "Patient follow-up history" },
+          "400": { description: "Invalid patient ID or follow-up filters" },
+          "404": { description: "Patient not found" },
+        },
       },
     },
 
     "/patients/{patientId}/vitals": {
       get: {
-        tags: ["Patients"], summary: "List patient vitals", security: [{ sessionCookie: [] }],
-        parameters: [{ name: "patientId", in: "path", required: true, schema: { type: "string", format: "uuid" } }, { name: "page", in: "query", schema: { type: "integer", minimum: 1 } }, { name: "limit", in: "query", schema: { type: "integer", minimum: 1, maximum: 100 } }, { name: "dateFrom", in: "query", schema: { type: "string", format: "date-time" } }, { name: "dateTo", in: "query", schema: { type: "string", format: "date-time" } }, { name: "sortOrder", in: "query", schema: { type: "string", enum: ["asc", "desc"] } }],
-        responses: { "200": { description: "Paginated vital records, summaries, and trends" }, "400": { description: "Invalid filters" }, "401": { description: "Authentication required" }, "404": { description: "Patient not found" } },
+        tags: ["Patients"],
+        summary: "List patient vitals",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "patientId",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+          {
+            name: "page",
+            in: "query",
+            schema: { type: "integer", minimum: 1 },
+          },
+          {
+            name: "limit",
+            in: "query",
+            schema: { type: "integer", minimum: 1, maximum: 100 },
+          },
+          {
+            name: "dateFrom",
+            in: "query",
+            schema: { type: "string", format: "date-time" },
+          },
+          {
+            name: "dateTo",
+            in: "query",
+            schema: { type: "string", format: "date-time" },
+          },
+          {
+            name: "sortOrder",
+            in: "query",
+            schema: { type: "string", enum: ["asc", "desc"] },
+          },
+        ],
+        responses: {
+          "200": {
+            description: "Paginated vital records, summaries, and trends",
+          },
+          "400": { description: "Invalid filters" },
+          "401": { description: "Authentication required" },
+          "404": { description: "Patient not found" },
+        },
       },
       post: {
-        tags: ["Patients"], summary: "Record patient vitals", security: [{ sessionCookie: [] }],
-        parameters: [{ name: "patientId", in: "path", required: true, schema: { type: "string", format: "uuid" } }],
-        requestBody: { required: true, content: { "application/json": { schema: { type: "object", properties: { encounterId: { type: "string", format: "uuid" }, recordedAt: { type: "string", format: "date-time" }, weightKg: { type: "number" }, temperatureC: { type: "number" }, heartRate: { type: "integer" }, oxygenSaturation: { type: "number" }, systolicBp: { type: "integer" }, diastolicBp: { type: "integer" }, respiratoryRate: { type: "integer", description: "Breaths per minute" }, glucoseMgDl: { type: "number" } } } } } },
-        responses: { "201": { description: "Vital record created" }, "400": { description: "Invalid vital data" }, "403": { description: "Not authorized" }, "404": { description: "Patient not found" } },
+        tags: ["Patients"],
+        summary: "Record patient vitals",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "patientId",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+        ],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                properties: {
+                  encounterId: { type: "string", format: "uuid" },
+                  recordedAt: { type: "string", format: "date-time" },
+                  weightKg: { type: "number" },
+                  temperatureC: { type: "number" },
+                  heartRate: { type: "integer" },
+                  oxygenSaturation: { type: "number" },
+                  systolicBp: { type: "integer" },
+                  diastolicBp: { type: "integer" },
+                  respiratoryRate: {
+                    type: "integer",
+                    description: "Breaths per minute",
+                  },
+                  glucoseMgDl: { type: "number" },
+                },
+              },
+            },
+          },
+        },
+        responses: {
+          "201": { description: "Vital record created" },
+          "400": { description: "Invalid vital data" },
+          "403": { description: "Not authorized" },
+          "404": { description: "Patient not found" },
+        },
       },
     },
 
     "/patients/{patientId}/vitals/{vitalId}": {
       get: {
-        tags: ["Patients"], summary: "Get vital detail", security: [{ sessionCookie: [] }], parameters: [{ name: "patientId", in: "path", required: true, schema: { type: "string", format: "uuid" } }, { name: "vitalId", in: "path", required: true, schema: { type: "string", format: "uuid" } }], responses: { "200": { description: "Vital detail" }, "401": { description: "Authentication required" }, "404": { description: "Vital record not found" } },
+        tags: ["Patients"],
+        summary: "Get vital detail",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "patientId",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+          {
+            name: "vitalId",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+        ],
+        responses: {
+          "200": { description: "Vital detail" },
+          "401": { description: "Authentication required" },
+          "404": { description: "Vital record not found" },
+        },
       },
     },
 
     "/patients/{patientId}/vitals/export": {
       get: {
-        tags: ["Patients"], summary: "Export patient vitals as CSV", security: [{ sessionCookie: [] }], parameters: [{ name: "patientId", in: "path", required: true, schema: { type: "string", format: "uuid" } }, { name: "dateFrom", in: "query", schema: { type: "string", format: "date-time" } }, { name: "dateTo", in: "query", schema: { type: "string", format: "date-time" } }], responses: { "200": { description: "CSV vital export", content: { "text/csv": {} } }, "400": { description: "Invalid date filters" }, "404": { description: "Patient not found" } },
+        tags: ["Patients"],
+        summary: "Export patient vitals as CSV",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "patientId",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+          {
+            name: "dateFrom",
+            in: "query",
+            schema: { type: "string", format: "date-time" },
+          },
+          {
+            name: "dateTo",
+            in: "query",
+            schema: { type: "string", format: "date-time" },
+          },
+        ],
+        responses: {
+          "200": {
+            description: "CSV vital export",
+            content: { "text/csv": {} },
+          },
+          "400": { description: "Invalid date filters" },
+          "404": { description: "Patient not found" },
+        },
       },
     },
 
@@ -1286,25 +2050,93 @@ MedicalHistoryListResponse: {
         summary: "List patient prescription history",
         security: [{ sessionCookie: [] }],
         parameters: [
-          { name: "patientId", in: "path", required: true, schema: { type: "string", format: "uuid" } },
-          { name: "page", in: "query", schema: { type: "integer", minimum: 1, default: 1 } },
-          { name: "limit", in: "query", schema: { type: "integer", minimum: 1, maximum: 100, default: 20 } },
+          {
+            name: "patientId",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+          {
+            name: "page",
+            in: "query",
+            schema: { type: "integer", minimum: 1, default: 1 },
+          },
+          {
+            name: "limit",
+            in: "query",
+            schema: { type: "integer", minimum: 1, maximum: 100, default: 20 },
+          },
           { name: "search", in: "query", schema: { type: "string" } },
-          { name: "status", in: "query", schema: { $ref: "#/components/schemas/PrescriptionStatus" } },
-          { name: "dateFrom", in: "query", schema: { type: "string", format: "date-time" } },
-          { name: "dateTo", in: "query", schema: { type: "string", format: "date-time" } },
-          { name: "sortBy", in: "query", schema: { type: "string", enum: ["startDate", "endDate", "medicationName", "status", "createdAt"], default: "createdAt" } },
-          { name: "sortOrder", in: "query", schema: { type: "string", enum: ["asc", "desc"], default: "desc" } },
+          {
+            name: "status",
+            in: "query",
+            schema: { $ref: "#/components/schemas/PrescriptionStatus" },
+          },
+          {
+            name: "dateFrom",
+            in: "query",
+            schema: { type: "string", format: "date-time" },
+          },
+          {
+            name: "dateTo",
+            in: "query",
+            schema: { type: "string", format: "date-time" },
+          },
+          {
+            name: "sortBy",
+            in: "query",
+            schema: {
+              type: "string",
+              enum: [
+                "startDate",
+                "endDate",
+                "medicationName",
+                "status",
+                "createdAt",
+              ],
+              default: "createdAt",
+            },
+          },
+          {
+            name: "sortOrder",
+            in: "query",
+            schema: { type: "string", enum: ["asc", "desc"], default: "desc" },
+          },
         ],
-        responses: { "200": { description: "Paginated prescription history" }, "400": { description: "Invalid filter or sort value" }, "401": { description: "Authentication required" }, "404": { description: "Patient not found" } },
+        responses: {
+          "200": { description: "Paginated prescription history" },
+          "400": { description: "Invalid filter or sort value" },
+          "401": { description: "Authentication required" },
+          "404": { description: "Patient not found" },
+        },
       },
       post: {
         tags: ["Medication"],
         summary: "Create a patient prescription",
         security: [{ sessionCookie: [] }],
-        parameters: [{ name: "patientId", in: "path", required: true, schema: { type: "string", format: "uuid" } }],
-        requestBody: { required: true, content: { "application/json": { schema: { $ref: "#/components/schemas/PrescriptionInput" } } } },
-        responses: { "201": { description: "Prescription created" }, "400": { description: "Invalid prescription or relationship" }, "401": { description: "Authentication required" }, "403": { description: "Doctor role required" }, "404": { description: "Patient not found" } },
+        parameters: [
+          {
+            name: "patientId",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+        ],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: { $ref: "#/components/schemas/PrescriptionInput" },
+            },
+          },
+        },
+        responses: {
+          "201": { description: "Prescription created" },
+          "400": { description: "Invalid prescription or relationship" },
+          "401": { description: "Authentication required" },
+          "403": { description: "Doctor role required" },
+          "404": { description: "Patient not found" },
+        },
       },
     },
 
@@ -1314,107 +2146,492 @@ MedicalHistoryListResponse: {
         summary: "Export patient prescriptions as CSV",
         security: [{ sessionCookie: [] }],
         parameters: [
-          { name: "patientId", in: "path", required: true, schema: { type: "string", format: "uuid" } },
+          {
+            name: "patientId",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
           { name: "search", in: "query", schema: { type: "string" } },
-          { name: "status", in: "query", schema: { $ref: "#/components/schemas/PrescriptionStatus" } },
-          { name: "dateFrom", in: "query", schema: { type: "string", format: "date-time" } },
-          { name: "dateTo", in: "query", schema: { type: "string", format: "date-time" } },
+          {
+            name: "status",
+            in: "query",
+            schema: { $ref: "#/components/schemas/PrescriptionStatus" },
+          },
+          {
+            name: "dateFrom",
+            in: "query",
+            schema: { type: "string", format: "date-time" },
+          },
+          {
+            name: "dateTo",
+            in: "query",
+            schema: { type: "string", format: "date-time" },
+          },
         ],
-        responses: { "200": { description: "CSV prescription export", content: { "text/csv": {} } }, "400": { description: "Invalid filters" }, "401": { description: "Authentication required" }, "404": { description: "Patient not found" } },
+        responses: {
+          "200": {
+            description: "CSV prescription export",
+            content: { "text/csv": {} },
+          },
+          "400": { description: "Invalid filters" },
+          "401": { description: "Authentication required" },
+          "404": { description: "Patient not found" },
+        },
       },
     },
 
     "/prescriptions/{id}": {
       get: {
-        tags: ["Medication"], summary: "Get prescription details", security: [{ sessionCookie: [] }],
-        parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }],
-        responses: { "200": { description: "Prescription details" }, "401": { description: "Authentication required" }, "404": { description: "Prescription not found" } },
+        tags: ["Medication"],
+        summary: "Get prescription details",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+        ],
+        responses: {
+          "200": { description: "Prescription details" },
+          "401": { description: "Authentication required" },
+          "404": { description: "Prescription not found" },
+        },
       },
       patch: {
-        tags: ["Medication"], summary: "Update editable prescription fields", security: [{ sessionCookie: [] }],
-        parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }],
-        requestBody: { required: true, content: { "application/json": { schema: { $ref: "#/components/schemas/PrescriptionUpdateInput" } } } },
-        responses: { "200": { description: "Prescription updated" }, "400": { description: "Invalid update" }, "403": { description: "Doctor role required" }, "404": { description: "Prescription not found" }, "409": { description: "Prescription is no longer editable" } },
+        tags: ["Medication"],
+        summary: "Update editable prescription fields",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+        ],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: { $ref: "#/components/schemas/PrescriptionUpdateInput" },
+            },
+          },
+        },
+        responses: {
+          "200": { description: "Prescription updated" },
+          "400": { description: "Invalid update" },
+          "403": { description: "Doctor role required" },
+          "404": { description: "Prescription not found" },
+          "409": { description: "Prescription is no longer editable" },
+        },
       },
     },
 
     "/prescriptions/{id}/discontinue": {
       patch: {
-        tags: ["Medication"], summary: "Discontinue a prescription", security: [{ sessionCookie: [] }],
-        parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }],
-        requestBody: { required: false, content: { "application/json": { schema: { type: "object", properties: { reason: { type: "string", maxLength: 2000 } } } } } },
-        responses: { "200": { description: "Prescription discontinued" }, "400": { description: "Invalid discontinuation data" }, "403": { description: "Doctor role required" }, "404": { description: "Prescription not found" }, "409": { description: "Invalid prescription state transition" } },
+        tags: ["Medication"],
+        summary: "Discontinue a prescription",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+        ],
+        requestBody: {
+          required: false,
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                properties: { reason: { type: "string", maxLength: 2000 } },
+              },
+            },
+          },
+        },
+        responses: {
+          "200": { description: "Prescription discontinued" },
+          "400": { description: "Invalid discontinuation data" },
+          "403": { description: "Doctor role required" },
+          "404": { description: "Prescription not found" },
+          "409": { description: "Invalid prescription state transition" },
+        },
       },
     },
 
     "/encounters/{id}": {
       get: {
-        tags: ["Encounter"], summary: "Get encounter workspace", security: [{ sessionCookie: [] }],
-        parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }],
-        responses: { "200": { description: "Complete encounter workspace" }, "404": { description: "Encounter not found" } },
+        tags: ["Encounter"],
+        summary: "Get encounter workspace",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+        ],
+        responses: {
+          "200": { description: "Complete encounter workspace" },
+          "404": { description: "Encounter not found" },
+        },
       },
       patch: {
-        tags: ["Encounter"], summary: "Save encounter draft", security: [{ sessionCookie: [] }],
-        parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }],
-        requestBody: { required: true, content: { "application/json": { schema: { type: "object", properties: { chiefComplaint: { type: "string" }, objective: { type: "string" }, subjective: { type: "string" }, assessmentPlan: { type: "string" }, clinicalNote: { type: "string" }, endedAt: { type: "string", format: "date-time", nullable: true } } } } } },
-        responses: { "200": { description: "Draft saved" }, "400": { description: "Invalid encounter data" }, "403": { description: "Not authorized" }, "409": { description: "Encounter is locked" } },
+        tags: ["Encounter"],
+        summary: "Save encounter draft",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+        ],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                properties: {
+                  chiefComplaint: { type: "string" },
+                  objective: { type: "string" },
+                  subjective: { type: "string" },
+                  assessmentPlan: { type: "string" },
+                  clinicalNote: { type: "string" },
+                  endedAt: {
+                    type: "string",
+                    format: "date-time",
+                    nullable: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+        responses: {
+          "200": { description: "Draft saved" },
+          "400": { description: "Invalid encounter data" },
+          "403": { description: "Not authorized" },
+          "409": { description: "Encounter is locked" },
+        },
       },
     },
 
     "/encounters/{id}/lock": {
       patch: {
-        tags: ["Encounter"], summary: "Lock and sign encounter note", security: [{ sessionCookie: [] }],
-        parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }],
-        requestBody: { required: true, content: { "application/json": { schema: { type: "object", required: ["confirmation"], properties: { confirmation: { type: "boolean", enum: [true] } } } } } },
-        responses: { "200": { description: "Encounter locked" }, "400": { description: "Confirmation required" }, "403": { description: "Not authorized" }, "404": { description: "Encounter not found" }, "409": { description: "Already locked or not open" } },
+        tags: ["Encounter"],
+        summary: "Lock and sign encounter note",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+        ],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                required: ["confirmation"],
+                properties: { confirmation: { type: "boolean", enum: [true] } },
+              },
+            },
+          },
+        },
+        responses: {
+          "200": { description: "Encounter locked" },
+          "400": { description: "Confirmation required" },
+          "403": { description: "Not authorized" },
+          "404": { description: "Encounter not found" },
+          "409": { description: "Already locked or not open" },
+        },
       },
     },
 
     "/encounters/{id}/orders": {
       get: {
-        tags: ["Encounter"], summary: "List encounter orders", security: [{ sessionCookie: [] }],
-        parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }, { name: "page", in: "query", schema: { type: "integer" } }, { name: "limit", in: "query", schema: { type: "integer", maximum: 100 } }],
-        responses: { "200": { description: "Orders" }, "404": { description: "Encounter not found" } },
+        tags: ["Encounter"],
+        summary: "List encounter orders",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+          { name: "page", in: "query", schema: { type: "integer" } },
+          {
+            name: "limit",
+            in: "query",
+            schema: { type: "integer", maximum: 100 },
+          },
+        ],
+        responses: {
+          "200": { description: "Orders" },
+          "404": { description: "Encounter not found" },
+        },
       },
       post: {
-        tags: ["Encounter"], summary: "Request an order", security: [{ sessionCookie: [] }],
-        parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }],
-        requestBody: { required: true, content: { "application/json": { schema: { type: "object", required: ["type", "name"], properties: { type: { type: "string", enum: ["LABORATORY", "DIAGNOSTIC", "REFERRAL", "OTHER"] }, name: { type: "string" }, priority: { type: "string", enum: ["ROUTINE", "URGENT", "STAT", "ASAP"] }, indication: { type: "string" }, instructions: { type: "string" }, frequency: { type: "string" }, scheduledAt: { type: "string", format: "date-time", nullable: true }, specimenType: { type: "string", maxLength: 100 }, fastingRequired: { type: "boolean" }, bodyPart: { type: "string", maxLength: 200 }, contrastRequired: { type: "boolean" }, sedationRequired: { type: "boolean" } } } } } },
-        responses: { "201": { description: "Order requested" }, "400": { description: "Invalid order" }, "403": { description: "Not authorized" }, "409": { description: "Encounter is locked" } },
+        tags: ["Encounter"],
+        summary: "Request an order",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+        ],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                required: ["type", "name"],
+                properties: {
+                  type: {
+                    type: "string",
+                    enum: ["LABORATORY", "DIAGNOSTIC", "REFERRAL", "OTHER"],
+                  },
+                  name: { type: "string" },
+                  priority: {
+                    type: "string",
+                    enum: ["ROUTINE", "URGENT", "STAT", "ASAP"],
+                  },
+                  indication: { type: "string" },
+                  instructions: { type: "string" },
+                  frequency: { type: "string" },
+                  scheduledAt: {
+                    type: "string",
+                    format: "date-time",
+                    nullable: true,
+                  },
+                  specimenType: { type: "string", maxLength: 100 },
+                  fastingRequired: { type: "boolean" },
+                  bodyPart: { type: "string", maxLength: 200 },
+                  contrastRequired: { type: "boolean" },
+                  sedationRequired: { type: "boolean" },
+                },
+              },
+            },
+          },
+        },
+        responses: {
+          "201": { description: "Order requested" },
+          "400": { description: "Invalid order" },
+          "403": { description: "Not authorized" },
+          "409": { description: "Encounter is locked" },
+        },
       },
     },
 
     "/encounters/{id}/prescriptions": {
       get: {
-        tags: ["Encounter"], summary: "List encounter prescriptions", security: [{ sessionCookie: [] }],
-        parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }, { name: "page", in: "query", schema: { type: "integer" } }, { name: "limit", in: "query", schema: { type: "integer", maximum: 100 } }],
-        responses: { "200": { description: "Prescriptions" }, "404": { description: "Encounter not found" } },
+        tags: ["Encounter"],
+        summary: "List encounter prescriptions",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+          { name: "page", in: "query", schema: { type: "integer" } },
+          {
+            name: "limit",
+            in: "query",
+            schema: { type: "integer", maximum: 100 },
+          },
+        ],
+        responses: {
+          "200": { description: "Prescriptions" },
+          "404": { description: "Encounter not found" },
+        },
       },
       post: {
-        tags: ["Encounter"], summary: "Submit a prescription", security: [{ sessionCookie: [] }],
-        parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }],
-        requestBody: { required: true, content: { "application/json": { schema: { type: "object", required: ["medicationName", "dosage", "route", "frequency", "duration", "durationUnit", "quantity"], properties: { medicationName: { type: "string" }, dosage: { type: "string" }, route: { type: "string" }, frequency: { type: "string" }, duration: { type: "integer", minimum: 1 }, durationUnit: { type: "string" }, quantity: { type: "integer", minimum: 1 }, refills: { type: "integer", minimum: 0 }, reason: { type: "string" }, notes: { type: "string" } } } } } },
-        responses: { "201": { description: "Prescription submitted" }, "400": { description: "Invalid prescription" }, "403": { description: "Not authorized" }, "409": { description: "Encounter is locked" } },
+        tags: ["Encounter"],
+        summary: "Submit a prescription",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+        ],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                required: [
+                  "medicationName",
+                  "dosage",
+                  "route",
+                  "frequency",
+                  "duration",
+                  "durationUnit",
+                  "quantity",
+                ],
+                properties: {
+                  medicationName: { type: "string" },
+                  dosage: { type: "string" },
+                  route: { type: "string" },
+                  frequency: { type: "string" },
+                  duration: { type: "integer", minimum: 1 },
+                  durationUnit: { type: "string" },
+                  quantity: { type: "integer", minimum: 1 },
+                  refills: { type: "integer", minimum: 0 },
+                  reason: { type: "string" },
+                  notes: { type: "string" },
+                },
+              },
+            },
+          },
+        },
+        responses: {
+          "201": { description: "Prescription submitted" },
+          "400": { description: "Invalid prescription" },
+          "403": { description: "Not authorized" },
+          "409": { description: "Encounter is locked" },
+        },
       },
     },
 
     "/encounters/{id}/follow-ups": {
       get: {
-        tags: ["Encounter"], summary: "List encounter follow-ups", security: [{ sessionCookie: [] }], parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }], responses: { "200": { description: "Follow-ups" }, "404": { description: "Encounter not found" } },
+        tags: ["Encounter"],
+        summary: "List encounter follow-ups",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+        ],
+        responses: {
+          "200": { description: "Follow-ups" },
+          "404": { description: "Encounter not found" },
+        },
       },
       post: {
-        tags: ["Encounter"], summary: "Request a follow-up", security: [{ sessionCookie: [] }], parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }],
-        requestBody: { required: true, content: { "application/json": { schema: { type: "object", required: ["type", "departmentId", "providerId", "preferredDate", "reason"], properties: { type: { type: "string" }, departmentId: { type: "string", format: "uuid" }, providerId: { type: "string", format: "uuid" }, priority: { type: "string", enum: ["ROUTINE", "URGENT", "ASAP"] }, preferredDate: { type: "string", format: "date-time" }, reason: { type: "string" }, specialInstructions: { type: "string" } } } } } },
-        responses: { "201": { description: "Follow-up requested" }, "400": { description: "Invalid follow-up or provider" }, "403": { description: "Not authorized" }, "409": { description: "Encounter is locked" } },
+        tags: ["Encounter"],
+        summary: "Request a follow-up",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+        ],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                required: [
+                  "type",
+                  "departmentId",
+                  "providerId",
+                  "preferredDate",
+                  "reason",
+                ],
+                properties: {
+                  type: { type: "string" },
+                  departmentId: { type: "string", format: "uuid" },
+                  providerId: { type: "string", format: "uuid" },
+                  priority: {
+                    type: "string",
+                    enum: ["ROUTINE", "URGENT", "ASAP"],
+                  },
+                  preferredDate: { type: "string", format: "date-time" },
+                  reason: { type: "string" },
+                  specialInstructions: { type: "string" },
+                },
+              },
+            },
+          },
+        },
+        responses: {
+          "201": { description: "Follow-up requested" },
+          "400": { description: "Invalid follow-up or provider" },
+          "403": { description: "Not authorized" },
+          "409": { description: "Encounter is locked" },
+        },
       },
     },
 
     "/encounters/{id}/nurse-notes": {
       get: {
-        tags: ["Encounter"], summary: "List nurse notes", security: [{ sessionCookie: [] }], parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }], responses: { "200": { description: "Nurse notes" }, "404": { description: "Encounter not found" } },
+        tags: ["Encounter"],
+        summary: "List nurse notes",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+        ],
+        responses: {
+          "200": { description: "Nurse notes" },
+          "404": { description: "Encounter not found" },
+        },
       },
       post: {
-        tags: ["Encounter"], summary: "Create a nurse note", security: [{ sessionCookie: [] }], parameters: [{ name: "id", in: "path", required: true, schema: { type: "string", format: "uuid" } }], requestBody: { required: true, content: { "application/json": { schema: { type: "object", required: ["content"], properties: { content: { type: "string" } } } } } }, responses: { "201": { description: "Nurse note created" }, "400": { description: "Invalid nurse note" }, "403": { description: "Nurse role required" }, "409": { description: "Encounter is locked" } },
+        tags: ["Encounter"],
+        summary: "Create a nurse note",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+        ],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                required: ["content"],
+                properties: { content: { type: "string" } },
+              },
+            },
+          },
+        },
+        responses: {
+          "201": { description: "Nurse note created" },
+          "400": { description: "Invalid nurse note" },
+          "403": { description: "Nurse role required" },
+          "409": { description: "Encounter is locked" },
+        },
       },
     },
 
@@ -1484,8 +2701,7 @@ MedicalHistoryListResponse: {
             name: "search",
             in: "query",
             required: false,
-            description:
-              "Search by hospital number, first name or last name.",
+            description: "Search by hospital number, first name or last name.",
             schema: {
               type: "string",
             },
@@ -1564,8 +2780,7 @@ MedicalHistoryListResponse: {
             name: "sortBy",
             in: "query",
             required: false,
-            description:
-              "Field used to sort the patient directory.",
+            description: "Field used to sort the patient directory.",
             schema: {
               type: "string",
             },
@@ -1691,8 +2906,7 @@ MedicalHistoryListResponse: {
           },
 
           "409": {
-            description:
-              "A patient with this hospital number already exists",
+            description: "A patient with this hospital number already exists",
           },
         },
       },
@@ -1750,177 +2964,176 @@ MedicalHistoryListResponse: {
           },
         },
       },
-
     },
 
     "/patients/{id}/medical-history": {
-  get: {
-    tags: ["Patients"],
-    summary: "Get patient medical history",
-    description:
-      "Returns the patient's longitudinal medical history shown in the Medical History screen, including diagnoses and treatments. Supports search, date filtering, sorting and pagination.",
-    security: [{ sessionCookie: [] }],
-
-    parameters: [
-      {
-        name: "id",
-        in: "path",
-        required: true,
-        description: "The UUID of the patient.",
-        schema: {
-          type: "string",
-          format: "uuid",
-        },
-        example: "14b64474-576a-41c8-9293-8343da2700f5",
-      },
-      {
-        name: "search",
-        in: "query",
-        required: false,
+      get: {
+        tags: ["Patients"],
+        summary: "Get patient medical history",
         description:
-          "Searches medical history by diagnosis/treatment name and related code/type.",
-        schema: {
-          type: "string",
-        },
-        example: "Diabetes",
-      },
-      {
-        name: "dateFrom",
-        in: "query",
-        required: false,
-        description: "Return history from this date.",
-        schema: {
-          type: "string",
-          format: "date-time",
-        },
-        example: "2023-01-01T00:00:00.000Z",
-      },
-      {
-        name: "dateTo",
-        in: "query",
-        required: false,
-        description: "Return history up to this date.",
-        schema: {
-          type: "string",
-          format: "date-time",
-        },
-        example: "2024-12-31T23:59:59.999Z",
-      },
-      {
-        name: "sortOrder",
-        in: "query",
-        required: false,
-        description: "Sort medical history by date.",
-        schema: {
-          type: "string",
-          enum: ["asc", "desc"],
-          default: "desc",
-        },
-      },
-      {
-        name: "page",
-        in: "query",
-        required: false,
-        description: "Page number.",
-        schema: {
-          type: "integer",
-          minimum: 1,
-          default: 1,
-        },
-      },
-      {
-        name: "limit",
-        in: "query",
-        required: false,
-        description:
-          "Number of medical history records per page. Maximum is 100.",
-        schema: {
-          type: "integer",
-          minimum: 1,
-          maximum: 100,
-          default: 20,
-        },
-      },
-    ],
+          "Returns the patient's longitudinal medical history shown in the Medical History screen, including diagnoses and treatments. Supports search, date filtering, sorting and pagination.",
+        security: [{ sessionCookie: [] }],
 
-    responses: {
-      "200": {
-        description: "Medical history retrieved successfully",
-        content: {
-          "application/json": {
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            description: "The UUID of the patient.",
             schema: {
-              $ref: "#/components/schemas/MedicalHistoryListResponse",
+              type: "string",
+              format: "uuid",
             },
+            example: "14b64474-576a-41c8-9293-8343da2700f5",
+          },
+          {
+            name: "search",
+            in: "query",
+            required: false,
+            description:
+              "Searches medical history by diagnosis/treatment name and related code/type.",
+            schema: {
+              type: "string",
+            },
+            example: "Diabetes",
+          },
+          {
+            name: "dateFrom",
+            in: "query",
+            required: false,
+            description: "Return history from this date.",
+            schema: {
+              type: "string",
+              format: "date-time",
+            },
+            example: "2023-01-01T00:00:00.000Z",
+          },
+          {
+            name: "dateTo",
+            in: "query",
+            required: false,
+            description: "Return history up to this date.",
+            schema: {
+              type: "string",
+              format: "date-time",
+            },
+            example: "2024-12-31T23:59:59.999Z",
+          },
+          {
+            name: "sortOrder",
+            in: "query",
+            required: false,
+            description: "Sort medical history by date.",
+            schema: {
+              type: "string",
+              enum: ["asc", "desc"],
+              default: "desc",
+            },
+          },
+          {
+            name: "page",
+            in: "query",
+            required: false,
+            description: "Page number.",
+            schema: {
+              type: "integer",
+              minimum: 1,
+              default: 1,
+            },
+          },
+          {
+            name: "limit",
+            in: "query",
+            required: false,
+            description:
+              "Number of medical history records per page. Maximum is 100.",
+            schema: {
+              type: "integer",
+              minimum: 1,
+              maximum: 100,
+              default: 20,
+            },
+          },
+        ],
+
+        responses: {
+          "200": {
+            description: "Medical history retrieved successfully",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/MedicalHistoryListResponse",
+                },
+              },
+            },
+          },
+          "400": {
+            description:
+              "Invalid medical history filter or pagination parameter",
+          },
+          "401": {
+            description: "Authentication required",
+          },
+          "404": {
+            description: "Patient not found",
           },
         },
       },
-      "400": {
-        description: "Invalid medical history filter or pagination parameter",
-      },
-      "401": {
-        description: "Authentication required",
-      },
-      "404": {
-        description: "Patient not found",
-      },
     },
-  },
-},
 
-"/patients/{id}/medical-history/{diagnosisId}": {
-  get: {
-    tags: ["Patients"],
-    summary: "Get medical history diagnosis details",
-    description:
-      "Returns the detailed information for a specific diagnosis belonging to the selected patient, including diagnosis metadata, related treatments, encounter history, latest vitals, HbA1c trends, medications related to the condition, and key documents.",
-    security: [{ sessionCookie: [] }],
+    "/patients/{id}/medical-history/{diagnosisId}": {
+      get: {
+        tags: ["Patients"],
+        summary: "Get medical history diagnosis details",
+        description:
+          "Returns the detailed information for a specific diagnosis belonging to the selected patient, including diagnosis metadata, related treatments, encounter history, latest vitals, HbA1c trends, medications related to the condition, and key documents.",
+        security: [{ sessionCookie: [] }],
 
-    parameters: [
-      {
-        name: "id",
-        in: "path",
-        required: true,
-        description: "The UUID of the patient.",
-        schema: {
-          type: "string",
-          format: "uuid",
-        },
-        example: "14b64474-576a-41c8-9293-8343da2700f5",
-      },
-      {
-        name: "diagnosisId",
-        in: "path",
-        required: true,
-        description: "The UUID of the diagnosis.",
-        schema: {
-          type: "string",
-          format: "uuid",
-        },
-        example: "8d5c9c5e-4a8d-4f13-9b3c-2f2e7d4a1234",
-      },
-    ],
-
-    responses: {
-      "200": {
-        description: "Diagnosis details retrieved successfully",
-        content: {
-          "application/json": {
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            description: "The UUID of the patient.",
             schema: {
-              $ref: "#/components/schemas/MedicalHistoryDetailResponse",
+              type: "string",
+              format: "uuid",
             },
+            example: "14b64474-576a-41c8-9293-8343da2700f5",
+          },
+          {
+            name: "diagnosisId",
+            in: "path",
+            required: true,
+            description: "The UUID of the diagnosis.",
+            schema: {
+              type: "string",
+              format: "uuid",
+            },
+            example: "8d5c9c5e-4a8d-4f13-9b3c-2f2e7d4a1234",
+          },
+        ],
+
+        responses: {
+          "200": {
+            description: "Diagnosis details retrieved successfully",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/MedicalHistoryDetailResponse",
+                },
+              },
+            },
+          },
+          "401": {
+            description: "Authentication required",
+          },
+          "404": {
+            description: "Patient or diagnosis not found",
           },
         },
       },
-      "401": {
-        description: "Authentication required",
-      },
-      "404": {
-        description:
-          "Patient or diagnosis not found",
-      },
     },
-  },
-},
 
     /*
      * ============================================================

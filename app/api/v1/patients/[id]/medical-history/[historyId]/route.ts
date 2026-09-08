@@ -10,15 +10,11 @@ type RouteContext = {
   }>;
 };
 
-export async function GET(
-  _request: NextRequest,
-  context: RouteContext
-) {
+export async function GET(_request: NextRequest, context: RouteContext) {
   try {
     const user = await requireUser();
 
-    const { id: patientId, historyId } =
-      await context.params;
+    const { id: patientId, historyId } = await context.params;
 
     /*
      * First verify the patient belongs to the
@@ -48,7 +44,7 @@ export async function GET(
           success: false,
           message: "Patient not found",
         },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -130,8 +126,7 @@ export async function GET(
 
             ...(diagnosis.encounter?.id
               ? {
-                  encounterId:
-                    diagnosis.encounter.id,
+                  encounterId: diagnosis.encounter.id,
                 }
               : {}),
           },
@@ -332,8 +327,7 @@ export async function GET(
             provider: diagnosis.encounter?.doctor
               ? {
                   id: diagnosis.encounter.doctor.id,
-                  staffId:
-                    diagnosis.encounter.doctor.staffId,
+                  staffId: diagnosis.encounter.doctor.staffId,
                   name: `Dr. ${diagnosis.encounter.doctor.firstName} ${diagnosis.encounter.doctor.lastName}`,
                 }
               : null,
@@ -347,9 +341,7 @@ export async function GET(
                 }
               : null,
 
-            clinicalNotes:
-              diagnosis.encounter?.clinicalNote ||
-              null,
+            clinicalNotes: diagnosis.encounter?.clinicalNote || null,
           },
 
           encounter: diagnosis.encounter
@@ -357,18 +349,15 @@ export async function GET(
                 id: diagnosis.encounter.id,
                 type: diagnosis.encounter.type,
                 status: diagnosis.encounter.status,
-                startedAt:
-                  diagnosis.encounter.startedAt,
-                endedAt:
-                  diagnosis.encounter.endedAt,
+                startedAt: diagnosis.encounter.startedAt,
+                endedAt: diagnosis.encounter.endedAt,
 
-                doctor:
-                  diagnosis.encounter.doctor
-                    ? {
-                        id: diagnosis.encounter.doctor.id,
-                        name: `Dr. ${diagnosis.encounter.doctor.firstName} ${diagnosis.encounter.doctor.lastName}`,
-                      }
-                    : null,
+                doctor: diagnosis.encounter.doctor
+                  ? {
+                      id: diagnosis.encounter.doctor.id,
+                      name: `Dr. ${diagnosis.encounter.doctor.firstName} ${diagnosis.encounter.doctor.lastName}`,
+                    }
+                  : null,
               }
             : null,
 
@@ -421,9 +410,7 @@ export async function GET(
               uploadedAt: doc.uploadedAt,
             })),
             message:
-              keyDocuments.length === 0
-                ? "No documents available"
-                : undefined,
+              keyDocuments.length === 0 ? "No documents available" : undefined,
           },
         },
       });
@@ -475,7 +462,7 @@ export async function GET(
           success: false,
           message: "Medical history record not found",
         },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -513,8 +500,7 @@ export async function GET(
           provider: treatment.encounter?.doctor
             ? {
                 id: treatment.encounter.doctor.id,
-                staffId:
-                  treatment.encounter.doctor.staffId,
+                staffId: treatment.encounter.doctor.staffId,
                 name: `Dr. ${treatment.encounter.doctor.firstName} ${treatment.encounter.doctor.lastName}`,
               }
             : null,
@@ -528,9 +514,7 @@ export async function GET(
               }
             : null,
 
-          clinicalNotes:
-            treatment.encounter?.clinicalNote ||
-            null,
+          clinicalNotes: treatment.encounter?.clinicalNote || null,
         },
 
         encounter: treatment.encounter
@@ -541,13 +525,12 @@ export async function GET(
               startedAt: treatment.encounter.startedAt,
               endedAt: treatment.encounter.endedAt,
 
-              doctor:
-                treatment.encounter.doctor
-                  ? {
-                      id: treatment.encounter.doctor.id,
-                      name: `Dr. ${treatment.encounter.doctor.firstName} ${treatment.encounter.doctor.lastName}`,
-                    }
-                  : null,
+              doctor: treatment.encounter.doctor
+                ? {
+                    id: treatment.encounter.doctor.id,
+                    name: `Dr. ${treatment.encounter.doctor.firstName} ${treatment.encounter.doctor.lastName}`,
+                  }
+                : null,
             }
           : null,
 
@@ -572,17 +555,14 @@ export async function GET(
       },
     });
   } catch (error) {
-    console.error(
-      "Get medical history detail error:",
-      error
-    );
+    console.error("Get medical history detail error:", error);
 
     return NextResponse.json(
       {
         success: false,
         message: "An unexpected error occurred",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

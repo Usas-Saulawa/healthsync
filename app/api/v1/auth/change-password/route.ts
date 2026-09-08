@@ -1,4 +1,3 @@
-
 import { NextRequest, NextResponse } from "next/server";
 
 import argon2 from "argon2";
@@ -44,10 +43,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const {
-      currentPassword,
-      newPassword,
-    } = result.data;
+    const { currentPassword, newPassword } = result.data;
 
     /*
      * Get the complete user record so we can verify
@@ -100,17 +96,13 @@ export async function POST(request: NextRequest) {
     /*
      * Do not allow the user to reuse the same password.
      */
-    const samePassword = await argon2.verify(
-      user.passwordHash,
-      newPassword,
-    );
+    const samePassword = await argon2.verify(user.passwordHash, newPassword);
 
     if (samePassword) {
       return NextResponse.json(
         {
           success: false,
-          message:
-            "New password must be different from your current password",
+          message: "New password must be different from your current password",
         },
         { status: 400 },
       );
@@ -119,9 +111,7 @@ export async function POST(request: NextRequest) {
     /*
      * Hash the new password with Argon2.
      */
-    const newPasswordHash = await argon2.hash(
-      newPassword,
-    );
+    const newPasswordHash = await argon2.hash(newPassword);
 
     /*
      * Mark the first-login password requirement as completed.
@@ -170,4 +160,3 @@ export async function POST(request: NextRequest) {
     );
   }
 }
-

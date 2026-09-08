@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
           success: false,
           message: "You are not authorized to create patients",
         },
-        { status: 403 }
+        { status: 403 },
       );
     }
 
@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
           message: "Invalid patient data",
           errors: result.error.flatten().fieldErrors,
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
           success: false,
           message: "A patient with this hospital number already exists",
         },
-        { status: 409 }
+        { status: 409 },
       );
     }
 
@@ -89,7 +89,7 @@ export async function POST(request: NextRequest) {
           patient,
         },
       },
-      { status: 201 }
+      { status: 201 },
     );
   } catch (error) {
     console.error("Create patient error:", error);
@@ -99,7 +99,7 @@ export async function POST(request: NextRequest) {
         success: false,
         message: "An unexpected error occurred",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -134,13 +134,10 @@ export async function GET(request: NextRequest) {
 
     const limitParam = Number(searchParams.get("limit") || "20");
 
-    const page =
-      Number.isInteger(pageParam) && pageParam > 0 ? pageParam : 1;
+    const page = Number.isInteger(pageParam) && pageParam > 0 ? pageParam : 1;
 
     const limit =
-      Number.isInteger(limitParam) &&
-      limitParam > 0 &&
-      limitParam <= 100
+      Number.isInteger(limitParam) && limitParam > 0 && limitParam <= 100
         ? limitParam
         : 20;
 
@@ -223,11 +220,7 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    if (
-      parsedDateFrom &&
-      parsedDateTo &&
-      parsedDateFrom > parsedDateTo
-    ) {
+    if (parsedDateFrom && parsedDateTo && parsedDateFrom > parsedDateTo) {
       return NextResponse.json(
         {
           success: false,
@@ -252,9 +245,7 @@ export async function GET(request: NextRequest) {
 
     type SortField = (typeof allowedSortFields)[number];
 
-    const sortField: SortField = allowedSortFields.includes(
-      sortBy as SortField,
-    )
+    const sortField: SortField = allowedSortFields.includes(sortBy as SortField)
       ? (sortBy as SortField)
       : "createdAt";
 
@@ -341,10 +332,7 @@ export async function GET(request: NextRequest) {
      * INPATIENT date filtering:
      * date range applies to admissionDate.
      */
-    if (
-      type === "INPATIENT" &&
-      (parsedDateFrom || parsedDateTo)
-    ) {
+    if (type === "INPATIENT" && (parsedDateFrom || parsedDateTo)) {
       admissionConditions.admissionDate = {
         ...(parsedDateFrom
           ? {
@@ -402,11 +390,7 @@ export async function GET(request: NextRequest) {
      * ward/doctor filters, the patient must have a
      * matching current admission.
      */
-    if (
-      type === "INPATIENT" ||
-      wardId ||
-      attendingDoctorId
-    ) {
+    if (type === "INPATIENT" || wardId || attendingDoctorId) {
       conditions.push({
         admissions: {
           some: {
@@ -426,10 +410,7 @@ export async function GET(request: NextRequest) {
      *
      * This keeps the "All Patients" view useful.
      */
-    if (
-      !type &&
-      (parsedDateFrom || parsedDateTo)
-    ) {
+    if (!type && (parsedDateFrom || parsedDateTo)) {
       conditions.push({
         OR: [
           {
@@ -482,7 +463,7 @@ export async function GET(request: NextRequest) {
     /*
      * Fetch all matching patients with their doctor relationships
      * to enable client-side prioritization.
-     * 
+     *
      * Doctor prioritization:
      * 1. Patients where the logged-in doctor is the attending doctor
      * 2. Patients where the logged-in doctor has recent encounters
@@ -697,9 +678,7 @@ export async function GET(request: NextRequest) {
 
         status: patient.status,
 
-        type: currentAdmission
-          ? "INPATIENT"
-          : "OUTPATIENT",
+        type: currentAdmission ? "INPATIENT" : "OUTPATIENT",
 
         primaryDiagnosis: primaryDiagnosis
           ? {
@@ -713,11 +692,9 @@ export async function GET(request: NextRequest) {
 
         bed: currentAdmission?.bed ?? null,
 
-        attendingDoctor:
-          currentAdmission?.attendingDoctor ?? null,
+        attendingDoctor: currentAdmission?.attendingDoctor ?? null,
 
-        admissionDate:
-          currentAdmission?.admissionDate ?? null,
+        admissionDate: currentAdmission?.admissionDate ?? null,
 
         createdAt: patient.createdAt,
         updatedAt: patient.updatedAt,
@@ -742,8 +719,7 @@ export async function GET(request: NextRequest) {
           type: type || null,
           status: status || null,
           wardId: wardId || null,
-          attendingDoctorId:
-            attendingDoctorId || null,
+          attendingDoctorId: attendingDoctorId || null,
           dateFrom: dateFrom || null,
           dateTo: dateTo || null,
           sortBy: sortField,

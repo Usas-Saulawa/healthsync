@@ -14,9 +14,7 @@ export async function createSession(userId: string) {
   const token = randomBytes(32).toString("hex");
   const tokenHash = hashSessionToken(token);
 
-  const expiresAt = new Date(
-    Date.now() + SESSION_DURATION_MS,
-  );
+  const expiresAt = new Date(Date.now() + SESSION_DURATION_MS);
 
   await prisma.session.create({
     data: {

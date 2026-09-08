@@ -2,9 +2,7 @@ import { randomBytes, createHash } from "crypto";
 
 import { prisma } from "@/lib/prisma";
 
-export type ChallengePurpose =
-  | "DEVICE_VERIFICATION"
-  | "PASSWORD_CHANGE";
+export type ChallengePurpose = "DEVICE_VERIFICATION" | "PASSWORD_CHANGE";
 
 const CHALLENGE_EXPIRATION_MS = 10 * 60 * 1000;
 
@@ -20,9 +18,7 @@ export async function createAuthChallenge(
 
   const tokenHash = hashChallenge(token);
 
-  const expiresAt = new Date(
-    Date.now() + CHALLENGE_EXPIRATION_MS,
-  );
+  const expiresAt = new Date(Date.now() + CHALLENGE_EXPIRATION_MS);
 
   await prisma.authChallenge.updateMany({
     where: {
@@ -67,9 +63,7 @@ export async function getAuthChallenge(
   });
 }
 
-export async function completeAuthChallenge(
-  challengeId: string,
-) {
+export async function completeAuthChallenge(challengeId: string) {
   return prisma.authChallenge.update({
     where: {
       id: challengeId,

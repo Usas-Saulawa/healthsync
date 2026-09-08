@@ -1,7 +1,6 @@
 import { z } from "zod";
 
-const optionalText = (max: number) =>
-  z.string().trim().max(max).optional();
+const optionalText = (max: number) => z.string().trim().max(max).optional();
 
 const dateTime = z.string().datetime({ offset: true });
 

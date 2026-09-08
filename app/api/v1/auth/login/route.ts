@@ -17,14 +17,9 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
 
     const identifier =
-      typeof body.identifier === "string"
-        ? body.identifier.trim()
-        : "";
+      typeof body.identifier === "string" ? body.identifier.trim() : "";
 
-    const password =
-      typeof body.password === "string"
-        ? body.password
-        : "";
+    const password = typeof body.password === "string" ? body.password : "";
 
     if (!identifier || !password) {
       return NextResponse.json(
@@ -38,16 +33,13 @@ export async function POST(request: NextRequest) {
 
     const normalizedIdentifier = identifier.toLowerCase();
 
-    const rateLimit = checkRateLimit(
-      `login:${normalizedIdentifier}`,
-    );
+    const rateLimit = checkRateLimit(`login:${normalizedIdentifier}`);
 
     if (!rateLimit.success) {
       return NextResponse.json(
         {
           success: false,
-          message:
-            "Too many login attempts. Please try again later.",
+          message: "Too many login attempts. Please try again later.",
         },
         {
           status: 429,
@@ -81,10 +73,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const passwordValid = await argon2.verify(
-      user.passwordHash,
-      password,
-    );
+    const passwordValid = await argon2.verify(user.passwordHash, password);
 
     if (!user.isActive) {
       return NextResponse.json(
@@ -134,10 +123,7 @@ export async function POST(request: NextRequest) {
      */
     if (user.mustChangePassword) {
       if (!trustedDevice) {
-        await createOtp(
-          user.id,
-          "DEVICE_VERIFICATION",
-        );
+        await createOtp(user.id, "DEVICE_VERIFICATION");
       }
 
       return NextResponse.json({
@@ -198,10 +184,7 @@ export async function POST(request: NextRequest) {
      *
      * Send an OTP before creating the authenticated session.
      */
-    await createOtp(
-      user.id,
-      "DEVICE_VERIFICATION",
-    );
+    await createOtp(user.id, "DEVICE_VERIFICATION");
 
     return NextResponse.json({
       success: true,

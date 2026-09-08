@@ -130,10 +130,7 @@ export async function GET(request: NextRequest) {
     );
 
     const limit = Math.min(
-      Math.max(
-        Number.parseInt(searchParams.get("limit") || "20", 10),
-        1,
-      ),
+      Math.max(Number.parseInt(searchParams.get("limit") || "20", 10), 1),
       100,
     );
 

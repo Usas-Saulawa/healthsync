@@ -41,11 +41,7 @@ export async function GET(request: NextRequest) {
     let periodEnd: Date;
 
     if (period === "daily") {
-      periodStart = new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        now.getDate(),
-      );
+      periodStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
       periodEnd = new Date(
         now.getFullYear(),
@@ -65,17 +61,9 @@ export async function GET(request: NextRequest) {
         periodStart.getDate() + 7,
       );
     } else {
-      periodStart = new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        1,
-      );
+      periodStart = new Date(now.getFullYear(), now.getMonth(), 1);
 
-      periodEnd = new Date(
-        now.getFullYear(),
-        now.getMonth() + 1,
-        1,
-      );
+      periodEnd = new Date(now.getFullYear(), now.getMonth() + 1, 1);
     }
 
     const todayStart = new Date(

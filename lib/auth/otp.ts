@@ -5,9 +5,7 @@ import { prisma } from "@/lib/prisma";
 import { sendEmail } from "@/lib/email/mailer";
 
 export type OtpPurpose =
-  | "DEVICE_VERIFICATION"
-  | "ACCOUNT_ACTIVATION"
-  | "PASSWORD_RESET";
+  "DEVICE_VERIFICATION" | "ACCOUNT_ACTIVATION" | "PASSWORD_RESET";
 
 const OTP_EXPIRATION_MS = 10 * 60 * 1000;
 const MAX_ATTEMPTS = 5;
@@ -46,15 +44,10 @@ function getOtpMessage(purpose: OtpPurpose, code: string) {
   }
 }
 
-export async function createOtp(
-  userId: string,
-  purpose: OtpPurpose,
-) {
+export async function createOtp(userId: string, purpose: OtpPurpose) {
   const code = generateOtpCode();
 
-  const expiresAt = new Date(
-    Date.now() + OTP_EXPIRATION_MS,
-  );
+  const expiresAt = new Date(Date.now() + OTP_EXPIRATION_MS);
 
   const codeHash = hashOtp(code);
 
@@ -204,10 +197,7 @@ export async function verifyOtp(
   };
 }
 
-export async function invalidateOtps(
-  userId: string,
-  purpose: OtpPurpose,
-) {
+export async function invalidateOtps(userId: string, purpose: OtpPurpose) {
   await prisma.authOtp.updateMany({
     where: {
       userId,

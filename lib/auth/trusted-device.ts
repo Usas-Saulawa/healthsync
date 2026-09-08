@@ -6,8 +6,7 @@ import { prisma } from "@/lib/prisma";
 
 const TRUSTED_DEVICE_COOKIE = "healthsync_trusted_device";
 
-const TRUSTED_DEVICE_DURATION_MS =
-  30 * 24 * 60 * 60 * 1000; // 30 days
+const TRUSTED_DEVICE_DURATION_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
 
 function hashToken(token: string) {
   return createHash("sha256").update(token).digest("hex");
@@ -22,9 +21,7 @@ export async function createTrustedDevice(
 
   const tokenHash = hashToken(token);
 
-  const expiresAt = new Date(
-    Date.now() + TRUSTED_DEVICE_DURATION_MS,
-  );
+  const expiresAt = new Date(Date.now() + TRUSTED_DEVICE_DURATION_MS);
 
   await prisma.trustedDevice.create({
     data: {
@@ -53,14 +50,10 @@ export async function createTrustedDevice(
   };
 }
 
-export async function getTrustedDevice(
-  userId: string,
-) {
+export async function getTrustedDevice(userId: string) {
   const cookieStore = await cookies();
 
-  const token = cookieStore.get(
-    TRUSTED_DEVICE_COOKIE,
-  )?.value;
+  const token = cookieStore.get(TRUSTED_DEVICE_COOKIE)?.value;
 
   if (!token) {
     return null;
@@ -80,10 +73,7 @@ export async function getTrustedDevice(
     return null;
   }
 
-  if (
-    device.expiresAt &&
-    device.expiresAt <= new Date()
-  ) {
+  if (device.expiresAt && device.expiresAt <= new Date()) {
     await prisma.trustedDevice.update({
       where: {
         id: device.id,
@@ -114,9 +104,7 @@ export async function touchTrustedDevice(
   });
 }
 
-export async function revokeTrustedDevice(
-  deviceId: string,
-) {
+export async function revokeTrustedDevice(deviceId: string) {
   await prisma.trustedDevice.update({
     where: {
       id: deviceId,
@@ -127,9 +115,7 @@ export async function revokeTrustedDevice(
   });
 }
 
-export async function revokeAllTrustedDevices(
-  userId: string,
-) {
+export async function revokeAllTrustedDevices(userId: string) {
   await prisma.trustedDevice.updateMany({
     where: {
       userId,

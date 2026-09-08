@@ -34,7 +34,11 @@ export const prescriptionCreateSchema = z
     endDate: dateTime.nullable().optional(),
   })
   .superRefine((data, context) => {
-    if (data.startDate && data.endDate && new Date(data.endDate) < new Date(data.startDate)) {
+    if (
+      data.startDate &&
+      data.endDate &&
+      new Date(data.endDate) < new Date(data.startDate)
+    ) {
       context.addIssue({
         code: "custom",
         path: ["endDate"],
@@ -60,7 +64,10 @@ export const prescriptionUpdateSchema = z
     pharmacyNotes: optionalText(2000),
     reason: optionalText(2000),
   })
-  .refine((data) => Object.keys(data).length > 0, "At least one editable field is required");
+  .refine(
+    (data) => Object.keys(data).length > 0,
+    "At least one editable field is required",
+  );
 
 export const prescriptionDiscontinueSchema = z.object({
   reason: z.string().trim().min(1).max(2000).optional(),

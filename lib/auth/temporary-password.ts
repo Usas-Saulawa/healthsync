@@ -19,8 +19,7 @@ export function generateTemporaryPassword() {
     randomCharacter(SYMBOLS),
   ];
 
-  const allCharacters =
-    UPPERCASE + LOWERCASE + NUMBERS + SYMBOLS;
+  const allCharacters = UPPERCASE + LOWERCASE + NUMBERS + SYMBOLS;
 
   while (requiredCharacters.length < PASSWORD_LENGTH) {
     requiredCharacters.push(randomCharacter(allCharacters));

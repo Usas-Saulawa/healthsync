@@ -9,10 +9,7 @@ type RouteContext = {
   }>;
 };
 
-export async function GET(
-  _request: NextRequest,
-  context: RouteContext
-) {
+export async function GET(_request: NextRequest, context: RouteContext) {
   try {
     const user = await requireUser();
     const { id } = await context.params;
@@ -261,7 +258,7 @@ export async function GET(
           success: false,
           message: "Patient not found",
         },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -275,12 +272,10 @@ export async function GET(
     const latestVitals = patient.vitals[0] ?? null;
 
     const activeCriticalAlerts = patient.alerts.filter(
-      (alert) => alert.severity === "CRITICAL"
+      (alert) => alert.severity === "CRITICAL",
     );
 
-    const patientType = currentAdmission
-      ? "INPATIENT"
-      : "OUTPATIENT";
+    const patientType = currentAdmission ? "INPATIENT" : "OUTPATIENT";
 
     const riskLevel =
       activeCriticalAlerts.length > 0
@@ -311,9 +306,7 @@ export async function GET(
         id: `diagnosis-${diagnosis.id}`,
         type: "DIAGNOSIS",
         date: diagnosis.diagnosedAt,
-        title: diagnosis.isPrimary
-          ? "Primary Diagnosis"
-          : "Diagnosis",
+        title: diagnosis.isPrimary ? "Primary Diagnosis" : "Diagnosis",
         description: diagnosis.name,
         code: diagnosis.code,
         isPrimary: diagnosis.isPrimary,
@@ -355,9 +348,7 @@ export async function GET(
         severity: alert.severity,
         status: alert.status,
       })),
-    ].sort(
-      (a, b) => b.date.getTime() - a.date.getTime()
-    );
+    ].sort((a, b) => b.date.getTime() - a.date.getTime());
 
     return NextResponse.json({
       success: true,
@@ -411,9 +402,7 @@ export async function GET(
             notes: allergy.notes,
           })),
           message:
-            patient.allergies.length === 0
-              ? "No known allergies"
-              : undefined,
+            patient.allergies.length === 0 ? "No known allergies" : undefined,
         },
 
         activeMedications: {
@@ -447,7 +436,7 @@ export async function GET(
         success: false,
         message: "An unexpected error occurred",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

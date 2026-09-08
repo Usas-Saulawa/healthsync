@@ -7,10 +7,7 @@ type EncounterOwner = {
 };
 
 export function canManageEncounter(user: User, encounter: EncounterOwner) {
-  return (
-    user.role === "DOCTOR" &&
-    encounter.doctorId === user.id
-  );
+  return user.role === "DOCTOR" && encounter.doctorId === user.id;
 }
 
 export function canCreateEncounter(user: User) {

@@ -8,10 +8,7 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
 
-    const userId =
-      typeof body.userId === "string"
-        ? body.userId.trim()
-        : "";
+    const userId = typeof body.userId === "string" ? body.userId.trim() : "";
 
     if (!userId) {
       return NextResponse.json(

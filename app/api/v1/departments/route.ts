@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
           success: false,
           message: "You are not authorized to create departments",
         },
-        { status: 403 }
+        { status: 403 },
       );
     }
 
@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
           message: "Invalid department data",
           errors: result.error.flatten().fieldErrors,
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
           success: false,
           message: "A department with this code already exists",
         },
-        { status: 409 }
+        { status: 409 },
       );
     }
 
@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
           department,
         },
       },
-      { status: 201 }
+      { status: 201 },
     );
   } catch (error) {
     console.error("Create department error:", error);
@@ -89,7 +89,7 @@ export async function POST(request: NextRequest) {
         success: false,
         message: "An unexpected error occurred",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -129,7 +129,7 @@ export async function GET() {
         success: false,
         message: "An unexpected error occurred",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

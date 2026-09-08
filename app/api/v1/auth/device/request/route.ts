@@ -6,19 +6,13 @@ import { createOtp } from "@/lib/auth/otp";
 
 import { getTrustedDevice } from "@/lib/auth/trusted-device";
 
-import {
-  getClientIp,
-  isAuthorizedNetwork,
-} from "@/lib/security/network";
+import { getClientIp, isAuthorizedNetwork } from "@/lib/security/network";
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
 
-    const userId =
-      typeof body.userId === "string"
-        ? body.userId.trim()
-        : "";
+    const userId = typeof body.userId === "string" ? body.userId.trim() : "";
 
     if (!userId) {
       return NextResponse.json(
@@ -80,10 +74,7 @@ export async function POST(request: NextRequest) {
       ? await isAuthorizedNetwork(user.hospitalId, clientIp)
       : false;
 
-    const otp = await createOtp(
-      user.id,
-      "DEVICE_VERIFICATION",
-    );
+    const otp = await createOtp(user.id, "DEVICE_VERIFICATION");
 
     return NextResponse.json({
       success: true,
@@ -95,10 +86,7 @@ export async function POST(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error(
-      "Device verification request error:",
-      error,
-    );
+    console.error("Device verification request error:", error);
 
     return NextResponse.json(
       {

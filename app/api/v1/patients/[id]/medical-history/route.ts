@@ -22,10 +22,7 @@ type HistoryItem = {
   notes: string | null;
 };
 
-export async function GET(
-  request: NextRequest,
-  context: RouteContext
-) {
+export async function GET(request: NextRequest, context: RouteContext) {
   try {
     const user = await requireUser();
     const { id } = await context.params;
@@ -37,15 +34,10 @@ export async function GET(
     const pageParam = Number(searchParams.get("page") || "1");
     const limitParam = Number(searchParams.get("limit") || "20");
 
-    const page =
-      Number.isInteger(pageParam) && pageParam > 0
-        ? pageParam
-        : 1;
+    const page = Number.isInteger(pageParam) && pageParam > 0 ? pageParam : 1;
 
     const limit =
-      Number.isInteger(limitParam) &&
-      limitParam > 0 &&
-      limitParam <= 100
+      Number.isInteger(limitParam) && limitParam > 0 && limitParam <= 100
         ? limitParam
         : 20;
 
@@ -54,8 +46,7 @@ export async function GET(
 
     const sortOrderParam = searchParams.get("sortOrder");
 
-    const sortOrder =
-      sortOrderParam === "asc" ? "asc" : "desc";
+    const sortOrder = sortOrderParam === "asc" ? "asc" : "desc";
 
     // Verify that the patient belongs to the logged-in user's hospital.
     const patient = await prisma.patient.findFirst({
@@ -75,30 +66,24 @@ export async function GET(
           success: false,
           message: "Patient not found",
         },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
-    const dateFrom = dateFromParam
-      ? new Date(dateFromParam)
-      : null;
+    const dateFrom = dateFromParam ? new Date(dateFromParam) : null;
 
-    const dateTo = dateToParam
-      ? new Date(dateToParam)
-      : null;
+    const dateTo = dateToParam ? new Date(dateToParam) : null;
 
     if (
-      (dateFromParam &&
-        Number.isNaN(dateFrom!.getTime())) ||
-      (dateToParam &&
-        Number.isNaN(dateTo!.getTime()))
+      (dateFromParam && Number.isNaN(dateFrom!.getTime())) ||
+      (dateToParam && Number.isNaN(dateTo!.getTime()))
     ) {
       return NextResponse.json(
         {
           success: false,
           message: "Invalid date filter",
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -166,76 +151,75 @@ export async function GET(
         : {}),
     };
 
-    const [diagnoses, treatments, hospital] =
-      await Promise.all([
-        prisma.diagnosis.findMany({
-          where: diagnosisWhere,
+    const [diagnoses, treatments, hospital] = await Promise.all([
+      prisma.diagnosis.findMany({
+        where: diagnosisWhere,
 
-          orderBy: {
-            diagnosedAt: sortOrder,
-          },
+        orderBy: {
+          diagnosedAt: sortOrder,
+        },
 
-          select: {
-            id: true,
-            name: true,
-            code: true,
-            diagnosedAt: true,
+        select: {
+          id: true,
+          name: true,
+          code: true,
+          diagnosedAt: true,
 
-            encounter: {
-              select: {
-                clinicalNote: true,
+          encounter: {
+            select: {
+              clinicalNote: true,
 
-                doctor: {
-                  select: {
-                    id: true,
-                    firstName: true,
-                    lastName: true,
-                  },
+              doctor: {
+                select: {
+                  id: true,
+                  firstName: true,
+                  lastName: true,
                 },
               },
             },
           },
-        }),
+        },
+      }),
 
-        prisma.treatment.findMany({
-          where: treatmentWhere,
+      prisma.treatment.findMany({
+        where: treatmentWhere,
 
-          orderBy: {
-            startedAt: sortOrder,
-          },
+        orderBy: {
+          startedAt: sortOrder,
+        },
 
-          select: {
-            id: true,
-            name: true,
-            type: true,
-            startedAt: true,
+        select: {
+          id: true,
+          name: true,
+          type: true,
+          startedAt: true,
 
-            encounter: {
-              select: {
-                clinicalNote: true,
+          encounter: {
+            select: {
+              clinicalNote: true,
 
-                doctor: {
-                  select: {
-                    id: true,
-                    firstName: true,
-                    lastName: true,
-                  },
+              doctor: {
+                select: {
+                  id: true,
+                  firstName: true,
+                  lastName: true,
                 },
               },
             },
           },
-        }),
+        },
+      }),
 
-        prisma.hospital.findUnique({
-          where: {
-            id: patient.hospitalId,
-          },
-          select: {
-            id: true,
-            name: true,
-          },
-        }),
-      ]);
+      prisma.hospital.findUnique({
+        where: {
+          id: patient.hospitalId,
+        },
+        select: {
+          id: true,
+          name: true,
+        },
+      }),
+    ]);
 
     const history: HistoryItem[] = [
       ...diagnoses.map((diagnosis) => ({
@@ -254,8 +238,7 @@ export async function GET(
 
         facility: hospital?.name || "Unknown",
 
-        notes:
-          diagnosis.encounter?.clinicalNote || null,
+        notes: diagnosis.encounter?.clinicalNote || null,
       })),
 
       ...treatments.map((treatment) => ({
@@ -274,35 +257,25 @@ export async function GET(
 
         facility: hospital?.name || "Unknown",
 
-        notes:
-          treatment.encounter?.clinicalNote || null,
+        notes: treatment.encounter?.clinicalNote || null,
       })),
     ];
 
     // The history contains records from two clinical sources,
     // so the final chronological ordering happens after merging.
     history.sort((a, b) => {
-      const difference =
-        a.date.getTime() - b.date.getTime();
+      const difference = a.date.getTime() - b.date.getTime();
 
-      return sortOrder === "asc"
-        ? difference
-        : -difference;
+      return sortOrder === "asc" ? difference : -difference;
     });
 
     const total = history.length;
 
-    const totalPages =
-      total === 0
-        ? 0
-        : Math.ceil(total / limit);
+    const totalPages = total === 0 ? 0 : Math.ceil(total / limit);
 
     const skip = (page - 1) * limit;
 
-    const paginatedHistory = history.slice(
-      skip,
-      skip + limit
-    );
+    const paginatedHistory = history.slice(skip, skip + limit);
 
     return NextResponse.json({
       success: true,
@@ -326,17 +299,14 @@ export async function GET(
       },
     });
   } catch (error) {
-    console.error(
-      "Get medical history error:",
-      error
-    );
+    console.error("Get medical history error:", error);
 
     return NextResponse.json(
       {
         success: false,
         message: "An unexpected error occurred",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

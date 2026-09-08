@@ -8,15 +8,9 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
 
-    const userId =
-      typeof body.userId === "string"
-        ? body.userId.trim()
-        : "";
+    const userId = typeof body.userId === "string" ? body.userId.trim() : "";
 
-    const code =
-      typeof body.code === "string"
-        ? body.code.trim()
-        : "";
+    const code = typeof body.code === "string" ? body.code.trim() : "";
 
     if (!userId || !code) {
       return NextResponse.json(
@@ -68,11 +62,7 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    const verification = await verifyOtp(
-      user.id,
-      "ACCOUNT_ACTIVATION",
-      code,
-    );
+    const verification = await verifyOtp(user.id, "ACCOUNT_ACTIVATION", code);
 
     if (!verification.success) {
       return NextResponse.json(
