@@ -2,6 +2,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { ArrowUpDown } from "lucide-react";
 import { MasterFilterToolbar } from "@/components/tools/filterTools";
 
@@ -64,7 +65,10 @@ const initialMedicalHistory: MedicalHistoryItem[] = [
 type SortField = "date" | "condition";
 type SortDirection = "asc" | "desc";
 
-export function PatientMedicationTab({ patientId }: PatientMedicationTabProps) {
+export function PatientMedicationTab({
+  patientId = "1",
+}: PatientMedicationTabProps) {
+  const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
   const [filterLabel, setFilterLabel] = useState("Filter");
   const [sortLabel, setSortLabel] = useState("Sort by");
@@ -120,6 +124,13 @@ export function PatientMedicationTab({ patientId }: PatientMedicationTabProps) {
     if (valA > valB) return sortDirection === "asc" ? 1 : -1;
     return 0;
   });
+
+  // Handler to push route to the individual medical history detail view
+  const handleRowClick = (item: MedicalHistoryItem) => {
+    router.push(
+      `/dashboard/patients/${patientId}/medical-history?recordId=${item.id}`,
+    );
+  };
 
   return (
     <div className="w-full bg-white rounded-2xl border border-blue-100/60 shadow-xs overflow-hidden p-6 sm:p-8 space-y-6">
@@ -204,10 +215,11 @@ export function PatientMedicationTab({ patientId }: PatientMedicationTabProps) {
             {sortedHistory.map((item) => (
               <div
                 key={item.id}
-                className="grid grid-cols-[140px_minmax(220px,1.45fr)_minmax(160px,1fr)_minmax(170px,1.05fr)_minmax(260px,1.55fr)] items-center min-h-[64px] bg-[#EAF4FF]/70 hover:bg-[#EAF4FF] transition-colors px-4 rounded-xl border border-blue-100/40"
+                onClick={() => handleRowClick(item)}
+                className="grid grid-cols-[140px_minmax(220px,1.45fr)_minmax(160px,1fr)_minmax(170px,1.05fr)_minmax(260px,1.55fr)] items-center min-h-[64px] bg-[#EAF4FF]/70 hover:bg-[#EAF4FF] transition-colors px-4 rounded-xl border border-blue-100/40 cursor-pointer group"
               >
                 {/* Date */}
-                <div className="text-sm font-semibold text-slate-900">
+                <div className="text-sm font-semibold text-slate-900 group-hover:text-blue-600 transition-colors">
                   {item.date}
                 </div>
 

@@ -1,7 +1,7 @@
 // components/patients_components/details/PatientDetailTabs.tsx
 "use client";
 
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const tabs = [
   "Overview",
@@ -27,13 +27,20 @@ export function PatientProfileTabs({
   activeTab,
   onTabChange,
 }: PatientProfileTabsProps) {
-  const [internalTab, setInternalTab] = useState<Tab>("Overview");
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
-  const currentTab = activeTab ?? internalTab;
+  // Read current tab from URL query parameter 'tab', fallback to props or 'Overview'
+  const tabParam = searchParams.get("tab") as Tab;
+  const currentTab = activeTab ?? tabParam ?? "Overview";
 
   const handleChange = (tab: Tab) => {
-    if (!activeTab) setInternalTab(tab);
     onTabChange?.(tab);
+
+    // Update URL search params dynamically without reloading the page
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("tab", tab);
+    router.replace(`?${params.toString()}`, { scroll: false });
   };
 
   return (
@@ -47,6 +54,7 @@ export function PatientProfileTabs({
             return (
               <button
                 key={tab}
+                type="button"
                 onClick={() => handleChange(tab)}
                 className={[
                   "h-[38px] whitespace-nowrap rounded-full px-3.5 sm:px-4",

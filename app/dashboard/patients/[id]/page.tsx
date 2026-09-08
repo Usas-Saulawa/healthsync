@@ -1,7 +1,8 @@
 // app/dashboard/patients/[id]/page.tsx
 "use client";
 
-import { use, useState } from "react";
+import { use, Suspense } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import { Header } from "@/components/dashboard_components/Header";
 import { PatientsProfileHeader } from "@/components/patients_components/details/PatientProfileHeader";
 import { PatientProfileTabs } from "@/components/patients_components/details/PatientDetailTabs";
@@ -27,12 +28,21 @@ type TabType =
   | "Admission & Discharge"
   | "Immunization";
 
-export default function PatientDetailPage({ params }: PatientDetailPageProps) {
+function PatientDetailContent({ params }: PatientDetailPageProps) {
   const resolvedParams = use(params);
   const patientId = resolvedParams.id;
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
-  // Track active tab state here
-  const [activeTab, setActiveTab] = useState<TabType>("Overview");
+  // Read active tab directly from URL search params, default to "Overview"
+  const tabParam = searchParams.get("tab") as TabType;
+  const activeTab: TabType = tabParam || "Overview";
+
+  const handleTabChange = (tab: TabType) => {
+    const paramsObj = new URLSearchParams(searchParams.toString());
+    paramsObj.set("tab", tab);
+    router.replace(`?${paramsObj.toString()}`, { scroll: false });
+  };
 
   // Find the exact patient matching the dynamic ID in the URL route
   const foundPatient =
@@ -61,7 +71,7 @@ export default function PatientDetailPage({ params }: PatientDetailPageProps) {
       {/* Edge-to-edge Tab Switcher */}
       <PatientProfileTabs
         activeTab={activeTab}
-        onTabChange={(tab) => setActiveTab(tab as TabType)}
+        onTabChange={(tab) => handleTabChange(tab as TabType)}
       />
 
       {/* Dynamic Tab Content Renderer Container */}
@@ -88,5 +98,19 @@ export default function PatientDetailPage({ params }: PatientDetailPageProps) {
           )}
       </div>
     </div>
+  );
+}
+
+export default function PatientDetailPage(props: PatientDetailPageProps) {
+  return (
+    <Suspense
+      fallback={
+        <div className="p-8 text-center text-slate-500">
+          Loading patient details...
+        </div>
+      }
+    >
+      <PatientDetailContent {...props} />
+    </Suspense>
   );
 }
