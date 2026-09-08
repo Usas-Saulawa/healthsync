@@ -4,7 +4,7 @@
 import { Users, ArrowUpRight, ShieldAlert, Info, Loader2 } from "lucide-react";
 import { AreaChart, Area, ResponsiveContainer } from "recharts";
 import { useDashboardData } from "@/hooks/dashboard_hooks/useDashboardData";
-import { MasterFilterToolbar } from "@/components/tools/filterTools";
+
 import { useState } from "react";
 
 // Dynamic chart data points derived or scaled from metric properties
@@ -63,31 +63,6 @@ export function DashboardMetricsGrid() {
 
   return (
     <div className="space-y-6 w-full">
-      {/* Search and Filter Toolbar Row using MasterFilterToolbar */}
-      <div className="flex items-center justify-end w-full">
-        <MasterFilterToolbar
-          showSearch={true}
-          searchValue={searchQuery}
-          onSearchChange={(e) => setSearchQuery(e.target.value)}
-          searchPlaceholder="Search"
-          showFilter={true}
-          filterLabel={timeFilter}
-          filterOptions={[
-            { label: "Daily", value: "daily" },
-            { label: "Weekly", value: "weekly" },
-            { label: "Monthly", value: "monthly" },
-            { label: "Yearly", value: "yearly" },
-          ]}
-          onFilterSelect={(val, label) => {
-            // Update both the value for your query hooks and the display label
-            setTimeFilterValue(val);
-            setTimeFilter(label);
-            // TODO: Pass timeFilterValue into your useDashboardData hook params when ready!
-          }}
-          showSort={false} // Hidden for this view as requested
-        />
-      </div>
-
       {/* Metrics Grid Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6 w-full">
         {/* Card 1: Total Patient */}

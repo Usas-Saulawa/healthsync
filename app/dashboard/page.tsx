@@ -1,17 +1,46 @@
 // app/dashboard/page.tsx
 "use client";
 
+import { useState } from "react";
 import { Header } from "@/components/dashboard_components/Header";
 import { DashboardMetricsGrid } from "@/components/dashboard_components/DashboardMetricsGrid";
 import { PatientsWidget } from "@/components/dashboard_components/PatientsWidget";
 import { FollowUpsWidget } from "@/components/dashboard_components/FollowUpsWidget";
+import {
+  MasterFilterToolbar,
+  FilterOption,
+} from "@/components/tools/filterTools";
+
+const filterOptions: FilterOption[] = [
+  { label: "Monthly", value: "monthly" },
+  { label: "Weekly", value: "weekly" },
+  { label: "Daily", value: "daily" },
+];
 
 export default function DashboardPage() {
+  const [searchValue, setSearchValue] = useState("");
+  const [filterLabel, setFilterLabel] = useState("Monthly");
+
   return (
     <div className="min-h-screen bg-blue-50 flex flex-col font-sans">
       <Header />
 
       <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6">
+        {/* Fine-tuned negative pull with z-50 so it sits on the greeting row and remains fully clickable */}
+        <div className="-mt-[76px] sm:-mt-[82px] mb-4 flex justify-end px-3 sm:px-4 relative z-50">
+          <MasterFilterToolbar
+            showSearch={true}
+            searchValue={searchValue}
+            onSearchChange={(e) => setSearchValue(e.target.value)}
+            searchPlaceholder="Search"
+            showFilter={true}
+            filterLabel={filterLabel}
+            filterOptions={filterOptions}
+            onFilterSelect={(_val, label) => setFilterLabel(label)}
+            showSort={false}
+          />
+        </div>
+
         <DashboardMetricsGrid />
 
         {/* Main Grid for Patients Table and Follow-ups Widget */}
