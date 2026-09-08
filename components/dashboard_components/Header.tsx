@@ -21,22 +21,21 @@ export function Header({ showGreeting = true }: HeaderProps) {
       {/* Main Header */}
       <header
         className="
-          sticky
-          top-4
-          z-40
-          flex
-          min-h-[72px]
-          w-full
-          items-center
-          justify-between
-          gap-4
-          rounded-[36px]
-          bg-white
-          px-4
-          py-3
-          sm:px-5
-          lg:px-6
-        "
+    relative
+    z-40
+    flex
+    min-h-[72px]
+    w-full
+    items-center
+    justify-between
+    gap-4
+    rounded-[36px]
+    bg-white
+    px-4
+    py-3
+    sm:px-5
+    lg:px-6
+  "
       >
         {/* ---------------------------------------------------------- */}
         {/* LEFT SIDE - LOGO */}
