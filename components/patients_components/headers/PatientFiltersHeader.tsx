@@ -136,6 +136,7 @@ export function PatientFiltersHeader({
             Imported MasterFilterToolbar with expansion animations
             --------------------------------------------------------- */}
         <MasterFilterToolbar
+          variant="white"
           showSearch={true}
           searchValue={searchValue}
           onSearchChange={onSearchChange}

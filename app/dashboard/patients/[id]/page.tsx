@@ -6,6 +6,7 @@ import { Header } from "@/components/dashboard_components/Header";
 import { PatientsProfileHeader } from "@/components/patients_components/details/PatientProfileHeader";
 import { PatientProfileTabs } from "@/components/patients_components/details/PatientDetailTabs";
 import { PatientOverviewTab } from "@/components/patients_components/details/tabs/overview/PatientOverviewTab";
+import { PatientMedicationTab } from "@/components/patients_components/details/tabs/medications/PatientMedicationTab";
 import { mockPatientsList } from "@/mock/mockDashboardData";
 
 interface PatientDetailPageProps {
@@ -53,6 +54,7 @@ export default function PatientDetailPage({ params }: PatientDetailPageProps) {
   return (
     <div className="w-full min-h-screen bg-[#eef4fb] pb-10 pt-6 space-y-5">
       <Header showGreeting={false} />
+
       {/* Pinned Patient Profile Header */}
       <PatientsProfileHeader patient={patientProfileData} />
 
@@ -65,17 +67,18 @@ export default function PatientDetailPage({ params }: PatientDetailPageProps) {
       {/* Dynamic Tab Content Renderer Container */}
       <div className="w-full px-4 sm:px-6">
         {activeTab === "Overview" && <PatientOverviewTab />}
+
         {activeTab === "Medical History" && (
-          <div className="bg-white rounded-2xl p-6 text-slate-500 shadow-xs border border-blue-100/60">
-            Medical History module coming up next...
-          </div>
+          <PatientMedicationTab patientId={patientId} />
         )}
+
         {activeTab === "Vitals" && (
           <div className="bg-white rounded-2xl p-6 text-slate-500 shadow-xs border border-blue-100/60">
             Vitals module coming up next...
           </div>
         )}
-        {/* Add conditional placeholders or components for other tabs similarly */}
+
+        {/* Placeholders for other tabs */}
         {activeTab !== "Overview" &&
           activeTab !== "Medical History" &&
           activeTab !== "Vitals" && (
