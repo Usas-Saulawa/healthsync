@@ -45,7 +45,7 @@ export function VitalsAndTrendsSection() {
         {/* Vitals Cards Container */}
         <div className="space-y-3">
           {/* Card A: Latest HbA1c */}
-          <div className="w-full rounded-xl bg-slate-100 border border-slate-200/80 p-4 space-y-1">
+          <div className="w-full rounded-xl bg-blue-50/90  p-4 space-y-1">
             <div className="flex items-center justify-between">
               <span className="text-xs font-medium text-slate-500">
                 Latest HbA1c
@@ -66,7 +66,7 @@ export function VitalsAndTrendsSection() {
           </div>
 
           {/* Card B: Fasting Glucose */}
-          <div className="w-full rounded-xl bg-slate-100 border border-slate-200/80 p-4 space-y-1">
+          <div className="w-full rounded-xl bg-blue-50/90 p-4 space-y-1">
             <div className="flex items-center justify-between">
               <span className="text-xs font-medium text-slate-500">
                 Fasting Glucose
@@ -87,7 +87,7 @@ export function VitalsAndTrendsSection() {
           </div>
 
           {/* Card C: BMI */}
-          <div className="w-full rounded-xl bg-slate-100 border border-slate-200/80 p-4 space-y-1">
+          <div className="w-full rounded-xl bg-blue-50/90  p-4 space-y-1">
             <div className="flex items-center justify-between">
               <span className="text-xs font-medium text-slate-500">BMI</span>
               <span className="text-xs font-bold text-amber-600">
@@ -118,7 +118,7 @@ export function VitalsAndTrendsSection() {
         </div>
 
         {/* Graphical Trend Box */}
-        <div className="w-full rounded-xl bg-slate-50/60 border border-slate-200/60 p-4 space-y-2">
+        <div className="w-full rounded-xl  p-4 space-y-2">
           <div className="h-36 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart

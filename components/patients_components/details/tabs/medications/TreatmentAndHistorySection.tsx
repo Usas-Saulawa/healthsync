@@ -87,7 +87,7 @@ export function TreatmentAndHistorySection() {
               </div>
 
               {/* Content Card with Increased Blue Tint (~50% richer: bg-blue-50/90 and border-blue-200/80) */}
-              <div className="flex-1 relative rounded-2xl bg-blue-50/90 hover:bg-blue-100/60 border  p-5 space-y-2 transition-colors shadow-2xs">
+              <div className="flex-1 relative rounded-2xl bg-blue-50/90 hover:bg-blue-100/60   p-5 space-y-2 transition-colors shadow-2xs">
                 <div className="flex items-start justify-between">
                   <div>
                     <h4 className="text-sm font-bold text-[#0f172a]">
