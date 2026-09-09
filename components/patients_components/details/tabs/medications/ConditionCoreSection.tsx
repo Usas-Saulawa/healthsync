@@ -39,17 +39,19 @@ export function ConditionCoreSection({
           <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-[#0f172a]">
             {conditionName}
           </h2>
-          <div className="flex items-center gap-2.5">
-            {/* Diagnosis Badge - Deep soft blue fill */}
-            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold bg-blue-100/80 text-blue-700 border border-blue-200">
+          <div className="flex items-center gap-2">
+            {/* Diagnosis */}
+            <span className="inline-flex h-[18px] items-center rounded-full bg-[#EFF6FF] px-[7px] text-[9px] font-semibold leading-none text-[#2563EB]">
               {diagnosisType}
             </span>
-            {/* Active Badge - Deep soft emerald fill */}
-            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold bg-emerald-100/80 text-emerald-800 border border-emerald-200">
+
+            {/* Active */}
+            <span className="inline-flex h-[18px] items-center rounded-full bg-[#ECFDF5] px-[7px] text-[9px] font-semibold leading-none text-[#059669]">
               {status}
             </span>
-            {/* Moderate Badge - Deep soft amber/orange fill */}
-            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold bg-amber-100/80 text-amber-800 border border-amber-200">
+
+            {/* Moderate */}
+            <span className="inline-flex h-[18px] items-center rounded-full bg-[#FFF7ED] px-[7px] text-[9px] font-semibold leading-none text-[#EA580C]">
               {severity}
             </span>
           </div>

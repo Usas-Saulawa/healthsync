@@ -6,6 +6,9 @@ import { useRouter } from "next/navigation";
 import { ChevronLeft } from "lucide-react";
 import { Header } from "@/components/dashboard_components/Header";
 import { ConditionCoreSection } from "@/components/patients_components/details/tabs/medications/ConditionCoreSection";
+import { TreatmentAndHistorySection } from "@/components/patients_components/details/tabs/medications/TreatmentAndHistorySection";
+import { RelatedOrdersSection } from "@/components/patients_components/details/tabs/medications/RelatedOrdersSection";
+import { VitalsAndTrendsSection } from "@/components/patients_components/details/tabs/medications/VitalsAndTrendsSection";
 
 interface MedicalHistoryPageProps {
   params: Promise<{ id: string }>;
@@ -59,17 +62,13 @@ export default function MedicalHistoryPage({
           {/* Left Main Column (Wider: spans 7 or 8 columns) */}
           <div className="lg:col-span-7 xl:col-span-8 space-y-6">
             <ConditionCoreSection />
+            <TreatmentAndHistorySection />
+            <RelatedOrdersSection />
           </div>
 
-          {/* Right Side Column (Narrower: spans 5 or 4 columns for Vitals, Trends, Meds, Docs) */}
+          {/* Right Side Column (Narrower: spans 5 or 4 columns) */}
           <div className="lg:col-span-5 xl:col-span-4 space-y-6">
-            {/* Vitals & Support Cards will plug right in here */}
-            <div className="w-full bg-white rounded-2xl border border-slate-200/80 shadow-xs p-6 space-y-4">
-              <h3 className="text-base font-bold text-[#0f172a]">Vitals</h3>
-              <p className="text-xs text-slate-500">
-                Ready for Vitals & Trend cards integration...
-              </p>
-            </div>
+            <VitalsAndTrendsSection />
           </div>
         </div>
       </div>
