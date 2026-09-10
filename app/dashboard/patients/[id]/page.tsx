@@ -7,7 +7,7 @@ import { Header } from "@/components/dashboard_components/Header";
 import { PatientsProfileHeader } from "@/components/patients_components/details/PatientProfileHeader";
 import { PatientProfileTabs } from "@/components/patients_components/details/PatientDetailTabs";
 import { PatientOverviewTab } from "@/components/patients_components/details/tabs/overview/PatientOverviewTab";
-import { PatientMedicationTab } from "@/components/patients_components/details/tabs/medications/PatientMedicationTab";
+import { PatientMedicationTab } from "@/components/patients_components/details/tabs/medical-history/PatientMedicationTab";
 import { mockPatientsList } from "@/mock/mockDashboardData";
 
 interface PatientDetailPageProps {

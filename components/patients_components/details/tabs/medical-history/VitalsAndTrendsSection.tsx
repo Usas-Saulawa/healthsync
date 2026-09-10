@@ -1,4 +1,4 @@
-// src/components/patients_components/details/tabs/medications/VitalsAndTrendsSection.tsx
+// src/components/patients_components/details/tabs/medical-history/VitalsAndTrendsSection.tsx
 "use client";
 
 import {

@@ -1,4 +1,4 @@
-// src/components/patients_components/details/tabs/medications/TreatmentAndHistorySection.tsx
+// src/components/patients_components/details/tabs/medical-history/TreatmentAndHistorySection.tsx
 "use client";
 
 import { FileText } from "lucide-react";

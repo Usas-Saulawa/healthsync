@@ -26,8 +26,8 @@ export default function DashboardPage() {
       <Header />
 
       <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6">
-        {/* Fine-tuned negative pull with z-50 so it sits on the greeting row and remains fully clickable */}
-        <div className="-mt-[76px] sm:-mt-[82px] mb-4 flex justify-end px-3 sm:px-4 relative z-50">
+        {/* Toolbar section sitting naturally below the greeting with zero awkward overlap */}
+        <div className="flex justify-end px-3 sm:px-4">
           <MasterFilterToolbar
             variant="white"
             showSearch={true}

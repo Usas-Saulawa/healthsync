@@ -1,4 +1,4 @@
-// src/components/patients_components/details/tabs/medications/RelatedOrdersSection.tsx
+// src/components/patients_components/details/tabs/medical-history/RelatedOrdersSection.tsx
 "use client";
 
 const ordersData = [

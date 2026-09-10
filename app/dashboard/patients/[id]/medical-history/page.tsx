@@ -1,15 +1,16 @@
 // app/dashboard/patients/[id]/medical-history/page.tsx
 "use client";
 
-import { use } from "react";
+import { use, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ChevronLeft } from "lucide-react";
 import { Header } from "@/components/dashboard_components/Header";
-import { ConditionCoreSection } from "@/components/patients_components/details/tabs/medications/ConditionCoreSection";
-import { TreatmentAndHistorySection } from "@/components/patients_components/details/tabs/medications/TreatmentAndHistorySection";
-import { RelatedOrdersSection } from "@/components/patients_components/details/tabs/medications/RelatedOrdersSection";
-import { ActiveMedicationsAndDocumentsSection } from "@/components/patients_components/details/tabs/medications/ActiveMedicationsAndDocumentsSection";
-import { VitalsAndTrendsSection } from "@/components/patients_components/details/tabs/medications/VitalsAndTrendsSection";
+import { ConditionCoreSection } from "@/components/patients_components/details/tabs/medical-history/ConditionCoreSection";
+import { TreatmentAndHistorySection } from "@/components/patients_components/details/tabs/medical-history/TreatmentAndHistorySection";
+import { RelatedOrdersSection } from "@/components/patients_components/details/tabs/medical-history/RelatedOrdersSection";
+import { ActiveMedicationsAndDocumentsSection } from "@/components/patients_components/details/tabs/medical-history/ActiveMedicationsAndDocumentsSection";
+import { VitalsAndTrendsSection } from "@/components/patients_components/details/tabs/medical-history/VitalsAndTrendsSection";
+import { AddEncounterModal } from "@/components/patients_components/details/tabs/medical-history/add-encounter-modal/AddEncounterModal";
 
 interface MedicalHistoryPageProps {
   params: Promise<{ id: string }>;
@@ -20,6 +21,9 @@ export default function MedicalHistoryPage({
 }: MedicalHistoryPageProps) {
   const resolvedParams = use(params);
   const router = useRouter();
+
+  // Modal open/close state
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
   return (
     <div className="w-full min-h-screen bg-[#eef4fb] pb-12 pt-6 space-y-6">
@@ -45,6 +49,7 @@ export default function MedicalHistoryPage({
           <div className="flex items-center gap-3">
             <button
               type="button"
+              onClick={() => setIsAddModalOpen(true)}
               className="flex items-center gap-2 h-10 px-4 rounded-xl bg-blue-600 text-white text-xs sm:text-sm font-semibold shadow-xs hover:bg-blue-700 transition-colors cursor-pointer"
             >
               <span>+ Add Note</span>
@@ -74,6 +79,12 @@ export default function MedicalHistoryPage({
           </div>
         </div>
       </div>
+
+      {/* Add Encounter Modal Component */}
+      <AddEncounterModal
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+      />
     </div>
   );
 }

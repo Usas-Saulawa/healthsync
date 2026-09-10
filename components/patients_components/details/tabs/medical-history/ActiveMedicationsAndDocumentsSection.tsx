@@ -1,4 +1,4 @@
-// src/components/patients_components/details/tabs/medications/ActiveMedicationsAndDocumentsSection.tsx
+// src/components/patients_components/details/tabs/medical-history/ActiveMedicationsAndDocumentsSection.tsx
 "use client";
 
 import { FileText, Eye, Download } from "lucide-react";

@@ -1,4 +1,4 @@
-// src/components/patients_components/details/tabs/medications/ConditionCoreSection.tsx
+// src/components/patients_components/details/tabs/medical-history/ConditionCoreSection.tsx
 "use client";
 
 import React from "react";
