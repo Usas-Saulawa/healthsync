@@ -5,10 +5,10 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { PatientInfoHeader } from "./components/PatientInfoHeader";
-// import { NoteTab } from "./tabs/NoteTab";
-// import { OrderTab } from "./tabs/OrderTab";
-// import { PrescriptionTab } from "./tabs/PrescriptionTab";
-// import { FollowUpTab } from "./tabs/FollowUpTab";
+import { NoteTab } from "./tabs/NoteTab";
+import { OrderTab } from "./tabs/OrderTab";
+import { PrescriptionTab } from "./tabs/PrescriptionTab";
+import { FollowUpTab } from "./tabs/FollowUpTab";
 // import { NurseNotesTab } from "./tabs/NurseNotesTab";
 
 interface AddEncounterModalProps {
@@ -24,24 +24,27 @@ export function AddEncounterModal({ isOpen, onClose }: AddEncounterModalProps) {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
-          {/* Backdrop with Framer Motion Fade */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
+        <motion.div
+          key="encounter-modal-root"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto"
+        >
+          {/* Backdrop */}
+          <div
             className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm"
             onClick={onClose}
           />
 
-          {/* Modal Container scaled to match Figma's wider, spacious layout */}
+          {/* Modal Container optimized to max-w-3xl */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 10 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="relative z-10 w-full max-w-4xl bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden my-6 flex flex-col max-h-[92vh]"
+            className="relative z-10 w-full max-w-3xl bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden my-6 flex flex-col max-h-[92vh]"
           >
             {/* Modal Header Bar */}
             <div className="flex items-center justify-between px-8 pt-6 pb-4 border-b border-slate-100">
@@ -109,17 +112,17 @@ export function AddEncounterModal({ isOpen, onClose }: AddEncounterModalProps) {
                     exit={{ opacity: 0, y: -6 }}
                     transition={{ duration: 0.15 }}
                   >
-                    {/* {activeTab === "note" && <NoteTab />}
+                    {activeTab === "note" && <NoteTab />}
                     {activeTab === "order" && <OrderTab />}
                     {activeTab === "prescription" && <PrescriptionTab />}
                     {activeTab === "follow-up" && <FollowUpTab />}
-                    {activeTab === "nurse-notes" && <NurseNotesTab />} */}
+                    {/* {activeTab === "nurse-notes" && <NurseNotesTab />} */}
                   </motion.div>
                 </AnimatePresence>
               </div>
             </div>
 
-            {/* Modal Footer Actions */}
+            {/* Modal Footer Actions - Dynamic based on active tab */}
             <div className="flex items-center justify-between px-8 py-4 bg-slate-50 border-t border-slate-200">
               <button
                 type="button"
@@ -129,23 +132,46 @@ export function AddEncounterModal({ isOpen, onClose }: AddEncounterModalProps) {
                 Cancel
               </button>
 
-              <div className="flex items-center gap-3">
-                <button
-                  type="button"
-                  className="px-6 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-700 text-sm font-semibold hover:bg-slate-50 transition-colors shadow-2xs cursor-pointer"
-                >
-                  Save Draft
-                </button>
+              {activeTab === "order" ? (
                 <button
                   type="button"
                   className="px-6 py-2.5 rounded-xl bg-[#2563EB] text-white text-sm font-semibold hover:bg-blue-700 transition-colors shadow-xs cursor-pointer"
                 >
-                  Sign & Lock
+                  Request Order
                 </button>
-              </div>
+              ) : activeTab === "prescription" ? (
+                <button
+                  type="button"
+                  className="px-6 py-2.5 rounded-xl bg-[#2563EB] text-white text-sm font-semibold hover:bg-blue-700 transition-colors shadow-xs cursor-pointer"
+                >
+                  Submit Prescription
+                </button>
+              ) : activeTab === "follow-up" ? (
+                <button
+                  type="button"
+                  className="px-6 py-2.5 rounded-xl bg-[#2563EB] text-white text-sm font-semibold hover:bg-blue-700 transition-colors shadow-xs cursor-pointer"
+                >
+                  Request Follow-Up
+                </button>
+              ) : (
+                <div className="flex items-center gap-3">
+                  <button
+                    type="button"
+                    className="px-6 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-700 text-sm font-semibold hover:bg-slate-50 transition-colors shadow-2xs cursor-pointer"
+                  >
+                    Save Draft
+                  </button>
+                  <button
+                    type="button"
+                    className="px-6 py-2.5 rounded-xl bg-[#2563EB] text-white text-sm font-semibold hover:bg-blue-700 transition-colors shadow-xs cursor-pointer"
+                  >
+                    Sign & Lock
+                  </button>
+                </div>
+              )}
             </div>
           </motion.div>
-        </div>
+        </motion.div>
       )}
 
       {/* Best-Practice Custom Scrollbar Styles */}
