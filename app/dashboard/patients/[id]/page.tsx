@@ -8,6 +8,7 @@ import { PatientsProfileHeader } from "@/components/patients_components/details/
 import { PatientProfileTabs } from "@/components/patients_components/details/PatientDetailTabs";
 import { PatientOverviewTab } from "@/components/patients_components/details/tabs/overview/PatientOverviewTab";
 import { PatientMedicationTab } from "@/components/patients_components/details/tabs/medical-history/PatientMedicationTab";
+import { PatientVitalTab } from "@/components/patients_components/details/tabs/vitals/PatientVitalTab";
 import { mockPatientsList } from "@/mock/mockDashboardData";
 
 interface PatientDetailPageProps {
@@ -82,11 +83,7 @@ function PatientDetailContent({ params }: PatientDetailPageProps) {
           <PatientMedicationTab patientId={patientId} />
         )}
 
-        {activeTab === "Vitals" && (
-          <div className="bg-white rounded-2xl p-6 text-slate-500 shadow-xs border border-blue-100/60">
-            Vitals module coming up next...
-          </div>
-        )}
+        {activeTab === "Vitals" && <PatientVitalTab />}
 
         {/* Placeholders for other tabs */}
         {activeTab !== "Overview" &&
