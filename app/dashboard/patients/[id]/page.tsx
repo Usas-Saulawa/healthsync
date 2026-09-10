@@ -7,8 +7,9 @@ import { Header } from "@/components/dashboard_components/Header";
 import { PatientsProfileHeader } from "@/components/patients_components/details/PatientProfileHeader";
 import { PatientProfileTabs } from "@/components/patients_components/details/PatientDetailTabs";
 import { PatientOverviewTab } from "@/components/patients_components/details/tabs/overview/PatientOverviewTab";
-import { PatientMedicationTab } from "@/components/patients_components/details/tabs/medical-history/PatientMedicationTab";
+import { PatientMedicalHistoryTab } from "@/components/patients_components/details/tabs/medical-history/PatientMedicationTab";
 import { PatientVitalTab } from "@/components/patients_components/details/tabs/vitals/PatientVitalTab";
+import { PatientMedicationsTab } from "@/components/patients_components/details/tabs/medications/PatientMedicationsTab";
 import { mockPatientsList } from "@/mock/mockDashboardData";
 
 interface PatientDetailPageProps {
@@ -80,15 +81,18 @@ function PatientDetailContent({ params }: PatientDetailPageProps) {
         {activeTab === "Overview" && <PatientOverviewTab />}
 
         {activeTab === "Medical History" && (
-          <PatientMedicationTab patientId={patientId} />
+          <PatientMedicalHistoryTab patientId={patientId} />
         )}
 
         {activeTab === "Vitals" && <PatientVitalTab />}
 
+        {activeTab === "Medications" && <PatientMedicationsTab />}
+
         {/* Placeholders for other tabs */}
         {activeTab !== "Overview" &&
           activeTab !== "Medical History" &&
-          activeTab !== "Vitals" && (
+          activeTab !== "Vitals" &&
+          activeTab !== "Medications" && (
             <div className="bg-white rounded-2xl p-6 text-slate-500 shadow-xs border border-blue-100/60">
               {activeTab} module under development.
             </div>

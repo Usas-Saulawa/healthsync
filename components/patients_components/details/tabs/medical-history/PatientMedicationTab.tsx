@@ -65,7 +65,7 @@ const initialMedicalHistory: MedicalHistoryItem[] = [
 type SortField = "date" | "condition";
 type SortDirection = "asc" | "desc";
 
-export function PatientMedicationTab({
+export function PatientMedicalHistoryTab({
   patientId = "1",
 }: PatientMedicationTabProps) {
   const router = useRouter();
