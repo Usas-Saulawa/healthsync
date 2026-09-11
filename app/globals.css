@@ -15,10 +15,13 @@
   --color-primary-700: #1d4ed8;
   --color-primary-800: #1e40af;
   --color-primary-900: #1e3a8a;
+
+  /* Mentor's app background color variable */
+  --color-app-bg: #ecf2f9;
 }
 
 :root {
-  --background: #ffffff;
+  --background: #ecf2f9; /* Updated default body background to your mentor's color */
   --foreground: #171717;
 }
 

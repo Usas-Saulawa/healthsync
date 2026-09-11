@@ -56,14 +56,17 @@ export function PatientMedicationsList({
             {data.map((row, index) => {
               const rowBg = index % 2 === 0 ? "bg-white" : "bg-[#f8fafc]/60";
 
-              // Status badge styling variants
+              // Exact screenshot style pill badge variants
               let statusBadgeStyles = "";
               if (row.status === "Active") {
-                statusBadgeStyles = "text-blue-600 font-semibold";
+                statusBadgeStyles =
+                  "bg-blue-50 text-blue-600 border border-blue-200/60 font-semibold px-3 py-1 rounded-full";
               } else if (row.status === "Completed") {
-                statusBadgeStyles = "text-blue-600 font-semibold";
+                statusBadgeStyles =
+                  "bg-slate-100 text-blue-600 border border-slate-200/60 font-semibold px-3 py-1 rounded-full";
               } else if (row.status === "Discontinued") {
-                statusBadgeStyles = "text-red-500 font-semibold";
+                statusBadgeStyles =
+                  "bg-red-50 text-red-500 border border-red-200/60 font-semibold px-3 py-1 rounded-full";
               }
 
               return (
@@ -103,7 +106,9 @@ export function PatientMedicationsList({
 
                   {/* Status */}
                   <td className="py-4 px-6 whitespace-nowrap">
-                    <span className={`${statusBadgeStyles} text-xs`}>
+                    <span
+                      className={`${statusBadgeStyles} text-[11px] inline-block`}
+                    >
                       {row.status}
                     </span>
                   </td>

@@ -34,7 +34,7 @@ export function DashboardMetricsGrid() {
       <div className="space-y-6 w-full">
         {/* Loading state filter placeholder bar */}
         <div className="flex items-center justify-end w-full">
-          <div className="w-72 h-10 bg-slate-100 rounded-full animate-pulse" />
+          <div className="w-72 h-10 bg-[#ECF2F9] rounded-full animate-pulse" />
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6 w-full">
           {[1, 2, 3, 4].map((i) => (

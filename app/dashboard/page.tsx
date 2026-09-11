@@ -2,6 +2,7 @@
 "use client";
 
 import { useState } from "react";
+import { Sun } from "lucide-react";
 import { Header } from "@/components/dashboard_components/Header";
 import { DashboardMetricsGrid } from "@/components/dashboard_components/DashboardMetricsGrid";
 import { PatientsWidget } from "@/components/dashboard_components/PatientsWidget";
@@ -10,6 +11,7 @@ import {
   MasterFilterToolbar,
   FilterOption,
 } from "@/components/tools/filterTools";
+import { useHeader } from "@/hooks/dashboard_hooks/useHeader";
 
 const filterOptions: FilterOption[] = [
   { label: "Monthly", value: "monthly" },
@@ -18,16 +20,22 @@ const filterOptions: FilterOption[] = [
 ];
 
 export default function DashboardPage() {
+  const { doctorName } = useHeader();
   const [searchValue, setSearchValue] = useState("");
   const [filterLabel, setFilterLabel] = useState("Monthly");
 
   return (
-    <div className="min-h-screen bg-blue-50 flex flex-col font-sans">
+    <div className="min-h-screen bg-app-bg flex flex-col font-sans">
       <Header />
 
       <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6">
-        {/* Toolbar section sitting naturally below the greeting with zero awkward overlap */}
-        <div className="flex justify-end px-3 sm:px-4">
+        {/* Unified Greeting & Filter Toolbar Row */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 px-2">
+          <h1 className="flex items-center gap-2.5 text-xl font-bold tracking-tight text-slate-900 sm:text-2xl">
+            Welcome Back {doctorName}
+            <Sun className="h-6 w-6 text-amber-500" fill="currentColor" />
+          </h1>
+
           <MasterFilterToolbar
             variant="white"
             showSearch={true}

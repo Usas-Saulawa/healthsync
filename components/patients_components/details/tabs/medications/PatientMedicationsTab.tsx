@@ -2,7 +2,8 @@
 "use client";
 
 import { useState } from "react";
-import { SlidersHorizontal, ArrowUpDown, Plus, Download } from "lucide-react";
+import { Plus } from "lucide-react";
+import { MasterFilterToolbar } from "@/components/tools/filterTools";
 import {
   PatientMedicationsList,
   MedicationRow,
@@ -69,6 +70,20 @@ const mockMedicationsData: MedicationRow[] = [
 export function PatientMedicationsTab() {
   const [medications] = useState<MedicationRow[]>(mockMedicationsData);
   const [currentPage, setCurrentPage] = useState(1);
+  const [filterLabel, setFilterLabel] = useState("Filter");
+  const [sortLabel, setSortLabel] = useState("Sort by");
+
+  const filterOptions = [
+    { label: "All Status", value: "all" },
+    { label: "Active", value: "active" },
+    { label: "Completed", value: "completed" },
+    { label: "Discontinued", value: "discontinued" },
+  ];
+
+  const sortOptions = [
+    { label: "Date (Newest)", value: "date_newest" },
+    { label: "Diagnosis (A-Z)", value: "diagnosis_az" },
+  ];
 
   const handleNewPrescription = () => {
     console.log("Opening new prescription modal...");
@@ -79,9 +94,9 @@ export function PatientMedicationsTab() {
   };
 
   return (
-    <div className="space-y-6">
-      {/* Header & Action Bar */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+    <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xs p-6 space-y-6">
+      {/* Header & Action Bar Section Inside the Container */}
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 pb-4 border-b border-slate-100">
         <div>
           <h2 className="text-xl font-bold text-[#2563EB] tracking-tight">
             Medication Management
@@ -91,28 +106,25 @@ export function PatientMedicationsTab() {
           </p>
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex flex-wrap items-center gap-2.5">
-          <button
-            type="button"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-200 bg-white text-slate-700 text-xs font-semibold hover:bg-slate-50 transition-colors shadow-2xs cursor-pointer"
-          >
-            <span>Filter</span>
-            <SlidersHorizontal className="h-3.5 w-3.5 text-slate-500" />
-          </button>
-
-          <button
-            type="button"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-200 bg-white text-slate-700 text-xs font-semibold hover:bg-slate-50 transition-colors shadow-2xs cursor-pointer"
-          >
-            <span>Sort by</span>
-            <SlidersHorizontal className="h-3.5 w-3.5 text-slate-500" />
-          </button>
+        {/* Action Buttons & Filter Toolbar Wrapper */}
+        <div className="flex flex-wrap items-center gap-2.5 relative z-20">
+          <MasterFilterToolbar
+            showSearch={false}
+            showFilter={true}
+            filterLabel={filterLabel}
+            filterOptions={filterOptions}
+            onFilterSelect={(val, label) => setFilterLabel(label)}
+            showSort={true}
+            sortLabel={sortLabel}
+            sortOptions={sortOptions}
+            onSortSelect={(val, label) => setSortLabel(label)}
+            variant="tinted"
+          />
 
           <button
             type="button"
             onClick={handleNewPrescription}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#2563EB] text-white text-xs font-semibold hover:bg-blue-700 transition-colors shadow-xs cursor-pointer"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#2563EB] text-white text-xs font-semibold hover:bg-blue-700 transition-colors shadow-xs cursor-pointer h-[40px]"
           >
             <Plus className="h-4 w-4" />
             <span>+ New Prescription</span>
@@ -121,14 +133,14 @@ export function PatientMedicationsTab() {
           <button
             type="button"
             onClick={handleExport}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-200 bg-slate-50/80 text-slate-700 text-xs font-semibold hover:bg-slate-100 transition-colors shadow-2xs cursor-pointer"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-slate-200 bg-white text-slate-700 text-xs font-semibold hover:bg-slate-50 transition-colors shadow-2xs cursor-pointer h-[40px]"
           >
             Export
           </button>
         </div>
       </div>
 
-      {/* Medications List Table Component */}
+      {/* Medications List Table Component Embedded Cleanly */}
       <PatientMedicationsList
         data={medications}
         currentPage={currentPage}

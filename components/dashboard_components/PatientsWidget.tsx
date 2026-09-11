@@ -64,38 +64,38 @@ export function PatientsWidget({
                   className="h-full w-full object-cover"
                 />
               </div>
-              <span className="font-bold text-slate-900 text-xs xl:text-sm truncate">
+              <span className="font-bold text-slate-900 text-[11px] xl:text-xs truncate">
                 {patient.name}
               </span>
             </div>
 
             {/* Hosp No */}
-            <div className="text-xs xl:text-sm text-slate-600 font-medium truncate">
-              <span className="lg:hidden text-[11px] text-slate-400 font-semibold mr-2">
+            <div className="text-[11px] xl:text-xs text-slate-600 font-medium truncate">
+              <span className="lg:hidden text-[10px] text-slate-400 font-semibold mr-2">
                 Hosp No:
               </span>
               {patient.hospNo}
             </div>
 
             {/* Age/Sex */}
-            <div className="text-xs xl:text-sm text-slate-600 font-medium truncate">
-              <span className="lg:hidden text-[11px] text-slate-400 font-semibold mr-2">
+            <div className="text-[11px] xl:text-xs text-slate-600 font-medium truncate">
+              <span className="lg:hidden text-[10px] text-slate-400 font-semibold mr-2">
                 Age/Sex:
               </span>
               {patient.ageSex}
             </div>
 
             {/* Ward/Bed */}
-            <div className="text-xs xl:text-sm text-slate-600 font-medium truncate">
-              <span className="lg:hidden text-[11px] text-slate-400 font-semibold mr-2">
+            <div className="text-[11px] xl:text-xs text-slate-600 font-medium truncate">
+              <span className="lg:hidden text-[10px] text-slate-400 font-semibold mr-2">
                 Ward/Bed:
               </span>
               {patient.wardBed}
             </div>
 
             {/* Primary Diagnosis */}
-            <div className="text-xs xl:text-sm font-semibold text-slate-900 truncate">
-              <span className="lg:hidden text-[11px] text-slate-400 font-semibold mr-2">
+            <div className="text-[11px] xl:text-xs font-semibold text-slate-900 truncate">
+              <span className="lg:hidden text-[10px] text-slate-400 font-semibold mr-2">
                 Diagnosis:
               </span>
               {patient.diagnosis}
@@ -103,14 +103,14 @@ export function PatientsWidget({
 
             {/* Status Badge */}
             <div className="truncate">
-              <span className="inline-flex items-center px-3 py-1 rounded-full text-[11px] xl:text-xs font-bold bg-[#fff3cd] text-[#856404] border border-[#ffeeba] shadow-2xs whitespace-nowrap">
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] xl:text-[11px] font-bold bg-[#fff3cd] text-[#856404] border border-[#ffeeba] shadow-2xs whitespace-nowrap">
                 {patient.status}
               </span>
             </div>
 
             {/* Insurance */}
-            <div className="text-xs xl:text-sm text-slate-600 font-medium lg:text-right pr-2 truncate">
-              <span className="lg:hidden text-[11px] text-slate-400 font-semibold mr-2">
+            <div className="text-[11px] xl:text-xs text-slate-600 font-medium lg:text-right pr-2 truncate">
+              <span className="lg:hidden text-[10px] text-slate-400 font-semibold mr-2">
                 Insurance:
               </span>
               {patient.insurance}
