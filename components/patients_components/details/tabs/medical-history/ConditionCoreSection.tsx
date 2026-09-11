@@ -33,25 +33,26 @@ export function ConditionCoreSection({
   return (
     <div className="w-full space-y-4">
       {/* Card 1: Condition Header & Details Metadata Card */}
-      <div className="w-full bg-white rounded-2xl border border-slate-200/80 shadow-xs p-6 sm:p-7 space-y-6">
+      <div className="w-full bg-white rounded-2xl shadow-xs p-6 sm:p-7 space-y-6">
         {/* Title and Badges row */}
         <div className="flex flex-wrap items-center gap-3">
-          <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-[#0f172a]">
+          {/* Updated heading size to text-lg font-bold to perfectly match the Vitals card scale */}
+          <h2 className="text-lg font-bold tracking-tight text-[#0f172a]">
             {conditionName}
           </h2>
           <div className="flex items-center gap-2">
             {/* Diagnosis */}
-            <span className="inline-flex h-[18px] items-center rounded-full bg-[#EFF6FF] px-[7px] text-[9px] font-semibold leading-none text-[#2563EB]">
+            <span className="inline-flex h-[18px] items-center rounded-full bg-[#EFF6FF] px-[7px] text-[9px] font-semibold leading-none text-[#2563EB] border border-blue-100/60">
               {diagnosisType}
             </span>
 
             {/* Active */}
-            <span className="inline-flex h-[18px] items-center rounded-full bg-[#ECFDF5] px-[7px] text-[9px] font-semibold leading-none text-[#059669]">
+            <span className="inline-flex h-[18px] items-center rounded-full bg-[#ECFDF5] px-[7px] text-[9px] font-semibold leading-none text-[#059669] border border-emerald-100/60">
               {status}
             </span>
 
             {/* Moderate */}
-            <span className="inline-flex h-[18px] items-center rounded-full bg-[#FFF7ED] px-[7px] text-[9px] font-semibold leading-none text-[#EA580C]">
+            <span className="inline-flex h-[18px] items-center rounded-full bg-[#FFF7ED] px-[7px] text-[9px] font-semibold leading-none text-[#EA580C] border border-amber-100/60">
               {severity}
             </span>
           </div>
@@ -107,7 +108,7 @@ export function ConditionCoreSection({
       </div>
 
       {/* Card 2: Clinical Notes Card */}
-      <div className="w-full bg-white rounded-2xl border border-slate-200/80 shadow-xs p-6 sm:p-7 space-y-3">
+      <div className="w-full bg-white rounded-2xl shadow-xs p-6 sm:p-7 space-y-3">
         <h3 className="text-base sm:text-lg font-bold text-[#0f172a]">
           Clinical Notes
         </h3>

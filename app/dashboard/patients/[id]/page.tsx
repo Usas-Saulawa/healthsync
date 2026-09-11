@@ -64,7 +64,7 @@ function PatientDetailContent({ params }: PatientDetailPageProps) {
   };
 
   return (
-    <div className="w-full min-h-screen bg-[#eef4fb] pb-10 pt-6 space-y-5">
+    <div className="w-full min-h-screen bg-app-bg pb-10 pt-6 space-y-5">
       <Header showGreeting={false} />
 
       {/* Pinned Patient Profile Header */}
@@ -93,7 +93,7 @@ function PatientDetailContent({ params }: PatientDetailPageProps) {
           activeTab !== "Medical History" &&
           activeTab !== "Vitals" &&
           activeTab !== "Medications" && (
-            <div className="bg-white rounded-2xl p-6 text-slate-500 shadow-xs border border-blue-100/60">
+            <div className="bg-white rounded-2xl p-6 text-slate-500 shadow-xs ">
               {activeTab} module under development.
             </div>
           )}

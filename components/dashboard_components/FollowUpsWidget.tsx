@@ -17,7 +17,7 @@ export function FollowUpsWidget({
 }: FollowUpsWidgetProps) {
   return (
     <div
-      className={`bg-white rounded-3xl p-6 sm:p-8 shadow-xs border border-blue-100/50 space-y-6 overflow-hidden ${className}`}
+      className={`bg-white rounded-3xl p-6 sm:p-8 shadow-xs  space-y-6 overflow-hidden ${className}`}
     >
       {/* Widget Header */}
       <div className="flex items-center justify-between">
@@ -65,7 +65,7 @@ export function FollowUpsWidget({
           return (
             <div
               key={item.id}
-              className="bg-blue-50 hover:bg-blue-100/60 transition-all p-4 sm:p-5 rounded-2xl border border-transparent hover:border-blue-200/50 flex items-center justify-between gap-3"
+              className="bg-blue-50 hover:bg-blue-100/60 transition-all p-4 sm:p-5 rounded-[16px]  flex items-center justify-between gap-3"
             >
               <div className="space-y-1 min-w-0 pr-2">
                 <span className="text-[11px] xl:text-xs font-bold text-blue-600 tracking-wide uppercase block truncate">

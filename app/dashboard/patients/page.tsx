@@ -31,7 +31,7 @@ export default function PatientsPage() {
   }));
 
   return (
-    <div className="min-h-screen bg-blue-50 flex flex-col font-sans">
+    <div className="min-h-screen bg-app-bg flex flex-col font-sans">
       <Header showGreeting={false} />
 
       {/* Fluid width container matching your dashboard layout rules */}
@@ -52,13 +52,14 @@ export default function PatientsPage() {
           onDateRangeSelect={setDateRange}
         />
 
-        {/* Patient Table Grid & Pagination Footer */}
+        {/* Patient Table Grid & Pagination Footer linked with the radio activeTab state */}
         <PatientTable
           patients={formattedPatients}
           currentPage={currentPage}
           totalPages={2}
           totalPatients={24}
           onPageChange={setCurrentPage}
+          isOutPatient={activeTab === "out-patient"}
         />
       </main>
     </div>

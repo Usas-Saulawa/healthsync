@@ -25,7 +25,7 @@ export default function DashboardPage() {
   const [filterLabel, setFilterLabel] = useState("Monthly");
 
   return (
-    <div className="min-h-screen bg-app-bg flex flex-col font-sans">
+    <div className="min-h-screen bg-app-bg flex flex-col ">
       <Header />
 
       <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6">

@@ -61,7 +61,7 @@ export function ActiveMedicationsAndDocumentsSection() {
   return (
     <div className="space-y-6">
       {/* Section 1: Active Medications (Borderless, soft blue tint, clean active label) */}
-      <div className="w-full bg-white rounded-2xl border border-slate-200/80 shadow-xs p-6 space-y-4">
+      <div className="w-full bg-white rounded-2xl shadow-xs p-6 space-y-4">
         <h3 className="text-lg font-bold text-[#0f172a]">
           Active Medications for This Condition
         </h3>
@@ -89,7 +89,7 @@ export function ActiveMedicationsAndDocumentsSection() {
       </div>
 
       {/* Section 2: Key Documents (Borderless blue tinted rows and separate action buttons matching Figma) */}
-      <div className="w-full bg-white rounded-2xl border border-slate-200/80 shadow-xs p-6 space-y-4">
+      <div className="w-full bg-white rounded-2xl  shadow-xs p-6 space-y-4">
         <h3 className="text-lg font-bold text-[#0f172a]">Key Documents</h3>
 
         <div className="max-h-[268px] overflow-y-auto pr-2 space-y-3 custom-scrollbar">

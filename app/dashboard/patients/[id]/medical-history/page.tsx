@@ -26,7 +26,7 @@ export default function MedicalHistoryPage({
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
   return (
-    <div className="w-full min-h-screen bg-[#eef4fb] pb-12 pt-6 space-y-6">
+    <div className="w-full min-h-screen bg-app-bg pb-12 pt-6 space-y-6">
       <Header showGreeting={false} />
 
       <div className="w-full px-4 sm:px-6 space-y-6">
@@ -36,7 +36,7 @@ export default function MedicalHistoryPage({
             <button
               type="button"
               onClick={() => router.back()}
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#0f172a] shadow-xs border border-slate-200/80 hover:bg-slate-50 transition-colors cursor-pointer"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#0f172a] shadow-xs  hover:bg-slate-50 transition-colors cursor-pointer"
               aria-label="Go back"
             >
               <ChevronLeft className="h-5 w-5 stroke-[2]" />
@@ -56,7 +56,7 @@ export default function MedicalHistoryPage({
             </button>
             <button
               type="button"
-              className="flex items-center gap-2 h-10 px-4 rounded-xl bg-white text-slate-700 text-xs sm:text-sm font-semibold border border-slate-200 shadow-xs hover:bg-slate-50 transition-colors cursor-pointer"
+              className="flex items-center gap-2 h-10 px-4 rounded-xl bg-white text-slate-700 text-xs sm:text-sm font-semibold  shadow-xs hover:bg-slate-50 transition-colors cursor-pointer"
             >
               <span>Export</span>
             </button>

@@ -40,7 +40,7 @@ export function PatientsProfileHeader({
   return (
     /* Outer section wrapper using matching horizontal padding (px-4 sm:px-6) to align perfectly with the top navigation pill */
     <section className="w-full px-4 sm:px-6">
-      <div className="relative flex h-[84px] w-full items-center rounded-2xl bg-white px-6 shadow-xs border border-blue-100/60">
+      <div className="relative flex h-[84px] w-full items-center rounded-[8px] bg-white px-6 shadow-xs ">
         {/* Patient photo & Admission Badge Container */}
         <div className="relative flex shrink-0 items-center justify-center mr-4">
           <div className="flex h-[52px] w-[52px] items-center justify-center overflow-hidden rounded-xl bg-[#FFF2A8] shadow-2xs">
@@ -65,7 +65,7 @@ export function PatientsProfileHeader({
               {patient.name}
             </h2>
 
-            <span className="inline-flex h-5 items-center rounded-md border border-rose-200 bg-rose-50 px-2 text-[10px] font-semibold text-rose-600 shadow-2xs">
+            <span className="inline-flex h-5 items-center rounded-md  bg-rose-50 px-2 text-[10px] font-semibold text-rose-600 shadow-2xs">
               {patient.riskLevel}
             </span>
           </div>

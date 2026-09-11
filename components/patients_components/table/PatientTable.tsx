@@ -1,7 +1,7 @@
 // components/patients_components/table/PatientTable.tsx
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowUpDown } from "lucide-react";
 import { PatientListItem } from "@/lib/validations/dashboard";
@@ -12,7 +12,18 @@ interface PatientTableProps {
   totalPages?: number;
   totalPatients?: number;
   onPageChange?: (page: number) => void;
+  isOutPatient?: boolean; // Controls whether the status column/row is shown (false for in-patient, true for out-patient)
 }
+
+type SortField =
+  | "name"
+  | "hospNo"
+  | "ageSex"
+  | "wardBed"
+  | "diagnosis"
+  | "status"
+  | "insurance";
+type SortOrder = "asc" | "desc";
 
 export function PatientTable({
   patients,
@@ -20,14 +31,50 @@ export function PatientTable({
   totalPages = 2,
   totalPatients = 24,
   onPageChange,
+  isOutPatient = false,
 }: PatientTableProps) {
   const [selectedIds, setSelectedIds] = useState<(string | number)[]>([]);
+  const [sortField, setSortField] = useState<SortField | null>(null);
+  const [sortOrder, setSortOrder] = useState<SortOrder>("asc");
   const router = useRouter();
+
+  // Sorting Handler
+  const handleSort = (field: SortField) => {
+    if (sortField === field) {
+      setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+    } else {
+      setSortField(field);
+      setSortOrder("asc");
+    }
+  };
+
+  // Functional Sort logic
+  const sortedPatients = useMemo(() => {
+    if (!sortField) return patients;
+
+    return [...patients].sort((a, b) => {
+      let aVal = a[sortField as keyof PatientListItem] ?? "";
+      let bVal = b[sortField as keyof PatientListItem] ?? "";
+
+      if (typeof aVal === "string") aVal = aVal.toLowerCase();
+      if (typeof bVal === "string") bVal = bVal.toLowerCase();
+
+      if (aVal < bVal) return sortOrder === "asc" ? -1 : 1;
+      if (aVal > bVal) return sortOrder === "asc" ? 1 : -1;
+      return 0;
+    });
+  }, [patients, sortField, sortOrder]);
+
+  // Pagination slice: Show 7 records per page
+  const paginatedPatients = useMemo(() => {
+    const startIndex = (currentPage - 1) * 7;
+    return sortedPatients.slice(startIndex, startIndex + 7);
+  }, [sortedPatients, currentPage]);
 
   // Select or clear all patients currently shown on this page.
   const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
-      setSelectedIds(patients.map((patient) => patient.id));
+      setSelectedIds(paginatedPatients.map((patient) => patient.id));
     } else {
       setSelectedIds([]);
     }
@@ -43,14 +90,22 @@ export function PatientTable({
   };
 
   const isAllSelected =
-    patients.length > 0 && selectedIds.length === patients.length;
+    paginatedPatients.length > 0 &&
+    selectedIds.length === paginatedPatients.length;
+
+  // Dynamic grid setup: 7 columns if out-patient (no status column), 8 columns if in-patient (includes status)
+  const gridColumnsClass = isOutPatient
+    ? "grid-cols-[44px_1.6fr_1.3fr_1fr_1.3fr_1.8fr_1.1fr]"
+    : "grid-cols-[44px_1.42fr_1.15fr_0.9fr_1.15fr_1.55fr_1fr_0.95fr]";
 
   return (
-    <div className="w-full px-7 bg-[#eef4fb] pb-6">
+    <div className="w-full px-7 bg-app-bg pb-6">
       <div className="w-full overflow-x-auto">
         <div className="min-w-[1100px] w-full overflow-hidden rounded-[14px] bg-white shadow-2xs">
           {/* Table heading - Perfectly aligned with px-7 (28px) matching the header */}
-          <div className="grid h-[91px] grid-cols-[44px_1.42fr_1.15fr_0.9fr_1.15fr_1.55fr_1fr_0.95fr] items-center px-[28px] text-[13px] font-medium text-[#64748B]">
+          <div
+            className={`grid h-[91px] ${gridColumnsClass} items-center px-[28px] text-[13px] font-medium text-[#64748B]`}
+          >
             {/* Select all */}
             <div className="flex items-center">
               <input
@@ -63,7 +118,10 @@ export function PatientTable({
             </div>
 
             {/* Patient Name */}
-            <div className="flex items-center gap-[7px] whitespace-nowrap">
+            <div
+              onClick={() => handleSort("name")}
+              className="flex items-center gap-[7px] whitespace-nowrap cursor-pointer select-none"
+            >
               <span>Patient Name</span>
               <ArrowUpDown
                 className="h-[13px] w-[13px] text-[#607286]"
@@ -72,7 +130,10 @@ export function PatientTable({
             </div>
 
             {/* Hospital Number */}
-            <div className="flex items-center gap-[7px] whitespace-nowrap">
+            <div
+              onClick={() => handleSort("hospNo")}
+              className="flex items-center gap-[7px] whitespace-nowrap cursor-pointer select-none"
+            >
               <span>Hospital No.</span>
               <ArrowUpDown
                 className="h-[13px] w-[13px] text-[#607286]"
@@ -81,7 +142,10 @@ export function PatientTable({
             </div>
 
             {/* Age / Sex */}
-            <div className="flex items-center gap-[7px] whitespace-nowrap">
+            <div
+              onClick={() => handleSort("ageSex")}
+              className="flex items-center gap-[7px] whitespace-nowrap cursor-pointer select-none"
+            >
               <span>Age/Sex</span>
               <ArrowUpDown
                 className="h-[13px] w-[13px] text-[#607286]"
@@ -90,7 +154,10 @@ export function PatientTable({
             </div>
 
             {/* Ward / Bed */}
-            <div className="flex items-center gap-[7px] whitespace-nowrap">
+            <div
+              onClick={() => handleSort("wardBed")}
+              className="flex items-center gap-[7px] whitespace-nowrap cursor-pointer select-none"
+            >
               <span>Ward/bed</span>
               <ArrowUpDown
                 className="h-[13px] w-[13px] text-[#607286]"
@@ -99,7 +166,10 @@ export function PatientTable({
             </div>
 
             {/* Primary Diagnosis */}
-            <div className="flex items-center gap-[7px] whitespace-nowrap">
+            <div
+              onClick={() => handleSort("diagnosis")}
+              className="flex items-center gap-[7px] whitespace-nowrap cursor-pointer select-none"
+            >
               <span>Primary Diagnosis</span>
               <ArrowUpDown
                 className="h-[13px] w-[13px] text-[#607286]"
@@ -107,17 +177,25 @@ export function PatientTable({
               />
             </div>
 
-            {/* Status */}
-            <div className="flex items-center gap-[7px] whitespace-nowrap">
-              <span>Status</span>
-              <ArrowUpDown
-                className="h-[13px] w-[13px] text-[#607286]"
-                strokeWidth={1.5}
-              />
-            </div>
+            {/* Status Header (Only visible for in-patients) */}
+            {!isOutPatient && (
+              <div
+                onClick={() => handleSort("status")}
+                className="flex items-center gap-[7px] whitespace-nowrap cursor-pointer select-none"
+              >
+                <span>Status</span>
+                <ArrowUpDown
+                  className="h-[13px] w-[13px] text-[#607286]"
+                  strokeWidth={1.5}
+                />
+              </div>
+            )}
 
             {/* Insurance */}
-            <div className="flex items-center justify-end gap-[7px] whitespace-nowrap pr-2">
+            <div
+              onClick={() => handleSort("insurance")}
+              className="flex items-center justify-end gap-[7px] whitespace-nowrap pr-2 cursor-pointer select-none"
+            >
               <span>Insurance</span>
               <ArrowUpDown
                 className="h-[13px] w-[13px] text-[#607286]"
@@ -128,7 +206,7 @@ export function PatientTable({
 
           {/* Patient rows container */}
           <div className="space-y-[7px] px-[20px] pb-4">
-            {patients.map((patient) => {
+            {paginatedPatients.map((patient) => {
               const isSelected = selectedIds.includes(patient.id);
 
               return (
@@ -139,7 +217,7 @@ export function PatientTable({
                   }
                   className={[
                     "grid h-[50px] cursor-pointer",
-                    "grid-cols-[44px_1.42fr_1.15fr_0.9fr_1.15fr_1.55fr_1fr_0.95fr]",
+                    gridColumnsClass,
                     "items-center",
                     "px-[8px]",
                     "rounded-[6px]",
@@ -198,12 +276,14 @@ export function PatientTable({
                     {patient.diagnosis}
                   </div>
 
-                  {/* Status */}
-                  <div className="flex items-center">
-                    <span className="inline-flex h-[23px] items-center rounded-full bg-[#FFF0A6] px-[11px] text-[10px] font-medium leading-none text-[#D99A00]">
-                      {patient.status}
-                    </span>
-                  </div>
+                  {/* Status (Only rendered for in-patients, showing standard status / Active Admitted) */}
+                  {!isOutPatient && (
+                    <div className="flex items-center">
+                      <span className="inline-flex h-[23px] items-center rounded-full bg-[#FFF0A6] px-[11px] text-[10px] font-medium leading-none text-[#D99A00]">
+                        {patient.status || "Active Admitted"}
+                      </span>
+                    </div>
+                  )}
 
                   {/* Insurance */}
                   <div className="truncate text-right text-[11px] font-normal leading-[15px] text-[#718096] pr-2">
@@ -214,10 +294,11 @@ export function PatientTable({
             })}
           </div>
 
-          {/* Pagination */}
+          {/* Pagination configured for 7 items per page */}
           <div className="flex h-[74px] items-center justify-between border-t border-slate-100 px-[28px] bg-white">
             <p className="text-[12px] font-normal leading-[16px] text-[#64748B]">
-              Showing 1-{Math.min(5, patients.length)} of {totalPatients}{" "}
+              Showing {Math.min((currentPage - 1) * 7 + 1, totalPatients)}-
+              {Math.min(currentPage * 7, totalPatients)} of {totalPatients}{" "}
               patients
             </p>
 

@@ -133,7 +133,7 @@ export function PatientMedicalHistoryTab({
   };
 
   return (
-    <div className="w-full bg-white rounded-2xl border border-blue-100/60 shadow-xs overflow-hidden p-6 sm:p-8 space-y-6">
+    <div className="w-full bg-white rounded-2xl  shadow-xs overflow-hidden p-6 sm:p-8 space-y-6">
       {/* Top heading and actions */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
@@ -245,7 +245,7 @@ export function PatientMedicalHistoryTab({
       </div>
 
       {/* Bottom pagination */}
-      <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+      <div className="flex items-center justify-between pt-4 ">
         <p className="text-xs sm:text-sm text-slate-500">
           Showing 1-5 of {totalPatients} history records
         </p>
@@ -256,7 +256,7 @@ export function PatientMedicalHistoryTab({
             type="button"
             onClick={() => setCurrentPage((page) => Math.max(1, page - 1))}
             disabled={currentPage === 1}
-            className="flex h-9 items-center justify-center rounded-lg border border-slate-200 bg-white px-3 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex h-9 items-center justify-center rounded-lg  bg-white px-3 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
           >
             Previous
           </button>
@@ -294,7 +294,7 @@ export function PatientMedicalHistoryTab({
               setCurrentPage((page) => Math.min(totalPages, page + 1))
             }
             disabled={currentPage === totalPages}
-            className="flex h-9 items-center justify-center rounded-lg border border-slate-200 bg-white px-3 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex h-9 items-center justify-center rounded-lg  bg-white px-3 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
           >
             Next
           </button>

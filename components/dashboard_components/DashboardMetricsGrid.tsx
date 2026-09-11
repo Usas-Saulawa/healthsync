@@ -40,7 +40,7 @@ export function DashboardMetricsGrid() {
           {[1, 2, 3, 4].map((i) => (
             <div
               key={i}
-              className="bg-white p-6 rounded-3xl border border-blue-100/50 shadow-xs h-64 flex items-center justify-center"
+              className="bg-white p-6 rounded-3xl shadow-xs h-64 flex items-center justify-center"
             >
               <Loader2 className="h-6 w-6 text-blue-600 animate-spin" />
             </div>
@@ -52,7 +52,7 @@ export function DashboardMetricsGrid() {
 
   if (isError || !data) {
     return (
-      <div className="w-full p-6 bg-red-50 border border-red-100 rounded-3xl text-center text-red-600 text-sm">
+      <div className="w-full p-6 bg-red-50  rounded-3xl text-center text-red-600 text-sm">
         Unable to load dashboard metrics. Please check your connection.
       </div>
     );
@@ -66,7 +66,7 @@ export function DashboardMetricsGrid() {
       {/* Metrics Grid Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6 w-full">
         {/* Card 1: Total Patient */}
-        <div className="bg-white p-5 sm:p-6 rounded-3xl border border-blue-100/50 shadow-xs flex flex-col justify-between">
+        <div className="bg-white p-5 sm:p-6 rounded-2xl  shadow-xs flex flex-col justify-between">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2.5 min-w-0">
               <div className="h-10 w-10 rounded-full bg-blue-50/90 text-blue-600 flex items-center justify-center shrink-0">
@@ -112,7 +112,7 @@ export function DashboardMetricsGrid() {
           </div>
 
           {/* Professional Recharts Area Chart Container */}
-          <div className="h-24 w-full bg-blue-50/20 rounded-2xl p-1 relative overflow-hidden border border-blue-50/50">
+          <div className="h-24 w-full bg-blue-50/20 rounded-2xl p-1 relative overflow-hidden ">
             <div className="absolute inset-0 grid grid-cols-5 grid-rows-3 pointer-events-none z-0">
               <div className="border-r border-b border-blue-100/40" />
               <div className="border-r border-b border-blue-100/40" />
@@ -157,7 +157,7 @@ export function DashboardMetricsGrid() {
         </div>
 
         {/* Card 2: Today's Appointment */}
-        <div className="bg-white p-5 sm:p-6 rounded-3xl border border-blue-100/50 shadow-xs flex flex-col justify-between">
+        <div className="bg-white p-5 sm:p-6 rounded-2xl  shadow-xs flex flex-col justify-between">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2.5 min-w-0">
               <div className="h-10 w-10 rounded-full bg-blue-50/90 text-blue-600 flex items-center justify-center shrink-0">
@@ -185,7 +185,7 @@ export function DashboardMetricsGrid() {
             {todaysAppointments.queue.map((item) => (
               <div
                 key={item.id}
-                className="bg-slate-50/80 hover:bg-slate-50 p-2.5 rounded-2xl border border-slate-100 flex items-center justify-between transition-colors"
+                className="bg-slate-50/80 hover:bg-slate-50 p-2.5 rounded-2xl  flex items-center justify-between transition-colors"
               >
                 <div className="min-w-0 pr-2">
                   <div className="flex items-center gap-1.5 text-[10px] xl:text-xs font-semibold text-blue-600 mb-0.5">
@@ -214,7 +214,7 @@ export function DashboardMetricsGrid() {
         </div>
 
         {/* Card 3: Critical Alert */}
-        <div className="bg-white p-5 sm:p-6 rounded-3xl border border-blue-100/50 shadow-xs flex flex-col justify-between">
+        <div className="bg-white p-5 sm:p-6 rounded-2xl  shadow-xs flex flex-col justify-between">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2.5 min-w-0">
               <div className="h-10 w-10 rounded-full bg-blue-50/90 text-blue-600 flex items-center justify-center shrink-0">
@@ -239,7 +239,7 @@ export function DashboardMetricsGrid() {
           </div>
 
           <div className="space-y-2.5 flex-1 flex flex-col justify-center">
-            <div className="bg-red-50/75 border border-red-100 p-2.5 rounded-2xl flex items-start gap-2.5">
+            <div className="bg-red-50/75  p-2.5 rounded-2xl flex items-start gap-2.5">
               <div className="p-1 bg-red-100 text-red-600 rounded-xl mt-0.5 shrink-0">
                 <ShieldAlert className="h-3.5 w-3.5" />
               </div>
@@ -256,7 +256,7 @@ export function DashboardMetricsGrid() {
               </div>
             </div>
 
-            <div className="bg-amber-50/75 border border-amber-100 p-2.5 rounded-2xl flex items-start gap-2.5">
+            <div className="bg-amber-50/75  p-2.5 rounded-2xl flex items-start gap-2.5">
               <div className="p-1 bg-amber-100 text-amber-700 rounded-xl mt-0.5 shrink-0">
                 <Info className="h-3.5 w-3.5" />
               </div>
@@ -276,7 +276,7 @@ export function DashboardMetricsGrid() {
         </div>
 
         {/* Card 4: Top Treatment */}
-        <div className="bg-white p-6 sm:p-7 rounded-[2rem] border border-blue-100/60 shadow-xs flex flex-col justify-between">
+        <div className="bg-white p-6 sm:p-7 rounded-[16px]  shadow-xs flex flex-col justify-between">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-3 min-w-0">
               <div className="h-10 w-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
@@ -317,7 +317,7 @@ export function DashboardMetricsGrid() {
 
           <div className="grid grid-cols-3 gap-2 pt-1">
             <div className="flex flex-col gap-2 relative pr-1">
-              <div className="absolute right-0 top-1 bottom-1 w-[1px] border-r border-dashed border-slate-200 hidden sm:block" />
+              <div className="absolute right-0 top-1 bottom-1 w-[1px] border-r border-dashed  hidden sm:block" />
               <span className="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight">
                 200
               </span>

@@ -17,7 +17,7 @@ export function PatientsWidget({
 }: PatientsWidgetProps) {
   return (
     <div
-      className={`bg-white rounded-3xl p-6 sm:p-8 shadow-xs border border-blue-100/50 space-y-6 overflow-hidden ${className}`}
+      className={`bg-white rounded-[16px] p-6 sm:p-8 shadow-xs  space-y-6 overflow-hidden ${className}`}
     >
       {/* Widget Header */}
       <div className="flex items-center justify-between px-2">
@@ -53,11 +53,11 @@ export function PatientsWidget({
         {patients.map((patient) => (
           <div
             key={patient.id}
-            className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr_0.8fr_1.1fr_1.3fr_1fr_0.9fr] items-center bg-blue-50 hover:bg-blue-100/60 transition-all px-5 py-3.5 rounded-2xl gap-3 lg:gap-3 shadow-2xs border border-transparent hover:border-blue-200/50"
+            className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr_0.8fr_1.1fr_1.3fr_1fr_0.9fr] items-center bg-blue-50 hover:bg-blue-100/60 transition-all px-5 py-3.5 rounded-2xl gap-3 lg:gap-3 shadow-2xs  hover:border-blue-200/50"
           >
             {/* Patient Name with Avatar */}
             <div className="col-span-1 flex items-center space-x-3 min-w-0">
-              <div className="w-9 h-9 rounded-full bg-amber-200/60 overflow-hidden shrink-0 flex items-center justify-center border border-amber-300/40 shadow-xs">
+              <div className="w-9 h-9 rounded-full bg-amber-200/60 overflow-hidden shrink-0 flex items-center justify-center  shadow-xs">
                 <img
                   src="/images/profile.jpeg"
                   alt={patient.name}
@@ -103,7 +103,7 @@ export function PatientsWidget({
 
             {/* Status Badge */}
             <div className="truncate">
-              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] xl:text-[11px] font-bold bg-[#fff3cd] text-[#856404] border border-[#ffeeba] shadow-2xs whitespace-nowrap">
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] xl:text-[11px] font-bold bg-[#fff3cd] text-[#856404]   shadow-2xs whitespace-nowrap">
                 {patient.status}
               </span>
             </div>
