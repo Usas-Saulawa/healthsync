@@ -11,6 +11,7 @@ import {
   ChevronUp,
 } from "lucide-react";
 import { PatientRadiologyDetailModal } from "./PatientRadiologyDetailModal";
+import { OrderRadiologyModal } from "./OrderRadiologyModal";
 
 interface RadiologyItem {
   id: string;
@@ -287,6 +288,13 @@ export function PatientRadiologyTab() {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         imagingData={selectedImaging}
+      />
+
+      {/* New Imaging Order Modal */}
+      <OrderRadiologyModal
+        isOpen={isOrderModalOpen}
+        onClose={() => setIsOrderModalOpen(false)}
+        onSubmit={handleOrderSubmit}
       />
     </div>
   );
