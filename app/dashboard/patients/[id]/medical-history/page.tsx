@@ -27,7 +27,7 @@ export default function MedicalHistoryPage({
 
   return (
     <div className="w-full min-h-screen bg-app-bg pb-12 pt-6 space-y-6">
-      <Header showGreeting={false} />
+      <Header />
 
       <div className="w-full px-4 sm:px-6 space-y-6">
         {/* Top Navigation & Action Bar */}

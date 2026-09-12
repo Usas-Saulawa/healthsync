@@ -81,7 +81,7 @@ export function PatientHistoricalVitalsLog() {
 
   return (
     <>
-      <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xs p-6 space-y-6">
+      <div className="bg-white rounded-[16px] border border-slate-200/80 shadow-xs p-6 space-y-6">
         {/* Section Header & Export Button */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>

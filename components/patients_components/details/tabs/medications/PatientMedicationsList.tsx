@@ -26,36 +26,34 @@ export function PatientMedicationsList({
   onPageChange,
 }: PatientMedicationsListProps) {
   return (
-    <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
+    <div className="bg-white rounded-[16px] shadow-xs overflow-hidden p-2">
       {/* Table Container */}
       <div className="overflow-x-auto">
-        <table className="w-full text-left border-collapse">
+        <table className="w-full text-left border-separate border-spacing-y-[7px]">
           {/* Table Header */}
           <thead>
-            <tr className="bg-slate-50/80 border-b border-slate-200/80 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
-              <th className="py-3.5 px-6">
+            <tr className="text-[11px] font-bold text-slate-500 uppercase tracking-wider bg-gray-50">
+              <th className="py-3 px-6">
                 <div className="flex items-center gap-1.5 cursor-pointer hover:text-slate-800">
                   Diagnosis
                   <ArrowUpDown className="h-3 w-3 text-slate-400" />
                 </div>
               </th>
-              <th className="py-3.5 px-6">Facility</th>
-              <th className="py-3.5 px-6">Prescriptions</th>
-              <th className="py-3.5 px-6">
+              <th className="py-3 px-6">Facility</th>
+              <th className="py-3 px-6">Prescriptions</th>
+              <th className="py-3 px-6">
                 <div className="flex items-center gap-1.5 cursor-pointer hover:text-slate-800">
                   Date
                   <ArrowUpDown className="h-3 w-3 text-slate-400" />
                 </div>
               </th>
-              <th className="py-3.5 px-6">Status</th>
+              <th className="py-3 px-6">Status</th>
             </tr>
           </thead>
 
-          {/* Table Body */}
-          <tbody className="divide-y divide-slate-100 text-xs text-slate-700">
-            {data.map((row, index) => {
-              const rowBg = index % 2 === 0 ? "bg-white" : "bg-[#f8fafc]/60";
-
+          {/* Table Body with 7px gap & 8px border-radius per row */}
+          <tbody className="text-xs text-slate-700">
+            {data.map((row) => {
               // Exact screenshot style pill badge variants
               let statusBadgeStyles = "";
               if (row.status === "Active") {
@@ -72,10 +70,10 @@ export function PatientMedicationsList({
               return (
                 <tr
                   key={row.id}
-                  className={`${rowBg} hover:bg-blue-50/40 transition-colors cursor-pointer`}
+                  className="bg-app-bg hover:bg-blue-50/40 transition-colors cursor-pointer shadow-2xs"
                 >
                   {/* Diagnosis & Sub-medications */}
-                  <td className="py-4 px-6">
+                  <td className="py-4 px-6 rounded-l-[8px] ">
                     <div className="font-bold text-slate-900">
                       {row.diagnosis}
                     </div>
@@ -105,7 +103,7 @@ export function PatientMedicationsList({
                   </td>
 
                   {/* Status */}
-                  <td className="py-4 px-6 whitespace-nowrap">
+                  <td className="py-4 px-6 rounded-r-[8px] whitespace-nowrap">
                     <span
                       className={`${statusBadgeStyles} text-[11px] inline-block`}
                     >
@@ -120,14 +118,14 @@ export function PatientMedicationsList({
       </div>
 
       {/* Pagination Footer */}
-      <div className="flex flex-col sm:flex-row items-center justify-between px-6 py-4 border-t border-slate-200/70 bg-white gap-4">
+      <div className="flex flex-col sm:flex-row items-center justify-between px-6 py-4 mt-2 bg-white gap-4">
         <p className="text-xs text-slate-500">Showing 1-5 of 24 history</p>
 
         <div className="flex items-center gap-1.5">
           <button
             type="button"
             onClick={() => onPageChange(Math.max(1, currentPage - 1))}
-            className="px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-semibold text-slate-600 hover:bg-slate-50 transition-colors cursor-pointer"
+            className="px-3.5 py-1.5 rounded-[6px] border-0 bg-app-bg text-xs font-semibold text-slate-600 hover:bg-slate-200 transition-colors cursor-pointer shadow-2xs"
           >
             Previous
           </button>
@@ -135,10 +133,10 @@ export function PatientMedicationsList({
           <button
             type="button"
             onClick={() => onPageChange(1)}
-            className={`w-8 h-8 rounded-lg text-xs font-bold transition-colors cursor-pointer ${
+            className={`w-8 h-8 rounded-[6px] border-0 text-xs font-bold transition-colors cursor-pointer shadow-2xs ${
               currentPage === 1
                 ? "bg-[#2563EB] text-white"
-                : "border border-slate-200 bg-white text-slate-600 hover:bg-slate-50"
+                : "bg-app-bg text-slate-600 hover:bg-slate-200"
             }`}
           >
             1
@@ -147,10 +145,10 @@ export function PatientMedicationsList({
           <button
             type="button"
             onClick={() => onPageChange(2)}
-            className={`w-8 h-8 rounded-lg text-xs font-bold transition-colors cursor-pointer ${
+            className={`w-8 h-8 rounded-[6px] border-0 text-xs font-bold transition-colors cursor-pointer shadow-2xs ${
               currentPage === 2
                 ? "bg-[#2563EB] text-white"
-                : "border border-slate-200 bg-white text-slate-600 hover:bg-slate-50"
+                : "bg-app-bg text-slate-600 hover:bg-slate-200"
             }`}
           >
             2
@@ -159,7 +157,7 @@ export function PatientMedicationsList({
           <button
             type="button"
             onClick={() => onPageChange(Math.min(2, currentPage + 1))}
-            className="px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-semibold text-slate-600 hover:bg-slate-50 transition-colors cursor-pointer"
+            className="px-3.5 py-1.5 rounded-[6px] border-0 bg-app-bg text-xs font-semibold text-slate-600 hover:bg-slate-200 transition-colors cursor-pointer shadow-2xs"
           >
             Next
           </button>

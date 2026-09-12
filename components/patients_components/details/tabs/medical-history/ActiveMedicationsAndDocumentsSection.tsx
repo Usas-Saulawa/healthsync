@@ -95,7 +95,7 @@ export function ActiveMedicationsAndDocumentsSection() {
         <div className="max-h-[268px] overflow-y-auto pr-2 space-y-3 custom-scrollbar">
           {keyDocuments.map((doc) => (
             <div key={doc.id} className="flex items-center gap-2">
-              {/* Left Title Container */}
+              {/* Unified Left Container: Document Title & Icon */}
               <div className="flex items-center gap-3 bg-blue-50/90 hover:bg-blue-50 transition-colors rounded-xl px-4 py-3 min-w-0 flex-1">
                 <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-[#0f172a] text-white shrink-0 shadow-2xs">
                   <FileText className="w-4 h-4" />
@@ -105,18 +105,18 @@ export function ActiveMedicationsAndDocumentsSection() {
                 </span>
               </div>
 
-              {/* Right Action Buttons */}
+              {/* Unified Right Action Buttons matching the same height, padding/styling style */}
               <div className="flex items-center gap-2 shrink-0">
                 <button
                   type="button"
-                  className="flex items-center justify-center w-9 h-9 rounded-xl bg-blue-50/90 hover:bg-blue-100/90 text-slate-600 transition-colors cursor-pointer"
+                  className="flex items-center justify-center h-[50px] w-[50px] rounded-xl bg-blue-50/90 hover:bg-blue-100 text-slate-700 transition-colors cursor-pointer shadow-2xs"
                   aria-label="View document"
                 >
                   <Eye className="w-4 h-4" />
                 </button>
                 <button
                   type="button"
-                  className="flex items-center justify-center w-9 h-9 rounded-xl bg-blue-50/70 hover:bg-blue-100/70 text-slate-600 transition-colors cursor-pointer"
+                  className="flex items-center justify-center h-[50px] w-[50px] rounded-xl bg-blue-50/90 hover:bg-blue-100 text-slate-700 transition-colors cursor-pointer shadow-2xs"
                   aria-label="Download document"
                 >
                   <Download className="w-4 h-4" />

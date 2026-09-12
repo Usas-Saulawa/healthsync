@@ -8,6 +8,7 @@ import {
   PatientMedicationsList,
   MedicationRow,
 } from "./PatientMedicationsList";
+import { AddPrescriptionModal } from "./AddPrescriptionModal";
 
 const mockMedicationsData: MedicationRow[] = [
   {
@@ -68,10 +69,12 @@ const mockMedicationsData: MedicationRow[] = [
 ];
 
 export function PatientMedicationsTab() {
-  const [medications] = useState<MedicationRow[]>(mockMedicationsData);
+  const [medications, setMedications] =
+    useState<MedicationRow[]>(mockMedicationsData);
   const [currentPage, setCurrentPage] = useState(1);
   const [filterLabel, setFilterLabel] = useState("Filter");
   const [sortLabel, setSortLabel] = useState("Sort by");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const filterOptions = [
     { label: "All Status", value: "all" },
@@ -86,7 +89,22 @@ export function PatientMedicationsTab() {
   ];
 
   const handleNewPrescription = () => {
-    console.log("Opening new prescription modal...");
+    setIsModalOpen(true);
+  };
+
+  const handleModalSubmit = (newPrescriptionData: any) => {
+    // Append new prescription or mock insert to state list
+    const newRow: MedicationRow = {
+      id: Date.now().toString(),
+      diagnosis: newPrescriptionData.medicationName || "General Diagnosis",
+      medicationsList: `${newPrescriptionData.medicationName} (${newPrescriptionData.dosage})`,
+      facility: "Medical Centre",
+      doctor: "Dr. Ibrahim Muazu",
+      prescriptionsCount: Number(newPrescriptionData.quantity) || 10,
+      date: "Today",
+      status: "Active",
+    };
+    setMedications([newRow, ...medications]);
   };
 
   const handleExport = () => {
@@ -124,16 +142,16 @@ export function PatientMedicationsTab() {
           <button
             type="button"
             onClick={handleNewPrescription}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#2563EB] text-white text-xs font-semibold hover:bg-blue-700 transition-colors shadow-xs cursor-pointer h-[40px]"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-[6px] bg-[#2563EB] text-white text-xs font-semibold hover:bg-blue-700 transition-colors shadow-xs cursor-pointer h-[40px]"
           >
             <Plus className="h-4 w-4" />
-            <span>+ New Prescription</span>
+            <span>New Prescription</span>
           </button>
 
           <button
             type="button"
             onClick={handleExport}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-slate-200 bg-white text-slate-700 text-xs font-semibold hover:bg-slate-50 transition-colors shadow-2xs cursor-pointer h-[40px]"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-[6px] bg-app-bg text-slate-700 text-xs font-semibold hover:bg-slate-50 transition-colors shadow-2xs cursor-pointer h-[40px]"
           >
             Export
           </button>
@@ -145,6 +163,13 @@ export function PatientMedicationsTab() {
         data={medications}
         currentPage={currentPage}
         onPageChange={setCurrentPage}
+      />
+
+      {/* Add Prescription Modal Component */}
+      <AddPrescriptionModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSubmit={handleModalSubmit}
       />
     </div>
   );

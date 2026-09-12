@@ -42,7 +42,7 @@ const trendData = [
 
 export function PatientVitalsChartsSidebar() {
   return (
-    <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xs p-5 flex flex-col justify-between h-full gap-6">
+    <div className="bg-white rounded-[16px] border border-slate-200/80 shadow-xs p-5 flex flex-col justify-between h-full gap-6">
       {/* Top Section: Segmented Donut Chart */}
       <div className="flex flex-col items-center justify-center pt-2 pb-4 border-b border-slate-100">
         <div className="w-full h-[220px] relative flex items-center justify-center">
