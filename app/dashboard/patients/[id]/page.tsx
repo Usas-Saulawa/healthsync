@@ -99,7 +99,8 @@ function PatientDetailContent({ params }: PatientDetailPageProps) {
           activeTab !== "Medical History" &&
           activeTab !== "Vitals" &&
           activeTab !== "Medications" &&
-          activeTab !== "Encounter Notes" && (
+          activeTab !== "Encounter Notes" &&
+          activeTab !== "Lab Results" && (
             <div className="bg-white rounded-2xl p-6 text-slate-500 shadow-xs ">
               {activeTab} module under development.
             </div>

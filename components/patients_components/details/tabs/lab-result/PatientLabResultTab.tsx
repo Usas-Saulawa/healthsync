@@ -10,6 +10,8 @@ import {
   ChevronDown,
   ChevronUp,
 } from "lucide-react";
+import { PatientLabDetailModal } from "./PatientLabDetailModal";
+import { OrderLabTestModal } from "./OrderLabTestModal";
 
 interface LabResultItem {
   id: string;
@@ -83,13 +85,45 @@ const mockLabResults: LabResultItem[] = [
 export function PatientLabResultTab() {
   // Set the 4th item expanded by default to match the reference screenshot
   const [expandedId, setExpandedId] = useState<string | null>("4");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
+  const [selectedLab, setSelectedLab] = useState<any>(null);
 
   const toggleExpand = (id: string) => {
     setExpandedId(expandedId === id ? null : id);
   };
 
+  const handleOpenModal = (item: LabResultItem) => {
+    setSelectedLab({
+      testName: item.testName,
+      category: item.iconType === "pulse" ? "Cardiology" : "Chemistry",
+      orderedBy: item.recordedBy,
+      labTechnician: "Adamu Bello, MLS",
+      facility: "MedEHR Central Diagnostics Laboratory",
+      dateCollected: `${item.date} ${item.time}`,
+      result: item.result,
+      units: item.units,
+      referenceRange: `${item.referenceRange} ${item.units}`,
+      flag:
+        item.flag === "High"
+          ? "HIGH FLAG"
+          : item.flag === "Critical"
+            ? "CRITICAL FLAG"
+            : "NORMAL",
+      scientistNotes: `Specimen collected. Result logged at ${item.result} ${item.units}. Status: ${item.status}. Reviewed by: ${item.recordedBy}.`,
+      reviewedByLab: `${item.date} 10:15 AM`,
+      acknowledgedByPhysician: "Pending",
+    });
+    setIsModalOpen(true);
+  };
+
   const handleNewOrder = () => {
-    console.log("Opening new lab order modal...");
+    setIsOrderModalOpen(true);
+  };
+
+  const handleOrderSubmit = (formData: any) => {
+    console.log("New lab test order submitted:", formData);
+    // Here you can handle adding the new order to your mock list or backend state
   };
 
   return (
@@ -102,9 +136,9 @@ export function PatientLabResultTab() {
         <button
           type="button"
           onClick={handleNewOrder}
-          className="inline-flex items-center gap-1.5 w-[104px] h-[32px] px-3 py-2 bg-[#1C64F2] text-white text-xs font-semibold rounded-[6px] hover:bg-blue-700 transition-colors shadow-xs cursor-pointer justify-center"
+          className="inline-flex items-center gap-1.5 w-[104px] h-[32px] px-3 py-2 bg-[#1C64F2] text-white text-xs font-bold rounded-[6px] hover:bg-blue-700 transition-colors shadow-xs cursor-pointer justify-center"
         >
-          <Plus className="h-3.5 w-3.5" />
+          <Plus className="h-3 w-3 font-bold" />
           <span>New Order</span>
         </button>
       </div>
@@ -119,7 +153,7 @@ export function PatientLabResultTab() {
             const cardBgStyle =
               index === 0
                 ? "bg-app-bg border border-slate-200/60"
-                : "bg-white border border-slate-200/80 shadow-2xs";
+                : "bg-app-bg border border-slate-200/80 shadow-2xs";
 
             // Flag badge colors
             let flagBadgeColor = "text-blue-600";
@@ -230,7 +264,7 @@ export function PatientLabResultTab() {
                             type="button"
                             onClick={(e) => {
                               e.stopPropagation();
-                              console.log("Viewing details for:", item.id);
+                              handleOpenModal(item);
                             }}
                             className="px-4 py-2 bg-emerald-50 text-emerald-700 text-xs font-semibold rounded-[6px] hover:bg-emerald-100 transition-colors cursor-pointer"
                           >
@@ -256,6 +290,20 @@ export function PatientLabResultTab() {
           })}
         </div>
       </div>
+
+      {/* Slide-in Detail Drawer Modal */}
+      <PatientLabDetailModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        labData={selectedLab}
+      />
+
+      {/* Order Lab Test Modal */}
+      <OrderLabTestModal
+        isOpen={isOrderModalOpen}
+        onClose={() => setIsOrderModalOpen(false)}
+        onSubmit={handleOrderSubmit}
+      />
     </div>
   );
 }

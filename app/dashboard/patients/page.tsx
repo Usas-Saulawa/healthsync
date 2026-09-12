@@ -32,7 +32,7 @@ export default function PatientsPage() {
 
   return (
     <div className="min-h-screen bg-app-bg flex flex-col font-sans">
-      <Header showGreeting={false} />
+      <Header />
 
       {/* Fluid width container matching your dashboard layout rules */}
       <main className="flex-1 w-full py-6 space-y-6">
