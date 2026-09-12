@@ -1,34 +1,36 @@
-// components/patients_components/details/tabs/lab-result/PatientLabDetailModal.tsx
+// components/patients_components/details/tabs/radiology/PatientRadiologyDetailModal.tsx
 "use client";
 
 import { useEffect, useState } from "react";
-import { X, FileText, AlertTriangle } from "lucide-react";
+import { X, FileText } from "lucide-react";
 
-interface LabDetailModalProps {
+interface RadiologyDetailModalProps {
   isOpen: boolean;
   onClose: () => void;
-  labData?: {
-    testName: string;
-    category: string;
+  imagingData?: {
+    studyType: string;
+    modality: string;
     orderedBy: string;
-    labTechnician: string;
     facility: string;
-    dateCollected: string;
-    result: string;
-    units: string;
-    referenceRange: string;
+    radiologist: string;
+    bodyPart: string;
+    dateOrdered: string;
+    dateCompleted: string;
+    keyFinding: string;
     flag: string;
-    scientistNotes: string;
-    reviewedByLab: string;
-    acknowledgedByPhysician: string;
+    clinicalCorrelation: string;
+    radiologistNotes: string;
+    impression: string;
+    reviewedBy: string;
+    acknowledgedBy: string;
   };
 }
 
-export function PatientLabDetailModal({
+export function PatientRadiologyDetailModal({
   isOpen,
   onClose,
-  labData,
-}: LabDetailModalProps) {
+  imagingData,
+}: RadiologyDetailModalProps) {
   const [isRendered, setIsRendered] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -49,44 +51,26 @@ export function PatientLabDetailModal({
   if (!isRendered) return null;
 
   const defaultData = {
-    testName: "Glucose, Fasting",
-    category: "Chemistry",
+    studyType: "Chest X-Ray PA/Lateral",
+    modality: "Radiography",
     orderedBy: "Dr. Sarah Jenkins, MD",
-    labTechnician: "Adamu Bello, MLS",
-    facility: "MedEHR Central Diagnostics Laboratory",
-    dateCollected: "Oct 23, 2023 09:30 AM",
-    result: "165",
-    units: "mg/dL",
-    referenceRange: "70 - 99 mg/dL",
-    flag: "HIGH FLAG",
-    scientistNotes:
-      "Specimen collected fasting. Glucose level significantly elevated at 165 mg/dL. Recommend correlation with HbA1c levels. Sample quality: Good. No hemolysis or lipemia observed.\nReviewed by: Adamu Bello, MLS",
-    reviewedByLab: "Oct 23, 2023 10:15 AM",
-    acknowledgedByPhysician: "Pending",
+    facility: "MedEHR Central Imaging Center",
+    radiologist: "Dr. Aisha",
+    bodyPart: "Chest",
+    dateOrdered: "Oct 22, 2023",
+    dateCompleted: "Oct 22, 2023 10:41 AM",
+    keyFinding: "No Acute Findings",
+    flag: "NORMAL",
+    clinicalCorrelation: "Stable chronic cardiomegaly",
+    radiologistNotes:
+      "Lungs are clear without focal consolidation, pleural effusion, or new infiltrates. Cardiomegaly is chronic and stable compared to previous diagnostic exams. Pulmonary vascularity is within normal limits. No acute bony abnormality detected. - Reviewed by: Dr. Sarah Jenkins, MD",
+    impression:
+      "1. No acute cardiopulmonary disease. 2. Stable, chronic cardiomegaly.",
+    reviewedBy: "Rad. Oct 22, 2023 10:15 AM",
+    acknowledgedBy: "Pending",
   };
 
-  const data = labData || defaultData;
-
-  const historyRecords = [
-    {
-      date: "Oct 23, 2023",
-      label: "Today's Assay",
-      value: "165 mg/dL",
-      flag: "High",
-    },
-    {
-      date: "Oct 10, 2023",
-      label: "Previous Assay",
-      value: "152 mg/dL",
-      flag: "High",
-    },
-    {
-      date: "Sep 28, 2023",
-      label: "Baseline Assay",
-      value: "148 mg/dL",
-      flag: "High",
-    },
-  ];
+  const data = imagingData || defaultData;
 
   return (
     <div className="fixed inset-0 z-50 flex justify-end">
@@ -115,7 +99,7 @@ export function PatientLabDetailModal({
               <FileText className="h-4 w-4" />
             </div>
             <h2 className="text-sm font-bold text-slate-900">
-              Lab Result Detail
+              Imaging Study Detail
             </h2>
           </div>
           <button
@@ -129,26 +113,26 @@ export function PatientLabDetailModal({
 
         {/* Modal Body with Custom Scrollbar */}
         <div className="w-[560px] h-[800px] p-6 flex flex-col gap-5 overflow-y-auto custom-scrollbar">
-          {/* Test Information Section */}
-          <div className="w-[512px] h-[262px] bg-app-bg rounded-[8px] p-4 flex flex-col gap-3 shrink-0">
+          {/* Study Information Section */}
+          <div className="w-[512px] h-[210px] bg-app-bg rounded-[8px] p-4 flex flex-col gap-3 shrink-0">
             <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">
-              TEST INFORMATION
+              STUDY INFORMATION
             </span>
             <div className="grid grid-cols-2 gap-y-3 gap-x-6 text-xs">
               <div>
                 <span className="text-slate-400 block text-[11px]">
-                  Test Name
+                  Study Type
                 </span>
                 <span className="font-bold text-slate-900 mt-0.5 block">
-                  {data.testName}
+                  {data.studyType}
                 </span>
               </div>
               <div>
                 <span className="text-slate-400 block text-[11px]">
-                  Category
+                  Modality
                 </span>
                 <span className="font-semibold text-slate-800 mt-0.5 block">
-                  {data.category}
+                  {data.modality}
                 </span>
               </div>
               <div>
@@ -161,117 +145,117 @@ export function PatientLabDetailModal({
               </div>
               <div>
                 <span className="text-slate-400 block text-[11px]">
-                  Lab Technician
-                </span>
-                <span className="font-semibold text-slate-800 mt-0.5 block">
-                  {data.labTechnician}
-                </span>
-              </div>
-              <div className="col-span-2">
-                <span className="text-slate-400 block text-[11px]">
                   Facility
                 </span>
                 <span className="font-semibold text-slate-800 mt-0.5 block truncate">
                   {data.facility}
                 </span>
               </div>
-              <div className="col-span-2">
+              <div>
                 <span className="text-slate-400 block text-[11px]">
-                  Date Collected
+                  Radiologist
                 </span>
                 <span className="font-semibold text-slate-800 mt-0.5 block">
-                  {data.dateCollected}
+                  {data.radiologist}
+                </span>
+              </div>
+              <div>
+                <span className="text-slate-400 block text-[11px]">
+                  Body Part
+                </span>
+                <span className="font-semibold text-slate-800 mt-0.5 block">
+                  {data.bodyPart}
+                </span>
+              </div>
+              <div>
+                <span className="text-slate-400 block text-[11px]">
+                  Date Ordered
+                </span>
+                <span className="font-semibold text-slate-800 mt-0.5 block">
+                  {data.dateOrdered}
+                </span>
+              </div>
+              <div>
+                <span className="text-slate-400 block text-[11px]">
+                  Date Completed
+                </span>
+                <span className="font-semibold text-slate-800 mt-0.5 block">
+                  {data.dateCompleted}
                 </span>
               </div>
             </div>
           </div>
 
-          {/* Result Hero Box */}
+          {/* Key Finding Hero Box */}
           <div
             className="w-[512px] h-[129px] rounded-[8px] p-5 flex items-center justify-between shrink-0"
-            style={{ backgroundColor: "#FFEDD5" }}
+            style={{ backgroundColor: "#E1EFFE" }}
           >
             <div>
-              <span className="text-[11px] font-bold tracking-wider text-orange-700 uppercase">
-                ASSAY RESULT
+              <span className="text-[11px] font-bold tracking-wider text-blue-700 uppercase">
+                KEY FINDING
               </span>
-              <div className="flex items-baseline gap-2 mt-1">
-                <span className="text-3xl font-extrabold text-slate-900">
-                  {data.result}
-                </span>
-                <span className="text-sm font-semibold text-slate-700">
-                  {data.units}
-                </span>
-              </div>
+              <h3 className="text-2xl font-extrabold text-slate-900 mt-1 tracking-tight">
+                {data.keyFinding}
+              </h3>
               <span className="text-xs text-slate-600 mt-1 block">
-                Reference Range: {data.referenceRange}
+                Clinical correlation: {data.clinicalCorrelation}
               </span>
             </div>
-            {/* High Flag Badge */}
+            {/* Flag Pill Hero Button */}
             <div
-              className="flex items-center justify-center gap-1.5 text-white font-bold text-[11px] tracking-wide shrink-0"
+              className="flex items-center justify-center text-white font-bold text-[11px] tracking-wide shrink-0"
               style={{
-                width: "94px",
-                height: "28px",
+                width: "82px",
+                height: "27px",
                 borderRadius: "20px",
-                backgroundColor: "#EA580C",
+                backgroundColor: "#1A56DB",
                 paddingTop: "6px",
                 paddingRight: "14px",
                 paddingBottom: "6px",
                 paddingLeft: "14px",
               }}
             >
-              <AlertTriangle className="h-3 w-3" />
-              <span>HIGH</span>
+              <span>{data.flag}</span>
             </div>
           </div>
 
-          {/* Clinical Notes */}
-          <div className="w-[512px] h-[136px] bg-app-bg rounded-[8px] p-4 flex flex-col gap-2 shrink-0">
+          {/* Radiologist Notes / Clinical Findings */}
+          <div className="w-[512px] h-[140px] bg-app-bg rounded-[8px] p-4 flex flex-col gap-2 shrink-0">
             <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">
-              LAB SCIENTIST NOTES
+              RADIOLOGIST NOTES/ CLINICAL FINDINGS
             </span>
-            <p className="text-[11px] text-slate-700 leading-relaxed overflow-hidden">
-              {data.scientistNotes}
+            <p className="text-[11px] text-slate-700 leading-relaxed overflow-y-auto custom-scrollbar">
+              {data.radiologistNotes}
             </p>
           </div>
 
-          {/* History Section (w: 512px, h: 165px, gap: 8px) */}
-          <div className="w-[512px] h-[165px] flex flex-col gap-2 shrink-0">
-            <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">
-              FASTING GLUCOSE HISTORICAL TREND (LAST 3 ASSAYS)
-            </span>
-            {/* Inner Container per spec (w: 512px, h: 141px, rounded-[8px], border: 1px solid #E5E7EB) */}
-            <div className="w-[512px] h-[141px] bg-white rounded-[8px] border border-[#E5E7EB] overflow-hidden flex flex-col justify-between">
-              {historyRecords.map((record, idx) => (
-                <div
-                  key={idx}
-                  className="w-[512px] h-[47px] px-3 flex items-center justify-between text-xs"
-                  style={{
-                    borderBottom:
-                      idx < historyRecords.length - 1
-                        ? "1px solid #E5E7EB"
-                        : "none",
-                  }}
-                >
-                  <div>
-                    <span className="font-bold text-slate-900">
-                      {record.date}
-                    </span>
-                    <span className="text-[11px] text-slate-400 ml-2">
-                      {record.label}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <span className="font-bold text-slate-900">
-                      {record.value}
-                    </span>
-                    <span className="px-2 py-0.5 bg-orange-100 text-orange-700 text-[10px] font-bold rounded">
-                      {record.flag}
-                    </span>
-                  </div>
-                </div>
-              ))}
+          {/* Impression Block with Accent Bar */}
+          <div
+            className="w-[512px] h-[100px] rounded-[8px] p-4 flex items-center gap-3 shrink-0"
+            style={{
+              backgroundColor: "#FFF7ED",
+              border: "1px solid #FCD6A8",
+            }}
+          >
+            {/* Accent Bar */}
+            <div
+              className="shrink-0"
+              style={{
+                width: "4px",
+                height: "68px",
+                borderRadius: "2px",
+                backgroundColor: "#F97316",
+              }}
+            />
+            {/* Impression Text Content */}
+            <div className="flex flex-col gap-1 overflow-y-auto">
+              <span className="text-[10px] font-bold tracking-wider text-orange-700 uppercase">
+                IMPRESSION
+              </span>
+              <p className="text-xs font-medium text-slate-900 leading-snug">
+                {data.impression}
+              </p>
             </div>
           </div>
         </div>
@@ -279,10 +263,8 @@ export function PatientLabDetailModal({
         {/* Modal Footer */}
         <div className="w-[560px] h-[96px] border-t border-[#E5E7EB] px-6 py-4 flex flex-col justify-between shrink-0 bg-white">
           <div className="w-[512px] h-[16px] flex items-center justify-between text-[11px] text-slate-500">
-            <span>Reviewed by Lab: {data.reviewedByLab}</span>
-            <span>
-              Acknowledged by Physician: {data.acknowledgedByPhysician}
-            </span>
+            <span>Reviewed by: {data.reviewedBy}</span>
+            <span>Acknowledged by Physician: {data.acknowledgedBy}</span>
           </div>
 
           <div className="w-[512px] h-[36px] flex items-center gap-2">
@@ -295,20 +277,20 @@ export function PatientLabDetailModal({
             </button>
             <button
               type="button"
-              onClick={() => console.log("Printing result...")}
+              onClick={() => console.log("Printing report...")}
               className="flex-1 h-full bg-app-bg text-slate-700 text-xs font-semibold rounded-[6px] hover:bg-slate-200 transition-colors cursor-pointer"
             >
-              Print Result
+              Print Report
             </button>
             <button
               type="button"
               onClick={() => {
-                console.log("Acknowledging result...");
+                console.log("Launching DICOM viewer...");
                 onClose();
               }}
               className="flex-1 h-full bg-[#2563EB] text-white text-xs font-semibold rounded-[6px] hover:bg-blue-700 transition-colors cursor-pointer shadow-xs"
             >
-              Acknowledge Result
+              Launch DICOM Viewer
             </button>
           </div>
         </div>

@@ -12,6 +12,7 @@ import { PatientVitalTab } from "@/components/patients_components/details/tabs/v
 import { PatientMedicationsTab } from "@/components/patients_components/details/tabs/medications/PatientMedicationsTab";
 import { PatientEncounterTab } from "@/components/patients_components/details/tabs/encounter-note/PatientEncounterTab";
 import { PatientLabResultTab } from "@/components/patients_components/details/tabs/lab-result/PatientLabResultTab";
+import { PatientRadiologyTab } from "@/components/patients_components/details/tabs/radiology/PatientRadiologyTab";
 import { mockPatientsList } from "@/mock/mockDashboardData";
 
 interface PatientDetailPageProps {
@@ -93,6 +94,7 @@ function PatientDetailContent({ params }: PatientDetailPageProps) {
         {activeTab === "Encounter Notes" && <PatientEncounterTab />}
 
         {activeTab === "Lab Results" && <PatientLabResultTab />}
+        {activeTab === "Radiology" && <PatientRadiologyTab />}
 
         {/* Placeholders for other tabs */}
         {activeTab !== "Overview" &&
@@ -100,7 +102,8 @@ function PatientDetailContent({ params }: PatientDetailPageProps) {
           activeTab !== "Vitals" &&
           activeTab !== "Medications" &&
           activeTab !== "Encounter Notes" &&
-          activeTab !== "Lab Results" && (
+          activeTab !== "Lab Results" &&
+          activeTab !== "Radiology" && (
             <div className="bg-white rounded-2xl p-6 text-slate-500 shadow-xs ">
               {activeTab} module under development.
             </div>
