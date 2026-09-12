@@ -35,15 +35,20 @@ model Hospital {
   patients           Patient[]
   authorizedNetworks AuthorizedNetwork[]
 
-  wards          Ward[]
-  admissions     PatientAdmission[]
-  appointments   Appointment[]
-  encounters     Encounter[]
-  followUps      FollowUp[]
-  orders         Order[]
-  nurseNotes     NurseNote[]
-  labResults     LabResult[]
-  imagingStudies ImagingStudy[]
+  wards             Ward[]
+  admissions        PatientAdmission[]
+  admissionRequests AdmissionRequest[]
+  transferRequests  TransferRequest[]
+  referrals         Referral[]
+  discharges        Discharge[]
+  immunizations     Immunization[]
+  appointments      Appointment[]
+  encounters        Encounter[]
+  followUps         FollowUp[]
+  orders            Order[]
+  nurseNotes        NurseNote[]
+  labResults        LabResult[]
+  imagingStudies    ImagingStudy[]
 
   @@index([name])
 }
@@ -56,9 +61,13 @@ model Department {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
-  hospital  Hospital   @relation(fields: [hospitalId], references: [id], onDelete: Restrict)
-  users     User[]
-  followUps FollowUp[]
+  hospital           Hospital           @relation(fields: [hospitalId], references: [id], onDelete: Restrict)
+  users              User[]
+  followUps          FollowUp[]
+  admissionRequests  AdmissionRequest[]
+  transferRequestsTo TransferRequest[]  @relation("TransferDestinationDepartment")
+  referralsTo        Referral[]         @relation("ReferralDestinationDepartment")
+  discharges         Discharge[]
 
   @@unique([hospitalId, code])
   @@index([hospitalId])
@@ -86,17 +95,28 @@ model User {
   authOtps       AuthOtp[]
   authChallenges AuthChallenge[]
 
-  appointmentsAsDoctor       Appointment[]      @relation("DoctorAppointments")
-  encountersAsDoctor         Encounter[]        @relation("DoctorEncounters")
-  admissionsAsDoctor         PatientAdmission[] @relation("AdmissionAttendingDoctor")
-  followUpsAsDoctor          FollowUp[]         @relation("DoctorFollowUps")
-  prescriptionsAsPrescriber  Prescription[]     @relation("PrescriberPrescriptions")
-  ordersAsOrderingProvider   Order[]            @relation("OrderingProviderOrders")
-  labResultsAcknowledged     LabResult[]        @relation("LabResultAcknowledgedBy")
-  imagingStudiesAcknowledged ImagingStudy[]     @relation("ImagingStudyAcknowledgedBy")
-  lockedEncounters           Encounter[]        @relation("EncounterLockedBy")
-  nurseNotesAsAuthor         NurseNote[]        @relation("NurseNoteAuthor")
-  vitalsRecorded             Vital[]            @relation("VitalRecordedBy")
+  appointmentsAsDoctor                 Appointment[]      @relation("DoctorAppointments")
+  encountersAsDoctor                   Encounter[]        @relation("DoctorEncounters")
+  admissionsAsDoctor                   PatientAdmission[] @relation("AdmissionAttendingDoctor")
+  admissionRequestsAsRequester         AdmissionRequest[] @relation("AdmissionRequestRequester")
+  admissionRequestsAsAdmittingProvider AdmissionRequest[] @relation("AdmissionRequestAdmittingProvider")
+  admissionRequestsAsReferringProvider AdmissionRequest[] @relation("AdmissionRequestReferringProvider")
+  admissionDecisions                   AdmissionRequest[] @relation("AdmissionRequestDecisionActor")
+  transferRequestsAsRequester          TransferRequest[]  @relation("TransferRequestRequester")
+  transferDecisions                    TransferRequest[]  @relation("TransferRequestDecisionActor")
+  referralsAsReferrer                  Referral[]         @relation("ReferralReferrer")
+  referralsAsPreferredProvider         Referral[]         @relation("ReferralPreferredProvider")
+  dischargesAsAttendingProvider        Discharge[]        @relation("DischargeAttendingProvider")
+  dischargesAsFollowUpProvider         Discharge[]        @relation("DischargeFollowUpProvider")
+  immunizationsAdministered            Immunization[]     @relation("ImmunizationAdministeredBy")
+  followUpsAsDoctor                    FollowUp[]         @relation("DoctorFollowUps")
+  prescriptionsAsPrescriber            Prescription[]     @relation("PrescriberPrescriptions")
+  ordersAsOrderingProvider             Order[]            @relation("OrderingProviderOrders")
+  labResultsAcknowledged               LabResult[]        @relation("LabResultAcknowledgedBy")
+  imagingStudiesAcknowledged           ImagingStudy[]     @relation("ImagingStudyAcknowledgedBy")
+  lockedEncounters                     Encounter[]        @relation("EncounterLockedBy")
+  nurseNotesAsAuthor                   NurseNote[]        @relation("NurseNoteAuthor")
+  vitalsRecorded                       Vital[]            @relation("VitalRecordedBy")
 
   @@index([hospitalId])
   @@index([departmentId])
@@ -213,22 +233,27 @@ model Patient {
 
   hospital Hospital @relation(fields: [hospitalId], references: [id], onDelete: Restrict)
 
-  admissions     PatientAdmission[]
-  appointments   Appointment[]
-  encounters     Encounter[]
-  diagnoses      Diagnosis[]
-  treatments     Treatment[]
-  vitals         Vital[]
-  alerts         ClinicalAlert[]
-  followUps      FollowUp[]
-  orders         Order[]
-  nurseNotes     NurseNote[]
-  insurances     PatientInsurance[]
-  allergies      Allergy[]
-  prescriptions  Prescription[]
-  labResults     LabResult[]
-  imagingStudies ImagingStudy[]
-  documents      Document[]
+  admissions        PatientAdmission[]
+  appointments      Appointment[]
+  encounters        Encounter[]
+  diagnoses         Diagnosis[]
+  treatments        Treatment[]
+  vitals            Vital[]
+  alerts            ClinicalAlert[]
+  followUps         FollowUp[]
+  orders            Order[]
+  nurseNotes        NurseNote[]
+  insurances        PatientInsurance[]
+  allergies         Allergy[]
+  prescriptions     Prescription[]
+  labResults        LabResult[]
+  imagingStudies    ImagingStudy[]
+  documents         Document[]
+  admissionRequests AdmissionRequest[]
+  transferRequests  TransferRequest[]
+  referrals         Referral[]
+  discharges        Discharge[]
+  immunizations     Immunization[]
 
   @@unique([hospitalId, hospitalNumber])
   @@index([hospitalId])
@@ -244,9 +269,10 @@ model Ward {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
-  hospital   Hospital           @relation(fields: [hospitalId], references: [id], onDelete: Restrict)
-  beds       Bed[]
-  admissions PatientAdmission[]
+  hospital                Hospital           @relation(fields: [hospitalId], references: [id], onDelete: Restrict)
+  beds                    Bed[]
+  admissions              PatientAdmission[]
+  transferRequestsCurrent TransferRequest[]  @relation("TransferCurrentWard")
 
   @@unique([hospitalId, code])
   @@index([hospitalId])
@@ -259,8 +285,9 @@ model Bed {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  ward       Ward               @relation(fields: [wardId], references: [id], onDelete: Restrict)
-  admissions PatientAdmission[]
+  ward                    Ward               @relation(fields: [wardId], references: [id], onDelete: Restrict)
+  admissions              PatientAdmission[]
+  transferRequestsCurrent TransferRequest[]  @relation("TransferCurrentBed")
 
   @@unique([wardId, bedNumber])
   @@index([wardId])
@@ -270,6 +297,240 @@ enum AdmissionStatus {
   ADMITTED
   DISCHARGED
   CANCELLED
+}
+
+enum AdmissionRequestStatus {
+  REQUESTED
+  PENDING_APPROVAL
+  APPROVED
+  DECLINED
+  CANCELLED
+}
+
+enum AdmissionPriority {
+  ROUTINE
+  URGENT
+  EMERGENCY
+}
+
+enum BedType {
+  STANDARD
+  ICU
+  SEMI_PRIVATE
+  PRIVATE
+}
+
+model AdmissionRequest {
+  id                    String                 @id @default(uuid())
+  patientId             String
+  hospitalId            String
+  requesterId           String
+  admittingProviderId   String?
+  referringProviderId   String?
+  preferredDepartmentId String?
+  admissionType         String
+  requestedAt           DateTime
+  diagnosisName         String?
+  icd10Code             String?
+  reason                String
+  priority              AdmissionPriority      @default(ROUTINE)
+  preferredBedType      BedType                @default(STANDARD)
+  specialRequirements   String?
+  status                AdmissionRequestStatus @default(PENDING_APPROVAL)
+  decisionActorId       String?
+  decidedAt             DateTime?
+  decisionReason        String?
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+  patient               Patient                @relation(fields: [patientId], references: [id], onDelete: Restrict)
+  hospital              Hospital               @relation(fields: [hospitalId], references: [id], onDelete: Restrict)
+  requester             User                   @relation("AdmissionRequestRequester", fields: [requesterId], references: [id], onDelete: Restrict)
+  admittingProvider     User?                  @relation("AdmissionRequestAdmittingProvider", fields: [admittingProviderId], references: [id], onDelete: Restrict)
+  referringProvider     User?                  @relation("AdmissionRequestReferringProvider", fields: [referringProviderId], references: [id], onDelete: Restrict)
+  preferredDepartment   Department?            @relation(fields: [preferredDepartmentId], references: [id], onDelete: Restrict)
+  decisionActor         User?                  @relation("AdmissionRequestDecisionActor", fields: [decisionActorId], references: [id], onDelete: SetNull)
+
+  @@index([patientId, createdAt])
+  @@index([hospitalId, status])
+}
+
+enum TransferRequestStatus {
+  REQUESTED
+  PENDING_APPROVAL
+  APPROVED
+  DECLINED
+  COMPLETED
+  CANCELLED
+}
+
+model TransferRequest {
+  id                      String                @id @default(uuid())
+  patientId               String
+  hospitalId              String
+  requesterId             String
+  currentWardId           String?
+  currentBedId            String?
+  destinationDepartmentId String
+  requestedAt             DateTime
+  reason                  String
+  transferSummary         String?
+  specialRequirements     String?
+  preferredBedType        BedType               @default(STANDARD)
+  status                  TransferRequestStatus @default(PENDING_APPROVAL)
+  decisionActorId         String?
+  decidedAt               DateTime?
+  decisionReason          String?
+  createdAt               DateTime              @default(now())
+  updatedAt               DateTime              @updatedAt
+  patient                 Patient               @relation(fields: [patientId], references: [id], onDelete: Restrict)
+  hospital                Hospital              @relation(fields: [hospitalId], references: [id], onDelete: Restrict)
+  requester               User                  @relation("TransferRequestRequester", fields: [requesterId], references: [id], onDelete: Restrict)
+  currentWard             Ward?                 @relation("TransferCurrentWard", fields: [currentWardId], references: [id], onDelete: Restrict)
+  currentBed              Bed?                  @relation("TransferCurrentBed", fields: [currentBedId], references: [id], onDelete: Restrict)
+  destinationDepartment   Department            @relation("TransferDestinationDepartment", fields: [destinationDepartmentId], references: [id], onDelete: Restrict)
+  decisionActor           User?                 @relation("TransferRequestDecisionActor", fields: [decisionActorId], references: [id], onDelete: SetNull)
+
+  @@index([patientId, createdAt])
+  @@index([hospitalId, status])
+}
+
+enum ReferralStatus {
+  REQUESTED
+  ACCEPTED
+  DECLINED
+  NEEDS_INFORMATION
+  COMPLETED
+  CANCELLED
+}
+
+enum ReferralUrgency {
+  ROUTINE
+  URGENT
+  EMERGENCY
+}
+
+model Referral {
+  id                      String               @id @default(uuid())
+  patientId               String
+  hospitalId              String
+  referringProviderId     String
+  destinationDepartmentId String?
+  preferredProviderId     String?
+  facility                String?
+  referralType            String
+  urgency                 ReferralUrgency      @default(ROUTINE)
+  referralDate            DateTime
+  reason                  String
+  relevantHistory         String?
+  status                  ReferralStatus       @default(REQUESTED)
+  createdAt               DateTime             @default(now())
+  updatedAt               DateTime             @updatedAt
+  patient                 Patient              @relation(fields: [patientId], references: [id], onDelete: Restrict)
+  hospital                Hospital             @relation(fields: [hospitalId], references: [id], onDelete: Restrict)
+  referringProvider       User                 @relation("ReferralReferrer", fields: [referringProviderId], references: [id], onDelete: Restrict)
+  destinationDepartment   Department?          @relation("ReferralDestinationDepartment", fields: [destinationDepartmentId], references: [id], onDelete: Restrict)
+  preferredProvider       User?                @relation("ReferralPreferredProvider", fields: [preferredProviderId], references: [id], onDelete: Restrict)
+  attachments             ReferralAttachment[]
+
+  @@index([patientId, referralDate])
+  @@index([hospitalId, status])
+}
+
+model ReferralAttachment {
+  id             String        @id @default(uuid())
+  referralId     String
+  labResultId    String?
+  imagingStudyId String?
+  createdAt      DateTime      @default(now())
+  referral       Referral      @relation(fields: [referralId], references: [id], onDelete: Cascade)
+  labResult      LabResult?    @relation(fields: [labResultId], references: [id], onDelete: Restrict)
+  imagingStudy   ImagingStudy? @relation(fields: [imagingStudyId], references: [id], onDelete: Restrict)
+
+  @@index([referralId])
+}
+
+enum DischargeType {
+  HOME
+  TRANSFER
+  FACILITY
+  DECEASED
+  OTHER
+}
+
+model Discharge {
+  id                   String                  @id @default(uuid())
+  patientId            String
+  hospitalId           String
+  admissionId          String?
+  attendingProviderId  String
+  dischargedAt         DateTime
+  dischargeType        DischargeType
+  primaryDiagnosis     String
+  primaryIcd10Code     String?
+  secondaryDiagnoses   String?
+  patientInstructions  String
+  activityRestrictions String?
+  dietaryInstructions  String?
+  followUpAppointment  DateTime?
+  followUpProviderId   String?
+  followUpDepartmentId String?
+  createdAt            DateTime                @default(now())
+  updatedAt            DateTime                @updatedAt
+  patient              Patient                 @relation(fields: [patientId], references: [id], onDelete: Restrict)
+  hospital             Hospital                @relation(fields: [hospitalId], references: [id], onDelete: Restrict)
+  admission            PatientAdmission?       @relation(fields: [admissionId], references: [id], onDelete: Restrict)
+  attendingProvider    User                    @relation("DischargeAttendingProvider", fields: [attendingProviderId], references: [id], onDelete: Restrict)
+  followUpProvider     User?                   @relation("DischargeFollowUpProvider", fields: [followUpProviderId], references: [id], onDelete: Restrict)
+  followUpDepartment   Department?             @relation(fields: [followUpDepartmentId], references: [id], onDelete: Restrict)
+  medications          DischargePrescription[]
+
+  @@unique([admissionId])
+  @@index([patientId, dischargedAt])
+}
+
+model DischargePrescription {
+  dischargeId    String
+  prescriptionId String
+  discharge      Discharge    @relation(fields: [dischargeId], references: [id], onDelete: Cascade)
+  prescription   Prescription @relation(fields: [prescriptionId], references: [id], onDelete: Restrict)
+
+  @@id([dischargeId, prescriptionId])
+}
+
+enum ImmunizationStatus {
+  ADMINISTERED
+  INVALIDATED
+}
+
+model Immunization {
+  id                 String             @id @default(uuid())
+  patientId          String
+  hospitalId         String
+  vaccineName        String
+  vaccineType        String?
+  manufacturer       String?
+  ndc                String?
+  doseNumber         Int
+  dateAdministered   DateTime
+  administeredById   String
+  lotNumber          String
+  administrationSite String
+  route              String
+  expirationDate     DateTime
+  visDate            DateTime?
+  visGivenDate       DateTime?
+  notes              String?
+  adverseReaction    String?
+  status             ImmunizationStatus @default(ADMINISTERED)
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+  patient            Patient            @relation(fields: [patientId], references: [id], onDelete: Restrict)
+  hospital           Hospital           @relation(fields: [hospitalId], references: [id], onDelete: Restrict)
+  administeredBy     User               @relation("ImmunizationAdministeredBy", fields: [administeredById], references: [id], onDelete: Restrict)
+
+  @@index([patientId, dateAdministered])
+  @@index([hospitalId, status])
+  @@index([vaccineName])
 }
 
 model PatientAdmission {
@@ -288,11 +549,12 @@ model PatientAdmission {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  patient         Patient  @relation(fields: [patientId], references: [id], onDelete: Restrict)
-  hospital        Hospital @relation(fields: [hospitalId], references: [id], onDelete: Restrict)
-  ward            Ward?    @relation(fields: [wardId], references: [id], onDelete: Restrict)
-  bed             Bed?     @relation(fields: [bedId], references: [id], onDelete: Restrict)
-  attendingDoctor User?    @relation("AdmissionAttendingDoctor", fields: [attendingDoctorId], references: [id], onDelete: SetNull)
+  patient         Patient    @relation(fields: [patientId], references: [id], onDelete: Restrict)
+  hospital        Hospital   @relation(fields: [hospitalId], references: [id], onDelete: Restrict)
+  ward            Ward?      @relation(fields: [wardId], references: [id], onDelete: Restrict)
+  bed             Bed?       @relation(fields: [bedId], references: [id], onDelete: Restrict)
+  attendingDoctor User?      @relation("AdmissionAttendingDoctor", fields: [attendingDoctorId], references: [id], onDelete: SetNull)
+  discharge       Discharge?
 
   @@index([patientId])
   @@index([hospitalId])
@@ -770,10 +1032,11 @@ model Prescription {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  patient    Patient    @relation(fields: [patientId], references: [id], onDelete: Restrict)
-  encounter  Encounter? @relation(fields: [encounterId], references: [id], onDelete: SetNull)
-  diagnosis  Diagnosis? @relation(fields: [diagnosisId], references: [id], onDelete: SetNull)
-  prescriber User?      @relation("PrescriberPrescriptions", fields: [prescribedBy], references: [id], onDelete: SetNull)
+  patient              Patient                 @relation(fields: [patientId], references: [id], onDelete: Restrict)
+  encounter            Encounter?              @relation(fields: [encounterId], references: [id], onDelete: SetNull)
+  diagnosis            Diagnosis?              @relation(fields: [diagnosisId], references: [id], onDelete: SetNull)
+  prescriber           User?                   @relation("PrescriberPrescriptions", fields: [prescribedBy], references: [id], onDelete: SetNull)
+  dischargeMedications DischargePrescription[]
 
   @@index([patientId])
   @@index([encounterId])
@@ -818,11 +1081,12 @@ model LabResult {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  patient        Patient    @relation(fields: [patientId], references: [id], onDelete: Restrict)
-  encounter      Encounter? @relation(fields: [encounterId], references: [id], onDelete: SetNull)
-  hospital       Hospital?  @relation(fields: [hospitalId], references: [id], onDelete: Restrict)
-  order          Order?     @relation(fields: [orderId], references: [id], onDelete: SetNull)
-  acknowledgedBy User?      @relation("LabResultAcknowledgedBy", fields: [acknowledgedById], references: [id], onDelete: SetNull)
+  patient             Patient              @relation(fields: [patientId], references: [id], onDelete: Restrict)
+  encounter           Encounter?           @relation(fields: [encounterId], references: [id], onDelete: SetNull)
+  hospital            Hospital?            @relation(fields: [hospitalId], references: [id], onDelete: Restrict)
+  order               Order?               @relation(fields: [orderId], references: [id], onDelete: SetNull)
+  acknowledgedBy      User?                @relation("LabResultAcknowledgedBy", fields: [acknowledgedById], references: [id], onDelete: SetNull)
+  referralAttachments ReferralAttachment[]
 
   @@index([patientId])
   @@index([encounterId])
@@ -860,11 +1124,12 @@ model ImagingStudy {
   createdAt        DateTime      @default(now())
   updatedAt        DateTime      @updatedAt
 
-  patient        Patient    @relation(fields: [patientId], references: [id], onDelete: Restrict)
-  encounter      Encounter? @relation(fields: [encounterId], references: [id], onDelete: SetNull)
-  hospital       Hospital   @relation(fields: [hospitalId], references: [id], onDelete: Restrict)
-  order          Order?     @relation(fields: [orderId], references: [id], onDelete: SetNull)
-  acknowledgedBy User?      @relation("ImagingStudyAcknowledgedBy", fields: [acknowledgedById], references: [id], onDelete: SetNull)
+  patient             Patient              @relation(fields: [patientId], references: [id], onDelete: Restrict)
+  encounter           Encounter?           @relation(fields: [encounterId], references: [id], onDelete: SetNull)
+  hospital            Hospital             @relation(fields: [hospitalId], references: [id], onDelete: Restrict)
+  order               Order?               @relation(fields: [orderId], references: [id], onDelete: SetNull)
+  acknowledgedBy      User?                @relation("ImagingStudyAcknowledgedBy", fields: [acknowledgedById], references: [id], onDelete: SetNull)
+  referralAttachments ReferralAttachment[]
 
   @@index([patientId])
   @@index([hospitalId])

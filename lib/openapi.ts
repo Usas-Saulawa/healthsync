@@ -37,6 +37,11 @@ export const openApiSpec = {
       description: "Clinical encounter workspace and related orders",
     },
     {
+      name: "Clinical Workflows",
+      description:
+        "Admission, transfer, referral, discharge, and immunization workflows",
+    },
+    {
       name: "Departments",
       description: "Hospital department management",
     },
@@ -2631,6 +2636,348 @@ export const openApiSpec = {
           "400": { description: "Invalid nurse note" },
           "403": { description: "Nurse role required" },
           "409": { description: "Encounter is locked" },
+        },
+      },
+    },
+
+    "/patients/{id}/admission-events": {
+      get: {
+        tags: ["Clinical Workflows"],
+        summary: "List patient admission and disposition history",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+          {
+            name: "page",
+            in: "query",
+            schema: { type: "integer", minimum: 1 },
+          },
+          {
+            name: "limit",
+            in: "query",
+            schema: { type: "integer", minimum: 1, maximum: 100 },
+          },
+          {
+            name: "type",
+            in: "query",
+            schema: {
+              type: "string",
+              enum: ["ADMISSION", "TRANSFER", "REFERRAL"],
+            },
+          },
+          { name: "status", in: "query", schema: { type: "string" } },
+          {
+            name: "dateFrom",
+            in: "query",
+            schema: { type: "string", format: "date-time" },
+          },
+          {
+            name: "dateTo",
+            in: "query",
+            schema: { type: "string", format: "date-time" },
+          },
+        ],
+        responses: {
+          "200": { description: "Admission history" },
+          "401": { description: "Authentication required" },
+          "404": { description: "Patient not found" },
+        },
+      },
+    },
+
+    "/patients/{id}/admissions": {
+      post: {
+        tags: ["Clinical Workflows"],
+        summary: "Request admission",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+        ],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                required: [
+                  "admissionType",
+                  "requestedAt",
+                  "diagnosisName",
+                  "reason",
+                ],
+                properties: {
+                  admissionType: { type: "string" },
+                  requestedAt: { type: "string", format: "date-time" },
+                  admittingProviderId: { type: "string", format: "uuid" },
+                  referringProviderId: { type: "string", format: "uuid" },
+                  diagnosisName: { type: "string" },
+                  icd10Code: { type: "string" },
+                  reason: { type: "string" },
+                  priority: {
+                    type: "string",
+                    enum: ["ROUTINE", "URGENT", "EMERGENCY"],
+                  },
+                  preferredDepartmentId: { type: "string", format: "uuid" },
+                  preferredBedType: {
+                    type: "string",
+                    enum: ["STANDARD", "ICU", "SEMI_PRIVATE", "PRIVATE"],
+                  },
+                  specialRequirements: { type: "string" },
+                },
+              },
+            },
+          },
+        },
+        responses: {
+          "201": { description: "Admission request created" },
+          "400": { description: "Invalid request" },
+          "401": { description: "Authentication required" },
+          "403": { description: "Not authorized" },
+        },
+      },
+    },
+
+    "/patients/{id}/transfers": {
+      post: {
+        tags: ["Clinical Workflows"],
+        summary: "Request transfer",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+        ],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                required: ["destinationDepartmentId", "requestedAt", "reason"],
+                properties: {
+                  destinationDepartmentId: { type: "string", format: "uuid" },
+                  requestedAt: { type: "string", format: "date-time" },
+                  reason: { type: "string" },
+                  transferSummary: { type: "string" },
+                  specialRequirements: { type: "string" },
+                  preferredBedType: { type: "string" },
+                },
+              },
+            },
+          },
+        },
+        responses: {
+          "201": { description: "Transfer request created" },
+          "400": { description: "Invalid request" },
+          "401": { description: "Authentication required" },
+        },
+      },
+    },
+
+    "/patients/{id}/referrals": {
+      post: {
+        tags: ["Clinical Workflows"],
+        summary: "Create referral",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+        ],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                required: ["referralType", "referralDate", "reason"],
+                properties: {
+                  referralType: { type: "string" },
+                  urgency: { type: "string" },
+                  referralDate: { type: "string", format: "date-time" },
+                  destinationDepartmentId: { type: "string", format: "uuid" },
+                  preferredProviderId: { type: "string", format: "uuid" },
+                  facility: { type: "string" },
+                  reason: { type: "string" },
+                  relevantHistory: { type: "string" },
+                  labResultIds: {
+                    type: "array",
+                    items: { type: "string", format: "uuid" },
+                  },
+                  imagingStudyIds: {
+                    type: "array",
+                    items: { type: "string", format: "uuid" },
+                  },
+                },
+              },
+            },
+          },
+        },
+        responses: {
+          "201": { description: "Referral created in requested state" },
+          "400": { description: "Invalid request" },
+          "401": { description: "Authentication required" },
+        },
+      },
+    },
+
+    "/patients/{id}/discharge": {
+      post: {
+        tags: ["Clinical Workflows"],
+        summary: "Document patient discharge",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+        ],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                required: [
+                  "dischargedAt",
+                  "dischargeType",
+                  "primaryDiagnosis",
+                  "patientInstructions",
+                ],
+                properties: {
+                  admissionId: { type: "string", format: "uuid" },
+                  dischargedAt: { type: "string", format: "date-time" },
+                  dischargeType: { type: "string" },
+                  primaryDiagnosis: { type: "string" },
+                  primaryIcd10Code: { type: "string" },
+                  patientInstructions: { type: "string" },
+                  prescriptionIds: {
+                    type: "array",
+                    items: { type: "string", format: "uuid" },
+                  },
+                },
+              },
+            },
+          },
+        },
+        responses: {
+          "201": { description: "Discharge documented" },
+          "400": { description: "Invalid request" },
+          "401": { description: "Authentication required" },
+          "409": { description: "Patient is not dischargeable" },
+        },
+      },
+    },
+
+    "/patients/{id}/immunizations": {
+      get: {
+        tags: ["Clinical Workflows"],
+        summary: "List patient immunizations",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+          { name: "page", in: "query", schema: { type: "integer" } },
+          { name: "limit", in: "query", schema: { type: "integer" } },
+          { name: "vaccine", in: "query", schema: { type: "string" } },
+          { name: "status", in: "query", schema: { type: "string" } },
+        ],
+        responses: {
+          "200": { description: "Immunization history" },
+          "401": { description: "Authentication required" },
+        },
+      },
+      post: {
+        tags: ["Clinical Workflows"],
+        summary: "Record administered immunization",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+        ],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                required: [
+                  "vaccineName",
+                  "doseNumber",
+                  "dateAdministered",
+                  "lotNumber",
+                  "administrationSite",
+                  "route",
+                  "expirationDate",
+                ],
+                properties: {
+                  vaccineName: { type: "string" },
+                  doseNumber: { type: "integer" },
+                  dateAdministered: { type: "string", format: "date-time" },
+                  lotNumber: { type: "string" },
+                  administrationSite: { type: "string" },
+                  route: { type: "string" },
+                  expirationDate: { type: "string", format: "date-time" },
+                  visDate: { type: "string", format: "date-time" },
+                  visGivenDate: { type: "string", format: "date-time" },
+                  notes: { type: "string" },
+                  adverseReaction: { type: "string" },
+                },
+              },
+            },
+          },
+        },
+        responses: {
+          "201": { description: "Immunization recorded" },
+          "400": { description: "Invalid request" },
+          "401": { description: "Authentication required" },
+        },
+      },
+    },
+
+    "/immunizations/{id}": {
+      get: {
+        tags: ["Clinical Workflows"],
+        summary: "Get immunization detail",
+        security: [{ sessionCookie: [] }],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: { type: "string", format: "uuid" },
+          },
+        ],
+        responses: {
+          "200": { description: "Immunization detail" },
+          "401": { description: "Authentication required" },
+          "404": { description: "Immunization not found" },
         },
       },
     },
