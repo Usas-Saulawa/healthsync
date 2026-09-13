@@ -1,137 +1,193 @@
-// components/dashboard/Header.tsx
+// components/dashboard_components/Header.tsx
 "use client";
 
 import { useState } from "react";
-import { Activity, Settings, Bell, Menu, X, Sun } from "lucide-react";
+import { Activity, Settings, Bell, Menu, X } from "lucide-react";
 import { useHeader } from "@/hooks/dashboard_hooks/useHeader";
+import { NotificationDrawer } from "@/components/dashboard_components/NotificationDrawer";
 
 export function Header() {
   const { doctorName, currentPath, router, navItems } = useHeader();
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
 
   return (
-    <div className="w-full px-4 sm:px-6 pt-4 space-y-4 relative">
-      {/* 1. Main Navigation Bar */}
-      <header className="w-full bg-white px-4 sm:px-6 py-3 sm:py-4 rounded-3xl border border-gray-100 shadow-sm flex items-center justify-between">
-        {/* Left: Brand Logo & Title + Mobile Menu Trigger */}
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden h-9 w-9 rounded-xl bg-gray-50 border border-gray-200 flex items-center justify-center text-gray-700 hover:bg-gray-100 transition-colors"
-            aria-label="Toggle Menu"
-          >
-            {isMobileMenuOpen ? (
-              <X className="h-5 w-5" />
-            ) : (
-              <Menu className="h-5 w-5" />
-            )}
-          </button>
+    <>
+      {/* STICKY HEADER CONTAINER */}
+      <div className="sticky top-0 z-40 w-full px-4 pt-4 sm:px-6 lg:px-8 bg-app-bg backdrop-blur-md pb-2 transition-all">
+        {/* Main Header */}
+        <header
+          className="
+            relative
+            z-40
+            flex
+            min-h-[72px]
+            w-full
+            items-center
+            justify-between
+            gap-4
+            rounded-[36px]
+            bg-white
+            px-4
+            py-3
+            sm:px-5
+            lg:px-6
+            shadow-xs
+          "
+        >
+          {/* LEFT SIDE - LOGO */}
+          <div className="flex shrink-0 items-center gap-3">
+            <button
+              type="button"
+              onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-[#1F2937] transition-colors hover:bg-slate-50 md:hidden"
+              aria-label="Toggle menu"
+            >
+              {isMobileMenuOpen ? (
+                <X className="h-5 w-5" strokeWidth={2.4} />
+              ) : (
+                <Menu className="h-5 w-5" strokeWidth={2.4} />
+              )}
+            </button>
 
-          <div
-            className="flex items-center gap-2.5 cursor-pointer"
-            onClick={() => router.push("/dashboard")}
-          >
-            <div className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-2xl bg-primary-600 text-white shadow-md">
-              <Activity className="h-5 w-5 sm:h-6 sm:w-6" />
-            </div>
-            <span className="font-bold text-lg sm:text-xl tracking-tight text-gray-900 hidden xs:inline-block">
-              HealthCare
-            </span>
-          </div>
-        </div>
-
-        {/* Center: Floating Pill Navigation Switcher (Desktop Only) */}
-        <nav className="hidden md:flex items-center bg-gray-50 p-1.5 rounded-full border border-gray-200/60 shadow-inner">
-          {navItems.map((item) => {
-            const isActive = currentPath === item.path;
-            return (
-              <button
-                key={item.name}
-                onClick={() => router.push(item.path)}
-                className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-                  isActive
-                    ? "bg-gray-900 text-white shadow-sm"
-                    : "text-gray-600 hover:text-gray-900 hover:bg-gray-200/50"
-                }`}
-              >
-                {item.name}
-              </button>
-            );
-          })}
-        </nav>
-
-        {/* Right: Actions & Doctor Profile Badge */}
-        <div className="flex items-center gap-2.5 sm:gap-4">
-          <button className="h-9 w-9 sm:h-10 sm:w-10 rounded-full bg-gray-50 border border-gray-200/60 flex items-center justify-center text-gray-600 hover:bg-gray-100 transition-colors">
-            <Settings className="h-4 w-4 sm:h-5 sm:w-5" />
-          </button>
-
-          <button className="h-9 w-9 sm:h-10 sm:w-10 rounded-full bg-gray-50 border border-gray-200/60 flex items-center justify-center text-gray-600 hover:bg-gray-100 transition-colors relative">
-            <Bell className="h-4 w-4 sm:h-5 sm:w-5" />
-            <span className="absolute top-2 right-2 h-2 w-2 rounded-full bg-red-500 animate-pulse" />
-          </button>
-
-          <div className="flex items-center gap-2.5 pl-2 border-l border-gray-200">
-            <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-full bg-amber-100 border border-amber-200 overflow-hidden flex items-end justify-center">
-              <div className="h-full w-full bg-amber-300 flex items-end justify-center overflow-hidden">
-                <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-full bg-amber-700 mt-2" />
+            <button
+              type="button"
+              onClick={() => router.push("/dashboard")}
+              className="flex shrink-0 items-center gap-3 text-left"
+              aria-label="Go to dashboard"
+            >
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#2563EB] text-white">
+                <Activity className="h-7 w-7" strokeWidth={2.5} />
               </div>
-            </div>
-
-            <div className="hidden lg:block text-left">
-              <h4 className="text-sm font-bold text-gray-900 leading-tight">
-                {doctorName}
-              </h4>
-              <p className="text-xs text-gray-400 font-medium">Surgeon</p>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      {/* Mobile Navigation Dropdown Menu */}
-      {isMobileMenuOpen && (
-        <div className="absolute top-20 left-4 right-4 z-50 bg-white rounded-2xl border border-gray-100 shadow-xl p-4 md:hidden flex flex-col gap-3 animate-in fade-in slide-in-from-top-2 duration-200">
-          <div className="flex items-center gap-3 pb-3 border-b border-gray-100 px-2">
-            <div className="h-10 w-10 rounded-full bg-amber-700 flex items-center justify-center text-white font-bold">
-              {doctorName.charAt(4) || "D"}
-            </div>
-            <div>
-              <h4 className="text-sm font-bold text-gray-900">{doctorName}</h4>
-              <p className="text-xs text-gray-500">Surgeon • Active Session</p>
-            </div>
+              <span className="hidden whitespace-nowrap text-[22px] font-bold tracking-[-0.7px] text-[#1F2937] lg:inline-block">
+                HealthCare
+              </span>
+            </button>
           </div>
 
-          <div className="flex flex-col gap-1">
+          {/* CENTER - MAIN NAVIGATION */}
+          <nav
+            className="hidden items-center rounded-full bg-[#F1F3F5] p-1 md:flex"
+            aria-label="Main navigation"
+          >
             {navItems.map((item) => {
-              const isActive = currentPath === item.path;
+              const isActive =
+                item.path === "/dashboard"
+                  ? currentPath === "/dashboard"
+                  : currentPath.startsWith(item.path);
+
               return (
                 <button
                   key={item.name}
-                  onClick={() => {
-                    router.push(item.path);
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className={`w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${
+                  type="button"
+                  onClick={() => router.push(item.path)}
+                  className={`flex h-[48px] items-center justify-center rounded-full px-7 text-[16px] font-medium tracking-[-0.2px] transition-all duration-200 ${
                     isActive
-                      ? "bg-gray-900 text-white"
-                      : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                      ? "bg-[#1F2937] text-white"
+                      : "text-[#374151] hover:bg-white/70"
                   }`}
                 >
                   {item.name}
                 </button>
               );
             })}
-          </div>
-        </div>
-      )}
+          </nav>
 
-      {/* 2. Simple Welcome Greeting Bar (Search & Monthly Filters reserved for metrics area) */}
-      <div className="flex items-center justify-between px-2 py-2">
-        <h1 className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight flex items-center gap-2.5">
-          Welcome Back {doctorName}
-          <Sun className="h-6 w-6 text-amber-500 fill-amber-400" />
-        </h1>
+          {/* RIGHT SIDE - ACTIONS + PROFILE */}
+          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+            <button
+              type="button"
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-[#1F2937] transition-colors hover:bg-slate-50"
+              aria-label="Settings"
+            >
+              <Settings className="h-[24px] w-[24px]" strokeWidth={2.4} />
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setIsNotificationsOpen(true)}
+              className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-[#1F2937] transition-colors hover:bg-slate-50"
+              aria-label="Open notifications"
+            >
+              <Bell className="h-[23px] w-[23px]" strokeWidth={2.4} />
+              <span className="absolute right-[10px] top-[9px] h-[6px] w-[6px] rounded-full bg-red-500" />
+            </button>
+
+            <div className="flex items-center gap-3 pl-1 sm:gap-3 sm:pl-2">
+              <div className="h-12 w-12 shrink-0 overflow-hidden rounded-full bg-[#FFF3A6]">
+                <img
+                  src="/images/profile.jpeg"
+                  alt="Doctor profile"
+                  className="h-full w-full object-cover"
+                />
+              </div>
+
+              <div className="hidden min-w-0 lg:block">
+                <h4 className="whitespace-nowrap text-[16px] font-medium leading-tight tracking-[-0.2px] text-[#111827]">
+                  {doctorName}
+                </h4>
+                <p className="mt-1 text-[11px] font-medium text-[#9CA3AF]">
+                  Surgeon
+                </p>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        {/* MOBILE NAVIGATION DROPDOWN */}
+        {isMobileMenuOpen && (
+          <div className="absolute left-4 right-4 top-[88px] z-50 flex flex-col gap-3 rounded-2xl bg-white p-4 shadow-xl md:hidden">
+            <div className="flex items-center gap-3  px-2 pb-3">
+              <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-[#FFF3A6]">
+                <img
+                  src="/images/profile.jpeg"
+                  alt="Doctor profile"
+                  className="h-full w-full object-cover"
+                />
+              </div>
+              <div>
+                <h4 className="text-sm font-bold text-slate-900">
+                  {doctorName}
+                </h4>
+                <p className="text-xs text-slate-500">Surgeon</p>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-1">
+              {navItems.map((item) => {
+                const isActive =
+                  item.path === "/dashboard"
+                    ? currentPath === "/dashboard"
+                    : currentPath.startsWith(item.path);
+
+                return (
+                  <button
+                    key={item.name}
+                    type="button"
+                    onClick={() => {
+                      router.push(item.path);
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className={`w-full rounded-xl px-4 py-3 text-left text-sm font-semibold transition-colors ${
+                      isActive
+                        ? "bg-[#1F2937] text-white"
+                        : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                    }`}
+                  >
+                    {item.name}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </div>
-    </div>
+
+      <NotificationDrawer
+        isOpen={isNotificationsOpen}
+        onClose={() => setIsNotificationsOpen(false)}
+      />
+    </>
   );
 }

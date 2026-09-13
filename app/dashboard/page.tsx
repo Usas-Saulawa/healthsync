@@ -1,16 +1,62 @@
 // app/dashboard/page.tsx
 "use client";
 
+import { useState } from "react";
+import { Sun } from "lucide-react";
 import { Header } from "@/components/dashboard_components/Header";
 import { DashboardMetricsGrid } from "@/components/dashboard_components/DashboardMetricsGrid";
+import { PatientsWidget } from "@/components/dashboard_components/PatientsWidget";
+import { FollowUpsWidget } from "@/components/dashboard_components/FollowUpsWidget";
+import {
+  MasterFilterToolbar,
+  FilterOption,
+} from "@/components/tools/filterTools";
+import { useHeader } from "@/hooks/dashboard_hooks/useHeader";
+
+const filterOptions: FilterOption[] = [
+  { label: "Monthly", value: "monthly" },
+  { label: "Weekly", value: "weekly" },
+  { label: "Daily", value: "daily" },
+];
 
 export default function DashboardPage() {
+  const { doctorName } = useHeader();
+  const [searchValue, setSearchValue] = useState("");
+  const [filterLabel, setFilterLabel] = useState("Monthly");
+
   return (
-    <div className="min-h-screen bg-gray-300 flex flex-col font-sans">
+    <div className="min-h-screen bg-app-bg flex flex-col ">
       <Header />
 
       <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6">
+        {/* Unified Greeting & Filter Toolbar Row */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 px-2">
+          <h1 className="flex items-center gap-2.5 text-xl font-bold tracking-tight text-slate-900 sm:text-2xl">
+            Welcome Back {doctorName}
+            <Sun className="h-6 w-6 text-amber-500" fill="currentColor" />
+          </h1>
+
+          <MasterFilterToolbar
+            variant="white"
+            showSearch={true}
+            searchValue={searchValue}
+            onSearchChange={(e) => setSearchValue(e.target.value)}
+            searchPlaceholder="Search"
+            showFilter={true}
+            filterLabel={filterLabel}
+            filterOptions={filterOptions}
+            onFilterSelect={(_val, label) => setFilterLabel(label)}
+            showSort={false}
+          />
+        </div>
+
         <DashboardMetricsGrid />
+
+        {/* Main Grid for Patients Table and Follow-ups Widget */}
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 items-start">
+          <PatientsWidget className="xl:col-span-2" />
+          <FollowUpsWidget className="xl:col-span-1" />
+        </div>
       </main>
     </div>
   );

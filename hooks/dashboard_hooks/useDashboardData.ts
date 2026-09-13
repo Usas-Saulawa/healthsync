@@ -36,7 +36,6 @@ async function fetchDashboardData(): Promise<DashboardDataResponse> {
   try {
     const cachedMetrics = await db.dashboardMetrics.get("main_metrics");
     const cachedPatients = await db.patients.toArray();
-    const cachedFollowUps = await db.followUps.toArray();
 
     if (cachedMetrics && cachedPatients.length > 0) {
       console.log("📦 Loaded dashboard data from IndexedDB cache.");

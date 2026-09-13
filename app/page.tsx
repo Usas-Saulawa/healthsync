@@ -1,10 +1,12 @@
 // app/page.tsx
 "use client";
 
+import { useState } from "react";
 import { useLogin } from "@/hooks/auth_hooks/useLogin";
 import { CustomButton } from "@/components/ui/CustomButton";
 import { LoginModal } from "@/components/ui/loginModal";
-import { Activity, Lock, Mail, ShieldCheck, Zap, WifiOff } from "lucide-react";
+import { Activity, ShieldCheck, Zap, WifiOff } from "lucide-react";
+import Link from "next/link";
 
 export default function LoginPage() {
   const { form, isLoading, modalState, closeModal, onSubmit } = useLogin();
@@ -13,8 +15,11 @@ export default function LoginPage() {
     formState: { errors },
   } = form;
 
+  // Toggle state matching the design: 'staff' or 'resident'
+  const [loginType, setLoginType] = useState<"staff" | "resident">("staff");
+
   return (
-    <div className="flex min-h-screen w-full bg-gray-50 font-sans">
+    <div className="flex min-h-screen w-full bg-blue-50 font-sans">
       {/* Left Side: Desktop Blue Gradient Hero Panel */}
       <div className="hidden lg:flex lg:w-1/2 bg-linear-to-br from-primary-700 via-primary-600 to-primary-900 p-12 flex-col justify-between text-white relative overflow-hidden">
         {/* Subtle background glow effect */}
@@ -31,7 +36,7 @@ export default function LoginPage() {
           </span>
         </div>
 
-        {/* Center Typography (Everyday English explaining the purpose) */}
+        {/* Center Typography */}
         <div className="z-10 max-w-lg space-y-6 my-auto">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-xs font-medium text-primary-100 border border-white/10">
             <Zap className="h-3.5 w-3.5 text-primary-300" />
@@ -85,46 +90,62 @@ export default function LoginPage() {
 
       {/* Right Side: Login Form Card Section */}
       <div className="flex flex-1 items-center justify-center p-6 sm:p-12">
-        <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-xl border border-gray-100">
-          {/* Mobile Header (Shown only on small screens where left panel is hidden) */}
-          <div className="flex flex-col items-center mb-8 lg:hidden">
-            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-600 text-white shadow-md mb-4">
+        <div className="w-full max-w-xl rounded-3xl bg-white p-8 sm:p-12 shadow-xl border border-gray-100">
+          {/* Exact Design Header: Icon Badge, Title, and Subtitle */}
+          <div className="flex flex-col items-center text-center mb-8">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-blue-600 text-white shadow-md mb-4">
               <Activity className="h-8 w-8" />
             </div>
-            <h1 className="text-2xl font-bold tracking-tight text-gray-900">
-              HealthCare EHR
+            <h1 className="text-2xl font-extrabold tracking-tight text-gray-900">
+              EHR
             </h1>
-            <p className="text-sm text-gray-500 mt-1 text-center">
-              Sign in to access your clinical workspace
+            <p className="text-xs sm:text-sm text-gray-500 mt-1">
+              Enter your credentials to access the dashboard
             </p>
           </div>
 
-          {/* Desktop Form Header */}
-          <div className="hidden lg:block mb-8">
-            <h2 className="text-2xl font-bold tracking-tight text-gray-900">
-              Doctor Sign In
-            </h2>
-            <p className="text-sm text-gray-500 mt-1">
-              Please enter your credentials to open your dashboard.
-            </p>
+          {/* Screenshot-matched Staff ID / Residential ID Toggle Container */}
+          <div className="flex bg-gray-100/80 p-1.5 rounded-2xl mb-6 border border-gray-100">
+            <button
+              type="button"
+              onClick={() => setLoginType("staff")}
+              className={`flex-1 py-3 text-xs sm:text-sm font-semibold rounded-xl transition-all shadow-sm ${
+                loginType === "staff"
+                  ? "bg-white text-gray-900 shadow-sm"
+                  : "bg-transparent text-gray-500 hover:text-gray-900 shadow-none"
+              }`}
+            >
+              Staff ID
+            </button>
+            <button
+              type="button"
+              onClick={() => setLoginType("resident")}
+              className={`flex-1 py-3 text-xs sm:text-sm font-semibold rounded-xl transition-all ${
+                loginType === "resident"
+                  ? "bg-white text-gray-900 shadow-sm"
+                  : "bg-transparent text-gray-500 hover:text-gray-900 shadow-none"
+              }`}
+            >
+              Residential ID
+            </button>
           </div>
+
+          {/* Rest of your login form, inputs, and buttons... */}
 
           {/* Login Form */}
-          <form onSubmit={onSubmit} className="space-y-5">
+          <form onSubmit={onSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Doctor Email
-              </label>
               <div className="relative">
-                <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
-                  <Mail className="h-5 w-5" />
-                </span>
                 <input
-                  type="email"
-                  placeholder="dr.bashir@healthcare.com"
+                  type="text"
+                  placeholder={
+                    loginType === "staff"
+                      ? "Enter your unique ID"
+                      : "Enter your unique Residential ID"
+                  }
                   suppressHydrationWarning
                   {...register("email")}
-                  className="w-full rounded-xl border border-gray-200 bg-gray-50 py-3 pl-10 pr-4 text-gray-900 placeholder-gray-400 focus:border-primary-600 focus:bg-white focus:outline-none focus:ring-1 focus:ring-primary-600 transition-all text-sm"
+                  className="w-full rounded-xl border border-gray-200 bg-gray-50/50 py-3.5 px-4 text-gray-900 placeholder-gray-400 focus:border-blue-600 focus:bg-white focus:outline-none focus:ring-1 focus:ring-blue-600 transition-all text-sm"
                 />
               </div>
               {errors.email && (
@@ -135,19 +156,13 @@ export default function LoginPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Password
-              </label>
               <div className="relative">
-                <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
-                  <Lock className="h-5 w-5" />
-                </span>
                 <input
                   type="password"
-                  placeholder="••••••••"
+                  placeholder="Enter password"
                   suppressHydrationWarning
                   {...register("password")}
-                  className="w-full rounded-xl border border-gray-200 bg-gray-50 py-3 pl-10 pr-4 text-gray-900 placeholder-gray-400 focus:border-primary-600 focus:bg-white focus:outline-none focus:ring-1 focus:ring-primary-600 transition-all text-sm"
+                  className="w-full rounded-xl border border-gray-200 bg-gray-50/50 py-3.5 px-4 text-gray-900 placeholder-gray-400 focus:border-blue-600 focus:bg-white focus:outline-none focus:ring-1 focus:ring-blue-600 transition-all text-sm"
                 />
               </div>
               {errors.password && (
@@ -157,26 +172,48 @@ export default function LoginPage() {
               )}
             </div>
 
-            <div className="flex items-center justify-between text-sm">
-              <label className="flex items-center text-gray-600 cursor-pointer">
+            <div className="flex items-center justify-between text-xs sm:text-sm pt-1">
+              <label className="flex items-center text-gray-500 cursor-pointer select-none">
                 <input
                   type="checkbox"
-                  className="rounded border-gray-300 text-primary-600 focus:ring-primary-500 mr-2 h-4 w-4"
+                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 mr-2 h-4 w-4"
                 />
                 Remember me
               </label>
               <a
                 href="#"
-                className="font-medium text-primary-600 hover:text-primary-700"
+                className="font-medium text-gray-600 hover:text-blue-600 transition-colors"
               >
-                Forgot password?
+                Forgot Password?
               </a>
             </div>
 
-            <CustomButton type="submit" isLoading={isLoading}>
-              Sign In to Dashboard
-            </CustomButton>
+            <div className="pt-2">
+              <CustomButton type="submit" isLoading={isLoading}>
+                Sign in
+              </CustomButton>
+            </div>
           </form>
+
+          {/* Screenshot-matched "OR" divider line */}
+          <div className="relative my-6">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-200" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-white px-4 text-gray-400 font-medium">
+                or
+              </span>
+            </div>
+          </div>
+
+          {/* Account Activation Outline Button */}
+          <Link
+            href="auth/activate"
+            className="w-full flex items-center justify-center rounded-xl border border-blue-600/30 bg-white py-3.5 text-sm font-semibold text-blue-600 hover:bg-blue-50/50 transition-all shadow-sm"
+          >
+            Activate your account
+          </Link>
         </div>
       </div>
 

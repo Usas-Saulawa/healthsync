@@ -1,16 +1,17 @@
 // app/layout.tsx
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Nunito } from "next/font/google";
 import { QueryProvider } from "@/components/providers/QueryProvider";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const nunito = Nunito({
+  variable: "--font-nunito",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Healthcare Dashboard",
+  title: "EHR",
   description: "Offline-first hospital management dashboard",
 };
 
@@ -20,8 +21,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${geistSans.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col font-sans">
+    <html lang="en" className={`${nunito.variable} h-full antialiased`}>
+      <body className="min-h-screen flex flex-col font-sans">
         <QueryProvider>{children}</QueryProvider>
       </body>
     </html>

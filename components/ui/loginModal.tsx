@@ -1,7 +1,11 @@
+// app/components/ui/loginModal.tsx
 "use client";
 
-import React from "react";
-import { CheckCircle2, AlertCircle, X } from "lucide-react";
+import { useEffect, useRef } from "react";
+import { X } from "lucide-react";
+import lottie from "lottie-web";
+import successAnimation from "@/animations/success.json";
+import errorAnimation from "@/animations/error.json";
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -18,6 +22,31 @@ export function LoginModal({
   title,
   message,
 }: LoginModalProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    let animInstance: any = null;
+
+    if (containerRef.current) {
+      // Load the Lottie animation directly into the container ref
+      animInstance = lottie.loadAnimation({
+        container: containerRef.current,
+        renderer: "svg",
+        loop: false,
+        autoplay: true,
+        animationData: type === "success" ? successAnimation : errorAnimation,
+      });
+    }
+
+    return () => {
+      if (animInstance) {
+        animInstance.destroy();
+      }
+    };
+  }, [isOpen, type]);
+
   if (!isOpen) return null;
 
   const isSuccess = type === "success";
@@ -40,18 +69,11 @@ export function LoginModal({
           <X className="h-5 w-5" />
         </button>
 
-        {/* Icon Header */}
-        <div className="flex justify-center mb-4">
-          {isSuccess ? (
-            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-green-100 text-green-600 animate-bounce">
-              <CheckCircle2 className="h-8 w-8" />
-            </div>
-          ) : (
-            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-red-100 text-red-600 animate-pulse">
-              <AlertCircle className="h-8 w-8" />
-            </div>
-          )}
-        </div>
+        {/* Lottie Animation Header */}
+        <div
+          ref={containerRef}
+          className="w-24 h-24 mx-auto mb-2 flex items-center justify-center"
+        />
 
         {/* Text Content */}
         <h3 className="text-lg font-bold text-gray-900 mb-1">{title}</h3>
@@ -70,7 +92,7 @@ export function LoginModal({
         </button>
       </div>
 
-      {/* Embedded Native Animations (No Framer Motion required!) */}
+      {/* Embedded Native Animations */}
       <style jsx global>{`
         @keyframes fadeIn {
           from {
