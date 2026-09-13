@@ -1,18 +1,24 @@
 import { cookies } from "next/headers";
-import { randomBytes } from "crypto";
+import { createHash, randomBytes } from "crypto";
+
 import { prisma } from "@/lib/prisma";
 
 const SESSION_COOKIE = "healthsync_session";
 const SESSION_DURATION_MS = 8 * 60 * 60 * 1000;
 
+function hashSessionToken(token: string): string {
+  return createHash("sha256").update(token).digest("hex");
+}
+
 export async function createSession(userId: string) {
-  const sessionId = randomBytes(32).toString("hex");
+  const token = randomBytes(32).toString("hex");
+  const tokenHash = hashSessionToken(token);
 
   const expiresAt = new Date(Date.now() + SESSION_DURATION_MS);
 
   await prisma.session.create({
     data: {
-      id: sessionId,
+      tokenHash,
       userId,
       expiresAt,
     },
@@ -20,7 +26,7 @@ export async function createSession(userId: string) {
 
   const cookieStore = await cookies();
 
-  cookieStore.set(SESSION_COOKIE, sessionId, {
+  cookieStore.set(SESSION_COOKIE, token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
@@ -28,21 +34,25 @@ export async function createSession(userId: string) {
     path: "/",
   });
 
-  return sessionId;
+  return {
+    expiresAt,
+  };
 }
 
 export async function getCurrentUser() {
   const cookieStore = await cookies();
 
-  const sessionId = cookieStore.get(SESSION_COOKIE)?.value;
+  const token = cookieStore.get(SESSION_COOKIE)?.value;
 
-  if (!sessionId) {
+  if (!token) {
     return null;
   }
 
+  const tokenHash = hashSessionToken(token);
+
   const session = await prisma.session.findUnique({
     where: {
-      id: sessionId,
+      tokenHash,
     },
     include: {
       user: true,
@@ -50,6 +60,7 @@ export async function getCurrentUser() {
   });
 
   if (!session) {
+    cookieStore.delete(SESSION_COOKIE);
     return null;
   }
 
@@ -60,10 +71,20 @@ export async function getCurrentUser() {
       },
     });
 
+    cookieStore.delete(SESSION_COOKIE);
+
     return null;
   }
 
   if (!session.user.isActive) {
+    await prisma.session.delete({
+      where: {
+        id: session.id,
+      },
+    });
+
+    cookieStore.delete(SESSION_COOKIE);
+
     return null;
   }
 
@@ -73,12 +94,14 @@ export async function getCurrentUser() {
 export async function deleteSession() {
   const cookieStore = await cookies();
 
-  const sessionId = cookieStore.get(SESSION_COOKIE)?.value;
+  const token = cookieStore.get(SESSION_COOKIE)?.value;
 
-  if (sessionId) {
+  if (token) {
+    const tokenHash = hashSessionToken(token);
+
     await prisma.session.deleteMany({
       where: {
-        id: sessionId,
+        tokenHash,
       },
     });
   }

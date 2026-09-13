@@ -10,10 +10,7 @@ type RouteContext = {
   }>;
 };
 
-export async function GET(
-  _request: NextRequest,
-  context: RouteContext
-) {
+export async function GET(_request: NextRequest, context: RouteContext) {
   try {
     const user = await requireUser();
 
@@ -40,7 +37,7 @@ export async function GET(
           success: false,
           message: "Department not found",
         },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -58,15 +55,12 @@ export async function GET(
         success: false,
         message: "An unexpected error occurred",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
 
-export async function PATCH(
-  request: NextRequest,
-  context: RouteContext
-) {
+export async function PATCH(request: NextRequest, context: RouteContext) {
   try {
     const user = await requireUser();
 
@@ -76,7 +70,7 @@ export async function PATCH(
           success: false,
           message: "You are not authorized to update departments",
         },
-        { status: 403 }
+        { status: 403 },
       );
     }
 
@@ -93,7 +87,7 @@ export async function PATCH(
           message: "Invalid department data",
           errors: result.error.flatten().fieldErrors,
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -113,7 +107,7 @@ export async function PATCH(
           success: false,
           message: "Department not found",
         },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -139,7 +133,7 @@ export async function PATCH(
             success: false,
             message: "A department with this code already exists",
           },
-          { status: 409 }
+          { status: 409 },
         );
       }
     }
@@ -182,15 +176,12 @@ export async function PATCH(
         success: false,
         message: "An unexpected error occurred",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
 
-export async function DELETE(
-  _request: NextRequest,
-  context: RouteContext
-) {
+export async function DELETE(_request: NextRequest, context: RouteContext) {
   try {
     const user = await requireUser();
 
@@ -200,7 +191,7 @@ export async function DELETE(
           success: false,
           message: "You are not authorized to delete departments",
         },
-        { status: 403 }
+        { status: 403 },
       );
     }
 
@@ -222,7 +213,7 @@ export async function DELETE(
           success: false,
           message: "Department not found",
         },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -242,10 +233,9 @@ export async function DELETE(
     return NextResponse.json(
       {
         success: false,
-        message:
-          "Department could not be deleted. It may still contain users.",
+        message: "Department could not be deleted. It may still contain users.",
       },
-      { status: 409 }
+      { status: 409 },
     );
   }
 }

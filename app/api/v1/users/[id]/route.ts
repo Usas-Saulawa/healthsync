@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import argon2 from "argon2";
-
 import { prisma } from "@/lib/prisma";
 import { requireUser } from "@/lib/auth/require-user";
 import { updateUserSchema } from "@/lib/validation/user";
@@ -12,10 +10,7 @@ type RouteContext = {
   }>;
 };
 
-export async function GET(
-  _request: NextRequest,
-  context: RouteContext
-) {
+export async function GET(_request: NextRequest, context: RouteContext) {
   try {
     const currentUser = await requireUser();
 
@@ -25,7 +20,7 @@ export async function GET(
           success: false,
           message: "You are not authorized to view users",
         },
-        { status: 403 }
+        { status: 403 },
       );
     }
 
@@ -63,7 +58,7 @@ export async function GET(
           success: false,
           message: "User not found",
         },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -81,15 +76,12 @@ export async function GET(
         success: false,
         message: "An unexpected error occurred",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
 
-export async function PATCH(
-  request: NextRequest,
-  context: RouteContext
-) {
+export async function PATCH(request: NextRequest, context: RouteContext) {
   try {
     const currentUser = await requireUser();
 
@@ -99,7 +91,7 @@ export async function PATCH(
           success: false,
           message: "You are not authorized to update users",
         },
-        { status: 403 }
+        { status: 403 },
       );
     }
 
@@ -116,7 +108,7 @@ export async function PATCH(
           message: "Invalid user data",
           errors: result.error.flatten().fieldErrors,
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -137,7 +129,7 @@ export async function PATCH(
           success: false,
           message: "User not found",
         },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -160,7 +152,7 @@ export async function PATCH(
             success: false,
             message: "Department not found",
           },
-          { status: 404 }
+          { status: 404 },
         );
       }
     }
@@ -181,14 +173,10 @@ export async function PATCH(
             success: false,
             message: "A user with this email already exists",
           },
-          { status: 409 }
+          { status: 409 },
         );
       }
     }
-
-    const passwordHash = data.password
-      ? await argon2.hash(data.password)
-      : undefined;
 
     const user = await prisma.user.update({
       where: {
@@ -205,10 +193,6 @@ export async function PATCH(
 
         ...(data.email !== undefined && {
           email: data.email,
-        }),
-
-        ...(passwordHash !== undefined && {
-          passwordHash,
         }),
 
         ...(data.role !== undefined && {
@@ -252,15 +236,12 @@ export async function PATCH(
         success: false,
         message: "An unexpected error occurred",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
 
-export async function DELETE(
-  _request: NextRequest,
-  context: RouteContext
-) {
+export async function DELETE(_request: NextRequest, context: RouteContext) {
   try {
     const currentUser = await requireUser();
 
@@ -270,7 +251,7 @@ export async function DELETE(
           success: false,
           message: "You are not authorized to deactivate users",
         },
-        { status: 403 }
+        { status: 403 },
       );
     }
 
@@ -282,7 +263,7 @@ export async function DELETE(
           success: false,
           message: "You cannot deactivate your own account",
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -303,7 +284,7 @@ export async function DELETE(
           success: false,
           message: "User not found",
         },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -313,7 +294,7 @@ export async function DELETE(
           success: false,
           message: "User is already inactive",
         },
-        { status: 409 }
+        { status: 409 },
       );
     }
 
@@ -338,7 +319,7 @@ export async function DELETE(
         success: false,
         message: "An unexpected error occurred",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

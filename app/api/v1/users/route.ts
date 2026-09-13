@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import argon2 from "argon2";
-
 import { prisma } from "@/lib/prisma";
+
 import { requireUser } from "@/lib/auth/require-user";
+
+import { createUser } from "@/lib/auth/create-user";
+
 import { createUserSchema } from "@/lib/validation/user";
 
 export async function POST(request: NextRequest) {
@@ -17,7 +19,7 @@ export async function POST(request: NextRequest) {
           success: false,
           message: "You are not authorized to create users",
         },
-        { status: 403 }
+        { status: 403 },
       );
     }
 
@@ -32,13 +34,13 @@ export async function POST(request: NextRequest) {
           message: "Invalid user data",
           errors: result.error.flatten().fieldErrors,
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     const data = result.data;
 
-    // Check that the department belongs to the administrator's hospital.
+    // The department must belong to the administrator's hospital.
     if (data.departmentId) {
       const department = await prisma.department.findFirst({
         where: {
@@ -56,68 +58,42 @@ export async function POST(request: NextRequest) {
             success: false,
             message: "Department not found",
           },
-          { status: 404 }
+          { status: 404 },
         );
       }
     }
 
-    const existingUser = await prisma.user.findUnique({
-      where: {
-        email: data.email,
-      },
-      select: {
-        id: true,
-      },
-    });
-
-    if (existingUser) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "A user with this email already exists",
-        },
-        { status: 409 }
-      );
-    }
-
-    const passwordHash = await argon2.hash(data.password);
-
-    const user = await prisma.user.create({
-      data: {
-        hospitalId: currentUser.hospitalId,
-        departmentId: data.departmentId,
-        email: data.email,
-        passwordHash,
-        firstName: data.firstName,
-        lastName: data.lastName,
-        role: data.role,
-        isActive: data.isActive ?? true,
-      },
-      select: {
-        id: true,
-        hospitalId: true,
-        departmentId: true,
-        email: true,
-        firstName: true,
-        lastName: true,
-        role: true,
-        isActive: true,
-        createdAt: true,
-        updatedAt: true,
-      },
+    const resultUser = await createUser({
+      hospitalId: currentUser.hospitalId,
+      departmentId: data.departmentId,
+      email: data.email,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      role: data.role,
     });
 
     return NextResponse.json(
       {
         success: true,
         message: "User created successfully",
-        data: {
-          user,
-        },
+        data: resultUser,
       },
-      { status: 201 }
+      { status: 201 },
     );
   } catch (error) {
+    if (
+      error instanceof Error &&
+      error.message === "A user with this email already exists"
+    ) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: error.message,
+        },
+        { status: 409 },
+      );
+    }
+
     console.error("Create user error:", error);
 
     return NextResponse.json(
@@ -125,7 +101,7 @@ export async function POST(request: NextRequest) {
         success: false,
         message: "An unexpected error occurred",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -140,27 +116,27 @@ export async function GET(request: NextRequest) {
           success: false,
           message: "You are not authorized to view users",
         },
-        { status: 403 }
+        { status: 403 },
       );
     }
 
     const { searchParams } = new URL(request.url);
 
     const search = searchParams.get("search")?.trim() || "";
+
     const page = Math.max(
       Number.parseInt(searchParams.get("page") || "1", 10),
-      1
+      1,
     );
+
     const limit = Math.min(
-      Math.max(
-        Number.parseInt(searchParams.get("limit") || "20", 10),
-        1
-      ),
-      100
+      Math.max(Number.parseInt(searchParams.get("limit") || "20", 10), 1),
+      100,
     );
 
     const where = {
       hospitalId: currentUser.hospitalId,
+
       ...(search
         ? {
             OR: [
@@ -182,6 +158,12 @@ export async function GET(request: NextRequest) {
                   mode: "insensitive" as const,
                 },
               },
+              {
+                staffId: {
+                  contains: search,
+                  mode: "insensitive" as const,
+                },
+              },
             ],
           }
         : {}),
@@ -192,6 +174,7 @@ export async function GET(request: NextRequest) {
         where,
         select: {
           id: true,
+          staffId: true,
           hospitalId: true,
           departmentId: true,
           email: true,
@@ -199,6 +182,7 @@ export async function GET(request: NextRequest) {
           lastName: true,
           role: true,
           isActive: true,
+          mustChangePassword: true,
           createdAt: true,
           updatedAt: true,
         },
@@ -234,7 +218,7 @@ export async function GET(request: NextRequest) {
         success: false,
         message: "An unexpected error occurred",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
