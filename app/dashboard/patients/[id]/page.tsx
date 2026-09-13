@@ -15,6 +15,7 @@ import { PatientLabResultTab } from "@/components/patients_components/details/ta
 import { PatientRadiologyTab } from "@/components/patients_components/details/tabs/radiology/PatientRadiologyTab";
 import { PatientOrderAndFollowUpsTab } from "@/components/patients_components/details/tabs/oder-and-followUps/OrderAndFollowUpsTab";
 import { AdmissionAndDischargeTab } from "@/components/patients_components/details/tabs/admission-and-discharge/AdmissionAndDischargeTab";
+import { PatientImmunizationTab } from "@/components/patients_components/details/tabs/immunization/ImmunizationTab";
 import { mockPatientsList } from "@/mock/mockDashboardData";
 
 interface PatientDetailPageProps {
@@ -90,15 +91,13 @@ function PatientDetailContent({ params }: PatientDetailPageProps) {
         )}
 
         {activeTab === "Vitals" && <PatientVitalTab />}
-
         {activeTab === "Medications" && <PatientMedicationsTab />}
-
         {activeTab === "Encounter Notes" && <PatientEncounterTab />}
-
         {activeTab === "Lab Results" && <PatientLabResultTab />}
         {activeTab === "Radiology" && <PatientRadiologyTab />}
         {activeTab === "Order & Follow Ups" && <PatientOrderAndFollowUpsTab />}
         {activeTab === "Admission & Discharge" && <AdmissionAndDischargeTab />}
+        {activeTab === "Immunization" && <PatientImmunizationTab />}
 
         {/* Placeholders for other tabs */}
         {activeTab !== "Overview" &&
@@ -109,7 +108,8 @@ function PatientDetailContent({ params }: PatientDetailPageProps) {
           activeTab !== "Lab Results" &&
           activeTab !== "Radiology" &&
           activeTab !== "Order & Follow Ups" &&
-          activeTab !== "Admission & Discharge" && (
+          activeTab !== "Admission & Discharge" &&
+          activeTab !== "Immunization" && (
             <div className="bg-white rounded-2xl p-6 text-slate-500 shadow-xs ">
               {activeTab} module under development.
             </div>
