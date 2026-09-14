@@ -172,7 +172,7 @@ export function PatientFiltersHeader({
           showSearch={true}
           searchValue={searchValue}
           onSearchChange={onSearchChange}
-          searchPlaceholder="Search patients..."
+          searchPlaceholder="Search "
           showFilter={true}
           filterLabel={filterLabel}
           filterOptions={[

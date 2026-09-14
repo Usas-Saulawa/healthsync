@@ -45,9 +45,9 @@ export function PatientProfileTabs({
 
   return (
     <div className="w-full px-4 sm:px-6">
-      {/* Container with overflow control for smaller screens, using justify-between to stretch edge-to-edge on desktop */}
-      <div className="w-full overflow-x-auto scrollbar-none py-2">
-        <div className="flex items-center justify-start lg:justify-between gap-1.5 sm:gap-2 min-w-max lg:min-w-0 w-full">
+      {/* Container with overflow control for smaller screens, matching Figma specs: h-[71px], py-[16px], px-[15px], gap-[22px] */}
+      <div className="w-full overflow-x-auto scrollbar-none">
+        <div className="flex items-center justify-start lg:justify-between h-[71px] py-[16px] px-[15px] gap-[22px] min-w-max lg:min-w-0 rounded-full shadow-2xs">
           {tabs.map((tab) => {
             const isActive = currentTab === tab;
 
@@ -57,7 +57,7 @@ export function PatientProfileTabs({
                 type="button"
                 onClick={() => handleChange(tab)}
                 className={[
-                  "h-[38px] whitespace-nowrap rounded-full px-3.5 sm:px-4",
+                  "h-[38px] whitespace-nowrap rounded-full px-3.5 sm:px-4 flex-1 text-center",
                   "text-xs font-semibold leading-none",
                   "border transition-all duration-200 ease-out cursor-pointer",
                   isActive

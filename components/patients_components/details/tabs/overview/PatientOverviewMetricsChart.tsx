@@ -26,66 +26,66 @@ interface VitalDataPoint {
 
 const metricData: Record<VitalMetric, VitalDataPoint[]> = {
   "Heart Rate": [
-    { time: "08:00", value: 180 },
-    { time: "09:00", value: 290 },
-    { time: "10:00", value: 240 },
-    { time: "11:00", value: 420 },
-    { time: "12:00", value: 380 },
-    { time: "13:00", value: 620 },
-    { time: "14:00", value: 410 },
-    { time: "15:00", value: 250 },
-    { time: "16:00", value: 490 },
-    { time: "17:00", value: 340 },
-    { time: "18:00", value: 510 },
-    { time: "19:00", value: 440 },
+    { time: "08:00", value: 72 },
+    { time: "09:00", value: 75 },
+    { time: "10:00", value: 78 },
+    { time: "11:00", value: 82 },
+    { time: "12:00", value: 80 },
+    { time: "13:00", value: 85 },
+    { time: "14:00", value: 79 },
+    { time: "15:00", value: 76 },
+    { time: "16:00", value: 88 },
+    { time: "17:00", value: 81 },
+    { time: "18:00", value: 77 },
+    { time: "19:00", value: 74 },
   ],
 
   "Blood Pressure": [
-    { time: "08:00", value: 100 },
-    { time: "09:00", value: 280 },
-    { time: "10:00", value: 300 },
-    { time: "11:00", value: 220 },
-    { time: "12:00", value: 450 },
-    { time: "13:00", value: 400 },
-    { time: "14:00", value: 730 },
-    { time: "15:00", value: 510 },
-    { time: "16:00", value: 200 },
-    { time: "17:00", value: 530 },
-    { time: "18:00", value: 220 },
-    { time: "19:00", value: 590 },
-    { time: "20:00", value: 560 },
+    { time: "08:00", value: 120 },
+    { time: "09:00", value: 122 },
+    { time: "10:00", value: 118 },
+    { time: "11:00", value: 125 },
+    { time: "12:00", value: 130 },
+    { time: "13:00", value: 128 },
+    { time: "14:00", value: 135 },
+    { time: "15:00", value: 124 },
+    { time: "16:00", value: 120 },
+    { time: "17:00", value: 126 },
+    { time: "18:00", value: 122 },
+    { time: "19:00", value: 119 },
+    { time: "20:00", value: 121 },
   ],
 
   "Glucose Level": [
-    { time: "08:00", value: 140 },
-    { time: "09:00", value: 210 },
-    { time: "10:00", value: 180 },
-    { time: "11:00", value: 340 },
-    { time: "12:00", value: 290 },
-    { time: "13:00", value: 480 },
-    { time: "14:00", value: 390 },
-    { time: "15:00", value: 250 },
-    { time: "16:00", value: 430 },
-    { time: "17:00", value: 360 },
-    { time: "18:00", value: 500 },
-    { time: "19:00", value: 450 },
-    { time: "20:00", value: 520 },
+    { time: "08:00", value: 95 },
+    { time: "09:00", value: 110 },
+    { time: "10:00", value: 105 },
+    { time: "11:00", value: 140 },
+    { time: "12:00", value: 130 },
+    { time: "13:00", value: 160 },
+    { time: "14:00", value: 145 },
+    { time: "15:00", value: 115 },
+    { time: "16:00", value: 135 },
+    { time: "17:00", value: 120 },
+    { time: "18:00", value: 150 },
+    { time: "19:00", value: 135 },
+    { time: "20:00", value: 140 },
   ],
 
   "Oxygen Saturation": [
-    { time: "08:00", value: 90 },
-    { time: "09:00", value: 170 },
-    { time: "10:00", value: 150 },
-    { time: "11:00", value: 290 },
-    { time: "12:00", value: 260 },
-    { time: "13:00", value: 410 },
-    { time: "14:00", value: 350 },
-    { time: "15:00", value: 190 },
-    { time: "16:00", value: 390 },
-    { time: "17:00", value: 310 },
-    { time: "18:00", value: 470 },
-    { time: "19:00", value: 430 },
-    { time: "20:00", value: 510 },
+    { time: "08:00", value: 98 },
+    { time: "09:00", value: 97 },
+    { time: "10:00", value: 99 },
+    { time: "11:00", value: 96 },
+    { time: "12:00", value: 97 },
+    { time: "13:00", value: 95 },
+    { time: "14:00", value: 96 },
+    { time: "15:00", value: 98 },
+    { time: "16:00", value: 97 },
+    { time: "17:00", value: 98 },
+    { time: "18:00", value: 96 },
+    { time: "19:00", value: 97 },
+    { time: "20:00", value: 98 },
   ],
 };
 
@@ -142,15 +142,15 @@ export function PatientOverViewMetricsChart({
         </div>
       </div>
 
-      {/* Chart */}
-      <div className="mt-[7px] h-[168px] w-full">
+      {/* Chart container with slightly expanded height to fit X-axis labels nicely */}
+      <div className="mt-4 h-[190px] w-full">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart
             key={activeMetric}
             data={chartData}
             margin={{
-              top: 0,
-              right: 0,
+              top: 10,
+              right: 10,
               left: 0,
               bottom: 0,
             }}
@@ -175,11 +175,23 @@ export function PatientOverViewMetricsChart({
               horizontal={true}
             />
 
-            <XAxis dataKey="time" hide axisLine={false} tickLine={false} />
+            {/* X-Axis enabled to display time progression */}
+            <XAxis
+              dataKey="time"
+              axisLine={false}
+              tickLine={false}
+              dy={8}
+              tick={{
+                fill: "#6B8BC1",
+                fontSize: 11,
+                fontWeight: 400,
+              }}
+              interval="preserveStartEnd"
+            />
 
             <YAxis
-              domain={[0, 800]}
-              ticks={[0, 200, 400, 600, 800]}
+              domain={[0, 200]}
+              ticks={[0, 50, 100, 150, 200]}
               axisLine={false}
               tickLine={false}
               width={35}

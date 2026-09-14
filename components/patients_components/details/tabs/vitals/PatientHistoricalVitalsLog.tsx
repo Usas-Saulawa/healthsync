@@ -68,8 +68,19 @@ const mockHistoricalVitalsData: VitalsLogRow[] = [
 ];
 
 export function PatientHistoricalVitalsLog() {
-  const [vitalsList] = useState<VitalsLogRow[]>(mockHistoricalVitalsData);
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
   const [selectedVital, setSelectedVital] = useState<VitalsLogRow | null>(null);
+
+  // Toggle sorting order by date/time
+  const toggleSortOrder = () => {
+    setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"));
+  };
+
+  const sortedVitalsData = [...mockHistoricalVitalsData].sort((a, b) => {
+    const dateA = new Date(a.dateTime).getTime();
+    const dateB = new Date(b.dateTime).getTime();
+    return sortOrder === "asc" ? dateA - dateB : dateB - dateA;
+  });
 
   const handleExportCSV = () => {
     console.log("Exporting historical vitals to CSV...");
@@ -110,17 +121,22 @@ export function PatientHistoricalVitalsLog() {
             <table className="w-full text-left border-collapse">
               {/* Table Header */}
               <thead>
-                <tr className="bg-slate-50/80 border-b border-slate-200 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
-                  <th className="py-3.5 px-4">
-                    <div className="flex items-center gap-1.5 cursor-pointer hover:text-slate-800">
+                <tr className="bg-slate-50 border-b border-slate-200 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                  <th
+                    onClick={toggleSortOrder}
+                    className="py-3.5 px-4 cursor-pointer select-none hover:text-slate-800 transition-colors"
+                  >
+                    <div className="flex items-center gap-1.5">
                       Date / Time
-                      <ArrowUpDown className="h-3 w-3 text-slate-400" />
+                      <ArrowUpDown
+                        className={`h-3 w-3 text-slate-400 transition-transform ${sortOrder === "asc" ? "rotate-180 text-blue-600" : ""}`}
+                      />
                     </div>
                   </th>
                   <th className="py-3.5 px-4">BP (mmHg)</th>
                   <th className="py-3.5 px-4">HR (bpm)</th>
                   <th className="py-3.5 px-4">Temp (°F)</th>
-                  <th className="py-3.5 px-4">SpO2</th>
+                  <th className="py-3.5 px-4">SPO2</th>
                   <th className="py-3.5 px-4">RR (bpm)</th>
                   <th className="py-3.5 px-4">Weight (lbs)</th>
                   <th className="py-3.5 px-4">Nurses Notes</th>
@@ -129,14 +145,12 @@ export function PatientHistoricalVitalsLog() {
 
               {/* Table Body */}
               <tbody className="divide-y divide-slate-100 text-xs text-slate-700">
-                {vitalsList.map((row, index) => {
-                  const rowBg =
-                    index % 2 === 0 ? "bg-white" : "bg-[#f8fafc]/60";
+                {sortedVitalsData.map((row) => {
                   return (
                     <tr
                       key={row.id}
                       onClick={() => setSelectedVital(row)}
-                      className={`${rowBg} hover:bg-blue-50/50 transition-colors cursor-pointer group`}
+                      className="bg-app-bg hover:bg-blue-50/50 transition-colors cursor-pointer group"
                     >
                       <td className="py-4 px-4 font-medium text-slate-900 whitespace-nowrap group-hover:text-[#2563EB]">
                         {row.dateTime}
