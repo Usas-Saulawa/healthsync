@@ -65,7 +65,7 @@ export function FollowUpsWidget({
           return (
             <div
               key={item.id}
-              className="bg-blue-50 hover:bg-blue-100/60 transition-all p-4 sm:p-5 rounded-[16px]  flex items-center justify-between gap-3"
+              className="bg-[#EBF5FF] hover:bg-blue-100/60 transition-all p-4 sm:p-5 rounded-lg  flex items-center justify-between gap-3"
             >
               <div className="space-y-1 min-w-0 pr-2">
                 <span className="text-[11px] xl:text-xs font-bold text-blue-600 tracking-wide uppercase block truncate">

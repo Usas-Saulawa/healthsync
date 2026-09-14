@@ -38,7 +38,7 @@ export function PatientsWidget({
       </div>
 
       {/* Table-like Header Labels with proportional scaling columns */}
-      <div className="hidden lg:grid grid-cols-[1.4fr_1fr_0.8fr_1.1fr_1.3fr_1fr_0.9fr] gap-3 px-5 text-[10px] xl:text-[11px] font-bold text-slate-400 tracking-wider uppercase">
+      <div className="hidden lg:grid grid-cols-[1.4fr_1fr_0.8fr_1.1fr_1.3fr_1fr_0.9fr] gap-3 px-5 text-[10.5px] font-bold text-slate-500 tracking-wider uppercase">
         <div className="col-span-1">Patient Name</div>
         <div>Hosp No</div>
         <div>Age/Sex</div>
@@ -53,7 +53,7 @@ export function PatientsWidget({
         {patients.map((patient) => (
           <div
             key={patient.id}
-            className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr_0.8fr_1.1fr_1.3fr_1fr_0.9fr] items-center bg-blue-50 hover:bg-blue-100/60 transition-all px-5 py-3.5 rounded-2xl gap-3 lg:gap-3 shadow-2xs  hover:border-blue-200/50"
+            className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr_0.8fr_1.1fr_1.3fr_1fr_0.9fr] items-center bg-app-bg hover:bg-blue-100/60 transition-all px-5 py-3.5 rounded-[] gap-3 lg:gap-3 shadow-2xs  hover:border-blue-200/50"
           >
             {/* Patient Name with Avatar */}
             <div className="col-span-1 flex items-center space-x-3 min-w-0">
@@ -70,7 +70,7 @@ export function PatientsWidget({
             </div>
 
             {/* Hosp No */}
-            <div className="text-[11px] xl:text-xs text-slate-600 font-medium truncate">
+            <div className="text-[11px]  text-slate-600 font-medium truncate">
               <span className="lg:hidden text-[10px] text-slate-400 font-semibold mr-2">
                 Hosp No:
               </span>
@@ -78,7 +78,7 @@ export function PatientsWidget({
             </div>
 
             {/* Age/Sex */}
-            <div className="text-[11px] xl:text-xs text-slate-600 font-medium truncate">
+            <div className="text-[11px]  text-slate-600 font-medium truncate">
               <span className="lg:hidden text-[10px] text-slate-400 font-semibold mr-2">
                 Age/Sex:
               </span>
@@ -86,7 +86,7 @@ export function PatientsWidget({
             </div>
 
             {/* Ward/Bed */}
-            <div className="text-[11px] xl:text-xs text-slate-600 font-medium truncate">
+            <div className="text-[11px]  text-slate-600 font-medium truncate">
               <span className="lg:hidden text-[10px] text-slate-400 font-semibold mr-2">
                 Ward/Bed:
               </span>
@@ -94,7 +94,7 @@ export function PatientsWidget({
             </div>
 
             {/* Primary Diagnosis */}
-            <div className="text-[11px] xl:text-xs font-semibold text-slate-900 truncate">
+            <div className="text-[11px] font-semibold text-slate-900 truncate">
               <span className="lg:hidden text-[10px] text-slate-400 font-semibold mr-2">
                 Diagnosis:
               </span>
@@ -103,13 +103,13 @@ export function PatientsWidget({
 
             {/* Status Badge */}
             <div className="truncate">
-              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] xl:text-[11px] font-bold bg-[#fff3cd] text-[#856404]   shadow-2xs whitespace-nowrap">
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px]  font-bold bg-[#fff3cd] text-[#856404]   shadow-2xs whitespace-nowrap">
                 {patient.status}
               </span>
             </div>
 
             {/* Insurance */}
-            <div className="text-[11px] xl:text-xs text-slate-600 font-medium lg:text-right pr-2 truncate">
+            <div className="text-[11px]  text-slate-600 font-medium lg:text-right pr-2 truncate">
               <span className="lg:hidden text-[10px] text-slate-400 font-semibold mr-2">
                 Insurance:
               </span>

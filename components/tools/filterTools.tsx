@@ -100,7 +100,7 @@ export function MasterFilterToolbar({
       {/* 1. Search Pill Component */}
       {showSearch && (
         <div
-          className={`flex h-[40px] w-[120px] sm:w-[140px] items-center rounded-full pl-[16px] pr-[5px] shadow-2xs transition-all duration-300 ease-in-out focus-within:w-56 ${searchBgClass}`}
+          className={`flex h-[45px] w-[140px] items-center rounded-full pl-[16px] pr-[5px] shadow-2xs transition-all duration-300 ease-in-out focus-within:w-56 ${searchBgClass}`}
         >
           <input
             type="text"
@@ -113,7 +113,7 @@ export function MasterFilterToolbar({
             type="button"
             onClick={onSearchIconClick}
             aria-label="Search action"
-            className="flex h-[30px] w-[30px] shrink-0 items-center justify-center rounded-full shadow-2xs transition-colors bg-[#CCDFFF] text-blue-950 hover:bg-[#b8d2ff]"
+            className="flex h-[35px] w-[35px] shrink-0 items-center justify-center rounded-full shadow-2xs transition-colors bg-[#CCDFFF] text-blue-950 hover:bg-[#b8d2ff]"
           >
             <SlidersHorizontal className="h-3.5 w-3.5 stroke-[2]" />
           </button>
@@ -126,8 +126,8 @@ export function MasterFilterToolbar({
           <div
             className={`flex items-center gap-1.5 overflow-hidden transition-all duration-300 ease-in-out bg-white rounded-full border border-blue-200 shadow-sm mr-2 ${
               isFilterOpen
-                ? "max-w-[400px] opacity-100 px-3 py-1"
-                : "max-w-0 opacity-0 px-0 py-1 border-transparent pointer-events-none"
+                ? "max-w-[400px] opacity-100 px-3 py-1.5"
+                : "max-w-0 opacity-0 px-0 py-1.5 border-transparent pointer-events-none"
             }`}
           >
             {filterOptions.map((opt) => {
@@ -159,15 +159,15 @@ export function MasterFilterToolbar({
               setIsFilterOpen(!isFilterOpen);
               setIsSortOpen(false);
             }}
-            className={`flex h-[40px] items-center gap-4 rounded-full pl-4 pr-[5px] text-xs sm:text-sm font-semibold transition-all duration-300 cursor-pointer shadow-2xs ${
+            className={`flex h-[45px] w-[121px] shrink-0 items-center justify-between rounded-full pl-4 pr-[5px] text-xs sm:text-sm font-semibold transition-all duration-300 cursor-pointer shadow-2xs ${
               isFilterActive || isFilterOpen
                 ? "bg-blue-100/80 border border-blue-300 text-blue-700 ring-2 ring-blue-500/10"
                 : baseBgClass
             }`}
           >
-            <span>{filterLabel}</span>
+            <span className="truncate">{filterLabel}</span>
             <span
-              className={`flex h-[30px] w-[30px] items-center justify-center rounded-full transition-colors shadow-2xs ${getIconContainerClass(
+              className={`flex h-[35px] w-[35px] shrink-0 items-center justify-center rounded-full transition-colors shadow-2xs ${getIconContainerClass(
                 isFilterActive || isFilterOpen,
               )}`}
             >
@@ -183,8 +183,8 @@ export function MasterFilterToolbar({
           <div
             className={`flex items-center gap-1.5 overflow-hidden transition-all duration-300 ease-in-out bg-white rounded-full border border-blue-200 shadow-sm mr-2 ${
               isSortOpen
-                ? "max-w-[400px] opacity-100 px-3 py-1"
-                : "max-w-0 opacity-0 px-0 py-1 border-transparent pointer-events-none"
+                ? "max-w-[400px] opacity-100 px-3 py-1.5"
+                : "max-w-0 opacity-0 px-0 py-1.5 border-transparent pointer-events-none"
             }`}
           >
             {sortOptions.map((opt) => {
@@ -216,15 +216,15 @@ export function MasterFilterToolbar({
               setIsSortOpen(!isSortOpen);
               setIsFilterOpen(false);
             }}
-            className={`flex h-[40px] items-center gap-4 rounded-full pl-4 pr-[5px] text-xs sm:text-sm font-semibold transition-all duration-300 cursor-pointer shadow-2xs ${
+            className={`flex h-[45px] w-[121px] shrink-0 items-center justify-between rounded-full pl-4 pr-[5px] text-xs sm:text-sm font-semibold transition-all duration-300 cursor-pointer shadow-2xs ${
               isSortActive || isSortOpen
                 ? "bg-blue-100/80 border border-blue-300 text-blue-700 ring-2 ring-blue-500/10"
                 : baseBgClass
             }`}
           >
-            <span>{sortLabel}</span>
+            <span className="truncate">{sortLabel}</span>
             <span
-              className={`flex h-[30px] w-[30px] items-center justify-center rounded-full transition-colors shadow-2xs ${getIconContainerClass(
+              className={`flex h-[35px] w-[35px] shrink-0 items-center justify-center rounded-full transition-colors shadow-2xs ${getIconContainerClass(
                 isSortActive || isSortOpen,
               )}`}
             >

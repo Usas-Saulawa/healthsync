@@ -70,14 +70,14 @@ export function DashboardMetricsGrid() {
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2.5 min-w-0">
               <div className="h-10 w-10 rounded-full bg-blue-50/90 text-blue-600 flex items-center justify-center shrink-0">
-                <Users className="h-5 w-5 fill-blue-600 text-blue-600" />
+                <Users className="h-4 w-4 fill-blue-600 text-blue-600" />
               </div>
-              <h3 className="font-bold text-slate-900 text-sm xl:text-base truncate">
+              <h3 className="font-semibold text-slate-900 text-[13px] whitespace-nowrap">
                 Total Patient
               </h3>
             </div>
             <button className="text-[11px] xl:text-xs font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-0.5 shrink-0">
-              View All <ArrowUpRight className="h-3.5 w-3.5" />
+              View All
             </button>
           </div>
 
@@ -157,18 +157,21 @@ export function DashboardMetricsGrid() {
         </div>
 
         {/* Card 2: Today's Appointment */}
-        <div className="bg-white p-5 sm:p-6 rounded-2xl  shadow-xs flex flex-col justify-between">
+        <div className="bg-white p-5 sm:p-6 rounded-2xl shadow-xs flex flex-col justify-between">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2.5 min-w-0">
               <div className="h-10 w-10 rounded-full bg-blue-50/90 text-blue-600 flex items-center justify-center shrink-0">
-                <Users className="h-5 w-5 fill-blue-600 text-blue-600" />
+                <Users className="h-4 w-4 fill-blue-600 text-blue-600" />
               </div>
-              <h3 className="font-bold text-slate-900 text-sm xl:text-base truncate">
-                Today&apos;s Appointment
+              <h3 className="font-semibold text-slate-900 text-[13px] whitespace-nowrap">
+                Today's Appointment
               </h3>
             </div>
-            <button className="text-[11px] xl:text-xs font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-0.5 shrink-0">
-              View All <ArrowUpRight className="h-3.5 w-3.5" />
+            <button
+              title="View all appointments"
+              className="font-['Nunito'] font-semibold text-[14px] leading-[150%] text-center text-blue-600 hover:text-blue-700 transition-colors shrink-0 cursor-pointer"
+            >
+              View All
             </button>
           </div>
 
@@ -185,7 +188,7 @@ export function DashboardMetricsGrid() {
             {todaysAppointments.queue.map((item) => (
               <div
                 key={item.id}
-                className="bg-slate-50/80 hover:bg-slate-50 p-2.5 rounded-2xl  flex items-center justify-between transition-colors"
+                className="bg-[#EBF5FF] hover:bg-slate-50 p-2.5 rounded-lg flex items-center justify-between transition-colors"
               >
                 <div className="min-w-0 pr-2">
                   <div className="flex items-center gap-1.5 text-[10px] xl:text-xs font-semibold text-blue-600 mb-0.5">
@@ -202,7 +205,7 @@ export function DashboardMetricsGrid() {
                 <span
                   className={`px-2.5 py-1 rounded-full text-[10px] xl:text-xs font-medium shrink-0 ${
                     item.status === "Checked In"
-                      ? "bg-blue-100 text-blue-700"
+                      ? "bg-blue-100/90 text-blue-700"
                       : "bg-amber-100 text-amber-700"
                   }`}
                 >
@@ -212,7 +215,6 @@ export function DashboardMetricsGrid() {
             ))}
           </div>
         </div>
-
         {/* Card 3: Critical Alert */}
         <div className="bg-white p-5 sm:p-6 rounded-2xl  shadow-xs flex flex-col justify-between">
           <div className="flex items-center justify-between mb-3">
@@ -220,12 +222,12 @@ export function DashboardMetricsGrid() {
               <div className="h-10 w-10 rounded-full bg-blue-50/90 text-blue-600 flex items-center justify-center shrink-0">
                 <Users className="h-5 w-5 fill-blue-600 text-blue-600" />
               </div>
-              <h3 className="font-bold text-slate-900 text-sm xl:text-base truncate">
+              <h3 className="font-semibold text-slate-900 text-[13px] whitespace-nowrap">
                 Critical Alert
               </h3>
             </div>
             <button className="text-[11px] xl:text-xs font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-0.5 shrink-0">
-              View All <ArrowUpRight className="h-3.5 w-3.5" />
+              View All
             </button>
           </div>
 
@@ -233,14 +235,14 @@ export function DashboardMetricsGrid() {
             <span className="text-3xl xl:text-4xl font-extrabold text-slate-900 tracking-tight">
               {criticalAlerts.count}
             </span>
-            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] xl:text-xs font-semibold bg-red-50 text-red-600 whitespace-nowrap">
-              Action Req.
+            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-blue-100/80 text-blue-700">
+              +23
             </span>
           </div>
 
           <div className="space-y-2.5 flex-1 flex flex-col justify-center">
-            <div className="bg-red-50/75  p-2.5 rounded-2xl flex items-start gap-2.5">
-              <div className="p-1 bg-red-100 text-red-600 rounded-xl mt-0.5 shrink-0">
+            <div className="bg-[#FEF2F2]  p-2.5 rounded-lg flex items-start gap-2.5">
+              <div className="p-1 bg-[#FEF2F2] text-red-600 rounded-lg mt-0.5 shrink-0">
                 <ShieldAlert className="h-3.5 w-3.5" />
               </div>
               <div className="min-w-0">
@@ -256,7 +258,7 @@ export function DashboardMetricsGrid() {
               </div>
             </div>
 
-            <div className="bg-amber-50/75  p-2.5 rounded-2xl flex items-start gap-2.5">
+            <div className="bg-[#FFFBEB]  p-2.5 rounded-lg flex items-start gap-2.5">
               <div className="p-1 bg-amber-100 text-amber-700 rounded-xl mt-0.5 shrink-0">
                 <Info className="h-3.5 w-3.5" />
               </div>
@@ -276,17 +278,20 @@ export function DashboardMetricsGrid() {
         </div>
 
         {/* Card 4: Top Treatment */}
-        <div className="bg-white p-6 sm:p-7 rounded-[16px]  shadow-xs flex flex-col justify-between">
+        <div className="bg-white p-6 sm:p-7 rounded-[16px] shadow-xs flex flex-col justify-between">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-3 min-w-0">
               <div className="h-10 w-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
                 <Users className="h-5 w-5 fill-blue-600 text-blue-600" />
               </div>
-              <h3 className="font-bold text-slate-900 text-sm sm:text-base tracking-tight truncate">
+              <h3 className="font-semibold text-slate-900 text-[13px] whitespace-nowrap">
                 Top Treatment
               </h3>
             </div>
-            <button className="text-xs sm:text-sm font-semibold text-blue-600 hover:text-blue-700 shrink-0">
+            <button
+              title="View all treatments"
+              className="font-['Nunito'] font-medium text-[14px] leading-[150%] text-center text-blue-600 hover:text-blue-700 transition-colors shrink-0 cursor-pointer"
+            >
               View All
             </button>
           </div>
@@ -300,43 +305,51 @@ export function DashboardMetricsGrid() {
             </span>
           </div>
 
+          {/* Legend */}
           <div className="grid grid-cols-3 gap-2 mb-3 text-xs font-medium text-slate-500">
             <div className="flex items-center gap-1.5 truncate">
-              <span className="h-2 w-2 rounded-full bg-blue-600 shrink-0" />
+              <span className="h-2 w-2 rounded-full bg-[#1C64F2] shrink-0" />
               <span className="truncate">Surgery</span>
             </div>
             <div className="flex items-center gap-1.5 truncate">
-              <span className="h-2 w-2 rounded-full bg-blue-200 shrink-0" />
+              <span className="h-2 w-2 rounded-full bg-[#C3DDFD] shrink-0" />
               <span className="truncate">Consultation</span>
             </div>
             <div className="flex items-center gap-1.5 truncate">
-              <span className="h-2 w-2 rounded-full bg-slate-300 shrink-0" />
+              <span className="h-2 w-2 rounded-full bg-[#DFE5EE] shrink-0" />
               <span className="truncate">Diagnosis</span>
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-2 pt-1">
-            <div className="flex flex-col gap-2 relative pr-1">
-              <div className="absolute right-0 top-1 bottom-1 w-[1px] border-r border-dashed  hidden sm:block" />
+          {/* Proportionally Sized Bar & Metrics Section */}
+          <div className="flex flex-col gap-2 pt-1">
+            {/* Values Row */}
+            <div className="flex items-center justify-between px-1">
               <span className="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight">
                 200
               </span>
-              <div className="h-10 w-full rounded-xl bg-blue-600 shadow-xs flex items-center justify-center" />
-            </div>
-
-            <div className="flex flex-col gap-2 relative px-1">
-              <div className="absolute right-0 top-1 bottom-1 w-[1px] border-r border-dashed border-slate-200 hidden sm:block" />
               <span className="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight">
                 40
               </span>
-              <div className="h-10 w-full rounded-xl bg-blue-100/80 flex items-center justify-center" />
-            </div>
-
-            <div className="flex flex-col gap-2 relative pl-1">
               <span className="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight">
                 80
               </span>
-              <div className="h-10 w-full rounded-xl bg-slate-100/90 flex items-center justify-center" />
+            </div>
+
+            {/* Proportional Bars Container matching Figma width ratios (137 : 58 : 91) */}
+            <div className="flex items-center gap-1 w-full">
+              <div
+                style={{ flex: "137" }}
+                className="h-[40px] bg-[#1C64F2] rounded-[6px] shadow-xs"
+              />
+              <div
+                style={{ flex: "58" }}
+                className="h-[40px] bg-[#C3DDFD] rounded-[6px]"
+              />
+              <div
+                style={{ flex: "91" }}
+                className="h-[40px] bg-[#DFE5EE] rounded-[6px]"
+              />
             </div>
           </div>
         </div>

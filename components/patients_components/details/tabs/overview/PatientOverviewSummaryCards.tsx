@@ -1,7 +1,7 @@
 // components/patients_components/details/tabs/overview/PatientOverviewSummaryCards.tsx
 "use client";
 
-import { Activity, Droplets, Thermometer } from "lucide-react";
+import { Activity, Thermometer } from "lucide-react";
 
 interface VitalSummary {
   label: string;
@@ -51,13 +51,24 @@ const mockVitals: VitalSummary[] = [
   },
 ];
 
+// Custom Lungs Icon using the uploaded svg asset
+function LungsIcon({ className = "h-5 w-5" }: { className?: string }) {
+  return (
+    <img
+      src="/icon/lung.svg"
+      alt="Lungs icon"
+      className={`${className} object-contain`}
+    />
+  );
+}
+
 function VitalIcon({ type }: { type: VitalSummary["icon"] }) {
   if (type === "heart-rate") {
     return <Activity className="h-5 w-5 text-[#2167F3]" strokeWidth={1.8} />;
   }
 
   if (type === "oxygen") {
-    return <Droplets className="h-5 w-5 text-[#2167F3]" strokeWidth={1.8} />;
+    return <LungsIcon className="h-5 w-5" />;
   }
 
   return <Thermometer className="h-5 w-5 text-[#2167F3]" strokeWidth={1.8} />;

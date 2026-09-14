@@ -22,17 +22,15 @@ export function Header() {
             relative
             z-40
             flex
-            min-h-[72px]
+            min-h-[97px]
             w-full
             items-center
             justify-between
             gap-4
-            rounded-[36px]
+            rounded-[9999px]
             bg-white
-            px-4
+            px-6
             py-3
-            sm:px-5
-            lg:px-6
             shadow-xs
           "
         >
@@ -66,9 +64,9 @@ export function Header() {
             </button>
           </div>
 
-          {/* CENTER - MAIN NAVIGATION */}
+          {/* CENTER - MAIN NAVIGATION (Figma: height 71px, background #EFF2F4, padding top/bottom 4px, left/right 5px, gap 11px) */}
           <nav
-            className="hidden items-center rounded-full bg-[#F1F3F5] p-1 md:flex"
+            className="hidden items-center h-[71px] rounded-full bg-[#EFF2F4] px-[5px] py-[4px] gap-[11px] md:flex"
             aria-label="Main navigation"
           >
             {navItems.map((item) => {
@@ -82,7 +80,7 @@ export function Header() {
                   key={item.name}
                   type="button"
                   onClick={() => router.push(item.path)}
-                  className={`flex h-[48px] items-center justify-center rounded-full px-7 text-[16px] font-medium tracking-[-0.2px] transition-all duration-200 ${
+                  className={`flex h-[63px] items-center justify-center rounded-full px-7 text-[16px] font-medium tracking-[-0.2px] transition-all duration-200 ${
                     isActive
                       ? "bg-[#1F2937] text-white"
                       : "text-[#374151] hover:bg-white/70"
@@ -138,7 +136,7 @@ export function Header() {
         {/* MOBILE NAVIGATION DROPDOWN */}
         {isMobileMenuOpen && (
           <div className="absolute left-4 right-4 top-[88px] z-50 flex flex-col gap-3 rounded-2xl bg-white p-4 shadow-xl md:hidden">
-            <div className="flex items-center gap-3  px-2 pb-3">
+            <div className="flex items-center gap-3 px-2 pb-3">
               <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-[#FFF3A6]">
                 <img
                   src="/images/profile.jpeg"
