@@ -197,7 +197,7 @@ export default function ActivateAccountPage() {
       {/* Feedback Notification Modal (Success / Error) */}
       <LoginModal
         isOpen={isFeedbackOpen}
-        onClose={() => setIsFeedbackOpen(false)}
+        onClose={() => setIsFeedbackOpen()}
         type={feedbackType}
         title={feedbackTitle}
         message={feedbackMessage}
