@@ -108,7 +108,7 @@ export function PatientHistoricalVitalsLog() {
           <button
             type="button"
             onClick={handleExportCSV}
-            className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl border border-slate-200 bg-white text-slate-700 text-xs font-semibold hover:bg-slate-50 transition-colors shadow-2xs cursor-pointer w-full sm:w-auto"
+            className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl border border-slate-50 bg-app-bg text-slate-700 text-xs font-semibold hover:bg-slate-50 transition-colors  cursor-pointer w-full sm:w-auto"
           >
             <Download className="h-3.5 w-3.5 text-slate-500" />
             Export CSV
@@ -190,7 +190,6 @@ export function PatientHistoricalVitalsLog() {
         isOpen={!!selectedVital}
         onClose={() => setSelectedVital(null)}
         vital={selectedVital}
-        onExportPDF={handleExportPDF}
       />
     </>
   );
