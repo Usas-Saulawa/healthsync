@@ -35,7 +35,7 @@ export function PatientAllergiesCard({
   medications = mockMedications,
 }: PatientAllergiesCardProps) {
   return (
-    <section className="h-[384px] w-full max-w-[416px] overflow-hidden rounded-t-[14px] bg-white px-[27px] pt-[23px]">
+    <section className="h-[425px] w-full max-w-[416px] overflow-hidden rounded-[14px] bg-white px-[27px] pt-[23px]">
       {/* Allergies */}
       <div>
         <h3 className="text-[13px] font-normal leading-[17px] text-[#64748B]">

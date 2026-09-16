@@ -22,10 +22,15 @@ export default function PatientsPage() {
   const [dateRange, setDateRange] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Sync state if URL search params change dynamically
+  // Consolidated useEffect: handles both status and tab syncing together
   useEffect(() => {
     if (statusParam) {
       setSelectedStatus(statusParam);
+
+      // If the incoming status is a follow-up, automatically flip to in-patient
+      if (statusParam.toLowerCase().includes("follow")) {
+        setActiveTab("in-patient");
+      }
     }
   }, [statusParam]);
 
@@ -85,9 +90,9 @@ export default function PatientsPage() {
         <PatientTable
           patients={filteredPatients}
           currentPage={currentPage}
-          totalPages={Math.ceil(filteredPatients.length / 5) || 1}
+          totalPages={Math.ceil(filteredPatients.length / 10) || 1}
           totalPatients={filteredPatients.length}
-          itemsPerPage={5}
+          itemsPerPage={10}
           onPageChange={setCurrentPage}
           isOutPatient={activeTab === "out-patient"}
         />

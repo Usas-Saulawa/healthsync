@@ -1,25 +1,42 @@
 // components/dashboard_components/DashboardMetricsGrid.tsx
 "use client";
 
-import { Users, ArrowUpRight, ShieldAlert, Info, Loader2 } from "lucide-react";
-import { AreaChart, Area, ResponsiveContainer } from "recharts";
+import { Users, ShieldAlert, Info, Loader2 } from "lucide-react";
+import { AreaChart, Area, ResponsiveContainer, Tooltip } from "recharts";
 import { useDashboardData } from "@/hooks/dashboard_hooks/useDashboardData";
 
 import { useState } from "react";
 
-// Dynamic chart data points derived or scaled from metric properties
+// Dynamic chart data points with time periods for hover details
 const chartTrendData = [
-  { value: 25 },
-  { value: 45 },
-  { value: 20 },
-  { value: 35 },
-  { value: 50 },
-  { value: 30 },
-  { value: 65 },
-  { value: 40 },
-  { value: 25 },
-  { value: 38 },
+  { time: "Week 1", value: 25 },
+  { time: "Week 2", value: 45 },
+  { time: "Week 3", value: 20 },
+  { time: "Week 4", value: 35 },
+  { time: "Week 5", value: 50 },
+  { time: "Week 6", value: 30 },
+  { time: "Week 7", value: 65 },
+  { time: "Week 8", value: 40 },
+  { time: "Week 9", value: 25 },
+  { time: "Week 10", value: 38 },
 ];
+
+// Custom interactive Tooltip to display period and patient count on hover
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function CustomTooltip({ active, payload, label }: any) {
+  if (active && payload && payload.length) {
+    return (
+      <div className="rounded-lg bg-slate-900 px-3 py-2 shadow-lg border border-slate-800 text-white text-xs z-50">
+        <p className="font-medium text-slate-300 mb-0.5">Period: {label}</p>
+        <p className="font-bold text-blue-400">
+          {payload[0].value}{" "}
+          <span className="text-slate-400 font-normal">patients</span>
+        </p>
+      </div>
+    );
+  }
+  return null;
+}
 
 export function DashboardMetricsGrid() {
   const { data, isLoading, isError } = useDashboardData();
@@ -52,7 +69,7 @@ export function DashboardMetricsGrid() {
 
   if (isError || !data) {
     return (
-      <div className="w-full p-6 bg-red-50  rounded-3xl text-center text-red-600 text-sm">
+      <div className="w-full p-6 bg-red-50 rounded-3xl text-center text-red-600 text-sm">
         Unable to load dashboard metrics. Please check your connection.
       </div>
     );
@@ -66,7 +83,7 @@ export function DashboardMetricsGrid() {
       {/* Metrics Grid Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6 w-full">
         {/* Card 1: Total Patient */}
-        <div className="bg-white p-5 sm:p-6 rounded-2xl  shadow-xs flex flex-col justify-between">
+        <div className="bg-white p-5 sm:p-6 rounded-2xl shadow-xs flex flex-col justify-between">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2.5 min-w-0">
               <div className="h-10 w-10 rounded-full bg-blue-50/90 text-blue-600 flex items-center justify-center shrink-0">
@@ -111,8 +128,8 @@ export function DashboardMetricsGrid() {
             </div>
           </div>
 
-          {/* Professional Recharts Area Chart Container */}
-          <div className="h-24 w-full bg-blue-50/20 rounded-2xl p-1 relative overflow-hidden ">
+          {/* Professional Recharts Area Chart Container with Hover Tooltip */}
+          <div className="h-24 w-full bg-blue-50/20 rounded-2xl p-1 relative overflow-hidden">
             <div className="absolute inset-0 grid grid-cols-5 grid-rows-3 pointer-events-none z-0">
               <div className="border-r border-b border-blue-100/40" />
               <div className="border-r border-b border-blue-100/40" />
@@ -143,6 +160,9 @@ export function DashboardMetricsGrid() {
                     <stop offset="95%" stopColor="#2563eb" stopOpacity={0.0} />
                   </linearGradient>
                 </defs>
+
+                <Tooltip content={<CustomTooltip />} />
+
                 <Area
                   type="monotone"
                   dataKey="value"
@@ -150,6 +170,12 @@ export function DashboardMetricsGrid() {
                   strokeWidth={2.5}
                   fillOpacity={1}
                   fill="url(#patientTrendGradient)"
+                  activeDot={{
+                    r: 5,
+                    fill: "#2563eb",
+                    stroke: "#ffffff",
+                    strokeWidth: 2,
+                  }}
                 />
               </AreaChart>
             </ResponsiveContainer>
@@ -215,8 +241,9 @@ export function DashboardMetricsGrid() {
             ))}
           </div>
         </div>
+
         {/* Card 3: Critical Alert */}
-        <div className="bg-white p-5 sm:p-6 rounded-2xl  shadow-xs flex flex-col justify-between">
+        <div className="bg-white p-5 sm:p-6 rounded-2xl shadow-xs flex flex-col justify-between">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2.5 min-w-0">
               <div className="h-10 w-10 rounded-full bg-blue-50/90 text-blue-600 flex items-center justify-center shrink-0">
@@ -241,7 +268,7 @@ export function DashboardMetricsGrid() {
           </div>
 
           <div className="space-y-2.5 flex-1 flex flex-col justify-center">
-            <div className="bg-[#FEF2F2]  p-2.5 rounded-lg flex items-start gap-2.5">
+            <div className="bg-[#FEF2F2] p-2.5 rounded-lg flex items-start gap-2.5">
               <div className="p-1 bg-[#FEF2F2] text-red-600 rounded-lg mt-0.5 shrink-0">
                 <ShieldAlert className="h-3.5 w-3.5" />
               </div>
@@ -258,8 +285,8 @@ export function DashboardMetricsGrid() {
               </div>
             </div>
 
-            <div className="bg-[#FFFBEB]  p-2.5 rounded-lg flex items-start gap-2.5">
-              <div className="p-1 bg-amber-100 text-amber-700 rounded-xl mt-0.5 shrink-0">
+            <div className="bg-[#FFFBEB]/90 p-2.5 rounded-lg flex items-start gap-2.5">
+              <div className="p-1 bg-amber-100/90 text-amber-700 rounded-xl mt-0.5 shrink-0">
                 <Info className="h-3.5 w-3.5" />
               </div>
               <div className="min-w-0">

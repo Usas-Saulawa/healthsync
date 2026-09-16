@@ -9,7 +9,7 @@ interface VitalSummary {
   unit: string;
   change: string;
   changeType: "positive" | "negative" | "neutral";
-  icon: "temperature" | "heart-rate" | "oxygen";
+  icon: "temperature" | "heart-rate" | "oxygen" | "weight";
 }
 
 interface PatientOverviewSummaryCardsProps {
@@ -19,37 +19,48 @@ interface PatientOverviewSummaryCardsProps {
 const mockVitals: VitalSummary[] = [
   {
     label: "Weight",
-    value: "165",
-    unit: "lbs",
-    change: "5%",
+    value: "72.5",
+    unit: "kg",
+    change: "-1.2%",
     changeType: "negative",
-    icon: "temperature",
+    icon: "weight",
   },
   {
     label: "Temperature",
-    value: "35",
-    unit: "lbs",
-    change: "5%",
-    changeType: "negative",
+    value: "36.6",
+    unit: "°C",
+    change: "0%",
+    changeType: "neutral",
     icon: "temperature",
   },
   {
-    label: "Heart rate",
-    value: "99.4",
-    unit: "F",
+    label: "Heart Rate",
+    value: "75",
+    unit: "bpm",
     change: "+2.5%",
-    changeType: "negative",
+    changeType: "neutral",
     icon: "heart-rate",
   },
   {
     label: "Oxygen Saturation",
-    value: "140",
-    unit: "bpm",
-    change: "5%",
-    changeType: "neutral",
+    value: "98",
+    unit: "%",
+    change: "+1.0%",
+    changeType: "positive",
     icon: "oxygen",
   },
 ];
+
+// Custom Weight Icon using the uploaded svg asset
+function WeightIcon({ className = "h-5 w-5" }: { className?: string }) {
+  return (
+    <img
+      src="/icon/weight.svg"
+      alt="Weight icon"
+      className={`${className} object-contain`}
+    />
+  );
+}
 
 // Custom Lungs Icon using the uploaded svg asset
 function LungsIcon({ className = "h-5 w-5" }: { className?: string }) {
@@ -63,6 +74,10 @@ function LungsIcon({ className = "h-5 w-5" }: { className?: string }) {
 }
 
 function VitalIcon({ type }: { type: VitalSummary["icon"] }) {
+  if (type === "weight") {
+    return <WeightIcon className="h-5 w-5" />;
+  }
+
   if (type === "heart-rate") {
     return <Activity className="h-5 w-5 text-[#2167F3]" strokeWidth={1.8} />;
   }
@@ -84,11 +99,9 @@ export function PatientOverviewSummaryCards({
           key={vital.label}
           className="flex h-[108px] w-full flex-col justify-between rounded-xl bg-white px-5 py-4 border border-blue-100/60 shadow-xs transition-all hover:border-slate-300"
         >
-          {/* Vital name and icon */}
+          {/* Vital name and icon (No background wrapper) */}
           <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-50">
-              <VitalIcon type={vital.icon} />
-            </div>
+            <VitalIcon type={vital.icon} />
             <span className="text-sm font-semibold text-slate-700">
               {vital.label}
             </span>
@@ -110,8 +123,10 @@ export function PatientOverviewSummaryCards({
                 "inline-flex h-5 min-w-[36px] items-center justify-center rounded-md px-1.5",
                 "text-[10px] font-semibold leading-none",
                 vital.changeType === "negative"
-                  ? "bg-rose-50 text-rose-600 border border-rose-200"
-                  : "bg-blue-50 text-blue-600 border border-blue-200",
+                  ? "bg-rose-100/90 text-rose-600 "
+                  : vital.changeType === "positive"
+                    ? "bg-emerald-100/90 text-emerald-600 "
+                    : "bg-blue-100/90 text-blue-600 ",
               ].join(" ")}
             >
               {vital.change}

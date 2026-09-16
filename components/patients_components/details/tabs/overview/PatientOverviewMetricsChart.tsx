@@ -100,6 +100,23 @@ interface PatientVitalsTimelineProps {
   initialMetric?: VitalMetric;
 }
 
+// Custom interactive Tooltip to display time and value on hover
+
+function CustomTooltip({ active, payload, label }: any) {
+  if (active && payload && payload.length) {
+    return (
+      <div className="rounded-lg bg-slate-900 px-3 py-2 shadow-lg border border-slate-800 text-white text-xs">
+        <p className="font-medium text-slate-300 mb-0.5">Time: {label}</p>
+        <p className="font-bold text-blue-400">
+          {payload[0].value}{" "}
+          <span className="text-slate-400 font-normal">units</span>
+        </p>
+      </div>
+    );
+  }
+  return null;
+}
+
 export function PatientOverViewMetricsChart({
   initialMetric = "Blood Pressure",
 }: PatientVitalsTimelineProps) {
@@ -142,7 +159,7 @@ export function PatientOverViewMetricsChart({
         </div>
       </div>
 
-      {/* Chart container with slightly expanded height to fit X-axis labels nicely */}
+      {/* Chart container */}
       <div className="mt-4 h-[190px] w-full">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart
@@ -175,7 +192,6 @@ export function PatientOverViewMetricsChart({
               horizontal={true}
             />
 
-            {/* X-Axis enabled to display time progression */}
             <XAxis
               dataKey="time"
               axisLine={false}
@@ -202,7 +218,8 @@ export function PatientOverViewMetricsChart({
               }}
             />
 
-            <Tooltip cursor={false} content={() => null} />
+            {/* Enabled Tooltip with our Custom Tooltip component */}
+            <Tooltip content={<CustomTooltip />} />
 
             <Area
               key={activeMetric}
@@ -213,7 +230,12 @@ export function PatientOverViewMetricsChart({
               fill="url(#patientVitalsGradient)"
               fillOpacity={1}
               dot={false}
-              activeDot={false}
+              activeDot={{
+                r: 6,
+                fill: "#2167F3",
+                stroke: "#ffffff",
+                strokeWidth: 2,
+              }}
               isAnimationActive={true}
               animationDuration={700}
               animationEasing="ease-in-out"
