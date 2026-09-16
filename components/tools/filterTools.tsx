@@ -26,7 +26,6 @@ interface MasterFilterToolbarProps {
   sortOptions?: FilterOption[];
   onSortSelect?: (value: string, label: string) => void;
 
-  // Variant prop to support bg-app-bg or white background
   variant?: "tinted" | "white";
   className?: string;
 }
@@ -39,7 +38,7 @@ export function MasterFilterToolbar({
   onSearchIconClick,
 
   showFilter = true,
-  filterLabel = "Monthly",
+  filterLabel = "Filter",
   filterOptions = [],
   onFilterSelect,
 
@@ -73,7 +72,6 @@ export function MasterFilterToolbar({
   const isFilterActive = filterLabel !== "Monthly" && filterLabel !== "Filter";
   const isSortActive = sortLabel !== "Sort by";
 
-  // Dynamic conditional classes using bg-app-bg with 0 borders for tinted variant
   const baseBgClass =
     variant === "white"
       ? "bg-white border border-slate-200/80 text-[#0f172a] hover:bg-slate-50"
@@ -84,7 +82,6 @@ export function MasterFilterToolbar({
       ? "bg-white border border-slate-200/80 focus-within:bg-white"
       : "bg-app-bg border-0 focus-within:bg-white";
 
-  // Icon container background: locked to #CCDFFF when inactive, changes when active/open
   const getIconContainerClass = (isActiveOrOpen: boolean) => {
     if (isActiveOrOpen) {
       return "bg-blue-200 text-blue-800";
@@ -140,7 +137,7 @@ export function MasterFilterToolbar({
                     onFilterSelect?.(opt.value, opt.label);
                     setIsFilterOpen(false);
                   }}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all whitespace-nowrap flex items-center gap-1.5 ${
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all whitespace-nowrap flex items-center gap-1.5 cursor-pointer ${
                     isSelected
                       ? "bg-blue-600 text-white shadow-xs"
                       : "bg-app-bg text-[#0f172a] hover:bg-blue-100/60 hover:text-blue-700"
@@ -156,6 +153,8 @@ export function MasterFilterToolbar({
           <button
             type="button"
             onClick={() => {
+              // If already active, clicking the main button can also act as a quick reset toggle if desired,
+              // or just open/close the dropdown. Let's make it toggle the drawer safely:
               setIsFilterOpen(!isFilterOpen);
               setIsSortOpen(false);
             }}
@@ -197,7 +196,7 @@ export function MasterFilterToolbar({
                     onSortSelect?.(opt.value, opt.label);
                     setIsSortOpen(false);
                   }}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all whitespace-nowrap flex items-center gap-1.5 ${
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all whitespace-nowrap flex items-center gap-1.5 cursor-pointer ${
                     isSelected
                       ? "bg-blue-600 text-white shadow-xs"
                       : "bg-app-bg text-[#0f172a] hover:bg-blue-100/60 hover:text-blue-700"

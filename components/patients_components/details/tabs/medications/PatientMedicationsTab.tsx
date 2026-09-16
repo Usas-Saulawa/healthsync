@@ -1,7 +1,7 @@
 // components/patients_components/details/tabs/medications/PatientMedicationsTab.tsx
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Plus } from "lucide-react";
 import { MasterFilterToolbar } from "@/components/tools/filterTools";
 import {
@@ -9,72 +9,24 @@ import {
   MedicationRow,
 } from "./PatientMedicationsList";
 import { AddPrescriptionModal } from "./AddPrescriptionModal";
-
-const mockMedicationsData: MedicationRow[] = [
-  {
-    id: "1",
-    diagnosis: "Fever",
-    medicationsList:
-      "Lisinopril, Atorvastatin Calcium, Amoxilin Trihydrate.......",
-    facility: "Medical Centre",
-    doctor: "Dr. Ibrahim Muazu",
-    prescriptionsCount: 10,
-    date: "Oct 12, 2023",
-    status: "Active",
-  },
-  {
-    id: "2",
-    diagnosis: "Diabetis",
-    medicationsList:
-      "Lisinopril, Atorvastatin Calcium, Amoxilin Trihydrate.......",
-    facility: "General Hospital",
-    doctor: "Dr. Ibrahim Muazu",
-    prescriptionsCount: 10,
-    date: "Oct 12, 2023",
-    status: "Active",
-  },
-  {
-    id: "3",
-    diagnosis: "Diabetis",
-    medicationsList:
-      "Lisinopril, Atorvastatin Calcium, Amoxilin Trihydrate.......",
-    facility: "Alheri Clinic",
-    doctor: "Dr. Ibrahim Muazu",
-    prescriptionsCount: 10,
-    date: "Oct 12, 2023",
-    status: "Completed",
-  },
-  {
-    id: "4",
-    diagnosis: "Fever",
-    medicationsList:
-      "Lisinopril, Atorvastatin Calcium, Amoxilin Trihydrate.......",
-    facility: "Medical Centre",
-    doctor: "Dr. Ibrahim Muazu",
-    prescriptionsCount: 10,
-    date: "Oct 12, 2023",
-    status: "Active",
-  },
-  {
-    id: "5",
-    diagnosis: "Fever",
-    medicationsList:
-      "Lisinopril, Atorvastatin Calcium, Amoxilin Trihydrate.......",
-    facility: "Medical Centre",
-    doctor: "Dr. Ibrahim Muazu",
-    prescriptionsCount: 10,
-    date: "Oct 12, 2023",
-    status: "Discontinued",
-  },
-];
+import { PatientMedicationDetailModal } from "./PatientMedicationDetailModal";
+import { mockMedicationsData } from "@/mock/mockDashboardData";
 
 export function PatientMedicationsTab() {
   const [medications, setMedications] =
     useState<MedicationRow[]>(mockMedicationsData);
   const [currentPage, setCurrentPage] = useState(1);
+  const [filterValue, setFilterValue] = useState("");
   const [filterLabel, setFilterLabel] = useState("Filter");
+  const [sortValue, setSortValue] = useState("");
   const [sortLabel, setSortLabel] = useState("Sort by");
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
+  const [selectedRowData, setSelectedRowData] = useState<MedicationRow | null>(
+    null,
+  );
+
+  const itemsPerPage = 5;
 
   const filterOptions = [
     { label: "All Status", value: "all" },
@@ -88,12 +40,65 @@ export function PatientMedicationsTab() {
     { label: "Diagnosis (A-Z)", value: "diagnosis_az" },
   ];
 
+  // Filter & Sort Logic
+  const processedMedications = useMemo(() => {
+    let result = [...medications];
+
+    // Filter by Status (only if a specific filter or 'all' option with filter state is active)
+    if (filterValue && filterValue !== "all") {
+      result = result.filter(
+        (item) => item.status.toLowerCase() === filterValue.toLowerCase(),
+      );
+    }
+
+    // Sort Records
+    if (sortValue === "diagnosis_az") {
+      result.sort((a, b) => a.diagnosis.localeCompare(b.diagnosis));
+    } else if (sortValue === "date_newest") {
+      result.sort(
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+      );
+    }
+
+    return result;
+  }, [medications, filterValue, sortValue]);
+
+  // Paginated slice
+  const paginatedData = useMemo(() => {
+    const start = (currentPage - 1) * itemsPerPage;
+    return processedMedications.slice(start, start + itemsPerPage);
+  }, [processedMedications, currentPage]);
+
+  const totalPages = Math.ceil(processedMedications.length / itemsPerPage) || 1;
+
+  const handleFilterSelect = (val: string, label: string) => {
+    // If selecting the already active filter or choosing to reset, clear it
+    if (filterValue === val && val !== "all") {
+      setFilterValue("");
+      setFilterLabel("Filter");
+    } else {
+      setFilterValue(val);
+      setFilterLabel(label);
+    }
+    setCurrentPage(1); // Reset page on filter change
+  };
+
+  const handleSortSelect = (val: string, label: string) => {
+    if (sortValue === val) {
+      setSortValue("");
+      setSortLabel("Sort by");
+    } else {
+      setSortValue(val);
+      setSortLabel(label);
+    }
+    setCurrentPage(1); // Reset page on sort change
+  };
+
   const handleNewPrescription = () => {
-    setIsModalOpen(true);
+    setIsAddModalOpen(true);
   };
 
   const handleModalSubmit = (newPrescriptionData: any) => {
-    // Append new prescription or mock insert to state list
     const newRow: MedicationRow = {
       id: Date.now().toString(),
       diagnosis: newPrescriptionData.medicationName || "General Diagnosis",
@@ -111,9 +116,14 @@ export function PatientMedicationsTab() {
     console.log("Exporting medication records...");
   };
 
+  const handleRowClick = (row: MedicationRow) => {
+    setSelectedRowData(row);
+    setIsDetailModalOpen(true);
+  };
+
   return (
     <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xs p-6 space-y-6">
-      {/* Header & Action Bar Section Inside the Container */}
+      {/* Header & Action Bar Section */}
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 pb-4 border-b border-slate-100">
         <div>
           <h2 className="text-xl font-bold text-[#2563EB] tracking-tight">
@@ -131,11 +141,11 @@ export function PatientMedicationsTab() {
             showFilter={true}
             filterLabel={filterLabel}
             filterOptions={filterOptions}
-            onFilterSelect={(val, label) => setFilterLabel(label)}
+            onFilterSelect={handleFilterSelect}
             showSort={true}
             sortLabel={sortLabel}
             sortOptions={sortOptions}
-            onSortSelect={(val, label) => setSortLabel(label)}
+            onSortSelect={handleSortSelect}
             variant="tinted"
           />
 
@@ -158,18 +168,35 @@ export function PatientMedicationsTab() {
         </div>
       </div>
 
-      {/* Medications List Table Component Embedded Cleanly */}
+      {/* Medications List Table Component with Dynamic Data & Pagination Props */}
       <PatientMedicationsList
-        data={medications}
+        data={paginatedData}
         currentPage={currentPage}
+        totalPages={totalPages}
+        totalItems={processedMedications.length}
+        itemsPerPage={itemsPerPage}
         onPageChange={setCurrentPage}
+        onRowClick={handleRowClick}
       />
 
       {/* Add Prescription Modal Component */}
       <AddPrescriptionModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
         onSubmit={handleModalSubmit}
+      />
+
+      {/* Medication Detail Slide-Over Modal */}
+      <PatientMedicationDetailModal
+        isOpen={isDetailModalOpen}
+        onClose={() => setIsDetailModalOpen(false)}
+        diagnosis={selectedRowData?.diagnosis || "Fever"}
+        startDate={selectedRowData?.date || "Mar 22, 2023"}
+        endDate={selectedRowData?.date || "Mar 22, 2023"}
+        onDiscontinue={(ids: string[]) =>
+          console.log("Discontinuing ids:", ids)
+        }
+        onAddNote={(ids: string[]) => console.log("Adding note for ids:", ids)}
       />
     </div>
   );
