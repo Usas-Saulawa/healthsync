@@ -118,7 +118,7 @@ function CustomTooltip({ active, payload, label }: any) {
 }
 
 export function PatientOverViewMetricsChart({
-  initialMetric = "Blood Pressure",
+  initialMetric = "Heart Rate",
 }: PatientVitalsTimelineProps) {
   const [activeMetric, setActiveMetric] = useState<VitalMetric>(initialMetric);
 

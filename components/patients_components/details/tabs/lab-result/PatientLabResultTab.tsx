@@ -84,7 +84,7 @@ const mockLabResults: LabResultItem[] = [
 
 export function PatientLabResultTab() {
   // Set the 4th item expanded by default to match the reference screenshot
-  const [expandedId, setExpandedId] = useState<string | null>("4");
+  const [expandedId, setExpandedId] = useState<string | null>("0");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
   const [selectedLab, setSelectedLab] = useState<any>(null);

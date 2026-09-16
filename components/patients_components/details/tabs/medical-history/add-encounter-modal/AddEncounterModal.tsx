@@ -9,7 +9,7 @@ import { NoteTab } from "./tabs/NoteTab";
 import { OrderTab } from "./tabs/OrderTab";
 import { PrescriptionTab } from "./tabs/PrescriptionTab";
 import { FollowUpTab } from "./tabs/FollowUpTab";
-// import { NurseNotesTab } from "./tabs/NurseNotesTab";
+import { NurseNotesTab } from "./tabs/NurseNotesTab";
 
 interface AddEncounterModalProps {
   isOpen: boolean;
@@ -116,7 +116,7 @@ export function AddEncounterModal({ isOpen, onClose }: AddEncounterModalProps) {
                     {activeTab === "order" && <OrderTab />}
                     {activeTab === "prescription" && <PrescriptionTab />}
                     {activeTab === "follow-up" && <FollowUpTab />}
-                    {/* {activeTab === "nurse-notes" && <NurseNotesTab />} */}
+                    {activeTab === "nurse-notes" && <NurseNotesTab />}
                   </motion.div>
                 </AnimatePresence>
               </div>
