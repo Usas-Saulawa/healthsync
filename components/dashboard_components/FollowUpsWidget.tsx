@@ -30,7 +30,7 @@ export function FollowUpsWidget({
           </h2>
         </div>
         <Link
-          href="/dashboard/follow-ups"
+          href="/dashboard/patients?status=Follow+Up"
           className="text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors shrink-0"
         >
           View All

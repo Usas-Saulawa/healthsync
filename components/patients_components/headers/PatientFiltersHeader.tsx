@@ -33,6 +33,7 @@ const statusOptions = [
   "Critical",
   "Stable",
   "Recovering",
+  "Follow Up",
   "Discharged",
 ];
 const doctorOptions = [

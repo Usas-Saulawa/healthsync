@@ -17,13 +17,13 @@ export function PatientsWidget({
 }: PatientsWidgetProps) {
   return (
     <div
-      className={`bg-white rounded-[16px] p-6 sm:p-8 shadow-xs  space-y-6 overflow-hidden ${className}`}
+      className={`bg-white rounded-[16px] p-6 sm:p-8 shadow-xs space-y-6 overflow-hidden ${className}`}
     >
       {/* Widget Header */}
       <div className="flex items-center justify-between px-2">
         <div className="flex items-center space-x-3.5">
-          <div className="h-10 w-10 rounded-full bg-blue-50/90 text-blue-600 flex items-center justify-center shrink-0">
-            <Users className="h-5 w-5 fill-blue-600 text-blue-600" />
+          <div className="w-12 h-12 rounded-2xl bg-blue-50/80 flex items-center justify-center text-blue-600 shadow-inner shrink-0">
+            <Users className="w-6 h-6" />
           </div>
           <h2 className="text-xl font-bold text-slate-900 tracking-tight">
             Patients
@@ -50,14 +50,14 @@ export function PatientsWidget({
 
       {/* Patients List Container */}
       <div className="space-y-3">
-        {patients.map((patient) => (
+        {patients.slice(0, 3).map((patient) => (
           <div
             key={patient.id}
-            className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr_0.8fr_1.1fr_1.3fr_1fr_0.9fr] items-center bg-app-bg hover:bg-blue-100/60 transition-all px-5 py-3.5 rounded-[] gap-3 lg:gap-3 shadow-2xs  hover:border-blue-200/50"
+            className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr_0.8fr_1.1fr_1.3fr_1fr_0.9fr] items-center bg-app-bg hover:bg-blue-100/60 transition-all px-5 py-4 rounded-[8px] gap-3 lg:gap-3 shadow-2xs hover:border-blue-200/50"
           >
             {/* Patient Name with Avatar */}
             <div className="col-span-1 flex items-center space-x-3 min-w-0">
-              <div className="w-9 h-9 rounded-full bg-amber-200/60 overflow-hidden shrink-0 flex items-center justify-center  shadow-xs">
+              <div className="w-9 h-9 rounded-full bg-amber-200/60 overflow-hidden shrink-0 flex items-center justify-center shadow-xs">
                 <img
                   src="/images/profile.jpeg"
                   alt={patient.name}
@@ -70,7 +70,7 @@ export function PatientsWidget({
             </div>
 
             {/* Hosp No */}
-            <div className="text-[11px]  text-slate-600 font-medium truncate">
+            <div className="text-[11px] text-slate-600 font-medium truncate">
               <span className="lg:hidden text-[10px] text-slate-400 font-semibold mr-2">
                 Hosp No:
               </span>
@@ -78,7 +78,7 @@ export function PatientsWidget({
             </div>
 
             {/* Age/Sex */}
-            <div className="text-[11px]  text-slate-600 font-medium truncate">
+            <div className="text-[11px] text-slate-600 font-medium truncate">
               <span className="lg:hidden text-[10px] text-slate-400 font-semibold mr-2">
                 Age/Sex:
               </span>
@@ -86,7 +86,7 @@ export function PatientsWidget({
             </div>
 
             {/* Ward/Bed */}
-            <div className="text-[11px]  text-slate-600 font-medium truncate">
+            <div className="text-[11px] text-slate-600 font-medium truncate">
               <span className="lg:hidden text-[10px] text-slate-400 font-semibold mr-2">
                 Ward/Bed:
               </span>
@@ -103,13 +103,13 @@ export function PatientsWidget({
 
             {/* Status Badge */}
             <div className="truncate">
-              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px]  font-bold bg-[#fff3cd] text-[#856404]   shadow-2xs whitespace-nowrap">
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#fff3cd] text-[#856404] shadow-2xs whitespace-nowrap">
                 {patient.status}
               </span>
             </div>
 
             {/* Insurance */}
-            <div className="text-[11px]  text-slate-600 font-medium lg:text-right pr-2 truncate">
+            <div className="text-[11px] text-slate-600 font-medium lg:text-right pr-2 truncate">
               <span className="lg:hidden text-[10px] text-slate-400 font-semibold mr-2">
                 Insurance:
               </span>

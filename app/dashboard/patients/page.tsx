@@ -1,63 +1,93 @@
 // app/dashboard/patients/page.tsx
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { Header } from "@/components/dashboard_components/Header";
 import { PatientFiltersHeader } from "@/components/patients_components/headers/PatientFiltersHeader";
 import { PatientTable } from "@/components/patients_components/table/PatientTable";
 import { mockPatientsList } from "@/mock/mockDashboardData";
 
 export default function PatientsPage() {
+  const searchParams = useSearchParams();
+  const statusParam = searchParams.get("status");
+
   const [activeTab, setActiveTab] = useState<"out-patient" | "in-patient">(
-    "in-patient",
+    "out-patient",
   );
   const [searchValue, setSearchValue] = useState("");
-  const [selectedWard, setSelectedWard] = useState("All Wards");
-  const [selectedStatus, setSelectedStatus] = useState("All Patients");
-  const [selectedDoctor, setSelectedDoctor] = useState("Dr. Sarah Jenkins");
+  const [selectedWard, setSelectedWard] = useState("");
+  const [selectedStatus, setSelectedStatus] = useState(statusParam || "");
+  const [selectedDoctor, setSelectedDoctor] = useState("");
   const [dateRange, setDateRange] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Map mock data fields to match validation schema keys if necessary
-  const formattedPatients = mockPatientsList.map((p) => ({
-    id: p.id,
-    name: p.name,
-    hospNo: p.hospNo,
-    ageSex: p.ageSex,
-    wardBed: p.wardBed,
-    diagnosis: p.diagnosis,
-    status: p.status,
-    insurance: p.insurance,
-  }));
+  // Sync state if URL search params change dynamically
+  useEffect(() => {
+    if (statusParam) {
+      setSelectedStatus(statusParam);
+    }
+  }, [statusParam]);
+
+  // Filter logic based on search, status, and ward filters
+  const filteredPatients = mockPatientsList.filter((patient) => {
+    const matchesSearch =
+      patient.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+      patient.hospNo.toLowerCase().includes(searchValue.toLowerCase()) ||
+      patient.diagnosis.toLowerCase().includes(searchValue.toLowerCase());
+
+    const matchesWard = selectedWard
+      ? patient.wardBed.toLowerCase().includes(selectedWard.toLowerCase())
+      : true;
+
+    const matchesStatus = selectedStatus
+      ? patient.status.toLowerCase() === selectedStatus.toLowerCase()
+      : true;
+
+    return matchesSearch && matchesWard && matchesStatus;
+  });
 
   return (
     <div className="min-h-screen bg-app-bg flex flex-col font-sans">
       <Header />
 
-      {/* Fluid width container matching your dashboard layout rules */}
       <main className="flex-1 w-full py-6 space-y-6">
-        {/* Combined Header & Filter Toolbar */}
         <PatientFiltersHeader
           activeTab={activeTab}
           onTabChange={setActiveTab}
           searchValue={searchValue}
-          onSearchChange={(e) => setSearchValue(e.target.value)}
+          onSearchChange={(e) => {
+            setSearchValue(e.target.value);
+            setCurrentPage(1);
+          }}
           selectedWard={selectedWard}
-          onWardSelect={setSelectedWard}
+          onWardSelect={(val) => {
+            setSelectedWard(val);
+            setCurrentPage(1);
+          }}
           selectedStatus={selectedStatus}
-          onStatusSelect={setSelectedStatus}
+          onStatusSelect={(val) => {
+            setSelectedStatus(val);
+            setCurrentPage(1);
+          }}
           selectedDoctor={selectedDoctor}
-          onDoctorSelect={setSelectedDoctor}
+          onDoctorSelect={(val) => {
+            setSelectedDoctor(val);
+            setCurrentPage(1);
+          }}
           dateRange={dateRange}
-          onDateRangeSelect={setDateRange}
+          onDateRangeSelect={(val) => {
+            setDateRange(val);
+            setCurrentPage(1);
+          }}
         />
 
-        {/* Patient Table Grid & Pagination Footer linked with the radio activeTab state */}
         <PatientTable
-          patients={formattedPatients}
+          patients={filteredPatients}
           currentPage={currentPage}
-          totalPages={2}
-          totalPatients={24}
+          totalPages={Math.ceil(filteredPatients.length / 5) || 1}
+          totalPatients={filteredPatients.length}
+          itemsPerPage={5}
           onPageChange={setCurrentPage}
           isOutPatient={activeTab === "out-patient"}
         />
