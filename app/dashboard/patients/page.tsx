@@ -1,14 +1,14 @@
 // app/dashboard/patients/page.tsx
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Header } from "@/components/dashboard_components/Header";
 import { PatientFiltersHeader } from "@/components/patients_components/headers/PatientFiltersHeader";
 import { PatientTable } from "@/components/patients_components/table/PatientTable";
 import { mockPatientsList } from "@/mock/mockDashboardData";
 
-export default function PatientsPage() {
+function PatientsContent() {
   const searchParams = useSearchParams();
   const statusParam = searchParams.get("status");
 
@@ -98,5 +98,13 @@ export default function PatientsPage() {
         />
       </main>
     </div>
+  );
+}
+
+export default function PatientsPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-app-bg" />}>
+      <PatientsContent />
+    </Suspense>
   );
 }
