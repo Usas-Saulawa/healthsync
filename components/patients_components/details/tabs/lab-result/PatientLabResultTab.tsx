@@ -127,7 +127,7 @@ export function PatientLabResultTab() {
   };
 
   return (
-    <div className="w-full bg-white rounded-2xl p-6 shadow-xs border border-slate-100">
+    <div className="w-full bg-(--card) rounded-2xl p-6 shadow-xs border border-slate-100">
       {/* Header Row */}
       <div className="flex items-center justify-between pb-6 border-b border-slate-100">
         <h2 className="text-lg font-bold text-[#2563EB] tracking-tight">
@@ -149,11 +149,11 @@ export function PatientLabResultTab() {
           {mockLabResults.map((item, index) => {
             const isExpanded = expandedId === item.id;
 
-            // First card background is bg-app-bg, others are pure white with border/shadow
+            // First card background is bg-(--background), others are pure white with border/shadow
             const cardBgStyle =
               index === 0
-                ? "bg-app-bg border border-slate-200/60"
-                : "bg-app-bg border border-slate-200/80 shadow-2xs";
+                ? "bg-(--background) border border-slate-200/60"
+                : "bg-(--background) border border-slate-200/80 shadow-2xs";
 
             // Flag badge colors
             let flagBadgeColor = "text-blue-600";

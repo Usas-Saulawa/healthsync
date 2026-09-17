@@ -92,7 +92,7 @@ export function PatientHistoricalVitalsLog() {
 
   return (
     <>
-      <div className="bg-white rounded-[16px] border border-slate-200/80 shadow-xs p-6 space-y-6">
+      <div className="bg-(--card) rounded-[16px] border border-slate-200/80 shadow-xs p-6 space-y-6">
         {/* Section Header & Export Button */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
@@ -108,7 +108,7 @@ export function PatientHistoricalVitalsLog() {
           <button
             type="button"
             onClick={handleExportCSV}
-            className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl border border-slate-200 bg-white text-slate-700 text-xs font-semibold hover:bg-slate-50 transition-colors shadow-2xs cursor-pointer w-full sm:w-auto"
+            className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl border border-slate-200 bg-(--card) text-slate-700 text-xs font-semibold hover:bg-slate-50 transition-colors shadow-2xs cursor-pointer w-full sm:w-auto"
           >
             <Download className="h-3.5 w-3.5 text-slate-500" />
             Export CSV
@@ -150,7 +150,7 @@ export function PatientHistoricalVitalsLog() {
                     <tr
                       key={row.id}
                       onClick={() => setSelectedVital(row)}
-                      className="bg-app-bg hover:bg-blue-50/50 transition-colors cursor-pointer group"
+                      className="bg-(--background) hover:bg-blue-50/50 transition-colors cursor-pointer group"
                     >
                       <td className="py-4 px-4 font-medium text-slate-900 whitespace-nowrap group-hover:text-[#2563EB]">
                         {row.dateTime}

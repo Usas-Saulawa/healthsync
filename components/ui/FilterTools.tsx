@@ -56,7 +56,7 @@ export function SearchBar({
 }: SearchBarProps) {
   return (
     <div
-      className={`bg-white rounded-full pl-5 pr-1.5 py-1.5 shadow-xs border border-slate-200/70 flex items-center justify-between gap-3 w-full sm:w-64 transition-all hover:border-slate-300 ${className}`}
+      className={`bg-(--card) rounded-full pl-5 pr-1.5 py-1.5 shadow-xs border border-slate-200/70 flex items-center justify-between gap-3 w-full sm:w-64 transition-all hover:border-slate-300 ${className}`}
     >
       <input
         type="text"
@@ -114,7 +114,7 @@ export function FilterDropdown({
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="bg-white rounded-full pl-5 pr-1.5 py-1.5 shadow-xs border border-slate-200/70 flex items-center justify-between gap-4 w-full sm:w-auto min-w-[130px] hover:border-slate-300 transition-all"
+        className="bg-(--card) rounded-full pl-5 pr-1.5 py-1.5 shadow-xs border border-slate-200/70 flex items-center justify-between gap-4 w-full sm:w-auto min-w-[130px] hover:border-slate-300 transition-all"
       >
         <span className="text-sm font-normal text-slate-800 truncate">
           {selectedOption || label}
@@ -126,7 +126,7 @@ export function FilterDropdown({
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-48 bg-white rounded-2xl shadow-xl border border-slate-100 py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+        <div className="absolute right-0 mt-2 w-48 bg-(--card) rounded-2xl shadow-xl border border-slate-100 py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
           <div className="px-3 py-1.5 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
             Filter by {label}
           </div>

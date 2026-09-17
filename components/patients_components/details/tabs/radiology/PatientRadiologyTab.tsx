@@ -122,7 +122,7 @@ export function PatientRadiologyTab() {
   };
 
   return (
-    <div className="w-full bg-white rounded-[8px] p-6 shadow-xs ">
+    <div className="w-full bg-(--card) rounded-[8px] p-6 shadow-xs ">
       {/* Header Row */}
       <div className="flex items-center justify-between pb-6 ">
         <h2 className="text-lg font-bold text-[#2563EB] tracking-tight">
@@ -147,8 +147,8 @@ export function PatientRadiologyTab() {
             // Card background styling
             const cardBgStyle =
               index === 0
-                ? "bg-app-bg border border-slate-200/60"
-                : "bg-app-bg border border-slate-200/80 shadow-2xs";
+                ? "bg-(--background) border border-slate-200/60"
+                : "bg-(--background) border border-slate-200/80 shadow-2xs";
 
             // Flag badge colors
             let flagBadgeColor = "text-blue-600 font-bold";

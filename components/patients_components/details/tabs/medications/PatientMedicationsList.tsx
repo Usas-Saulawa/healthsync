@@ -26,7 +26,7 @@ export function PatientMedicationsList({
   onPageChange,
 }: PatientMedicationsListProps) {
   return (
-    <div className="bg-white rounded-[16px] shadow-xs overflow-hidden p-2">
+    <div className="bg-(--card) rounded-[16px] shadow-xs overflow-hidden p-2">
       {/* Table Container */}
       <div className="overflow-x-auto">
         <table className="w-full text-left border-separate border-spacing-y-[7px]">
@@ -70,7 +70,7 @@ export function PatientMedicationsList({
               return (
                 <tr
                   key={row.id}
-                  className="bg-app-bg hover:bg-blue-50/40 transition-colors cursor-pointer shadow-2xs"
+                  className="bg-(--background) hover:bg-blue-50/40 transition-colors cursor-pointer shadow-2xs"
                 >
                   {/* Diagnosis & Sub-medications */}
                   <td className="py-4 px-6 rounded-l-[8px] ">
@@ -118,14 +118,14 @@ export function PatientMedicationsList({
       </div>
 
       {/* Pagination Footer */}
-      <div className="flex flex-col sm:flex-row items-center justify-between px-6 py-4 mt-2 bg-white gap-4">
+      <div className="flex flex-col sm:flex-row items-center justify-between px-6 py-4 mt-2 bg-(--card) gap-4">
         <p className="text-xs text-slate-500">Showing 1-5 of 24 history</p>
 
         <div className="flex items-center gap-1.5">
           <button
             type="button"
             onClick={() => onPageChange(Math.max(1, currentPage - 1))}
-            className="px-3.5 py-1.5 rounded-[6px] border-0 bg-app-bg text-xs font-semibold text-slate-600 hover:bg-slate-200 transition-colors cursor-pointer shadow-2xs"
+            className="px-3.5 py-1.5 rounded-[6px] border-0 bg-(--background) text-xs font-semibold text-slate-600 hover:bg-slate-200 transition-colors cursor-pointer shadow-2xs"
           >
             Previous
           </button>
@@ -136,7 +136,7 @@ export function PatientMedicationsList({
             className={`w-8 h-8 rounded-[6px] border-0 text-xs font-bold transition-colors cursor-pointer shadow-2xs ${
               currentPage === 1
                 ? "bg-[#2563EB] text-white"
-                : "bg-app-bg text-slate-600 hover:bg-slate-200"
+                : "bg-(--background) text-slate-600 hover:bg-slate-200"
             }`}
           >
             1
@@ -148,7 +148,7 @@ export function PatientMedicationsList({
             className={`w-8 h-8 rounded-[6px] border-0 text-xs font-bold transition-colors cursor-pointer shadow-2xs ${
               currentPage === 2
                 ? "bg-[#2563EB] text-white"
-                : "bg-app-bg text-slate-600 hover:bg-slate-200"
+                : "bg-(--background) text-slate-600 hover:bg-slate-200"
             }`}
           >
             2
@@ -157,7 +157,7 @@ export function PatientMedicationsList({
           <button
             type="button"
             onClick={() => onPageChange(Math.min(2, currentPage + 1))}
-            className="px-3.5 py-1.5 rounded-[6px] border-0 bg-app-bg text-xs font-semibold text-slate-600 hover:bg-slate-200 transition-colors cursor-pointer shadow-2xs"
+            className="px-3.5 py-1.5 rounded-[6px] border-0 bg-(--background) text-xs font-semibold text-slate-600 hover:bg-slate-200 transition-colors cursor-pointer shadow-2xs"
           >
             Next
           </button>

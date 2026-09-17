@@ -26,7 +26,7 @@ interface MasterFilterToolbarProps {
   sortOptions?: FilterOption[];
   onSortSelect?: (value: string, label: string) => void;
 
-  // Variant prop to support bg-app-bg or white background
+  // Variant prop to support bg-(--background) or white background
   variant?: "tinted" | "white";
   className?: string;
 }
@@ -73,23 +73,23 @@ export function MasterFilterToolbar({
   const isFilterActive = filterLabel !== "Monthly" && filterLabel !== "Filter";
   const isSortActive = sortLabel !== "Sort by";
 
-  // Dynamic conditional classes using bg-app-bg with 0 borders for tinted variant
+  // Dynamic conditional classes using bg-(--background) with 0 borders for tinted variant
   const baseBgClass =
     variant === "white"
-      ? "bg-white border border-slate-200/80 text-[#0f172a] hover:bg-slate-50"
-      : "bg-app-bg border-0 text-[#0f172a] hover:opacity-90";
+      ? "bg-(--card) hover:bg-(--card-hover)"
+      : "bg-(--card) hover:opacity-90";
 
   const searchBgClass =
     variant === "white"
-      ? "bg-white border border-slate-200/80 focus-within:bg-white"
-      : "bg-app-bg border-0 focus-within:bg-white";
+      ? "bg-(--card) focus-within:bg-(--card-hover)"
+      : "bg-(--background) border-0 focus-within:bg-(--card)";
 
   // Icon container background: locked to #CCDFFF when inactive, changes when active/open
   const getIconContainerClass = (isActiveOrOpen: boolean) => {
     if (isActiveOrOpen) {
-      return "bg-blue-200 text-blue-800";
+      return "bg-(--background)";
     }
-    return "bg-[#CCDFFF] text-blue-950";
+    return "bg-(--background)";
   };
 
   return (
@@ -100,22 +100,22 @@ export function MasterFilterToolbar({
       {/* 1. Search Pill Component */}
       {showSearch && (
         <div
-          className={`flex h-[45px] w-[140px] items-center rounded-full pl-[16px] pr-[5px] shadow-2xs transition-all duration-300 ease-in-out focus-within:w-56 ${searchBgClass}`}
+          className={`flex h-11.25 w-35 items-center rounded-full pl-4 pr-1.25 shadow-2xs transition-all duration-300 ease-in-out focus-within:w-56 ${searchBgClass}`}
         >
           <input
             type="text"
             value={searchValue}
             onChange={onSearchChange}
             placeholder={searchPlaceholder}
-            className="min-w-0 flex-1 bg-transparent p-0 text-xs sm:text-sm font-medium text-[#0f172a] outline-none placeholder:text-slate-400"
+            className="min-w-0 flex-1 bg-transparent p-0 text-xs sm:text-sm font-medium text-(--text) outline-none placeholder:text-(--text)"
           />
           <button
             type="button"
             onClick={onSearchIconClick}
             aria-label="Search action"
-            className="flex h-[35px] w-[35px] shrink-0 items-center justify-center rounded-full shadow-2xs transition-colors bg-[#CCDFFF] text-blue-950 hover:bg-[#b8d2ff]"
+            className="flex h-8.75 w-8.75 shrink-0 items-center justify-center rounded-full shadow-2xs transition-colors bg-(--background) hover:bg-(--background-hover)"
           >
-            <SlidersHorizontal className="h-3.5 w-3.5 stroke-[2]" />
+            <SlidersHorizontal className="h-3.5 w-3.5 stroke-2" />
           </button>
         </div>
       )}
@@ -124,9 +124,9 @@ export function MasterFilterToolbar({
       {showFilter && (
         <div className="relative flex items-center">
           <div
-            className={`flex items-center gap-1.5 overflow-hidden transition-all duration-300 ease-in-out bg-white rounded-full border border-blue-200 shadow-sm mr-2 ${
+            className={`flex items-center gap-1.5 overflow-hidden transition-all duration-300 ease-in-out bg-(--card) rounded-full shadow-sm mr-2 ${
               isFilterOpen
-                ? "max-w-[400px] opacity-100 px-3 py-1.5"
+                ? "max-w-100 opacity-100 px-3 py-1.5"
                 : "max-w-0 opacity-0 px-0 py-1.5 border-transparent pointer-events-none"
             }`}
           >
@@ -142,8 +142,8 @@ export function MasterFilterToolbar({
                   }}
                   className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all whitespace-nowrap flex items-center gap-1.5 ${
                     isSelected
-                      ? "bg-blue-600 text-white shadow-xs"
-                      : "bg-app-bg text-[#0f172a] hover:bg-blue-100/60 hover:text-blue-700"
+                      ? "bg-(--button) text-(--button-text) shadow-xs"
+                      : "bg-(--background) hover:bg-(--background-hover)"
                   }`}
                 >
                   {isSelected && <Check className="h-3 w-3 stroke-[2.5]" />}
@@ -159,19 +159,19 @@ export function MasterFilterToolbar({
               setIsFilterOpen(!isFilterOpen);
               setIsSortOpen(false);
             }}
-            className={`flex h-[45px] w-[121px] shrink-0 items-center justify-between rounded-full pl-4 pr-[5px] text-xs sm:text-sm font-semibold transition-all duration-300 cursor-pointer shadow-2xs ${
+            className={`flex h-11.25 w-30.25 shrink-0 items-center justify-between rounded-full pl-4 pr-1.25 text-xs sm:text-sm font-semibold transition-all duration-300 cursor-pointer shadow-2xs ${
               isFilterActive || isFilterOpen
-                ? "bg-blue-100/80 border border-blue-300 text-blue-700 ring-2 ring-blue-500/10"
+                ? "bg-(--card) hover:bg-(--card-hover)"
                 : baseBgClass
             }`}
           >
             <span className="truncate">{filterLabel}</span>
             <span
-              className={`flex h-[35px] w-[35px] shrink-0 items-center justify-center rounded-full transition-colors shadow-2xs ${getIconContainerClass(
+              className={`flex h-8.75 w-8.75 shrink-0 items-center justify-center rounded-full transition-colors shadow-2xs ${getIconContainerClass(
                 isFilterActive || isFilterOpen,
               )}`}
             >
-              <SlidersHorizontal className="h-3.5 w-3.5 stroke-[2]" />
+              <SlidersHorizontal className="h-3.5 w-3.5 stroke-2" />
             </span>
           </button>
         </div>
@@ -181,9 +181,9 @@ export function MasterFilterToolbar({
       {showSort && (
         <div className="relative flex items-center">
           <div
-            className={`flex items-center gap-1.5 overflow-hidden transition-all duration-300 ease-in-out bg-white rounded-full border border-blue-200 shadow-sm mr-2 ${
+            className={`flex items-center gap-1.5 overflow-hidden transition-all duration-300 ease-in-out bg-(--card) rounded-full border border-blue-200 shadow-sm mr-2 ${
               isSortOpen
-                ? "max-w-[400px] opacity-100 px-3 py-1.5"
+                ? "max-w-100 opacity-100 px-3 py-1.5"
                 : "max-w-0 opacity-0 px-0 py-1.5 border-transparent pointer-events-none"
             }`}
           >
@@ -200,7 +200,7 @@ export function MasterFilterToolbar({
                   className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all whitespace-nowrap flex items-center gap-1.5 ${
                     isSelected
                       ? "bg-blue-600 text-white shadow-xs"
-                      : "bg-app-bg text-[#0f172a] hover:bg-blue-100/60 hover:text-blue-700"
+                      : "bg-(--background) text-[#0f172a] hover:bg-blue-100/60 hover:text-blue-700"
                   }`}
                 >
                   {isSelected && <Check className="h-3 w-3 stroke-[2.5]" />}
@@ -216,7 +216,7 @@ export function MasterFilterToolbar({
               setIsSortOpen(!isSortOpen);
               setIsFilterOpen(false);
             }}
-            className={`flex h-[45px] w-[121px] shrink-0 items-center justify-between rounded-full pl-4 pr-[5px] text-xs sm:text-sm font-semibold transition-all duration-300 cursor-pointer shadow-2xs ${
+            className={`flex h-11.25 w-30.25 shrink-0 items-center justify-between rounded-full pl-4 pr-1.25 text-xs sm:text-sm font-semibold transition-all duration-300 cursor-pointer shadow-2xs ${
               isSortActive || isSortOpen
                 ? "bg-blue-100/80 border border-blue-300 text-blue-700 ring-2 ring-blue-500/10"
                 : baseBgClass
@@ -224,11 +224,11 @@ export function MasterFilterToolbar({
           >
             <span className="truncate">{sortLabel}</span>
             <span
-              className={`flex h-[35px] w-[35px] shrink-0 items-center justify-center rounded-full transition-colors shadow-2xs ${getIconContainerClass(
+              className={`flex h-8.75 w-8.75 shrink-0 items-center justify-center rounded-full transition-colors shadow-2xs ${getIconContainerClass(
                 isSortActive || isSortOpen,
               )}`}
             >
-              <SlidersHorizontal className="h-3.5 w-3.5 stroke-[2]" />
+              <SlidersHorizontal className="h-3.5 w-3.5 stroke-2" />
             </span>
           </button>
         </div>

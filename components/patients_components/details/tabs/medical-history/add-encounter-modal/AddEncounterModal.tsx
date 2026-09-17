@@ -44,7 +44,7 @@ export function AddEncounterModal({ isOpen, onClose }: AddEncounterModalProps) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 10 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="relative z-10 w-full max-w-3xl bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden my-6 flex flex-col max-h-[92vh]"
+            className="relative z-10 w-full max-w-3xl bg-(--card) rounded-2xl shadow-2xl border border-slate-200 overflow-hidden my-6 flex flex-col max-h-[92vh]"
           >
             {/* Modal Header Bar */}
             <div className="flex items-center justify-between px-8 pt-6 pb-4 border-b border-slate-100">
@@ -157,7 +157,7 @@ export function AddEncounterModal({ isOpen, onClose }: AddEncounterModalProps) {
                 <div className="flex items-center gap-3">
                   <button
                     type="button"
-                    className="px-6 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-700 text-sm font-semibold hover:bg-slate-50 transition-colors shadow-2xs cursor-pointer"
+                    className="px-6 py-2.5 rounded-xl border border-slate-300 bg-(--card) text-slate-700 text-sm font-semibold hover:bg-slate-50 transition-colors shadow-2xs cursor-pointer"
                   >
                     Save Draft
                   </button>

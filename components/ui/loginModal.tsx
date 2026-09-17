@@ -60,7 +60,7 @@ export function LoginModal({
       />
 
       {/* Modal Card with pop-in scale animation */}
-      <div className="relative w-full max-w-sm rounded-2xl bg-white p-6 shadow-2xl border border-gray-100 z-10 animate-[scaleUp_0.25s_cubic-bezier(0.16,1,0.3,1)] text-center">
+      <div className="relative w-full max-w-sm rounded-2xl bg-(--card) p-6 shadow-2xl border border-gray-100 z-10 animate-[scaleUp_0.25s_cubic-bezier(0.16,1,0.3,1)] text-center">
         {/* Close Button */}
         <button
           onClick={onClose}

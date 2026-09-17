@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { Calendar } from "lucide-react";
+import { Calendar, CalendarDays } from "lucide-react";
 import { FollowUpItem } from "@/lib/validations/dashboard";
 import { mockFollowUps } from "@/mock/mockDashboardData";
 
@@ -17,21 +17,21 @@ export function FollowUpsWidget({
 }: FollowUpsWidgetProps) {
   return (
     <div
-      className={`bg-white  p-6 sm:p-8 shadow-xs rounded-[16px] space-y-6 overflow-hidden ${className}`}
+      className={`bg-(--card)  p-5 shadow-xs rounded-xl space-y-4 overflow-hidden ${className}`}
     >
       {/* Widget Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3.5 min-w-0">
-          <div className="w-12 h-12 rounded-2xl bg-blue-50/80 flex items-center justify-center text-blue-600 shadow-inner shrink-0">
-            <Calendar className="w-6 h-6" />
+          <div className="h-10 w-10 rounded-full bg-(--info-icon-bg) text-(--primary) flex items-center justify-center shrink-0">
+            <CalendarDays />
           </div>
-          <h2 className="text-xl font-bold text-slate-900 tracking-tight truncate">
+          <h2 className="text-sm font-bold tracking-tight truncate">
             Follow-ups
           </h2>
         </div>
         <Link
           href="/dashboard/follow-ups"
-          className="text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors shrink-0"
+          className="text-sm font-semibold text-(--active-track) hover:text-(--primary) transition-colors shrink-0"
         >
           View All
         </Link>
@@ -40,15 +40,15 @@ export function FollowUpsWidget({
       {/* Status Legend Indicators */}
       <div className="flex items-center space-x-4 sm:space-x-6 text-[11px] xl:text-xs text-slate-500 font-medium pt-1 flex-wrap gap-y-2">
         <div className="flex items-center space-x-2">
-          <span className="w-2 h-2 rounded-full bg-blue-600 inline-block shrink-0"></span>
+          <span className="w-2 h-2 rounded-full bg-(--graph-col-1) inline-block shrink-0"></span>
           <span>Available</span>
         </div>
         <div className="flex items-center space-x-2">
-          <span className="w-2 h-2 rounded-full bg-blue-200 inline-block shrink-0"></span>
+          <span className="w-2 h-2 rounded-full bg-(--graph-col-2) inline-block shrink-0"></span>
           <span>Unselected</span>
         </div>
         <div className="flex items-center space-x-2">
-          <span className="w-2 h-2 rounded-full bg-slate-300 inline-block shrink-0"></span>
+          <span className="w-2 h-2 rounded-full bg-(--graph-col-3) inline-block shrink-0"></span>
           <span>Unavailable</span>
         </div>
       </div>
@@ -65,13 +65,13 @@ export function FollowUpsWidget({
           return (
             <div
               key={item.id}
-              className="bg-[#EBF5FF] hover:bg-blue-100/60 transition-all p-4 sm:p-5 rounded-lg  flex items-center justify-between gap-3"
+              className="bg-(--info-card) hover:bg-blue-100/60 transition-all p-4 sm:p-5 rounded-lg  flex items-center justify-between gap-3"
             >
               <div className="space-y-1 min-w-0 pr-2">
-                <span className="text-[11px] xl:text-xs font-bold text-blue-600 tracking-wide uppercase block truncate">
+                <span className="text-[11px] xl:text-xs font-bold text-(--info-title) tracking-wide uppercase block truncate">
                   {item.time}
                 </span>
-                <h3 className="text-sm sm:text-base font-bold text-slate-900 truncate">
+                <h3 className="text-sm sm:text-base font-bold truncate">
                   {item.name}
                 </h3>
                 <p className="text-[11px] xl:text-xs text-slate-500 font-medium truncate">

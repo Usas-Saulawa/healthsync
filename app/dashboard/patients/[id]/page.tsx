@@ -70,7 +70,7 @@ function PatientDetailContent({ params }: PatientDetailPageProps) {
   };
 
   return (
-    <div className="w-full min-h-screen bg-app-bg pb-10 pt-6 space-y-5">
+    <div className="w-full min-h-screen bg-(--background) pb-10 pt-6 space-y-5">
       <Header />
 
       {/* Pinned Patient Profile Header */}
@@ -84,36 +84,22 @@ function PatientDetailContent({ params }: PatientDetailPageProps) {
 
       {/* Dynamic Tab Content Renderer Container */}
       <div className="w-full px-4 sm:px-6">
-        {activeTab === "Overview" && <PatientOverviewTab />}
-
-        {activeTab === "Medical History" && (
-          <PatientMedicalHistoryTab patientId={patientId} />
+        {{
+          Overview: <PatientOverviewTab />,
+          "Medical History": <PatientMedicalHistoryTab patientId={patientId} />,
+          Vitals: <PatientVitalTab />,
+          Medications: <PatientMedicationsTab />,
+          "Encounter Notes": <PatientEncounterTab />,
+          "Lab Results": <PatientLabResultTab />,
+          Radiology: <PatientRadiologyTab />,
+          "Order & Follow Ups": <PatientOrderAndFollowUpsTab />,
+          "Admission & Discharge": <AdmissionAndDischargeTab />,
+          Immunization: <PatientImmunizationTab />,
+        }[activeTab] ?? (
+          <div className="bg-(--card) rounded-2xl p-6 text-slate-500 shadow-xs ">
+            {activeTab} module under development.
+          </div>
         )}
-
-        {activeTab === "Vitals" && <PatientVitalTab />}
-        {activeTab === "Medications" && <PatientMedicationsTab />}
-        {activeTab === "Encounter Notes" && <PatientEncounterTab />}
-        {activeTab === "Lab Results" && <PatientLabResultTab />}
-        {activeTab === "Radiology" && <PatientRadiologyTab />}
-        {activeTab === "Order & Follow Ups" && <PatientOrderAndFollowUpsTab />}
-        {activeTab === "Admission & Discharge" && <AdmissionAndDischargeTab />}
-        {activeTab === "Immunization" && <PatientImmunizationTab />}
-
-        {/* Placeholders for other tabs */}
-        {activeTab !== "Overview" &&
-          activeTab !== "Medical History" &&
-          activeTab !== "Vitals" &&
-          activeTab !== "Medications" &&
-          activeTab !== "Encounter Notes" &&
-          activeTab !== "Lab Results" &&
-          activeTab !== "Radiology" &&
-          activeTab !== "Order & Follow Ups" &&
-          activeTab !== "Admission & Discharge" &&
-          activeTab !== "Immunization" && (
-            <div className="bg-white rounded-2xl p-6 text-slate-500 shadow-xs ">
-              {activeTab} module under development.
-            </div>
-          )}
       </div>
     </div>
   );

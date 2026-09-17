@@ -62,7 +62,7 @@ export function PatientProfileTabs({
                   "border transition-all duration-200 ease-out cursor-pointer",
                   isActive
                     ? "border-[#2167F3] bg-[#2167F3] text-white shadow-sm shadow-blue-500/25"
-                    : "border-slate-200/80 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50",
+                    : "border-slate-200/80 bg-(--card) text-slate-700 hover:border-slate-300 hover:bg-slate-50",
                 ].join(" ")}
               >
                 {tab}

@@ -51,7 +51,7 @@ export function PatientVitalsSummaryCards() {
       {vitalsCardsData.map((card) => (
         <div
           key={card.id}
-          className="bg-white rounded-[16px] shadow-xs p-5 flex flex-col justify-between space-y-4 hover:shadow-md transition-shadow"
+          className="bg-(--card) rounded-[16px] shadow-xs p-5 flex flex-col justify-between space-y-4 hover:shadow-md transition-shadow"
         >
           {/* Card Header: Vital Title */}
           <h3 className="text-sm font-bold text-[#0f172a] tracking-tight">

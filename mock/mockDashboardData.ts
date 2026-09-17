@@ -39,7 +39,7 @@ export const mockDashboardMetrics = {
   topTreatments: {
     count: 320,
     stats: [
-      { name: "Surgery", value: 200, color: "bg-primary-600" },
+      { name: "Surgery", value: 200, color: "bg-(--primary)" },
       { name: "Consultation", value: 40, color: "bg-primary-200" },
       { name: "Diagnosis", value: 80, color: "bg-gray-200" },
     ],

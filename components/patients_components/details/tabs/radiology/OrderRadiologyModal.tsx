@@ -81,7 +81,7 @@ export function OrderRadiologyModal({
 
       {/* Modal Container */}
       <div
-        className={`relative w-full max-w-[580px] max-h-[90vh] bg-white shadow-2xl flex flex-col transform transition-all duration-300 ease-in-out ${
+        className={`relative w-full max-w-[580px] max-h-[90vh] bg-(--card) shadow-2xl flex flex-col transform transition-all duration-300 ease-in-out ${
           isVisible ? "scale-100 opacity-100" : "scale-95 opacity-0"
         }`}
         style={{
@@ -114,7 +114,7 @@ export function OrderRadiologyModal({
             <label className="text-xs font-semibold text-slate-700">
               Study Category
             </label>
-            <div className="w-full h-[42px] bg-white border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center justify-between text-xs text-slate-900 cursor-pointer">
+            <div className="w-full h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center justify-between text-xs text-slate-900 cursor-pointer">
               <span>{studyCategory}</span>
               <ChevronDown className="h-4 w-4 text-slate-400" />
             </div>
@@ -125,7 +125,7 @@ export function OrderRadiologyModal({
             <label className="text-xs font-semibold text-slate-700">
               Study Type
             </label>
-            <div className="w-full h-[42px] bg-white border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center gap-2.5">
+            <div className="w-full h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center gap-2.5">
               <Search className="h-4 w-4 text-slate-400 shrink-0" />
               <input
                 type="text"
@@ -142,7 +142,7 @@ export function OrderRadiologyModal({
             <label className="text-xs font-semibold text-slate-700">
               Body Part
             </label>
-            <div className="w-full h-[42px] bg-white border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center justify-between text-xs text-slate-900 cursor-pointer">
+            <div className="w-full h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center justify-between text-xs text-slate-900 cursor-pointer">
               <span>{bodyPart}</span>
               <ChevronDown className="h-4 w-4 text-slate-400" />
             </div>
@@ -180,7 +180,7 @@ export function OrderRadiologyModal({
             <label className="text-xs font-semibold text-slate-700">
               Clinical Indication
             </label>
-            <div className="w-full h-[42px] bg-white border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center">
+            <div className="w-full h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center">
               <input
                 type="text"
                 placeholder="Enter clinical reason for ordering..."
@@ -196,7 +196,7 @@ export function OrderRadiologyModal({
             <label className="text-xs font-semibold text-slate-700">
               Special Instructions
             </label>
-            <div className="w-full h-[70px] bg-white border border-[#D1D5DB] rounded-[8px] p-3">
+            <div className="w-full h-[70px] bg-(--card) border border-[#D1D5DB] rounded-[8px] p-3">
               <textarea
                 placeholder="Additional instructions for the radiologist..."
                 value={specialInstructions}
@@ -223,7 +223,7 @@ export function OrderRadiologyModal({
                   }}
                 >
                   <div
-                    className="w-[20px] h-[20px] rounded-full bg-white shadow-md transform transition-transform duration-200"
+                    className="w-[20px] h-[20px] rounded-full bg-(--card) shadow-md transform transition-transform duration-200"
                     style={{
                       transform: contrastRequired
                         ? "translateX(20px)"
@@ -252,7 +252,7 @@ export function OrderRadiologyModal({
                   }}
                 >
                   <div
-                    className="w-[20px] h-[20px] rounded-full bg-white shadow-md transform transition-transform duration-200"
+                    className="w-[20px] h-[20px] rounded-full bg-(--card) shadow-md transform transition-transform duration-200"
                     style={{
                       transform: sedationRequired
                         ? "translateX(20px)"
@@ -274,7 +274,7 @@ export function OrderRadiologyModal({
               <label className="text-xs font-semibold text-slate-700">
                 Frequency
               </label>
-              <div className="w-full h-[42px] bg-white border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center justify-between text-xs text-slate-900 cursor-pointer">
+              <div className="w-full h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center justify-between text-xs text-slate-900 cursor-pointer">
                 <span>{frequency}</span>
                 <ChevronDown className="h-4 w-4 text-slate-400" />
               </div>
@@ -287,7 +287,7 @@ export function OrderRadiologyModal({
               </label>
               <div className="flex items-center gap-2">
                 {/* Native Date Input Box */}
-                <div className="relative flex-1 h-[42px] bg-white border border-[#D1D5DB] rounded-[8px] px-3 flex items-center text-xs text-slate-900">
+                <div className="relative flex-1 h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3 flex items-center text-xs text-slate-900">
                   <input
                     type="date"
                     value={scheduledDate}
@@ -298,7 +298,7 @@ export function OrderRadiologyModal({
                 </div>
 
                 {/* Native Time Input Box */}
-                <div className="relative w-[110px] h-[42px] bg-white border border-[#D1D5DB] rounded-[8px] px-3 flex items-center text-xs text-slate-900">
+                <div className="relative w-[110px] h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3 flex items-center text-xs text-slate-900">
                   <input
                     type="time"
                     value={scheduledTime}
@@ -313,11 +313,11 @@ export function OrderRadiologyModal({
         </div>
 
         {/* Modal Footer */}
-        <div className="border-t border-[#E5E7EB] px-6 py-4 flex items-center justify-between shrink-0 bg-white rounded-b-[16px]">
+        <div className="border-t border-[#E5E7EB] px-6 py-4 flex items-center justify-between shrink-0 bg-(--card) rounded-b-[16px]">
           <button
             type="button"
             onClick={onClose}
-            className="w-[88px] h-[38px] bg-white border border-[#D1D5DB] text-slate-700 text-xs font-semibold rounded-[8px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs"
+            className="w-[88px] h-[38px] bg-(--card) border border-[#D1D5DB] text-slate-700 text-xs font-semibold rounded-[8px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs"
           >
             Cancel
           </button>

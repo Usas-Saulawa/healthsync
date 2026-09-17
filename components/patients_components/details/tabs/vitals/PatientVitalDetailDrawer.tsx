@@ -54,7 +54,7 @@ export function PatientVitalDetailDrawer({
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", damping: 30, stiffness: 300 }}
-            className="relative w-full max-w-[608px] h-full bg-white shadow-2xl flex flex-col z-10 overflow-y-auto"
+            className="relative w-full max-w-[608px] h-full bg-(--card) shadow-2xl flex flex-col z-10 overflow-y-auto"
           >
             {/* Details Header (height: 126px, top offset: 45px) */}
             <div className="px-9 pt-[45px] pb-4 flex items-start justify-between min-h-[126px]">
@@ -109,7 +109,7 @@ export function PatientVitalDetailDrawer({
             <div className="mx-[38px] my-2 border-t border-dashed border-[#DCDEE0]" />
 
             {/* Inner Drawer Details Container (Dynamic Height) */}
-            <div className="mx-[36px] mt-4 w-[535px] bg-app-bg rounded-[17px] p-[21px] shadow-2xs">
+            <div className="mx-[36px] mt-4 w-[535px] bg-(--background) rounded-[17px] p-[21px] shadow-2xs">
               <div className="space-y-3.5">
                 <div className="flex items-center justify-between text-xs py-1 border-b border-slate-200/60">
                   <span className="text-slate-400 font-normal">
@@ -189,7 +189,7 @@ export function PatientVitalDetailDrawer({
               <button
                 type="button"
                 onClick={onExportPDF}
-                className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 border border-slate-200 bg-white text-slate-900 text-xs font-bold rounded-xl hover:bg-slate-50 transition-colors shadow-xs cursor-pointer"
+                className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 border border-slate-200 bg-(--card) text-slate-900 text-xs font-bold rounded-xl hover:bg-slate-50 transition-colors shadow-xs cursor-pointer"
               >
                 <Download className="h-4 w-4 text-slate-500" />
                 Get PDF Vitals

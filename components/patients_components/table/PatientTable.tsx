@@ -99,12 +99,12 @@ export function PatientTable({
     : "grid-cols-[44px_1.42fr_1.15fr_0.9fr_1.15fr_1.55fr_1fr_0.95fr]";
 
   return (
-    <div className="w-full px-7 bg-app-bg pb-6">
+    <div className="w-full px-7 bg-(--background) pb-6">
       <div className="w-full overflow-x-auto">
-        <div className="min-w-[1100px] w-full overflow-hidden rounded-[14px] bg-white shadow-2xs">
+        <div className="min-w-20 w-full overflow-hidden rounded-[14px] bg-(--card) shadow-2xs">
           {/* Table heading - Perfectly aligned with px-7 (28px) matching the header */}
           <div
-            className={`grid h-[91px] ${gridColumnsClass} items-center px-[28px] text-[13px] font-medium text-[#64748B]`}
+            className={`grid h-22.75 ${gridColumnsClass} items-center px-7 text-[13px] font-medium text-[#64748B]`}
           >
             {/* Select all */}
             <div className="flex items-center">
@@ -113,7 +113,7 @@ export function PatientTable({
                 aria-label="Select all patients"
                 checked={isAllSelected}
                 onChange={handleSelectAll}
-                className="h-[13px] w-[13px] cursor-pointer appearance-none rounded-[2px] border-[1.5px] border-[#71859A] bg-white checked:border-[#1769FF] checked:bg-[#1769FF]"
+                className="h-[13px] w-[13px] cursor-pointer appearance-none rounded-[2px] border-[1.5px] border-[#71859A] bg-(--card) checked:border-[#1769FF] checked:bg-[#1769FF]"
               />
             </div>
 
@@ -205,7 +205,7 @@ export function PatientTable({
           </div>
 
           {/* Patient rows container */}
-          <div className="space-y-[7px] px-[20px] pb-4">
+          <div className="space-y-1.75 px-5 pb-4">
             {paginatedPatients.map((patient) => {
               const isSelected = selectedIds.includes(patient.id);
 
@@ -295,7 +295,7 @@ export function PatientTable({
           </div>
 
           {/* Pagination configured for 7 items per page */}
-          <div className="flex h-[74px] items-center justify-between border-t border-slate-100 px-[28px] bg-white">
+          <div className="flex h-[74px] items-center justify-between border-t border-slate-100 px-[28px] bg-(--card)">
             <p className="text-[12px] font-normal leading-[16px] text-[#64748B]">
               Showing {Math.min((currentPage - 1) * 7 + 1, totalPatients)}-
               {Math.min(currentPage * 7, totalPatients)} of {totalPatients}{" "}
@@ -308,7 +308,7 @@ export function PatientTable({
                 type="button"
                 onClick={() => onPageChange?.(Math.max(1, currentPage - 1))}
                 disabled={currentPage === 1}
-                className="flex h-[35px] items-center justify-center rounded-[6px] border border-[#E1E6ED] bg-white px-[12px] text-[12px] font-medium text-[#1E293B] transition-colors hover:bg-[#F7F9FC] disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
+                className="flex h-[35px] items-center justify-center rounded-[6px] border border-[#E1E6ED] bg-(--card) px-[12px] text-[12px] font-medium text-[#1E293B] transition-colors hover:bg-[#F7F9FC] disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
               >
                 Previous
               </button>
@@ -330,7 +330,7 @@ export function PatientTable({
                         "transition-colors cursor-pointer",
                         isCurrentPage
                           ? "bg-[#2167F3] text-white"
-                          : "border border-[#E1E6ED] bg-white text-[#1E293B] hover:bg-[#F7F9FC]",
+                          : "border border-[#E1E6ED] bg-(--card) text-[#1E293B] hover:bg-[#F7F9FC]",
                       ].join(" ")}
                     >
                       {pageNumber}
@@ -346,7 +346,7 @@ export function PatientTable({
                   onPageChange?.(Math.min(totalPages, currentPage + 1))
                 }
                 disabled={currentPage === totalPages}
-                className="flex h-[35px] items-center justify-center rounded-[6px] border border-[#E1E6ED] bg-white px-[15px] text-[12px] font-medium text-[#1E293B] transition-colors hover:bg-[#F7F9FC] disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
+                className="flex h-[35px] items-center justify-center rounded-[6px] border border-[#E1E6ED] bg-(--card) px-[15px] text-[12px] font-medium text-[#1E293B] transition-colors hover:bg-[#F7F9FC] disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
               >
                 Next
               </button>

@@ -54,7 +54,7 @@ export function AddPrescriptionModal({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 15 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="relative w-full max-w-[580px] bg-white rounded-2xl shadow-xl overflow-hidden z-10 border border-slate-100"
+            className="relative w-full max-w-[580px] bg-(--card) rounded-2xl shadow-xl overflow-hidden z-10 border border-slate-100"
           >
             {/* Modal Header (Figma specs: h: 61px, padding: 20px top, 24px sides, 16px bottom, border-bottom 1px solid #E5E7EB) */}
             <div className="flex items-center justify-between px-6 pt-5 pb-4 border-b border-[#E5E7EB]">
@@ -91,7 +91,7 @@ export function AddPrescriptionModal({
                         medicationName: e.target.value,
                       })
                     }
-                    className="w-full pl-9 pr-4 py-2.5 bg-white border border-slate-200 rounded-[8px] text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600"
+                    className="w-full pl-9 pr-4 py-2.5 bg-(--card) border border-slate-200 rounded-[8px] text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600"
                   />
                 </div>
               </div>
@@ -110,7 +110,7 @@ export function AddPrescriptionModal({
                     onChange={(e) =>
                       setFormData({ ...formData, dosage: e.target.value })
                     }
-                    className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-[8px] text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600"
+                    className="w-full px-3.5 py-2.5 bg-(--card) border border-slate-200 rounded-[8px] text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600"
                   />
                 </div>
 
@@ -125,7 +125,7 @@ export function AddPrescriptionModal({
                       onChange={(e) =>
                         setFormData({ ...formData, route: e.target.value })
                       }
-                      className="w-full appearance-none px-3.5 py-2.5 bg-white border border-slate-200 rounded-[8px] text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 cursor-pointer"
+                      className="w-full appearance-none px-3.5 py-2.5 bg-(--card) border border-slate-200 rounded-[8px] text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 cursor-pointer"
                     >
                       <option value="Oral">Oral</option>
                       <option value="Intravenous">Intravenous</option>
@@ -149,7 +149,7 @@ export function AddPrescriptionModal({
                       onChange={(e) =>
                         setFormData({ ...formData, frequency: e.target.value })
                       }
-                      className="w-full appearance-none px-3.5 py-2.5 bg-white border border-slate-200 rounded-[8px] text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 cursor-pointer"
+                      className="w-full appearance-none px-3.5 py-2.5 bg-(--card) border border-slate-200 rounded-[8px] text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 cursor-pointer"
                     >
                       <option value="Once Daily">Once Daily</option>
                       <option value="Twice Daily">Twice Daily</option>
@@ -177,7 +177,7 @@ export function AddPrescriptionModal({
                           durationNumber: e.target.value,
                         })
                       }
-                      className="w-full px-3 py-2.5 bg-white border border-slate-200 rounded-[8px] text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600"
+                      className="w-full px-3 py-2.5 bg-(--card) border border-slate-200 rounded-[8px] text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600"
                     />
                     <div className="relative">
                       <select
@@ -188,7 +188,7 @@ export function AddPrescriptionModal({
                             durationUnit: e.target.value,
                           })
                         }
-                        className="w-full appearance-none px-3 py-2.5 bg-white border border-slate-200 rounded-[8px] text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 cursor-pointer"
+                        className="w-full appearance-none px-3 py-2.5 bg-(--card) border border-slate-200 rounded-[8px] text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 cursor-pointer"
                       >
                         <option value="Days">Days</option>
                         <option value="Weeks">Weeks</option>
@@ -212,7 +212,7 @@ export function AddPrescriptionModal({
                     onChange={(e) =>
                       setFormData({ ...formData, quantity: e.target.value })
                     }
-                    className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-[8px] text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600"
+                    className="w-full px-3.5 py-2.5 bg-(--card) border border-slate-200 rounded-[8px] text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600"
                   />
                 </div>
 
@@ -227,7 +227,7 @@ export function AddPrescriptionModal({
                     onChange={(e) =>
                       setFormData({ ...formData, refills: e.target.value })
                     }
-                    className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-[8px] text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600"
+                    className="w-full px-3.5 py-2.5 bg-(--card) border border-slate-200 rounded-[8px] text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600"
                   />
                 </div>
               </div>
@@ -244,7 +244,7 @@ export function AddPrescriptionModal({
                   onChange={(e) =>
                     setFormData({ ...formData, notes: e.target.value })
                   }
-                  className="w-full p-3 bg-white border border-slate-200 rounded-[8px] text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 resize-none"
+                  className="w-full p-3 bg-(--card) border border-slate-200 rounded-[8px] text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 resize-none"
                 />
               </div>
 
@@ -253,7 +253,7 @@ export function AddPrescriptionModal({
                 <button
                   type="button"
                   onClick={onClose}
-                  className="px-5 py-2.5 rounded-[8px] border border-slate-200 bg-white text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors cursor-pointer"
+                  className="px-5 py-2.5 rounded-[8px] border border-slate-200 bg-(--card) text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors cursor-pointer"
                 >
                   Cancel
                 </button>

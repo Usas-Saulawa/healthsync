@@ -79,7 +79,7 @@ export function OrderLabTestModal({
 
       {/* Modal Container: responsive width and max-height constraints */}
       <div
-        className={`relative w-full max-w-[580px] max-h-[90vh] bg-white shadow-2xl flex flex-col transform transition-all duration-300 ease-in-out ${
+        className={`relative w-full max-w-[580px] max-h-[90vh] bg-(--card) shadow-2xl flex flex-col transform transition-all duration-300 ease-in-out ${
           isVisible ? "scale-100 opacity-100" : "scale-95 opacity-0"
         }`}
         style={{
@@ -112,7 +112,7 @@ export function OrderLabTestModal({
             <label className="text-xs font-semibold text-slate-700">
               Test Category
             </label>
-            <div className="w-full h-[42px] bg-white border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center justify-between text-xs text-slate-900 cursor-pointer">
+            <div className="w-full h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center justify-between text-xs text-slate-900 cursor-pointer">
               <span>{category}</span>
               <ChevronDown className="h-4 w-4 text-slate-400" />
             </div>
@@ -123,7 +123,7 @@ export function OrderLabTestModal({
             <label className="text-xs font-semibold text-slate-700">
               Test Name
             </label>
-            <div className="w-full h-[42px] bg-white border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center gap-2.5">
+            <div className="w-full h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center gap-2.5">
               <Search className="h-4 w-4 text-slate-400 shrink-0" />
               <input
                 type="text"
@@ -168,7 +168,7 @@ export function OrderLabTestModal({
             <label className="text-xs font-semibold text-slate-700">
               Clinical Indication
             </label>
-            <div className="w-full h-[42px] bg-white border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center">
+            <div className="w-full h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center">
               <input
                 type="text"
                 placeholder="Enter clinical reason for ordering..."
@@ -184,7 +184,7 @@ export function OrderLabTestModal({
             <label className="text-xs font-semibold text-slate-700">
               Special Instructions
             </label>
-            <div className="w-full h-[70px] bg-white border border-[#D1D5DB] rounded-[8px] p-3">
+            <div className="w-full h-[70px] bg-(--card) border border-[#D1D5DB] rounded-[8px] p-3">
               <textarea
                 placeholder="Additional instructions for the lab..."
                 value={specialInstructions}
@@ -201,7 +201,7 @@ export function OrderLabTestModal({
               <label className="text-xs font-semibold text-slate-700">
                 Specimen Type
               </label>
-              <div className="w-full h-[42px] bg-white border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center justify-between text-xs text-slate-900 cursor-pointer">
+              <div className="w-full h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center justify-between text-xs text-slate-900 cursor-pointer">
                 <span>{specimenType}</span>
                 <ChevronDown className="h-4 w-4 text-slate-400" />
               </div>
@@ -222,7 +222,7 @@ export function OrderLabTestModal({
                   }}
                 >
                   <div
-                    className="w-[20px] h-[20px] rounded-full bg-white shadow-md transform transition-transform duration-200"
+                    className="w-[20px] h-[20px] rounded-full bg-(--card) shadow-md transform transition-transform duration-200"
                     style={{
                       transform: fastingRequired
                         ? "translateX(20px)"
@@ -244,7 +244,7 @@ export function OrderLabTestModal({
               <label className="text-xs font-semibold text-slate-700">
                 Frequency
               </label>
-              <div className="w-full h-[42px] bg-white border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center justify-between text-xs text-slate-900 cursor-pointer">
+              <div className="w-full h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center justify-between text-xs text-slate-900 cursor-pointer">
                 <span>{frequency}</span>
                 <ChevronDown className="h-4 w-4 text-slate-400" />
               </div>
@@ -256,11 +256,11 @@ export function OrderLabTestModal({
                 Scheduled Date & Time
               </label>
               <div className="flex items-center gap-2">
-                <div className="flex-1 h-[42px] bg-white border border-[#D1D5DB] rounded-[8px] px-3 flex items-center justify-between text-xs text-slate-900 cursor-pointer">
+                <div className="flex-1 h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3 flex items-center justify-between text-xs text-slate-900 cursor-pointer">
                   <span>{scheduledDate}</span>
                   <Calendar className="h-3.5 w-3.5 text-slate-400 shrink-0" />
                 </div>
-                <div className="w-[100px] h-[42px] bg-white border border-[#D1D5DB] rounded-[8px] px-3 flex items-center justify-between text-xs text-slate-900 cursor-pointer">
+                <div className="w-[100px] h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3 flex items-center justify-between text-xs text-slate-900 cursor-pointer">
                   <span>{scheduledTime}</span>
                   <Clock className="h-3.5 w-3.5 text-slate-400 shrink-0" />
                 </div>
@@ -270,11 +270,11 @@ export function OrderLabTestModal({
         </div>
 
         {/* Modal Footer */}
-        <div className="border-t border-[#E5E7EB] px-6 py-4 flex items-center justify-between shrink-0 bg-white rounded-b-[16px]">
+        <div className="border-t border-[#E5E7EB] px-6 py-4 flex items-center justify-between shrink-0 bg-(--card) rounded-b-[16px]">
           <button
             type="button"
             onClick={onClose}
-            className="w-[88px] h-[38px] bg-white border border-[#D1D5DB] text-slate-700 text-xs font-semibold rounded-[8px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs"
+            className="w-[88px] h-[38px] bg-(--card) border border-[#D1D5DB] text-slate-700 text-xs font-semibold rounded-[8px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs"
           >
             Cancel
           </button>

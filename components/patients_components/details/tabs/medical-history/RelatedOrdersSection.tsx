@@ -83,14 +83,14 @@ const ordersData = [
 
 export function RelatedOrdersSection() {
   return (
-    <div className="w-full bg-white rounded-2xl border border-slate-200/80 shadow-xs p-6 space-y-4">
+    <div className="w-full bg-(--card) rounded-2xl border border-slate-200/80 shadow-xs p-6 space-y-4">
       <h3 className="text-lg font-bold text-[#0f172a]">Related Orders</h3>
 
       {/* Scrollable Container capped strictly to 4 items */}
       <div className="max-h-[295px] overflow-y-auto pr-2 custom-scrollbar">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
-            <thead className="sticky top-0 bg-white z-10">
+            <thead className="sticky top-0 bg-(--card) z-10">
               <tr className="border-b border-slate-200 text-xs font-semibold text-slate-400">
                 <th className="pb-3 pl-2">Order Name</th>
                 <th className="pb-3">Category</th>

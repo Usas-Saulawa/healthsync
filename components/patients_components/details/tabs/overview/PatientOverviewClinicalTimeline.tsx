@@ -86,7 +86,7 @@ export function PatientOverviewClinicalTimeline({
   items = mockTimelineItems,
 }: PatientOverviewClinicalTimelineProps) {
   return (
-    <section className="w-full overflow-hidden rounded-[15px] bg-white px-[45px] pb-[27px] pt-[27px]">
+    <section className="w-full overflow-hidden rounded-[15px] bg-(--card) px-[45px] pb-[27px] pt-[27px]">
       {/* Section title */}
       <h2 className="text-[15px] font-medium leading-[20px] text-[#111827]">
         Clinical Timeline
@@ -136,7 +136,7 @@ export function PatientOverviewClinicalTimeline({
                   "min-h-[66px] rounded-[7px] border px-[14px] py-[14px]",
                   index === 0
                     ? "border-transparent bg-[#EAF4FF]"
-                    : "border-[#E2E7EE] bg-white",
+                    : "border-[#E2E7EE] bg-(--card)",
                 ].join(" ")}
               >
                 {/* Event heading */}

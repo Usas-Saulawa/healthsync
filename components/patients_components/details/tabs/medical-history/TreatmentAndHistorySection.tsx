@@ -59,7 +59,7 @@ const encounterData = [
 
 export function TreatmentAndHistorySection() {
   return (
-    <div className="w-full bg-white rounded-2xl border border-slate-200/80 shadow-xs p-6 space-y-6">
+    <div className="w-full bg-(--card) rounded-2xl border border-slate-200/80 shadow-xs p-6 space-y-6">
       <h3 className="text-lg font-bold text-[#0f172a]">
         Treatment & Encounter History
       </h3>

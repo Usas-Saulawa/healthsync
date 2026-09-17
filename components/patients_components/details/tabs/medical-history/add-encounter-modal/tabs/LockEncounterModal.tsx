@@ -41,7 +41,7 @@ export function LockEncounterModal({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 10 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="relative z-10 w-full max-w-lg bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden p-8 flex flex-col items-center text-center space-y-6"
+            className="relative z-10 w-full max-w-lg bg-(--card) rounded-2xl shadow-2xl border border-slate-200 overflow-hidden p-8 flex flex-col items-center text-center space-y-6"
           >
             {/* Patient Avatar / Icon */}
             <div className="relative w-16 h-16 rounded-full overflow-hidden bg-amber-100 flex items-center justify-center shadow-inner">

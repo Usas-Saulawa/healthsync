@@ -5,6 +5,11 @@ import Link from "next/link";
 import { Users } from "lucide-react";
 import { PatientListItem } from "@/lib/validations/dashboard";
 import { mockPatientsList } from "@/mock/mockDashboardData";
+import { PatientTable } from "../patients_components/table/PatientTable";
+import { useState } from "react";
+import { DataTable } from "../ui/Table";
+import useColumns from "@/hooks/addons/useColumns";
+import { useRouter } from "next/navigation";
 
 interface PatientsWidgetProps {
   patients?: PatientListItem[];
@@ -15,109 +20,61 @@ export function PatientsWidget({
   patients = mockPatientsList,
   className = "",
 }: PatientsWidgetProps) {
+  const { patientColumns } = useColumns();
+  const [activeTab, setActiveTab] = useState<"out-patient" | "in-patient">(
+    "in-patient",
+  );
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  function onPageChange(page: number) {
+    setCurrentPage(page);
+  }
+  const formattedPatients = mockPatientsList.map((p) => ({
+    id: p.id,
+    name: p.name,
+    hospNo: p.hospNo,
+    ageSex: p.ageSex,
+    wardBed: p.wardBed,
+    diagnosis: p.diagnosis,
+    status: p.status,
+    insurance: p.insurance,
+  }));
   return (
     <div
-      className={`bg-white rounded-[16px] p-6 sm:p-8 shadow-xs  space-y-6 overflow-hidden ${className}`}
+      className={`bg-(--card) rounded-xl p-5 shadow-xs  space-y-5 overflow-hidden ${className}`}
     >
       {/* Widget Header */}
-      <div className="flex items-center justify-between px-2">
-        <div className="flex items-center space-x-3.5">
-          <div className="h-10 w-10 rounded-full bg-blue-50/90 text-blue-600 flex items-center justify-center shrink-0">
-            <Users className="h-5 w-5 fill-blue-600 text-blue-600" />
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3 min-w-0">
+          <div className="h-10 w-10 rounded-full bg-(--info-icon-bg) flex items-center justify-center shrink-0">
+            <Users className="h-5 w-5 text-(--primary)" />
           </div>
-          <h2 className="text-xl font-bold text-slate-900 tracking-tight">
+          <h3 className="font-semibold text-(--card-title) text-sm whitespace-nowrap">
             Patients
-          </h2>
+          </h3>
         </div>
         <Link
           href="/dashboard/patients"
-          className="text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors shrink-0"
+          className="text-sm font-semibold text-(--active-text) hover:text-(--primary) transition-colors shrink-0"
         >
           View All
         </Link>
       </div>
 
-      {/* Table-like Header Labels with proportional scaling columns */}
-      <div className="hidden lg:grid grid-cols-[1.4fr_1fr_0.8fr_1.1fr_1.3fr_1fr_0.9fr] gap-3 px-5 text-[10.5px] font-bold text-slate-500 tracking-wider uppercase">
-        <div className="col-span-1">Patient Name</div>
-        <div>Hosp No</div>
-        <div>Age/Sex</div>
-        <div>Ward/Bed</div>
-        <div>Primary Diagnosis</div>
-        <div>Status</div>
-        <div className="text-right pr-2">Insurance</div>
-      </div>
-
       {/* Patients List Container */}
-      <div className="space-y-3">
-        {patients.map((patient) => (
-          <div
-            key={patient.id}
-            className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr_0.8fr_1.1fr_1.3fr_1fr_0.9fr] items-center bg-app-bg hover:bg-blue-100/60 transition-all px-5 py-3.5 rounded-[] gap-3 lg:gap-3 shadow-2xs  hover:border-blue-200/50"
-          >
-            {/* Patient Name with Avatar */}
-            <div className="col-span-1 flex items-center space-x-3 min-w-0">
-              <div className="w-9 h-9 rounded-full bg-amber-200/60 overflow-hidden shrink-0 flex items-center justify-center  shadow-xs">
-                <img
-                  src="/images/profile.jpeg"
-                  alt={patient.name}
-                  className="h-full w-full object-cover"
-                />
-              </div>
-              <span className="font-bold text-slate-900 text-[11px] xl:text-xs truncate">
-                {patient.name}
-              </span>
-            </div>
-
-            {/* Hosp No */}
-            <div className="text-[11px]  text-slate-600 font-medium truncate">
-              <span className="lg:hidden text-[10px] text-slate-400 font-semibold mr-2">
-                Hosp No:
-              </span>
-              {patient.hospNo}
-            </div>
-
-            {/* Age/Sex */}
-            <div className="text-[11px]  text-slate-600 font-medium truncate">
-              <span className="lg:hidden text-[10px] text-slate-400 font-semibold mr-2">
-                Age/Sex:
-              </span>
-              {patient.ageSex}
-            </div>
-
-            {/* Ward/Bed */}
-            <div className="text-[11px]  text-slate-600 font-medium truncate">
-              <span className="lg:hidden text-[10px] text-slate-400 font-semibold mr-2">
-                Ward/Bed:
-              </span>
-              {patient.wardBed}
-            </div>
-
-            {/* Primary Diagnosis */}
-            <div className="text-[11px] font-semibold text-slate-900 truncate">
-              <span className="lg:hidden text-[10px] text-slate-400 font-semibold mr-2">
-                Diagnosis:
-              </span>
-              {patient.diagnosis}
-            </div>
-
-            {/* Status Badge */}
-            <div className="truncate">
-              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px]  font-bold bg-[#fff3cd] text-[#856404]   shadow-2xs whitespace-nowrap">
-                {patient.status}
-              </span>
-            </div>
-
-            {/* Insurance */}
-            <div className="text-[11px]  text-slate-600 font-medium lg:text-right pr-2 truncate">
-              <span className="lg:hidden text-[10px] text-slate-400 font-semibold mr-2">
-                Insurance:
-              </span>
-              {patient.insurance}
-            </div>
-          </div>
-        ))}
-      </div>
+      <DataTable
+        data={formattedPatients}
+        columns={patientColumns}
+        currentPage={currentPage}
+        rowsPerPage={3}
+        pagination={false}
+        loading={loading}
+        onPageChange={onPageChange}
+        selectable={false}
+        rowKey="id"
+        onRowClick={(row) => router.push(`/dashboard/patients/${row.id}`)}
+      />
     </div>
   );
 }

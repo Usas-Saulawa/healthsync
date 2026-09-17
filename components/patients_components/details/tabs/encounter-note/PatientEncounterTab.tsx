@@ -72,7 +72,7 @@ export function PatientEncounterTab() {
   });
 
   return (
-    <div className="w-full bg-white rounded-[8px] p-6 shadow-xs">
+    <div className="w-full bg-(--card) rounded-[8px] p-6 shadow-xs">
       <PatientEncounterList
         data={filteredEncounters}
         currentPage={currentPage}

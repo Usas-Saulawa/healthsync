@@ -11,7 +11,7 @@ interface CustomButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement
 export function CustomButton({
   isLoading,
   children,
-  loaderColor = "bg-white",
+  loaderColor = "bg-(--card)",
   className = "",
   disabled,
   ...props
@@ -19,7 +19,7 @@ export function CustomButton({
   return (
     <button
       disabled={isLoading || disabled}
-      className={`flex h-12 w-full items-center justify-center rounded-xl bg-primary-600 px-5 font-medium text-white transition-colors hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:opacity-50 ${className}`}
+      className={`flex h-12 w-full items-center justify-center rounded-xl bg-(--primary) px-5 font-medium text-white transition-colors hover:bg-(--primary) focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:opacity-50 ${className}`}
       {...props}
     >
       {isLoading ? <ScaleLoader className={loaderColor} /> : children}

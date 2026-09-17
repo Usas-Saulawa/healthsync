@@ -80,7 +80,7 @@ export function AdmissionAndDischargeTab() {
   const [isReferralModalOpen, setIsReferralModalOpen] = useState(false);
 
   return (
-    <div className="w-full bg-white rounded-[8px] px-10 py-5 shadow-xs flex flex-col gap-5">
+    <div className="w-full bg-(--card) rounded-[8px] px-10 py-5 shadow-xs flex flex-col gap-5">
       {/* Title Row */}
       <div className="flex items-center justify-between w-full h-[64px]">
         <div>
@@ -102,14 +102,14 @@ export function AdmissionAndDischargeTab() {
           <button
             type="button"
             onClick={() => setIsTransferModalOpen(true)}
-            className="inline-flex items-center px-4 py-2.5 bg-app-bg text-slate-700 border border-slate-200 text-xs font-bold rounded-[6px] hover:bg-slate-100 transition-colors shadow-2xs cursor-pointer"
+            className="inline-flex items-center px-4 py-2.5 bg-(--background) text-slate-700 border border-slate-200 text-xs font-bold rounded-[6px] hover:bg-slate-100 transition-colors shadow-2xs cursor-pointer"
           >
             <span>Transfer Request</span>
           </button>
           <button
             type="button"
             onClick={() => setIsReferralModalOpen(true)}
-            className="inline-flex items-center px-4 py-2.5 bg-app-bg text-slate-700 border border-slate-200 text-xs font-bold rounded-[6px] hover:bg-slate-100 transition-colors shadow-2xs cursor-pointer"
+            className="inline-flex items-center px-4 py-2.5 bg-(--background) text-slate-700 border border-slate-200 text-xs font-bold rounded-[6px] hover:bg-slate-100 transition-colors shadow-2xs cursor-pointer"
           >
             <span>Refer Patient</span>
           </button>
@@ -117,7 +117,7 @@ export function AdmissionAndDischargeTab() {
       </div>
 
       {/* Table Container with gap-[4px] */}
-      <div className="w-full rounded-[6px] overflow-hidden bg-white shadow-2xs flex flex-col gap-[4px]">
+      <div className="w-full rounded-[6px] overflow-hidden bg-(--card) shadow-2xs flex flex-col gap-[4px]">
         {/* Table Header */}
         <div className="grid grid-cols-12 bg-slate-50/80 px-4 py-3 text-[11px] font-bold text-slate-500 tracking-wider uppercase border-b border-slate-100">
           <div className="col-span-2">Date</div>
@@ -128,7 +128,7 @@ export function AdmissionAndDischargeTab() {
         </div>
 
         {/* Table Body */}
-        <div className="flex flex-col bg-white gap-[4px]">
+        <div className="flex flex-col bg-(--card) gap-[4px]">
           {mockAdmissions.map((item) => {
             let statusStyle = "";
             if (item.statusType === "pending") {
@@ -148,7 +148,7 @@ export function AdmissionAndDischargeTab() {
             return (
               <div
                 key={item.id}
-                className="grid grid-cols-12 items-center px-4 py-3.5 bg-app-bg border-b border-slate-100 text-xs text-slate-900 hover:bg-slate-100/60 transition-colors"
+                className="grid grid-cols-12 items-center px-4 py-3.5 bg-(--background) border-b border-slate-100 text-xs text-slate-900 hover:bg-slate-100/60 transition-colors"
               >
                 <div className="col-span-2 font-medium text-slate-700">
                   {item.date}
@@ -180,7 +180,7 @@ export function AdmissionAndDischargeTab() {
           <button
             type="button"
             onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
-            className="px-3 py-1.5 bg-app-bg text-slate-700 text-xs font-semibold rounded-[6px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs border border-slate-200"
+            className="px-3 py-1.5 bg-(--background) text-slate-700 text-xs font-semibold rounded-[6px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs border border-slate-200"
           >
             Previous
           </button>
@@ -190,7 +190,7 @@ export function AdmissionAndDischargeTab() {
             className={`w-8 h-8 text-xs font-semibold rounded-[6px] transition-colors cursor-pointer flex items-center justify-center ${
               currentPage === 1
                 ? "bg-[#1C64F2] text-white shadow-xs"
-                : "bg-app-bg text-slate-700 hover:bg-slate-50 border border-slate-200"
+                : "bg-(--background) text-slate-700 hover:bg-slate-50 border border-slate-200"
             }`}
           >
             1
@@ -201,7 +201,7 @@ export function AdmissionAndDischargeTab() {
             className={`w-8 h-8 text-xs font-semibold rounded-[6px] transition-colors cursor-pointer flex items-center justify-center ${
               currentPage === 2
                 ? "bg-[#1C64F2] text-white shadow-xs"
-                : "bg-app-bg text-slate-700 hover:bg-slate-50 border border-slate-200"
+                : "bg-(--background) text-slate-700 hover:bg-slate-50 border border-slate-200"
             }`}
           >
             2
@@ -209,7 +209,7 @@ export function AdmissionAndDischargeTab() {
           <button
             type="button"
             onClick={() => setCurrentPage((p) => Math.min(p + 1, 2))}
-            className="px-3 py-1.5 bg-app-bg text-slate-700 text-xs font-semibold rounded-[6px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs border border-slate-200"
+            className="px-3 py-1.5 bg-(--background) text-slate-700 text-xs font-semibold rounded-[6px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs border border-slate-200"
           >
             Next
           </button>

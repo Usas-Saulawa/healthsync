@@ -15,31 +15,32 @@ export function Header() {
   return (
     <>
       {/* STICKY HEADER CONTAINER */}
-      <div className="sticky top-0 z-40 w-full px-4 pt-4 sm:px-6 lg:px-8 bg-app-bg backdrop-blur-md pb-2 transition-all">
+      <div className="sticky top-0 z-40 pb-1 w-full bg-(--background) transition-all">
         {/* Main Header */}
         <header
           className="
             relative
             z-40
-            flex
-            min-h-[97px]
+            grid
+            grid-cols-3
+            min-h-12
             w-full
             items-center
             justify-between
             gap-4
-            rounded-[9999px]
-            bg-white
+            rounded-full
+            bg-(--card)
             px-6
             py-3
             shadow-xs
           "
         >
           {/* LEFT SIDE - LOGO */}
-          <div className="flex shrink-0 items-center gap-3">
+          <div className="flex flex-1 shrink-0 items-center gap-3">
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen((prev) => !prev)}
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-[#1F2937] transition-colors hover:bg-slate-50 md:hidden"
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-(--card) transition-colors hover:bg-(--card-hover) md:hidden"
               aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? (
@@ -55,10 +56,10 @@ export function Header() {
               className="flex shrink-0 items-center gap-3 text-left"
               aria-label="Go to dashboard"
             >
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#2563EB] text-white">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-(--primary) text-white">
                 <Activity className="h-7 w-7" strokeWidth={2.5} />
               </div>
-              <span className="hidden whitespace-nowrap text-[22px] font-bold tracking-[-0.7px] text-[#1F2937] lg:inline-block">
+              <span className="hidden whitespace-nowrap text-[22px] font-bold tracking-[-0.7px] lg:inline-block">
                 HealthCare
               </span>
             </button>
@@ -66,7 +67,7 @@ export function Header() {
 
           {/* CENTER - MAIN NAVIGATION (Figma: height 71px, background #EFF2F4, padding top/bottom 4px, left/right 5px, gap 11px) */}
           <nav
-            className="hidden items-center h-[71px] rounded-full bg-[#EFF2F4] px-[5px] py-[4px] gap-[11px] md:flex"
+            className="hidden flex-1 h-full items-stretch rounded-full bg-(--active-track) px-1.25 py-1 md:flex"
             aria-label="Main navigation"
           >
             {navItems.map((item) => {
@@ -80,10 +81,10 @@ export function Header() {
                   key={item.name}
                   type="button"
                   onClick={() => router.push(item.path)}
-                  className={`flex h-[63px] items-center justify-center rounded-full px-7 text-[16px] font-medium tracking-[-0.2px] transition-all duration-200 ${
+                  className={`flex flex-1 items-center justify-center rounded-full py-4 px-7 text-[16px] font-medium tracking-[-0.2px] transition-all duration-200 ${
                     isActive
-                      ? "bg-[#1F2937] text-white"
-                      : "text-[#374151] hover:bg-white/70"
+                      ? "bg-(--active-bg) text-(--active-text)"
+                      : "text-(--text) hover:bg-(--card)/70"
                   }`}
                 >
                   {item.name}
@@ -93,26 +94,26 @@ export function Header() {
           </nav>
 
           {/* RIGHT SIDE - ACTIONS + PROFILE */}
-          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+          <div className="flex shrink-0 flex-1 items-center justify-end gap-2">
             <button
               type="button"
-              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-[#1F2937] transition-colors hover:bg-slate-50"
+              className="flex h-11 w-11 cursor-pointer shrink-0 items-center justify-center rounded-full  transition-colors hover:bg-(--card-hover) shadow-[inset_1px_1px_5px_rgba(0,0,0,0.1)]"
               aria-label="Settings"
             >
-              <Settings className="h-[24px] w-[24px]" strokeWidth={2.4} />
+              <Settings className="text-12" />
             </button>
 
             <button
               type="button"
               onClick={() => setIsNotificationsOpen(true)}
-              className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-[#1F2937] transition-colors hover:bg-slate-50"
+              className="relative flex h-11 w-11 cursor-pointer shrink-0 items-center justify-center rounded-full transition-colors hover:bg-(--card-hover) shadow-[inset_1px_1px_5px_rgba(0,0,0,0.1)]"
               aria-label="Open notifications"
             >
-              <Bell className="h-[23px] w-[23px]" strokeWidth={2.4} />
-              <span className="absolute right-[10px] top-[9px] h-[6px] w-[6px] rounded-full bg-red-500" />
+              <Bell className="text-3xl" />
+              <span className="absolute right-2.5 top-2.25 h-1.5 w-1.5 rounded-full bg-red-500" />
             </button>
 
-            <div className="flex items-center gap-3 pl-1 sm:gap-3 sm:pl-2">
+            <div className="flex items-center gap-3 pl-1 sm:gap-3">
               <div className="h-12 w-12 shrink-0 overflow-hidden rounded-full bg-[#FFF3A6]">
                 <img
                   src="/images/profile.jpeg"
@@ -122,10 +123,10 @@ export function Header() {
               </div>
 
               <div className="hidden min-w-0 lg:block">
-                <h4 className="whitespace-nowrap text-[16px] font-medium leading-tight tracking-[-0.2px] text-[#111827]">
+                <h4 className="whitespace-nowrap text-[16px] font-medium leading-tight tracking-[-0.2px] max-w-28 truncate">
                   {doctorName}
                 </h4>
-                <p className="mt-1 text-[11px] font-medium text-[#9CA3AF]">
+                <p className="mt-1 text-[11px] font-medium text-(--shade)">
                   Surgeon
                 </p>
               </div>
@@ -135,7 +136,7 @@ export function Header() {
 
         {/* MOBILE NAVIGATION DROPDOWN */}
         {isMobileMenuOpen && (
-          <div className="absolute left-4 right-4 top-[88px] z-50 flex flex-col gap-3 rounded-2xl bg-white p-4 shadow-xl md:hidden">
+          <div className="absolute left-4 right-4 top-22 z-50 flex flex-col gap-3 rounded-2xl bg-(--background) p-4 shadow-xl md:hidden">
             <div className="flex items-center gap-3 px-2 pb-3">
               <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-[#FFF3A6]">
                 <img
@@ -145,10 +146,8 @@ export function Header() {
                 />
               </div>
               <div>
-                <h4 className="text-sm font-bold text-slate-900">
-                  {doctorName}
-                </h4>
-                <p className="text-xs text-slate-500">Surgeon</p>
+                <h4 className="text-sm font-bold">{doctorName}</h4>
+                <p className="text-xs text-(--shade)">Surgeon</p>
               </div>
             </div>
 
@@ -169,8 +168,8 @@ export function Header() {
                     }}
                     className={`w-full rounded-xl px-4 py-3 text-left text-sm font-semibold transition-colors ${
                       isActive
-                        ? "bg-[#1F2937] text-white"
-                        : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                        ? "bg-(--active-bg) text-(--active-text)"
+                        : "text-(--active-text) hover:bg-(--card-hover)"
                     }`}
                   >
                     {item.name}

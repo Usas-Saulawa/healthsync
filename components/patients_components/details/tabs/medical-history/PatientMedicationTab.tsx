@@ -133,7 +133,7 @@ export function PatientMedicalHistoryTab({
   };
 
   return (
-    <div className="w-full bg-white rounded-2xl  shadow-xs overflow-hidden p-6 sm:p-8 space-y-6">
+    <div className="w-full bg-(--card) rounded-2xl  shadow-xs overflow-hidden p-6 sm:p-8 space-y-6">
       {/* Top heading and actions */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
@@ -256,7 +256,7 @@ export function PatientMedicalHistoryTab({
             type="button"
             onClick={() => setCurrentPage((page) => Math.max(1, page - 1))}
             disabled={currentPage === 1}
-            className="flex h-9 items-center justify-center rounded-lg  bg-white px-3 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex h-9 items-center justify-center rounded-lg  bg-(--card) px-3 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
           >
             Previous
           </button>
@@ -268,7 +268,7 @@ export function PatientMedicalHistoryTab({
             className={`flex h-9 w-9 items-center justify-center rounded-lg text-xs font-semibold transition-colors ${
               currentPage === 1
                 ? "bg-[#2563EB] text-white"
-                : "border border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
+                : "border border-slate-200 bg-(--card) text-slate-700 hover:bg-slate-50"
             }`}
           >
             1
@@ -281,7 +281,7 @@ export function PatientMedicalHistoryTab({
             className={`flex h-9 w-9 items-center justify-center rounded-lg text-xs font-semibold transition-colors ${
               currentPage === 2
                 ? "bg-[#2563EB] text-white"
-                : "border border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
+                : "border border-slate-200 bg-(--card) text-slate-700 hover:bg-slate-50"
             }`}
           >
             2
@@ -294,7 +294,7 @@ export function PatientMedicalHistoryTab({
               setCurrentPage((page) => Math.min(totalPages, page + 1))
             }
             disabled={currentPage === totalPages}
-            className="flex h-9 items-center justify-center rounded-lg  bg-white px-3 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex h-9 items-center justify-center rounded-lg  bg-(--card) px-3 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
           >
             Next
           </button>

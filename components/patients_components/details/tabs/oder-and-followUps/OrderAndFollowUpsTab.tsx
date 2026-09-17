@@ -228,7 +228,7 @@ export function PatientOrderAndFollowUpsTab() {
   };
 
   return (
-    <div className="w-full bg-white rounded-[8px] p-10 shadow-xs flex flex-col gap-5">
+    <div className="w-full bg-(--card) rounded-[8px] p-10 shadow-xs flex flex-col gap-5">
       {/* Title Row */}
       <div className="flex items-center justify-between w-full h-[64px]">
         <div>
@@ -294,7 +294,7 @@ export function PatientOrderAndFollowUpsTab() {
       {/* Main Content Area */}
       {activeSubTab === "orders" ? (
         <div className="flex flex-col gap-4">
-          <div className="w-full rounded-[6px] overflow-hidden bg-white shadow-2xs">
+          <div className="w-full rounded-[6px] overflow-hidden bg-(--card) shadow-2xs">
             <div className="grid grid-cols-12 bg-slate-50/80 px-4 py-3 text-[11px] font-bold text-slate-500 tracking-wider uppercase">
               <div className="col-span-4">Order Name</div>
               <div className="col-span-2">Category</div>
@@ -304,7 +304,7 @@ export function PatientOrderAndFollowUpsTab() {
               <div className="col-span-1 text-right">Status</div>
             </div>
 
-            <div className="flex flex-col gap-[4px] p-1 bg-white">
+            <div className="flex flex-col gap-[4px] p-1 bg-(--card)">
               {orders.map((item) => {
                 let priorityStyle = "bg-slate-100 text-slate-700";
                 if (item.priority === "STAT")
@@ -332,7 +332,7 @@ export function PatientOrderAndFollowUpsTab() {
                 return (
                   <div
                     key={item.id}
-                    className="grid grid-cols-12 items-center px-4 py-3.5 bg-app-bg rounded-[6px] text-xs text-slate-900 hover:bg-slate-100/60 transition-colors"
+                    className="grid grid-cols-12 items-center px-4 py-3.5 bg-(--background) rounded-[6px] text-xs text-slate-900 hover:bg-slate-100/60 transition-colors"
                   >
                     <div className="col-span-4 font-bold text-slate-900">
                       {item.orderName}
@@ -368,7 +368,7 @@ export function PatientOrderAndFollowUpsTab() {
               <button
                 type="button"
                 onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
-                className="px-3 py-1.5 bg-white text-slate-700 text-xs font-semibold rounded-[6px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs border border-slate-200"
+                className="px-3 py-1.5 bg-(--card) text-slate-700 text-xs font-semibold rounded-[6px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs border border-slate-200"
               >
                 Previous
               </button>
@@ -382,7 +382,7 @@ export function PatientOrderAndFollowUpsTab() {
               <button
                 type="button"
                 onClick={() => setCurrentPage(2)}
-                className="px-3 py-1.5 bg-white text-slate-700 text-xs font-semibold rounded-[6px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs border border-slate-200"
+                className="px-3 py-1.5 bg-(--card) text-slate-700 text-xs font-semibold rounded-[6px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs border border-slate-200"
               >
                 Next
               </button>
@@ -391,7 +391,7 @@ export function PatientOrderAndFollowUpsTab() {
         </div>
       ) : (
         <div className="flex flex-col gap-4">
-          <div className="w-full rounded-[6px] overflow-hidden bg-white shadow-2xs">
+          <div className="w-full rounded-[6px] overflow-hidden bg-(--card) shadow-2xs">
             <div className="grid grid-cols-12 bg-slate-50/85 px-4 py-3 text-[11px] font-bold text-slate-500 tracking-wider uppercase">
               <div className="col-span-3">Follow-up Type</div>
               <div className="col-span-2">Scheduled Date</div>
@@ -401,7 +401,7 @@ export function PatientOrderAndFollowUpsTab() {
               <div className="col-span-2 text-right">Notes</div>
             </div>
 
-            <div className="flex flex-col gap-[4px] p-1 bg-white">
+            <div className="flex flex-col gap-[4px] p-1 bg-(--card)">
               {followUps.map((item) => {
                 let statusStyle =
                   "bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-[11px] font-bold inline-block whitespace-nowrap shadow-2xs";
@@ -428,7 +428,7 @@ export function PatientOrderAndFollowUpsTab() {
                 return (
                   <div
                     key={item.id}
-                    className="grid grid-cols-12 items-center px-4 py-3.5 bg-app-bg rounded-[6px] text-xs text-slate-900 hover:bg-slate-100/60 transition-colors"
+                    className="grid grid-cols-12 items-center px-4 py-3.5 bg-(--background) rounded-[6px] text-xs text-slate-900 hover:bg-slate-100/60 transition-colors"
                   >
                     <div className="col-span-3 font-bold text-slate-900">
                       {item.followUpType}
@@ -462,7 +462,7 @@ export function PatientOrderAndFollowUpsTab() {
               <button
                 type="button"
                 onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
-                className="px-3 py-1.5 bg-white text-slate-700 text-xs font-semibold rounded-[6px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs border border-slate-200"
+                className="px-3 py-1.5 bg-(--card) text-slate-700 text-xs font-semibold rounded-[6px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs border border-slate-200"
               >
                 Previous
               </button>
@@ -476,7 +476,7 @@ export function PatientOrderAndFollowUpsTab() {
               <button
                 type="button"
                 onClick={() => setCurrentPage((p) => Math.min(p + 1, 1))}
-                className="px-3 py-1.5 bg-white text-slate-700 text-xs font-semibold rounded-[6px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs border border-slate-200"
+                className="px-3 py-1.5 bg-(--card) text-slate-700 text-xs font-semibold rounded-[6px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs border border-slate-200"
               >
                 Next
               </button>

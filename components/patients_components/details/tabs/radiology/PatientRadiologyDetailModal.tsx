@@ -84,7 +84,7 @@ export function PatientRadiologyDetailModal({
 
       {/* Drawer Container */}
       <div
-        className={`relative w-[560px] h-screen bg-white shadow-2xl flex flex-col justify-between transform transition-transform duration-300 ease-in-out ${
+        className={`relative w-[560px] h-screen bg-(--card) shadow-2xl flex flex-col justify-between transform transition-transform duration-300 ease-in-out ${
           isVisible ? "translate-x-0" : "translate-x-full"
         }`}
         style={{
@@ -114,7 +114,7 @@ export function PatientRadiologyDetailModal({
         {/* Modal Body with Custom Scrollbar */}
         <div className="w-[560px] h-[800px] p-6 flex flex-col gap-5 overflow-y-auto custom-scrollbar">
           {/* Study Information Section */}
-          <div className="w-[512px] h-[210px] bg-app-bg rounded-[8px] p-4 flex flex-col gap-3 shrink-0">
+          <div className="w-[512px] h-[210px] bg-(--background) rounded-[8px] p-4 flex flex-col gap-3 shrink-0">
             <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">
               STUDY INFORMATION
             </span>
@@ -221,7 +221,7 @@ export function PatientRadiologyDetailModal({
           </div>
 
           {/* Radiologist Notes / Clinical Findings */}
-          <div className="w-[512px] h-[140px] bg-app-bg rounded-[8px] p-4 flex flex-col gap-2 shrink-0">
+          <div className="w-[512px] h-[140px] bg-(--background) rounded-[8px] p-4 flex flex-col gap-2 shrink-0">
             <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">
               RADIOLOGIST NOTES/ CLINICAL FINDINGS
             </span>
@@ -261,7 +261,7 @@ export function PatientRadiologyDetailModal({
         </div>
 
         {/* Modal Footer */}
-        <div className="w-[560px] h-[96px] border-t border-[#E5E7EB] px-6 py-4 flex flex-col justify-between shrink-0 bg-white">
+        <div className="w-[560px] h-[96px] border-t border-[#E5E7EB] px-6 py-4 flex flex-col justify-between shrink-0 bg-(--card)">
           <div className="w-[512px] h-[16px] flex items-center justify-between text-[11px] text-slate-500">
             <span>Reviewed by: {data.reviewedBy}</span>
             <span>Acknowledged by Physician: {data.acknowledgedBy}</span>
@@ -271,14 +271,14 @@ export function PatientRadiologyDetailModal({
             <button
               type="button"
               onClick={() => console.log("Adding clinical note...")}
-              className="flex-1 h-full bg-app-bg text-slate-700 text-xs font-semibold rounded-[6px] hover:bg-slate-200 transition-colors cursor-pointer"
+              className="flex-1 h-full bg-(--background) text-slate-700 text-xs font-semibold rounded-[6px] hover:bg-slate-200 transition-colors cursor-pointer"
             >
               Add Clinical Note
             </button>
             <button
               type="button"
               onClick={() => console.log("Printing report...")}
-              className="flex-1 h-full bg-app-bg text-slate-700 text-xs font-semibold rounded-[6px] hover:bg-slate-200 transition-colors cursor-pointer"
+              className="flex-1 h-full bg-(--background) text-slate-700 text-xs font-semibold rounded-[6px] hover:bg-slate-200 transition-colors cursor-pointer"
             >
               Print Report
             </button>

@@ -59,7 +59,7 @@ export function AdmissionRequestModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 overflow-y-auto">
-      <div className="relative w-full max-w-[540px] bg-white rounded-[12px] shadow-xl border border-slate-100 flex flex-col max-h-[90vh]">
+      <div className="relative w-full max-w-[540px] bg-(--card) rounded-[12px] shadow-xl border border-slate-100 flex flex-col max-h-[90vh]">
         {/* Modal Header */}
         <div className="flex items-center justify-between px-6 pt-5 pb-4 border-b border-slate-100">
           <h2 className="text-lg font-bold text-slate-900 tracking-tight">
@@ -95,7 +95,7 @@ export function AdmissionRequestModal({
                   type="text"
                   value={admissionType}
                   onChange={(e) => setAdmissionType(e.target.value)}
-                  className="w-full px-3 py-2 text-xs bg-white border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB]"
+                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB]"
                 />
               </div>
 
@@ -109,13 +109,13 @@ export function AdmissionRequestModal({
                     type="text"
                     value={requestedDate}
                     onChange={(e) => setRequestedDate(e.target.value)}
-                    className="w-full px-2.5 py-2 text-xs bg-white border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB]"
+                    className="w-full px-2.5 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB]"
                   />
                   <input
                     type="text"
                     value={requestedTime}
                     onChange={(e) => setRequestedTime(e.target.value)}
-                    className="w-full px-2.5 py-2 text-xs bg-white border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB]"
+                    className="w-full px-2.5 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB]"
                   />
                 </div>
               </div>
@@ -131,7 +131,7 @@ export function AdmissionRequestModal({
                   type="text"
                   value={admittingProvider}
                   onChange={(e) => setAdmittingProvider(e.target.value)}
-                  className="w-full px-3 py-2 text-xs bg-white border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB]"
+                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB]"
                 />
               </div>
 
@@ -145,7 +145,7 @@ export function AdmissionRequestModal({
                   placeholder="Enter physician..."
                   value={referringProvider}
                   onChange={(e) => setReferringProvider(e.target.value)}
-                  className="w-full px-3 py-2 text-xs bg-white border border-slate-200 rounded-[8px] text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-[#2563EB]"
+                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-[#2563EB]"
                 />
               </div>
             </div>
@@ -167,7 +167,7 @@ export function AdmissionRequestModal({
                   type="text"
                   value={primaryDiagnosis}
                   onChange={(e) => setPrimaryDiagnosis(e.target.value)}
-                  className="w-full px-3 py-2 text-xs bg-white border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB]"
+                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB]"
                 />
               </div>
 
@@ -180,7 +180,7 @@ export function AdmissionRequestModal({
                   type="text"
                   value={icd10Code}
                   onChange={(e) => setIcd10Code(e.target.value)}
-                  className="w-full px-3 py-2 text-xs bg-white border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB]"
+                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB]"
                 />
               </div>
             </div>
@@ -194,7 +194,7 @@ export function AdmissionRequestModal({
                 rows={2}
                 value={reason}
                 onChange={(e) => setReason(e.target.value)}
-                className="w-full px-3 py-2 text-xs bg-white border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB] resize-none"
+                className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB] resize-none"
               />
             </div>
 
@@ -214,9 +214,9 @@ export function AdmissionRequestModal({
                       className={`px-3 py-1.5 rounded-[8px] text-xs font-semibold transition-colors cursor-pointer border ${
                         isSelected
                           ? p === "Emergency"
-                            ? "bg-white text-red-600 border-red-500 shadow-xs"
-                            : "bg-white text-slate-900 border-slate-800 shadow-xs"
-                          : "bg-white text-slate-600 border-slate-200 hover:bg-slate-50"
+                            ? "bg-(--card) text-red-600 border-red-500 shadow-xs"
+                            : "bg-(--card) text-slate-900 border-slate-800 shadow-xs"
+                          : "bg-(--card) text-slate-600 border-slate-200 hover:bg-slate-50"
                       }`}
                     >
                       {p}
@@ -243,7 +243,7 @@ export function AdmissionRequestModal({
                   type="text"
                   value={department}
                   onChange={(e) => setDepartment(e.target.value)}
-                  className="w-full pl-3 pr-8 py-2 text-xs bg-white border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB]"
+                  className="w-full pl-3 pr-8 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB]"
                 />
                 <div className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">
                   <Filter className="w-3.5 h-3.5" />
@@ -268,7 +268,7 @@ export function AdmissionRequestModal({
                         className={`px-3 py-1.5 rounded-[8px] text-xs font-semibold transition-colors cursor-pointer border ${
                           isSelected
                             ? "bg-blue-50 text-[#2563EB] border-[#2563EB] shadow-2xs"
-                            : "bg-white text-slate-600 border-slate-200 hover:bg-slate-50"
+                            : "bg-(--card) text-slate-600 border-slate-200 hover:bg-slate-50"
                         }`}
                       >
                         {bt}
@@ -289,7 +289,7 @@ export function AdmissionRequestModal({
                 placeholder="e.g. Isolation, continuous telemetry..."
                 value={specialRequirements}
                 onChange={(e) => setSpecialRequirements(e.target.value)}
-                className="w-full px-3 py-2 text-xs bg-white border border-slate-200 rounded-[8px] text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-[#2563EB]"
+                className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-[#2563EB]"
               />
             </div>
 
@@ -309,7 +309,7 @@ export function AdmissionRequestModal({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 bg-white text-slate-700 text-xs font-semibold rounded-[8px] border border-slate-200 hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs"
+              className="px-4 py-2 bg-(--card) text-slate-700 text-xs font-semibold rounded-[8px] border border-slate-200 hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs"
             >
               Cancel
             </button>

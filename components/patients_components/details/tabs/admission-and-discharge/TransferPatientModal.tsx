@@ -55,7 +55,7 @@ export function TransferPatientModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 overflow-y-auto">
-      <div className="relative w-full max-w-[540px] bg-white rounded-[12px] shadow-xl border border-slate-100 flex flex-col max-h-[90vh]">
+      <div className="relative w-full max-w-[540px] bg-(--card) rounded-[12px] shadow-xl border border-slate-100 flex flex-col max-h-[90vh]">
         {/* Modal Header */}
         <div className="flex items-center justify-between px-6 pt-5 pb-4 border-b border-slate-100">
           <h2 className="text-lg font-bold text-slate-900 tracking-tight">
@@ -91,7 +91,7 @@ export function TransferPatientModal({
                   type="text"
                   value={transferDate}
                   onChange={(e) => setTransferDate(e.target.value)}
-                  className="w-full px-3 py-2 text-xs bg-white border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB]"
+                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB]"
                 />
               </div>
 
@@ -104,7 +104,7 @@ export function TransferPatientModal({
                   type="text"
                   value={transferTime}
                   onChange={(e) => setTransferTime(e.target.value)}
-                  className="w-full px-3 py-2 text-xs bg-white border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB]"
+                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB]"
                 />
               </div>
             </div>
@@ -118,7 +118,7 @@ export function TransferPatientModal({
                 rows={2}
                 value={reasonForTransfer}
                 onChange={(e) => setReasonForTransfer(e.target.value)}
-                className="w-full px-3 py-2 text-xs bg-white border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB] resize-none"
+                className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB] resize-none"
               />
             </div>
           </div>
@@ -174,7 +174,7 @@ export function TransferPatientModal({
                   <select
                     value={destinationDepartment}
                     onChange={(e) => setDestinationDepartment(e.target.value)}
-                    className="w-full px-3 py-2 text-xs bg-white border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB] appearance-none cursor-pointer pr-8"
+                    className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB] appearance-none cursor-pointer pr-8"
                   >
                     <option value="Cardiology Intensive Care">
                       Cardiology Intensive Care
@@ -195,7 +195,7 @@ export function TransferPatientModal({
                   <select
                     value={destinationWard}
                     onChange={(e) => setDestinationWard(e.target.value)}
-                    className="w-full px-3 py-2 text-xs bg-white border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB] appearance-none cursor-pointer pr-8"
+                    className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB] appearance-none cursor-pointer pr-8"
                   >
                     <option value="CICU - Ward C">CICU - Ward C</option>
                     <option value="Ward A - General">Ward A - General</option>
@@ -222,7 +222,7 @@ export function TransferPatientModal({
                         className={`px-3 py-1.5 rounded-[8px] text-xs font-semibold transition-colors cursor-pointer border ${
                           isSelected
                             ? "bg-blue-50 text-[#2563EB] border-[#2563EB] shadow-2xs"
-                            : "bg-white text-slate-600 border-slate-200 hover:bg-slate-50"
+                            : "bg-(--card) text-slate-600 border-slate-200 hover:bg-slate-50"
                         }`}
                       >
                         {bt}
@@ -249,7 +249,7 @@ export function TransferPatientModal({
                 rows={2}
                 value={transferSummary}
                 onChange={(e) => setTransferSummary(e.target.value)}
-                className="w-full px-3 py-2 text-xs bg-white border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB] resize-none"
+                className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB] resize-none"
               />
             </div>
 
@@ -262,7 +262,7 @@ export function TransferPatientModal({
                 type="text"
                 value={specialRequirements}
                 onChange={(e) => setSpecialRequirements(e.target.value)}
-                className="w-full px-3 py-2 text-xs bg-white border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB]"
+                className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB]"
               />
             </div>
 
@@ -282,7 +282,7 @@ export function TransferPatientModal({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 bg-white text-slate-700 text-xs font-semibold rounded-[8px] border border-slate-200 hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs"
+              className="px-4 py-2 bg-(--card) text-slate-700 text-xs font-semibold rounded-[8px] border border-slate-200 hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs"
             >
               Cancel
             </button>

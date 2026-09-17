@@ -1,42 +1,92 @@
 @import "tailwindcss";
 
-@theme {
-  /* Map Tailwind's sans font family to our Nunito variable */
-  --font-sans: var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
-
-  /* Your custom primary blue brand color scale */
-  --color-primary-50: #eff6ff;
-  --color-primary-100: #dbeafe;
-  --color-primary-200: #bfdbfe;
-  --color-primary-300: #93c5fd;
-  --color-primary-400: #60a5fa;
-  --color-primary-500: #3b82f6;
-  --color-primary-600: #2563eb;
-  --color-primary-700: #1d4ed8;
-  --color-primary-800: #1e40af;
-  --color-primary-900: #1e3a8a;
-
-  /* Mentor's app background color variable */
-  --color-app-bg: #ecf2f9;
-}
-
 :root {
   --background: #ecf2f9; /* Updated default body background to your mentor's color */
+  --background-hover: #f3f4f6;
   --foreground: #171717;
+  --text: #111111;
+  --active-bg: #1f2a37;
+  --active-track: #eff2f4;
+  --active-text: #ffffff;
+  --primary: #2563eb;
+  --card-title: #1f2a37;
+  --card: #ffffff;
+  --card-hover: #fafafa;
+  --table-card: #ebf5ff;
+  --info-card: #ebf5ff;
+  --info-title: #1c64f2;
+  --info-text: #111928;
+  --info-icon-bg: #c3ddfd;
+  --danger-card: #fef2f2;
+  --danger-title: #991b1b;
+  --danger-text: #b91c1c;
+  --danger-icon-bg: #fca5a5;
+  --warning-card: #fffbeb;
+  --warning-title: #92400e;
+  --warning-text: #b45309;
+  --warning-icon-bg: #fcd34d;
+  --graph-col-1: #1c64f2;
+  --graph-col-2: #c3ddfd;
+  --graph-col-3: #dfe5ee;
+  --button: #1a56db;
+  --button-text: #ffffff;
+  --lab-timeline-bg: #def7ec;
+  --lab-timeline-text: #0e9f6e;
+  --badge-bg: #ee0022;
+  --badge-text: #ffffff;
+  --danger-button: #ee0022;
+  --danger-button-text: #ffffff;
+
+  --shade: #637381;
+  --shade-hover: #f3f4f6;
+  --border: #ccc;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  --background: #14151a;
+  --background-hover: #1a1d22;
+  --foreground: #ebebeb;
+  --text: #f2f2f2;
+  --active-bg: #1e2935;
+  --active-track: #15181d;
+  --active-text: #6695f2;
+  --primary: #1a56db;
+  --card-title: #f1f1f1;
+  --card: #1a1d22;
+  --card-hover: #2a323a;
+  --table-card: #15181d;
+  --info-card: #21242b;
+  --info-title: #4580f2;
+  --info-text: #637381;
+  --info-icon-bg: #263145;
+  --danger-card: #371819;
+  --danger-title: #e35150;
+  --danger-text: #e35150;
+  --danger-icon-bg: #e35150;
+  --warning-card: #433a19;
+  --warning-title: #fcd34d;
+  --warning-text: #fcd34d;
+  --warning-icon-bg: #fcd34d;
+  --graph-col-1: #4580f2;
+  --graph-col-2: #1e3650;
+  --graph-col-3: #2d3037;
+  --button: #1a56db;
+  --button-text: #ffffff;
+  --lab-timeline-bg: #def7ec;
+  --lab-timeline-text: #0e9f6e;
+  --badge-bg: #ee0022;
+  --badge-text: #ffffff;
+  --danger-button: #ee0022;
+  --danger-button-text: #ffffff;
+
+  --shade: #637381;
+  --shade-hover: #c4c4c4;
+  --border: #3f4348;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  /* Use Tailwind's font-sans which now points to Nunito */
-  font-family: var(--font-sans);
 }
 
 /* Global Custom Scrollbar Utility */

@@ -37,7 +37,7 @@ export function PatientEncounterList({
   onNewEncounter,
 }: PatientEncounterListProps) {
   return (
-    <div className="bg-white rounded-[8px] p-6 shadow-xs space-y-6">
+    <div className="bg-(--card) rounded-[8px] p-6 shadow-xs space-y-6">
       {/* Header Row (h: 50px, space-between) */}
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
         <div>
@@ -52,7 +52,7 @@ export function PatientEncounterList({
 
         {/* Actions Bar (width: 601px, gap: 12px) */}
         <div className="flex flex-wrap items-center gap-3">
-          {/* Filter Search (w: 220px, h: 34px, bg-app-bg) */}
+          {/* Filter Search (w: 220px, h: 34px, bg-(--background)) */}
           <div className="relative w-[220px] h-[34px]">
             <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
               <Search className="h-3.5 w-3.5" />
@@ -62,16 +62,16 @@ export function PatientEncounterList({
               placeholder="Search encounter..."
               value={searchTerm}
               onChange={(e) => onSearchChange(e.target.value)}
-              className="w-full h-full pl-8 pr-3 bg-app-bg  rounded-[6px] text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-blue-600"
+              className="w-full h-full pl-8 pr-3 bg-(--background)  rounded-[6px] text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-blue-600"
             />
           </div>
 
-          {/* Filter Dropdown (w: 196px, h: 34px, bg-app-bg) */}
+          {/* Filter Dropdown (w: 196px, h: 34px, bg-(--background)) */}
           <div className="relative w-[196px] h-[34px]">
             <select
               value={selectedType}
               onChange={(e) => onTypeChange(e.target.value)}
-              className="w-full h-full appearance-none px-3 bg-app-bg ] rounded-[6px] text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-blue-600 cursor-pointer"
+              className="w-full h-full appearance-none px-3 bg-(--background) ] rounded-[6px] text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-blue-600 cursor-pointer"
             >
               <option value="all">Encounter Type: All</option>
               <option value="Inpatient">Encounter Type: Inpatient</option>
@@ -143,7 +143,7 @@ export function PatientEncounterList({
               return (
                 <tr
                   key={row.id}
-                  className="bg-app-bg hover:bg-slate-100/60 transition-colors cursor-pointer  h-[68px]"
+                  className="bg-(--background) hover:bg-slate-100/60 transition-colors cursor-pointer  h-[68px]"
                 >
                   {/* Date / Time */}
                   <td className="py-3 px-4 rounded-l-[6px]">
@@ -196,7 +196,7 @@ export function PatientEncounterList({
             <button
               type="button"
               onClick={() => onPageChange(Math.max(1, currentPage - 1))}
-              className="px-3 py-1 rounded-[6px] bg-app-bg  font-semibold text-slate-600 hover:bg-slate-200 transition-colors cursor-pointer shadow-2xs"
+              className="px-3 py-1 rounded-[6px] bg-(--background)  font-semibold text-slate-600 hover:bg-slate-200 transition-colors cursor-pointer shadow-2xs"
             >
               Previous
             </button>
@@ -210,7 +210,7 @@ export function PatientEncounterList({
             <button
               type="button"
               onClick={() => onPageChange(Math.min(1, currentPage + 1))}
-              className="px-3 py-1 rounded-[6px] bg-app-bg  font-semibold text-slate-600 hover:bg-slate-200 transition-colors cursor-pointer shadow-2xs"
+              className="px-3 py-1 rounded-[6px] bg-(--background)  font-semibold text-slate-600 hover:bg-slate-200 transition-colors cursor-pointer shadow-2xs"
             >
               Next
             </button>

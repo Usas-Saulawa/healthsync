@@ -26,7 +26,7 @@ export function NoteTab() {
             value={primaryReason}
             onChange={(e) => setPrimaryReason(e.target.value)}
             placeholder="Enter chief complaint (e.g. Mild shortness of breath, routine follow-up)..."
-            className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-white text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+            className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-(--card) text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
           />
         </div>
       </div>
@@ -45,7 +45,7 @@ export function NoteTab() {
             value={physicalExam}
             onChange={(e) => setPhysicalExam(e.target.value)}
             placeholder="Document objective findings, physical exam results, cardiovascular status, and system reviews..."
-            className="w-full p-4 rounded-xl border border-slate-200 bg-white text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all resize-none"
+            className="w-full p-4 rounded-xl border border-slate-200 bg-(--card) text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all resize-none"
           />
         </div>
       </div>
@@ -64,7 +64,7 @@ export function NoteTab() {
             value={subjectiveNarrative}
             onChange={(e) => setSubjectiveNarrative(e.target.value)}
             placeholder="Document subjective findings, patient-reported symptoms, onset duration, and history of present illness..."
-            className="w-full p-4 rounded-xl border border-slate-200 bg-white text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all resize-none"
+            className="w-full p-4 rounded-xl border border-slate-200 bg-(--card) text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all resize-none"
           />
         </div>
       </div>
@@ -83,7 +83,7 @@ export function NoteTab() {
             value={clinicalAssessment}
             onChange={(e) => setClinicalAssessment(e.target.value)}
             placeholder="Document clinical assessment, primary/secondary diagnoses, and progressive treatment plan..."
-            className="w-full p-4 rounded-xl border border-slate-200 bg-white text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all resize-none"
+            className="w-full p-4 rounded-xl border border-slate-200 bg-(--card) text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all resize-none"
           />
         </div>
       </div>

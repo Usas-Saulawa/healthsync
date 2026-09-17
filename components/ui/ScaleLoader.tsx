@@ -3,7 +3,7 @@ interface ScaleLoaderProps {
   className?: string;
 }
 
-export function ScaleLoader({ className = "bg-white" }: ScaleLoaderProps) {
+export function ScaleLoader({ className = "bg-(--card)" }: ScaleLoaderProps) {
   return (
     <div className="flex items-center space-x-1.5 h-5 justify-center">
       {/* Self-contained premium wave keyframe animation */}

@@ -38,7 +38,7 @@ export function VitalsAndTrendsSection() {
   return (
     <div className="space-y-6">
       {/* Component 1: Vitals Summary Card */}
-      <div className="w-full bg-white rounded-2xl border border-slate-200/80 shadow-xs p-6 space-y-4">
+      <div className="w-full bg-(--card) rounded-2xl border border-slate-200/80 shadow-xs p-6 space-y-4">
         {/* Section Title */}
         <h3 className="text-lg font-bold text-[#0f172a]">Vitals</h3>
 
@@ -107,7 +107,7 @@ export function VitalsAndTrendsSection() {
       </div>
 
       {/* Component 2: HbA1c Trend Tracker Card (Recharts-powered) */}
-      <div className="w-full bg-white rounded-2xl border border-slate-200/80 shadow-xs p-6 space-y-4">
+      <div className="w-full bg-(--card) rounded-2xl border border-slate-200/80 shadow-xs p-6 space-y-4">
         {/* Header & Status Badge */}
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-bold text-[#0f172a]">HbA1c Trend</h3>

@@ -112,7 +112,7 @@ export function PatientMedicationsTab() {
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xs p-6 space-y-6">
+    <div className="bg-(--card) rounded-2xl border border-slate-200/80 shadow-xs p-6 space-y-6">
       {/* Header & Action Bar Section Inside the Container */}
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 pb-4 border-b border-slate-100">
         <div>
@@ -151,7 +151,7 @@ export function PatientMedicationsTab() {
           <button
             type="button"
             onClick={handleExport}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-[6px] bg-app-bg text-slate-700 text-xs font-semibold hover:bg-slate-50 transition-colors shadow-2xs cursor-pointer h-[40px]"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-[6px] bg-(--background) text-slate-700 text-xs font-semibold hover:bg-slate-50 transition-colors shadow-2xs cursor-pointer h-[40px]"
           >
             Export
           </button>

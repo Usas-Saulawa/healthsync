@@ -82,7 +82,7 @@ export function PatientOverviewSummaryCards({
       {vitals.map((vital) => (
         <div
           key={vital.label}
-          className="flex h-[108px] w-full flex-col justify-between rounded-xl bg-white px-5 py-4 border border-blue-100/60 shadow-xs transition-all hover:border-slate-300"
+          className="flex h-[108px] w-full flex-col justify-between rounded-xl bg-(--card) px-5 py-4 border border-blue-100/60 shadow-xs transition-all hover:border-slate-300"
         >
           {/* Vital name and icon */}
           <div className="flex items-center gap-3">

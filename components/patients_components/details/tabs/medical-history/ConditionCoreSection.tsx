@@ -33,7 +33,7 @@ export function ConditionCoreSection({
   return (
     <div className="w-full space-y-4">
       {/* Card 1: Condition Header & Details Metadata Card */}
-      <div className="w-full bg-white rounded-2xl shadow-xs p-6 sm:p-7 space-y-6">
+      <div className="w-full bg-(--card) rounded-2xl shadow-xs p-6 sm:p-7 space-y-6">
         {/* Title and Badges row */}
         <div className="flex flex-wrap items-center gap-3">
           {/* Updated heading size to text-lg font-bold to perfectly match the Vitals card scale */}
@@ -108,7 +108,7 @@ export function ConditionCoreSection({
       </div>
 
       {/* Card 2: Clinical Notes Card */}
-      <div className="w-full bg-white rounded-2xl shadow-xs p-6 sm:p-7 space-y-3">
+      <div className="w-full bg-(--card) rounded-2xl shadow-xs p-6 sm:p-7 space-y-3">
         <h3 className="text-base sm:text-lg font-bold text-[#0f172a]">
           Clinical Notes
         </h3>

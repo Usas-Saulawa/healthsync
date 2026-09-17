@@ -108,7 +108,7 @@ export function PatientOverViewMetricsChart({
   const chartData = metricData[activeMetric];
 
   return (
-    <section className="w-full rounded-[15px] bg-white px-[39px] pb-[37px] pt-[23px]">
+    <section className="w-full rounded-[15px] bg-(--card) px-[39px] pb-[37px] pt-[23px]">
       {/* Header */}
       <div className="flex items-center justify-between">
         <h2 className="text-[15px] font-medium leading-[20px] text-[#111827]">
