@@ -29,14 +29,14 @@ export function PrescriptionTab() {
             All Prescriptions
           </span>
           {isAllPrescriptionsOpen ? (
-            <ChevronUp className="h-4 w-4 text-slate-500" />
+            <ChevronUp className="h-4 w-4 text-(--shade)" />
           ) : (
-            <ChevronDown className="h-4 w-4 text-slate-500" />
+            <ChevronDown className="h-4 w-4 text-(--shade)" />
           )}
         </button>
 
         {isAllPrescriptionsOpen && (
-          <div className="p-4 border-t border-slate-200 text-xs text-slate-500 text-center">
+          <div className="p-4 border-t border-slate-200 text-xs text-(--shade) text-center">
             No past prescriptions recorded for this encounter.
           </div>
         )}
@@ -50,7 +50,7 @@ export function PrescriptionTab() {
 
         {/* Medication Name */}
         <div className="space-y-1.5">
-          <label className="block text-xs font-semibold text-slate-700">
+          <label className="block text-xs font-semibold ">
             Medication Name
           </label>
           <div className="relative">
@@ -60,7 +60,7 @@ export function PrescriptionTab() {
               value={medicationSearch}
               onChange={(e) => setMedicationSearch(e.target.value)}
               placeholder="Search medications..."
-              className="w-full h-11 pl-11 pr-4 rounded-xl border border-slate-200 bg-(--card) text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+              className="w-full h-11 pl-11 pr-4 rounded-xl border border-slate-200 bg-(--card) text-sm  placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
             />
           </div>
         </div>
@@ -69,28 +69,24 @@ export function PrescriptionTab() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Dosage */}
           <div className="space-y-1.5">
-            <label className="block text-xs font-semibold text-slate-700">
-              Dosage
-            </label>
+            <label className="block text-xs font-semibold ">Dosage</label>
             <input
               type="text"
               value={dosage}
               onChange={(e) => setDosage(e.target.value)}
               placeholder="e.g., 500mg"
-              className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-(--card) text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+              className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-(--card) text-sm  placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
             />
           </div>
 
           {/* Route */}
           <div className="space-y-1.5">
-            <label className="block text-xs font-semibold text-slate-700">
-              Route
-            </label>
+            <label className="block text-xs font-semibold ">Route</label>
             <div className="relative">
               <select
                 value={route}
                 onChange={(e) => setRoute(e.target.value)}
-                className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-(--card) text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all appearance-none cursor-pointer"
+                className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-(--card) text-sm  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all appearance-none cursor-pointer"
               >
                 <option value="Oral">Oral</option>
                 <option value="Intravenous">Intravenous</option>
@@ -107,14 +103,12 @@ export function PrescriptionTab() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Frequency */}
           <div className="space-y-1.5">
-            <label className="block text-xs font-semibold text-slate-700">
-              Frequency
-            </label>
+            <label className="block text-xs font-semibold ">Frequency</label>
             <div className="relative">
               <select
                 value={frequency}
                 onChange={(e) => setFrequency(e.target.value)}
-                className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-(--card) text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all appearance-none cursor-pointer"
+                className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-(--card) text-sm  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all appearance-none cursor-pointer"
               >
                 <option value="Once Daily">Once Daily</option>
                 <option value="Twice Daily">Twice Daily</option>
@@ -128,21 +122,19 @@ export function PrescriptionTab() {
 
           {/* Duration */}
           <div className="space-y-1.5">
-            <label className="block text-xs font-semibold text-slate-700">
-              Duration
-            </label>
+            <label className="block text-xs font-semibold ">Duration</label>
             <div className="grid grid-cols-2 gap-2">
               <input
                 type="text"
                 value={durationNumber}
                 onChange={(e) => setDurationNumber(e.target.value)}
-                className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-(--card) text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+                className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-(--card) text-sm  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
               />
               <div className="relative">
                 <select
                   value={durationUnit}
                   onChange={(e) => setDurationUnit(e.target.value)}
-                  className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-(--card) text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all appearance-none cursor-pointer"
+                  className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-(--card) text-sm  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all appearance-none cursor-pointer"
                 >
                   <option value="Days">Days</option>
                   <option value="Weeks">Weeks</option>
@@ -158,42 +150,36 @@ export function PrescriptionTab() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Quantity */}
           <div className="space-y-1.5">
-            <label className="block text-xs font-semibold text-slate-700">
-              Quantity
-            </label>
+            <label className="block text-xs font-semibold ">Quantity</label>
             <input
               type="text"
               value={quantity}
               onChange={(e) => setQuantity(e.target.value)}
-              className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-(--card) text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+              className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-(--card) text-sm  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
             />
           </div>
 
           {/* Refills */}
           <div className="space-y-1.5">
-            <label className="block text-xs font-semibold text-slate-700">
-              Refills
-            </label>
+            <label className="block text-xs font-semibold ">Refills</label>
             <input
               type="text"
               value={refills}
               onChange={(e) => setRefills(e.target.value)}
-              className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-(--card) text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+              className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-(--card) text-sm  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
             />
           </div>
         </div>
 
         {/* Pharmacy Notes */}
         <div className="space-y-1.5">
-          <label className="block text-xs font-semibold text-slate-700">
-            Pharmacy Notes
-          </label>
+          <label className="block text-xs font-semibold ">Pharmacy Notes</label>
           <textarea
             rows={3}
             value={pharmacyNotes}
             onChange={(e) => setPharmacyNotes(e.target.value)}
             placeholder="Additional notes for the pharmacy..."
-            className="w-full p-4 rounded-xl border border-slate-200 bg-(--card) text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all resize-none"
+            className="w-full p-4 rounded-xl border border-slate-200 bg-(--card) text-sm  placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all resize-none"
           />
         </div>
       </div>

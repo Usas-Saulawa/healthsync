@@ -108,7 +108,7 @@ export function RelatedOrdersSection() {
                   <td className="py-4 pl-2 font-bold text-[#0f172a]">
                     {order.name}
                   </td>
-                  <td className="py-4 text-slate-500 font-medium">
+                  <td className="py-4 text-(--shade) font-medium">
                     {order.category}
                   </td>
                   <td className="py-4">
@@ -117,7 +117,7 @@ export function RelatedOrdersSection() {
                     </p>
                     <p className="text-[11px] text-slate-400">{order.doctor}</p>
                   </td>
-                  <td className="py-4 text-slate-500 font-medium">
+                  <td className="py-4 text-(--shade) font-medium">
                     {order.date}
                     <br />
                     <span className="text-[10px] text-slate-400">

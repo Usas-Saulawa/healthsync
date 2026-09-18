@@ -62,7 +62,7 @@ export function AdmissionRequestModal({
       <div className="relative w-full max-w-[540px] bg-(--card) rounded-[12px] shadow-xl border border-slate-100 flex flex-col max-h-[90vh]">
         {/* Modal Header */}
         <div className="flex items-center justify-between px-6 pt-5 pb-4 border-b border-slate-100">
-          <h2 className="text-lg font-bold text-slate-900 tracking-tight">
+          <h2 className="text-lg font-bold  tracking-tight">
             Request Admission
           </h2>
           <button
@@ -88,20 +88,18 @@ export function AdmissionRequestModal({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               {/* Admission Type */}
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold text-slate-700">
-                  Admission Type
-                </label>
+                <label className="text-xs font-semibold ">Admission Type</label>
                 <input
                   type="text"
                   value={admissionType}
                   onChange={(e) => setAdmissionType(e.target.value)}
-                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB]"
+                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  focus:outline-none focus:border-[#2563EB]"
                 />
               </div>
 
               {/* Requested Date & Time */}
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold text-slate-700">
+                <label className="text-xs font-semibold ">
                   Requested Date & Time <span className="text-red-500">*</span>
                 </label>
                 <div className="grid grid-cols-2 gap-2">
@@ -109,13 +107,13 @@ export function AdmissionRequestModal({
                     type="text"
                     value={requestedDate}
                     onChange={(e) => setRequestedDate(e.target.value)}
-                    className="w-full px-2.5 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB]"
+                    className="w-full px-2.5 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  focus:outline-none focus:border-[#2563EB]"
                   />
                   <input
                     type="text"
                     value={requestedTime}
                     onChange={(e) => setRequestedTime(e.target.value)}
-                    className="w-full px-2.5 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB]"
+                    className="w-full px-2.5 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  focus:outline-none focus:border-[#2563EB]"
                   />
                 </div>
               </div>
@@ -124,20 +122,20 @@ export function AdmissionRequestModal({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               {/* Admitting Provider */}
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold text-slate-700">
+                <label className="text-xs font-semibold ">
                   Admitting Provider <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
                   value={admittingProvider}
                   onChange={(e) => setAdmittingProvider(e.target.value)}
-                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB]"
+                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  focus:outline-none focus:border-[#2563EB]"
                 />
               </div>
 
               {/* Referring Provider */}
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold text-slate-700">
+                <label className="text-xs font-semibold ">
                   Referring Provider
                 </label>
                 <input
@@ -145,7 +143,7 @@ export function AdmissionRequestModal({
                   placeholder="Enter physician..."
                   value={referringProvider}
                   onChange={(e) => setReferringProvider(e.target.value)}
-                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-[#2563EB]"
+                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  placeholder:text-slate-400 focus:outline-none focus:border-[#2563EB]"
                 />
               </div>
             </div>
@@ -160,49 +158,47 @@ export function AdmissionRequestModal({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               {/* Primary Diagnosis */}
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold text-slate-700">
+                <label className="text-xs font-semibold ">
                   Primary Diagnosis <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
                   value={primaryDiagnosis}
                   onChange={(e) => setPrimaryDiagnosis(e.target.value)}
-                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB]"
+                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  focus:outline-none focus:border-[#2563EB]"
                 />
               </div>
 
               {/* ICD-10 Code */}
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold text-slate-700">
+                <label className="text-xs font-semibold ">
                   ICD-10 Code <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
                   value={icd10Code}
                   onChange={(e) => setIcd10Code(e.target.value)}
-                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB]"
+                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  focus:outline-none focus:border-[#2563EB]"
                 />
               </div>
             </div>
 
             {/* Reason for Admission */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-slate-700">
+              <label className="text-xs font-semibold ">
                 Reason for Admission
               </label>
               <textarea
                 rows={2}
                 value={reason}
                 onChange={(e) => setReason(e.target.value)}
-                className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB] resize-none"
+                className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  focus:outline-none focus:border-[#2563EB] resize-none"
               />
             </div>
 
             {/* Priority Selector */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-slate-700">
-                Priority
-              </label>
+              <label className="text-xs font-semibold ">Priority</label>
               <div className="flex items-center gap-2 flex-wrap">
                 {(["Routine", "Urgent", "Emergency"] as const).map((p) => {
                   const isSelected = priority === p;
@@ -215,7 +211,7 @@ export function AdmissionRequestModal({
                         isSelected
                           ? p === "Emergency"
                             ? "bg-(--card) text-red-600 border-red-500 shadow-xs"
-                            : "bg-(--card) text-slate-900 border-slate-800 shadow-xs"
+                            : "bg-(--card)  border-slate-800 shadow-xs"
                           : "bg-(--card) text-slate-600 border-slate-200 hover:bg-slate-50"
                       }`}
                     >
@@ -235,7 +231,7 @@ export function AdmissionRequestModal({
 
             {/* Preferred Department / Ward */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-slate-700">
+              <label className="text-xs font-semibold ">
                 Preferred Department / Ward
               </label>
               <div className="relative">
@@ -243,7 +239,7 @@ export function AdmissionRequestModal({
                   type="text"
                   value={department}
                   onChange={(e) => setDepartment(e.target.value)}
-                  className="w-full pl-3 pr-8 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB]"
+                  className="w-full pl-3 pr-8 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  focus:outline-none focus:border-[#2563EB]"
                 />
                 <div className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">
                   <Filter className="w-3.5 h-3.5" />
@@ -253,7 +249,7 @@ export function AdmissionRequestModal({
 
             {/* Preferred Bed Type */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-slate-700">
+              <label className="text-xs font-semibold ">
                 Preferred Bed Type
               </label>
               <div className="flex items-center gap-2 flex-wrap">
@@ -281,7 +277,7 @@ export function AdmissionRequestModal({
 
             {/* Special Requirements */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-slate-700">
+              <label className="text-xs font-semibold ">
                 Special Requirements
               </label>
               <input
@@ -289,7 +285,7 @@ export function AdmissionRequestModal({
                 placeholder="e.g. Isolation, continuous telemetry..."
                 value={specialRequirements}
                 onChange={(e) => setSpecialRequirements(e.target.value)}
-                className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-[#2563EB]"
+                className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  placeholder:text-slate-400 focus:outline-none focus:border-[#2563EB]"
               />
             </div>
 
@@ -309,7 +305,7 @@ export function AdmissionRequestModal({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 bg-(--card) text-slate-700 text-xs font-semibold rounded-[8px] border border-slate-200 hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs"
+              className="px-4 py-2 bg-(--card)  text-xs font-semibold rounded-[8px] border border-slate-200 hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs"
             >
               Cancel
             </button>

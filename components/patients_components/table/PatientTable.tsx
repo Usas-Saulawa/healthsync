@@ -5,14 +5,16 @@ import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowUpDown } from "lucide-react";
 import { PatientListItem } from "@/lib/validations/dashboard";
+import { PatientStatusBadge } from "./PatientStatusBadge"; // Import the status badge
 
 interface PatientTableProps {
   patients: PatientListItem[];
   currentPage?: number;
   totalPages?: number;
   totalPatients?: number;
+  itemsPerPage?: number;
   onPageChange?: (page: number) => void;
-  isOutPatient?: boolean; // Controls whether the status column/row is shown (false for in-patient, true for out-patient)
+  isOutPatient?: boolean;
 }
 
 type SortField =
@@ -29,7 +31,8 @@ export function PatientTable({
   patients,
   currentPage = 1,
   totalPages = 2,
-  totalPatients = 24,
+  totalPatients = 25,
+  itemsPerPage = 10, // Updated default to 10 records per page
   onPageChange,
   isOutPatient = false,
 }: PatientTableProps) {
@@ -65,13 +68,12 @@ export function PatientTable({
     });
   }, [patients, sortField, sortOrder]);
 
-  // Pagination slice: Show 7 records per page
+  // Pagination slice: Show itemsPerPage records per page
   const paginatedPatients = useMemo(() => {
-    const startIndex = (currentPage - 1) * 7;
-    return sortedPatients.slice(startIndex, startIndex + 7);
-  }, [sortedPatients, currentPage]);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    return sortedPatients.slice(startIndex, startIndex + itemsPerPage);
+  }, [sortedPatients, currentPage, itemsPerPage]);
 
-  // Select or clear all patients currently shown on this page.
   const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
       setSelectedIds(paginatedPatients.map((patient) => patient.id));
@@ -80,7 +82,6 @@ export function PatientTable({
     }
   };
 
-  // Toggle selection for one patient.
   const handleToggleSelect = (id: string | number) => {
     setSelectedIds((current) =>
       current.includes(id)
@@ -93,7 +94,6 @@ export function PatientTable({
     paginatedPatients.length > 0 &&
     selectedIds.length === paginatedPatients.length;
 
-  // Dynamic grid setup: 7 columns if out-patient (no status column), 8 columns if in-patient (includes status)
   const gridColumnsClass = isOutPatient
     ? "grid-cols-[44px_1.6fr_1.3fr_1fr_1.3fr_1.8fr_1.1fr]"
     : "grid-cols-[44px_1.42fr_1.15fr_0.9fr_1.15fr_1.55fr_1fr_0.95fr]";
@@ -106,7 +106,6 @@ export function PatientTable({
           <div
             className={`grid h-22.75 ${gridColumnsClass} items-center px-7 text-[13px] font-medium text-[#64748B]`}
           >
-            {/* Select all */}
             <div className="flex items-center">
               <input
                 type="checkbox"
@@ -117,7 +116,6 @@ export function PatientTable({
               />
             </div>
 
-            {/* Patient Name */}
             <div
               onClick={() => handleSort("name")}
               className="flex items-center gap-[7px] whitespace-nowrap cursor-pointer select-none"
@@ -129,7 +127,6 @@ export function PatientTable({
               />
             </div>
 
-            {/* Hospital Number */}
             <div
               onClick={() => handleSort("hospNo")}
               className="flex items-center gap-[7px] whitespace-nowrap cursor-pointer select-none"
@@ -141,7 +138,6 @@ export function PatientTable({
               />
             </div>
 
-            {/* Age / Sex */}
             <div
               onClick={() => handleSort("ageSex")}
               className="flex items-center gap-[7px] whitespace-nowrap cursor-pointer select-none"
@@ -153,7 +149,6 @@ export function PatientTable({
               />
             </div>
 
-            {/* Ward / Bed */}
             <div
               onClick={() => handleSort("wardBed")}
               className="flex items-center gap-[7px] whitespace-nowrap cursor-pointer select-none"
@@ -165,7 +160,6 @@ export function PatientTable({
               />
             </div>
 
-            {/* Primary Diagnosis */}
             <div
               onClick={() => handleSort("diagnosis")}
               className="flex items-center gap-[7px] whitespace-nowrap cursor-pointer select-none"
@@ -177,7 +171,6 @@ export function PatientTable({
               />
             </div>
 
-            {/* Status Header (Only visible for in-patients) */}
             {!isOutPatient && (
               <div
                 onClick={() => handleSort("status")}
@@ -191,7 +184,6 @@ export function PatientTable({
               </div>
             )}
 
-            {/* Insurance */}
             <div
               onClick={() => handleSort("insurance")}
               className="flex items-center justify-end gap-[7px] whitespace-nowrap pr-2 cursor-pointer select-none"
@@ -216,7 +208,7 @@ export function PatientTable({
                     router.push(`/dashboard/patients/${patient.id}`)
                   }
                   className={[
-                    "grid h-[50px] cursor-pointer",
+                    "grid h-[60px] cursor-pointer",
                     gridColumnsClass,
                     "items-center",
                     "px-[8px]",
@@ -227,7 +219,6 @@ export function PatientTable({
                       : "bg-[#EDF6FF] hover:bg-[#E8F3FF]",
                   ].join(" ")}
                 >
-                  {/* Row checkbox - Stops propagation so clicking checkbox doesn't trigger row navigation */}
                   <div
                     className="flex items-center"
                     onClick={(e) => e.stopPropagation()}
@@ -241,7 +232,6 @@ export function PatientTable({
                     />
                   </div>
 
-                  {/* Patient name and avatar */}
                   <div className="flex min-w-0 items-center gap-[9px]">
                     <div className="flex h-[31px] w-[31px] shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#FFF2A8]">
                       <img
@@ -250,42 +240,33 @@ export function PatientTable({
                         className="h-full w-full object-cover"
                       />
                     </div>
-
                     <span className="truncate text-[11px] font-semibold leading-[15px] text-[#172033]">
                       {patient.name}
                     </span>
                   </div>
 
-                  {/* Hospital number */}
                   <div className="truncate text-[11px] font-normal leading-[15px] text-[#718096]">
                     {patient.hospNo}
                   </div>
 
-                  {/* Age / sex */}
                   <div className="truncate text-[11px] font-normal leading-[15px] text-[#718096]">
                     {patient.ageSex}
                   </div>
 
-                  {/* Ward / bed */}
                   <div className="truncate text-[11px] font-normal leading-[15px] text-[#718096]">
                     {patient.wardBed}
                   </div>
 
-                  {/* Primary diagnosis */}
                   <div className="truncate text-[11px] font-medium leading-[15px] text-[#172033]">
                     {patient.diagnosis}
                   </div>
 
-                  {/* Status (Only rendered for in-patients, showing standard status / Active Admitted) */}
                   {!isOutPatient && (
                     <div className="flex items-center">
-                      <span className="inline-flex h-[23px] items-center rounded-full bg-[#FFF0A6] px-[11px] text-[10px] font-medium leading-none text-[#D99A00]">
-                        {patient.status || "Active Admitted"}
-                      </span>
+                      <PatientStatusBadge status={patient.status} />
                     </div>
                   )}
 
-                  {/* Insurance */}
                   <div className="truncate text-right text-[11px] font-normal leading-[15px] text-[#718096] pr-2">
                     {patient.insurance}
                   </div>
@@ -297,13 +278,13 @@ export function PatientTable({
           {/* Pagination configured for 7 items per page */}
           <div className="flex h-[74px] items-center justify-between border-t border-slate-100 px-[28px] bg-(--card)">
             <p className="text-[12px] font-normal leading-[16px] text-[#64748B]">
-              Showing {Math.min((currentPage - 1) * 7 + 1, totalPatients)}-
-              {Math.min(currentPage * 7, totalPatients)} of {totalPatients}{" "}
-              patients
+              Showing{" "}
+              {Math.min((currentPage - 1) * itemsPerPage + 1, totalPatients)}-
+              {Math.min(currentPage * itemsPerPage, totalPatients)} of{" "}
+              {totalPatients} patients
             </p>
 
             <div className="flex items-center gap-[6px]">
-              {/* Previous */}
               <button
                 type="button"
                 onClick={() => onPageChange?.(Math.max(1, currentPage - 1))}
@@ -313,7 +294,6 @@ export function PatientTable({
                 Previous
               </button>
 
-              {/* Page numbers */}
               {Array.from({ length: totalPages }, (_, index) => index + 1).map(
                 (pageNumber) => {
                   const isCurrentPage = currentPage === pageNumber;
@@ -339,7 +319,6 @@ export function PatientTable({
                 },
               )}
 
-              {/* Next */}
               <button
                 type="button"
                 onClick={() =>

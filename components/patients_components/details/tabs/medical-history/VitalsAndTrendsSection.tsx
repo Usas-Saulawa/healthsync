@@ -47,7 +47,7 @@ export function VitalsAndTrendsSection() {
           {/* Card A: Latest HbA1c */}
           <div className="w-full rounded-xl bg-blue-50/90  p-4 space-y-1">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-medium text-slate-500">
+              <span className="text-xs font-medium text-(--shade)">
                 Latest HbA1c
               </span>
               <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-600">
@@ -68,7 +68,7 @@ export function VitalsAndTrendsSection() {
           {/* Card B: Fasting Glucose */}
           <div className="w-full rounded-xl bg-blue-50/90 p-4 space-y-1">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-medium text-slate-500">
+              <span className="text-xs font-medium text-(--shade)">
                 Fasting Glucose
               </span>
               <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-600">
@@ -89,7 +89,7 @@ export function VitalsAndTrendsSection() {
           {/* Card C: BMI */}
           <div className="w-full rounded-xl bg-blue-50/90  p-4 space-y-1">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-medium text-slate-500">BMI</span>
+              <span className="text-xs font-medium text-(--shade)">BMI</span>
               <span className="text-xs font-bold text-amber-600">
                 Overweight
               </span>

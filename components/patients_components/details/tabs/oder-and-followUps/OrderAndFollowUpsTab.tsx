@@ -235,7 +235,7 @@ export function PatientOrderAndFollowUpsTab() {
           <h2 className="text-xl font-bold text-[#2563EB] tracking-tight">
             Orders & Follow-up
           </h2>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-(--shade) mt-1">
             Track and manage all clinical orders and patient follow-up
             appointments
           </p>
@@ -258,7 +258,7 @@ export function PatientOrderAndFollowUpsTab() {
           className={`relative px-3.5 py-2.5 text-xs font-semibold transition-colors cursor-pointer ${
             activeSubTab === "orders"
               ? "text-[#1C64F2]"
-              : "text-slate-500 hover:text-slate-800"
+              : "text-(--shade) hover:"
           }`}
         >
           Orders
@@ -277,7 +277,7 @@ export function PatientOrderAndFollowUpsTab() {
           className={`relative px-3.5 py-2.5 text-xs font-semibold transition-colors cursor-pointer ${
             activeSubTab === "follow-up"
               ? "text-[#1C64F2]"
-              : "text-slate-500 hover:text-slate-800"
+              : "text-(--shade) hover:"
           }`}
         >
           Follow-up History
@@ -295,7 +295,7 @@ export function PatientOrderAndFollowUpsTab() {
       {activeSubTab === "orders" ? (
         <div className="flex flex-col gap-4">
           <div className="w-full rounded-[6px] overflow-hidden bg-(--card) shadow-2xs">
-            <div className="grid grid-cols-12 bg-slate-50/80 px-4 py-3 text-[11px] font-bold text-slate-500 tracking-wider uppercase">
+            <div className="grid grid-cols-12 bg-slate-50/80 px-4 py-3 text-[11px] font-bold text-(--shade) tracking-wider uppercase">
               <div className="col-span-4">Order Name</div>
               <div className="col-span-2">Category</div>
               <div className="col-span-2">Ordered By</div>
@@ -306,13 +306,13 @@ export function PatientOrderAndFollowUpsTab() {
 
             <div className="flex flex-col gap-[4px] p-1 bg-(--card)">
               {orders.map((item) => {
-                let priorityStyle = "bg-slate-100 text-slate-700";
+                let priorityStyle = "bg-slate-100 ";
                 if (item.priority === "STAT")
                   priorityStyle = "bg-red-100 text-red-600 font-bold";
                 if (item.priority === "Urgent")
                   priorityStyle = "bg-amber-100 text-amber-700 font-bold";
                 if (item.priority === "Routine")
-                  priorityStyle = "bg-slate-200 text-slate-700 font-semibold";
+                  priorityStyle = "bg-slate-200  font-semibold";
 
                 let statusStyle = "text-blue-600 font-bold";
                 if (item.statusType === "completed") {
@@ -332,9 +332,9 @@ export function PatientOrderAndFollowUpsTab() {
                 return (
                   <div
                     key={item.id}
-                    className="grid grid-cols-12 items-center px-4 py-3.5 bg-(--background) rounded-[6px] text-xs text-slate-900 hover:bg-slate-100/60 transition-colors"
+                    className="grid grid-cols-12 items-center px-4 py-3.5 bg-(--background) rounded-[6px] text-xs  hover:bg-slate-100/60 transition-colors"
                   >
-                    <div className="col-span-4 font-bold text-slate-900">
+                    <div className="col-span-4 font-bold ">
                       {item.orderName}
                     </div>
                     <div className="col-span-2 text-slate-600">
@@ -361,14 +361,14 @@ export function PatientOrderAndFollowUpsTab() {
           </div>
 
           <div className="flex items-center justify-between pt-2">
-            <span className="text-xs text-slate-500 font-medium">
+            <span className="text-xs text-(--shade) font-medium">
               Showing 1-{orders.length} of {orders.length} orders
             </span>
             <div className="flex items-center gap-1.5">
               <button
                 type="button"
                 onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
-                className="px-3 py-1.5 bg-(--card) text-slate-700 text-xs font-semibold rounded-[6px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs border border-slate-200"
+                className="px-3 py-1.5 bg-(--card)  text-xs font-semibold rounded-[6px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs border border-slate-200"
               >
                 Previous
               </button>
@@ -382,7 +382,7 @@ export function PatientOrderAndFollowUpsTab() {
               <button
                 type="button"
                 onClick={() => setCurrentPage(2)}
-                className="px-3 py-1.5 bg-(--card) text-slate-700 text-xs font-semibold rounded-[6px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs border border-slate-200"
+                className="px-3 py-1.5 bg-(--card)  text-xs font-semibold rounded-[6px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs border border-slate-200"
               >
                 Next
               </button>
@@ -392,7 +392,7 @@ export function PatientOrderAndFollowUpsTab() {
       ) : (
         <div className="flex flex-col gap-4">
           <div className="w-full rounded-[6px] overflow-hidden bg-(--card) shadow-2xs">
-            <div className="grid grid-cols-12 bg-slate-50/85 px-4 py-3 text-[11px] font-bold text-slate-500 tracking-wider uppercase">
+            <div className="grid grid-cols-12 bg-slate-50/85 px-4 py-3 text-[11px] font-bold text-(--shade) tracking-wider uppercase">
               <div className="col-span-3">Follow-up Type</div>
               <div className="col-span-2">Scheduled Date</div>
               <div className="col-span-2">Provider</div>
@@ -428,9 +428,9 @@ export function PatientOrderAndFollowUpsTab() {
                 return (
                   <div
                     key={item.id}
-                    className="grid grid-cols-12 items-center px-4 py-3.5 bg-(--background) rounded-[6px] text-xs text-slate-900 hover:bg-slate-100/60 transition-colors"
+                    className="grid grid-cols-12 items-center px-4 py-3.5 bg-(--background) rounded-[6px] text-xs  hover:bg-slate-100/60 transition-colors"
                   >
-                    <div className="col-span-3 font-bold text-slate-900">
+                    <div className="col-span-3 font-bold ">
                       {item.followUpType}
                     </div>
                     <div className="col-span-2 text-slate-600">
@@ -445,7 +445,7 @@ export function PatientOrderAndFollowUpsTab() {
                     <div className="col-span-1 text-center">
                       <span className={statusStyle}>{item.status}</span>
                     </div>
-                    <div className="col-span-2 text-right text-slate-500 truncate pl-2">
+                    <div className="col-span-2 text-right text-(--shade) truncate pl-2">
                       {item.notes}
                     </div>
                   </div>
@@ -455,14 +455,14 @@ export function PatientOrderAndFollowUpsTab() {
           </div>
 
           <div className="flex items-center justify-between pt-2">
-            <span className="text-xs text-slate-500 font-medium">
+            <span className="text-xs text-(--shade) font-medium">
               Showing 1-{followUps.length} of {followUps.length} follow-ups
             </span>
             <div className="flex items-center gap-1.5">
               <button
                 type="button"
                 onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
-                className="px-3 py-1.5 bg-(--card) text-slate-700 text-xs font-semibold rounded-[6px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs border border-slate-200"
+                className="px-3 py-1.5 bg-(--card)  text-xs font-semibold rounded-[6px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs border border-slate-200"
               >
                 Previous
               </button>
@@ -476,7 +476,7 @@ export function PatientOrderAndFollowUpsTab() {
               <button
                 type="button"
                 onClick={() => setCurrentPage((p) => Math.min(p + 1, 1))}
-                className="px-3 py-1.5 bg-(--card) text-slate-700 text-xs font-semibold rounded-[6px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs border border-slate-200"
+                className="px-3 py-1.5 bg-(--card)  text-xs font-semibold rounded-[6px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs border border-slate-200"
               >
                 Next
               </button>

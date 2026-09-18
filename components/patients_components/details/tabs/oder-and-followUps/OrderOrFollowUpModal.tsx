@@ -54,13 +54,13 @@ export function OrderOrFollowUpModal({
         >
           {/* Header */}
           <div className="flex items-center justify-between px-6 py-5 border-b border-slate-100">
-            <h3 className="text-lg font-bold text-slate-900 tracking-tight">
+            <h3 className="text-lg font-bold  tracking-tight">
               {mode === "order" ? "Add Order" : "Schedule Follow-Up"}
             </h3>
             <button
               type="button"
               onClick={onClose}
-              className="w-8 h-8 flex items-center justify-center rounded-full bg-slate-50 text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
+              className="w-8 h-8 flex items-center justify-center rounded-full bg-slate-50 text-slate-400 hover: hover:bg-slate-100 transition-colors cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
@@ -75,7 +75,7 @@ export function OrderOrFollowUpModal({
             >
               {/* Field 1: Order Type / Follow-Up Type */}
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold text-slate-700">
+                <label className="text-xs font-semibold ">
                   {mode === "order" ? "Order Type" : "Follow-Up Type"}
                 </label>
                 <select
@@ -83,7 +83,7 @@ export function OrderOrFollowUpModal({
                   onChange={(e) =>
                     setFormData({ ...formData, type: e.target.value })
                   }
-                  className="w-full h-10 px-3 bg-(--card) border border-slate-200 rounded-[6px] text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1C64F2]"
+                  className="w-full h-10 px-3 bg-(--card) border border-slate-200 rounded-[6px] text-xs font-medium  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1C64F2]"
                 >
                   {mode === "order" ? (
                     <>
@@ -112,15 +112,13 @@ export function OrderOrFollowUpModal({
               {/* Conditional Field: Department (Mainly for Follow-Up) */}
               {mode === "follow-up" && (
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-semibold text-slate-700">
-                    Department
-                  </label>
+                  <label className="text-xs font-semibold ">Department</label>
                   <select
                     value={formData.department}
                     onChange={(e) =>
                       setFormData({ ...formData, department: e.target.value })
                     }
-                    className="w-full h-10 px-3 bg-(--card) border border-slate-200 rounded-[6px] text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1C64F2]"
+                    className="w-full h-10 px-3 bg-(--card) border border-slate-200 rounded-[6px] text-xs font-medium  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1C64F2]"
                   >
                     <option value="Cardiology">Cardiology</option>
                     <option value="Laboratory">Laboratory</option>
@@ -134,7 +132,7 @@ export function OrderOrFollowUpModal({
               {/* Field 2: Order Name / Provider Selection */}
               {mode === "order" ? (
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-semibold text-slate-700">
+                  <label className="text-xs font-semibold ">
                     Order Name / Test
                   </label>
                   <input
@@ -144,20 +142,18 @@ export function OrderOrFollowUpModal({
                     onChange={(e) =>
                       setFormData({ ...formData, nameOrTest: e.target.value })
                     }
-                    className="w-full h-10 px-3 bg-(--card) border border-slate-200 rounded-[6px] text-xs font-medium text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1C64F2]"
+                    className="w-full h-10 px-3 bg-(--card) border border-slate-200 rounded-[6px] text-xs font-medium  placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1C64F2]"
                   />
                 </div>
               ) : (
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-semibold text-slate-700">
-                    Provider
-                  </label>
+                  <label className="text-xs font-semibold ">Provider</label>
                   <select
                     value={formData.provider}
                     onChange={(e) =>
                       setFormData({ ...formData, provider: e.target.value })
                     }
-                    className="w-full h-10 px-3 bg-(--card) border border-slate-200 rounded-[6px] text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1C64F2]"
+                    className="w-full h-10 px-3 bg-(--card) border border-slate-200 rounded-[6px] text-xs font-medium  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1C64F2]"
                   >
                     <option value="Dr. Sarah Jenkins, MD">
                       Dr. Sarah Jenkins, MD
@@ -175,9 +171,7 @@ export function OrderOrFollowUpModal({
 
               {/* Priority Selector Pills */}
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold text-slate-700">
-                  Priority
-                </label>
+                <label className="text-xs font-semibold ">Priority</label>
                 <div className="flex items-center gap-2">
                   {(
                     [
@@ -211,7 +205,7 @@ export function OrderOrFollowUpModal({
               {/* Date & Time Row */}
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-semibold text-slate-700">
+                  <label className="text-xs font-semibold ">
                     {mode === "order"
                       ? "Scheduled Date & Time"
                       : "Preferred Date"}
@@ -223,14 +217,14 @@ export function OrderOrFollowUpModal({
                       onChange={(e) =>
                         setFormData({ ...formData, date: e.target.value })
                       }
-                      className="w-full h-10 pl-3 pr-9 bg-(--card) border border-slate-200 rounded-[6px] text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1C64F2]"
+                      className="w-full h-10 pl-3 pr-9 bg-(--card) border border-slate-200 rounded-[6px] text-xs font-medium  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1C64F2]"
                     />
                     <Calendar className="absolute right-3 top-2.5 w-4 h-4 text-slate-400 pointer-events-none" />
                   </div>
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-semibold text-slate-700">
+                  <label className="text-xs font-semibold ">
                     {mode === "order" ? "Frequency" : "Preferred Time"}
                   </label>
                   {mode === "order" ? (
@@ -239,7 +233,7 @@ export function OrderOrFollowUpModal({
                       onChange={(e) =>
                         setFormData({ ...formData, frequency: e.target.value })
                       }
-                      className="w-full h-10 px-3 bg-(--card) border border-slate-200 rounded-[6px] text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1C64F2]"
+                      className="w-full h-10 px-3 bg-(--card) border border-slate-200 rounded-[6px] text-xs font-medium  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1C64F2]"
                     >
                       <option value="Once">Once</option>
                       <option value="BID">BID (Twice daily)</option>
@@ -254,7 +248,7 @@ export function OrderOrFollowUpModal({
                         onChange={(e) =>
                           setFormData({ ...formData, time: e.target.value })
                         }
-                        className="w-full h-10 pl-3 pr-9 bg-(--card) border border-slate-200 rounded-[6px] text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1C64F2]"
+                        className="w-full h-10 pl-3 pr-9 bg-(--card) border border-slate-200 rounded-[6px] text-xs font-medium  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1C64F2]"
                       />
                       <Clock className="absolute right-3 top-2.5 w-4 h-4 text-slate-400 pointer-events-none" />
                     </div>
@@ -264,7 +258,7 @@ export function OrderOrFollowUpModal({
 
               {/* Clinical Indication / Reason */}
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold text-slate-700">
+                <label className="text-xs font-semibold ">
                   {mode === "order"
                     ? "Clinical Indication"
                     : "Reason for Follow-Up"}
@@ -283,13 +277,13 @@ export function OrderOrFollowUpModal({
                       clinicalIndication: e.target.value,
                     })
                   }
-                  className="w-full h-10 px-3 bg-(--card) border border-slate-200 rounded-[6px] text-xs font-medium text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1C64F2]"
+                  className="w-full h-10 px-3 bg-(--card) border border-slate-200 rounded-[6px] text-xs font-medium  placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1C64F2]"
                 />
               </div>
 
               {/* Special Instructions / Notes */}
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold text-slate-700">
+                <label className="text-xs font-semibold ">
                   Special Instructions
                 </label>
                 <textarea
@@ -306,7 +300,7 @@ export function OrderOrFollowUpModal({
                       specialInstructions: e.target.value,
                     })
                   }
-                  className="w-full p-3 bg-(--card) border border-slate-200 rounded-[6px] text-xs font-medium text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1C64F2] resize-none"
+                  className="w-full p-3 bg-(--card) border border-slate-200 rounded-[6px] text-xs font-medium  placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1C64F2] resize-none"
                 />
               </div>
             </form>
@@ -317,7 +311,7 @@ export function OrderOrFollowUpModal({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 bg-(--card) text-slate-700 border border-slate-200 text-xs font-semibold rounded-[6px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs"
+              className="px-4 py-2 bg-(--card)  border border-slate-200 text-xs font-semibold rounded-[6px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs"
             >
               Cancel
             </button>

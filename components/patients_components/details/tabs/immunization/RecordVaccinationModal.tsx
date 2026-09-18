@@ -50,7 +50,7 @@ export function RecordVaccinationModal({
       <div className="relative w-full max-w-[580px] bg-(--card) rounded-[12px] shadow-xl border border-slate-100 flex flex-col max-h-[90vh]">
         {/* Modal Header */}
         <div className="flex items-center justify-between px-6 pt-5 pb-4 border-b border-slate-100">
-          <h2 className="text-lg font-bold text-slate-900 tracking-tight">
+          <h2 className="text-lg font-bold  tracking-tight">
             Record Vaccination
           </h2>
           <button
@@ -71,14 +71,12 @@ export function RecordVaccinationModal({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Vaccine Name */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-slate-700">
-                Vaccine Name
-              </label>
+              <label className="text-xs font-semibold ">Vaccine Name</label>
               <div className="relative">
                 <select
                   value={vaccineName}
                   onChange={(e) => setVaccineName(e.target.value)}
-                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB] appearance-none cursor-pointer pr-8"
+                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  focus:outline-none focus:border-[#2563EB] appearance-none cursor-pointer pr-8"
                 >
                   <option value="" disabled>
                     Search vaccine...
@@ -106,15 +104,13 @@ export function RecordVaccinationModal({
 
             {/* Manufacturer */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-slate-700">
-                Manufacturer
-              </label>
+              <label className="text-xs font-semibold ">Manufacturer</label>
               <input
                 type="text"
                 placeholder="e.g., Sanofi Pasteur"
                 value={manufacturer}
                 onChange={(e) => setManufacturer(e.target.value)}
-                className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-[#2563EB]"
+                className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  placeholder:text-slate-400 focus:outline-none focus:border-[#2563EB]"
               />
             </div>
           </div>
@@ -123,14 +119,12 @@ export function RecordVaccinationModal({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Dose Number */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-slate-700">
-                Dose Number
-              </label>
+              <label className="text-xs font-semibold ">Dose Number</label>
               <div className="relative">
                 <select
                   value={doseNumber}
                   onChange={(e) => setDoseNumber(e.target.value)}
-                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB] appearance-none cursor-pointer pr-8"
+                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  focus:outline-none focus:border-[#2563EB] appearance-none cursor-pointer pr-8"
                 >
                   <option value="Dose 1">Dose 1</option>
                   <option value="Dose 2">Dose 2</option>
@@ -145,15 +139,13 @@ export function RecordVaccinationModal({
 
             {/* Lot Number */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-slate-700">
-                Lot Number
-              </label>
+              <label className="text-xs font-semibold ">Lot Number</label>
               <input
                 type="text"
                 placeholder="e.g., FL2023-4521"
                 value={lotNumber}
                 onChange={(e) => setLotNumber(e.target.value)}
-                className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-[#2563EB]"
+                className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  placeholder:text-slate-400 focus:outline-none focus:border-[#2563EB]"
               />
             </div>
           </div>
@@ -162,14 +154,14 @@ export function RecordVaccinationModal({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Date Administered */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-slate-700">
+              <label className="text-xs font-semibold ">
                 Date Administered
               </label>
               <div className="relative">
                 <select
                   value={dateAdministered}
                   onChange={(e) => setDateAdministered(e.target.value)}
-                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB] appearance-none cursor-pointer pr-8"
+                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  focus:outline-none focus:border-[#2563EB] appearance-none cursor-pointer pr-8"
                 >
                   <option value="Oct 24, 2023">Oct 24, 2023</option>
                   <option value="Oct 23, 2023">Oct 23, 2023</option>
@@ -180,14 +172,12 @@ export function RecordVaccinationModal({
 
             {/* Expiration Date */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-slate-700">
-                Expiration Date
-              </label>
+              <label className="text-xs font-semibold ">Expiration Date</label>
               <div className="relative">
                 <select
                   value={expirationDate}
                   onChange={(e) => setExpirationDate(e.target.value)}
-                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB] appearance-none cursor-pointer pr-8"
+                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  focus:outline-none focus:border-[#2563EB] appearance-none cursor-pointer pr-8"
                 >
                   <option value="" disabled>
                     Select date...
@@ -204,14 +194,12 @@ export function RecordVaccinationModal({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Administered By */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-slate-700">
-                Administered By
-              </label>
+              <label className="text-xs font-semibold ">Administered By</label>
               <div className="relative">
                 <select
                   value={administeredBy}
                   onChange={(e) => setAdministeredBy(e.target.value)}
-                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB] appearance-none cursor-pointer pr-8"
+                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  focus:outline-none focus:border-[#2563EB] appearance-none cursor-pointer pr-8"
                 >
                   <option value="" disabled>
                     Select provider...
@@ -228,14 +216,14 @@ export function RecordVaccinationModal({
 
             {/* Administration Site */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-slate-700">
+              <label className="text-xs font-semibold ">
                 Administration Site
               </label>
               <div className="relative">
                 <select
                   value={administrationSite}
                   onChange={(e) => setAdministrationSite(e.target.value)}
-                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB] appearance-none cursor-pointer pr-8"
+                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  focus:outline-none focus:border-[#2563EB] appearance-none cursor-pointer pr-8"
                 >
                   <option value="Left Deltoid">Left Deltoid</option>
                   <option value="Right Deltoid">Right Deltoid</option>
@@ -251,14 +239,12 @@ export function RecordVaccinationModal({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Route */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-slate-700">
-                Route
-              </label>
+              <label className="text-xs font-semibold ">Route</label>
               <div className="relative">
                 <select
                   value={route}
                   onChange={(e) => setRoute(e.target.value)}
-                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB] appearance-none cursor-pointer pr-8"
+                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  focus:outline-none focus:border-[#2563EB] appearance-none cursor-pointer pr-8"
                 >
                   <option value="Intramuscular">Intramuscular</option>
                   <option value="Subcutaneous">Subcutaneous</option>
@@ -271,14 +257,12 @@ export function RecordVaccinationModal({
 
             {/* VIS Date */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-slate-700">
-                VIS Date
-              </label>
+              <label className="text-xs font-semibold ">VIS Date</label>
               <div className="relative">
                 <select
                   value={visDate}
                   onChange={(e) => setVisDate(e.target.value)}
-                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB] appearance-none cursor-pointer pr-8"
+                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  focus:outline-none focus:border-[#2563EB] appearance-none cursor-pointer pr-8"
                 >
                   <option value="" disabled>
                     Select date...
@@ -293,15 +277,13 @@ export function RecordVaccinationModal({
 
           {/* Row 6: Notes */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-semibold text-slate-700">
-              Notes
-            </label>
+            <label className="text-xs font-semibold ">Notes</label>
             <textarea
               rows={3}
               placeholder="Additional notes about this vaccination..."
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-[#2563EB] resize-none"
+              className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  placeholder:text-slate-400 focus:outline-none focus:border-[#2563EB] resize-none"
             />
           </div>
 
@@ -310,7 +292,7 @@ export function RecordVaccinationModal({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 bg-(--card) text-slate-700 text-xs font-semibold rounded-[8px] border border-slate-200 hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs"
+              className="px-4 py-2 bg-(--card)  text-xs font-semibold rounded-[8px] border border-slate-200 hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs"
             >
               Cancel
             </button>

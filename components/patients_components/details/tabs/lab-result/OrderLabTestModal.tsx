@@ -91,9 +91,7 @@ export function OrderLabTestModal({
         {/* Modal Header */}
         <div className="flex items-center justify-between border-b border-[#E5E7EB] px-6 py-4 shrink-0">
           <div className="flex items-center gap-2">
-            <h2 className="text-base font-bold text-slate-900">
-              Order Lab Test
-            </h2>
+            <h2 className="text-base font-bold ">Order Lab Test</h2>
             <Info className="h-4 w-4 text-blue-600 cursor-pointer" />
           </div>
           <button
@@ -109,10 +107,8 @@ export function OrderLabTestModal({
         <div className="p-6 flex flex-col gap-5 overflow-y-auto custom-scrollbar flex-grow">
           {/* Field: Test Category */}
           <div className="flex flex-col gap-1.5 w-full">
-            <label className="text-xs font-semibold text-slate-700">
-              Test Category
-            </label>
-            <div className="w-full h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center justify-between text-xs text-slate-900 cursor-pointer">
+            <label className="text-xs font-semibold ">Test Category</label>
+            <div className="w-full h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center justify-between text-xs  cursor-pointer">
               <span>{category}</span>
               <ChevronDown className="h-4 w-4 text-slate-400" />
             </div>
@@ -120,9 +116,7 @@ export function OrderLabTestModal({
 
           {/* Field: Test Name */}
           <div className="flex flex-col gap-1.5 w-full">
-            <label className="text-xs font-semibold text-slate-700">
-              Test Name
-            </label>
+            <label className="text-xs font-semibold ">Test Name</label>
             <div className="w-full h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center gap-2.5">
               <Search className="h-4 w-4 text-slate-400 shrink-0" />
               <input
@@ -130,16 +124,14 @@ export function OrderLabTestModal({
                 placeholder="Search lab tests..."
                 value={testName}
                 onChange={(e) => setTestName(e.target.value)}
-                className="w-full text-xs text-slate-900 placeholder:text-slate-400 outline-none bg-transparent"
+                className="w-full text-xs  placeholder:text-slate-400 outline-none bg-transparent"
               />
             </div>
           </div>
 
           {/* Field: Priority */}
           <div className="flex flex-col gap-2 w-full">
-            <label className="text-xs font-semibold text-slate-700">
-              Priority
-            </label>
+            <label className="text-xs font-semibold ">Priority</label>
             {/* Priority Chips */}
             <div className="flex items-center gap-2 flex-wrap">
               {priorities.map((item) => {
@@ -153,7 +145,7 @@ export function OrderLabTestModal({
                     className={`px-4 flex items-center justify-center text-xs font-semibold transition-colors cursor-pointer ${
                       isSelected
                         ? "bg-blue-50 text-blue-600 border border-blue-200"
-                        : "bg-slate-50 text-slate-700 hover:bg-slate-200"
+                        : "bg-slate-50  hover:bg-slate-200"
                     }`}
                   >
                     {item}
@@ -165,7 +157,7 @@ export function OrderLabTestModal({
 
           {/* Field: Clinical Indication */}
           <div className="flex flex-col gap-1.5 w-full">
-            <label className="text-xs font-semibold text-slate-700">
+            <label className="text-xs font-semibold ">
               Clinical Indication
             </label>
             <div className="w-full h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center">
@@ -174,14 +166,14 @@ export function OrderLabTestModal({
                 placeholder="Enter clinical reason for ordering..."
                 value={indication}
                 onChange={(e) => setIndication(e.target.value)}
-                className="w-full text-xs text-slate-900 placeholder:text-slate-400 outline-none bg-transparent"
+                className="w-full text-xs  placeholder:text-slate-400 outline-none bg-transparent"
               />
             </div>
           </div>
 
           {/* Field: Special Instructions */}
           <div className="flex flex-col gap-1.5 w-full">
-            <label className="text-xs font-semibold text-slate-700">
+            <label className="text-xs font-semibold ">
               Special Instructions
             </label>
             <div className="w-full h-[70px] bg-(--card) border border-[#D1D5DB] rounded-[8px] p-3">
@@ -189,7 +181,7 @@ export function OrderLabTestModal({
                 placeholder="Additional instructions for the lab..."
                 value={specialInstructions}
                 onChange={(e) => setSpecialInstructions(e.target.value)}
-                className="w-full h-full text-xs text-slate-900 placeholder:text-slate-400 outline-none bg-transparent resize-none"
+                className="w-full h-full text-xs  placeholder:text-slate-400 outline-none bg-transparent resize-none"
               />
             </div>
           </div>
@@ -198,10 +190,8 @@ export function OrderLabTestModal({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
             {/* Specimen Type */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-slate-700">
-                Specimen Type
-              </label>
-              <div className="w-full h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center justify-between text-xs text-slate-900 cursor-pointer">
+              <label className="text-xs font-semibold ">Specimen Type</label>
+              <div className="w-full h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center justify-between text-xs  cursor-pointer">
                 <span>{specimenType}</span>
                 <ChevronDown className="h-4 w-4 text-slate-400" />
               </div>
@@ -209,7 +199,7 @@ export function OrderLabTestModal({
 
             {/* Fasting Required Toggle Row */}
             <div className="flex flex-col justify-end gap-1.5">
-              <label className="text-xs font-semibold text-slate-700 whitespace-nowrap">
+              <label className="text-xs font-semibold  whitespace-nowrap">
                 Fasting Required
               </label>
               <div className="flex items-center gap-2.5 h-[42px]">
@@ -230,7 +220,7 @@ export function OrderLabTestModal({
                     }}
                   />
                 </button>
-                <span className="text-xs font-medium text-slate-700 whitespace-nowrap">
+                <span className="text-xs font-medium  whitespace-nowrap">
                   {fastingRequired ? "Yes (ON)" : "No"}
                 </span>
               </div>
@@ -241,10 +231,8 @@ export function OrderLabTestModal({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
             {/* Frequency */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-slate-700">
-                Frequency
-              </label>
-              <div className="w-full h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center justify-between text-xs text-slate-900 cursor-pointer">
+              <label className="text-xs font-semibold ">Frequency</label>
+              <div className="w-full h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center justify-between text-xs  cursor-pointer">
                 <span>{frequency}</span>
                 <ChevronDown className="h-4 w-4 text-slate-400" />
               </div>
@@ -252,15 +240,15 @@ export function OrderLabTestModal({
 
             {/* Scheduled Date & Time */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-slate-700">
+              <label className="text-xs font-semibold ">
                 Scheduled Date & Time
               </label>
               <div className="flex items-center gap-2">
-                <div className="flex-1 h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3 flex items-center justify-between text-xs text-slate-900 cursor-pointer">
+                <div className="flex-1 h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3 flex items-center justify-between text-xs  cursor-pointer">
                   <span>{scheduledDate}</span>
                   <Calendar className="h-3.5 w-3.5 text-slate-400 shrink-0" />
                 </div>
-                <div className="w-[100px] h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3 flex items-center justify-between text-xs text-slate-900 cursor-pointer">
+                <div className="w-[100px] h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3 flex items-center justify-between text-xs  cursor-pointer">
                   <span>{scheduledTime}</span>
                   <Clock className="h-3.5 w-3.5 text-slate-400 shrink-0" />
                 </div>
@@ -274,7 +262,7 @@ export function OrderLabTestModal({
           <button
             type="button"
             onClick={onClose}
-            className="w-[88px] h-[38px] bg-(--card) border border-[#D1D5DB] text-slate-700 text-xs font-semibold rounded-[8px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs"
+            className="w-[88px] h-[38px] bg-(--card) border border-[#D1D5DB]  text-xs font-semibold rounded-[8px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs"
           >
             Cancel
           </button>

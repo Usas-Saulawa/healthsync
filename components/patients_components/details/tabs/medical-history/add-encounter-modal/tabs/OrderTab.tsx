@@ -66,9 +66,9 @@ export function OrderTab() {
             All Orders
           </span>
           {isAllOrdersOpen ? (
-            <ChevronUp className="h-4 w-4 text-slate-500" />
+            <ChevronUp className="h-4 w-4 text-(--shade)" />
           ) : (
-            <ChevronDown className="h-4 w-4 text-slate-500" />
+            <ChevronDown className="h-4 w-4 text-(--shade)" />
           )}
         </button>
 
@@ -93,7 +93,7 @@ export function OrderTab() {
                     <td className="py-3 pl-2 font-bold text-[#0f172a]">
                       {order.name}
                     </td>
-                    <td className="py-3 text-slate-500 font-medium">
+                    <td className="py-3 text-(--shade) font-medium">
                       {order.category}
                     </td>
                     <td className="py-3">
@@ -104,7 +104,7 @@ export function OrderTab() {
                         {order.doctor}
                       </p>
                     </td>
-                    <td className="py-3 text-slate-500 font-medium">
+                    <td className="py-3 text-(--shade) font-medium">
                       {order.date}
                       <br />
                       <span className="text-[10px] text-slate-400">
@@ -134,14 +134,12 @@ export function OrderTab() {
 
         {/* Order Type */}
         <div className="space-y-1.5">
-          <label className="block text-xs font-semibold text-slate-700">
-            Order Type
-          </label>
+          <label className="block text-xs font-semibold ">Order Type</label>
           <div className="relative">
             <select
               value={orderType}
               onChange={(e) => setOrderType(e.target.value)}
-              className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-(--card) text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all appearance-none cursor-pointer"
+              className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-(--card) text-sm  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all appearance-none cursor-pointer"
             >
               <option value="Laboratory">Laboratory</option>
               <option value="Consultation">Consultation</option>
@@ -154,7 +152,7 @@ export function OrderTab() {
 
         {/* Order Name / Test */}
         <div className="space-y-1.5">
-          <label className="block text-xs font-semibold text-slate-700">
+          <label className="block text-xs font-semibold ">
             Order Name / Test
           </label>
           <div className="relative">
@@ -164,16 +162,14 @@ export function OrderTab() {
               value={orderSearch}
               onChange={(e) => setOrderSearch(e.target.value)}
               placeholder="Search orders..."
-              className="w-full h-11 pl-11 pr-4 rounded-xl border border-slate-200 bg-(--card) text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+              className="w-full h-11 pl-11 pr-4 rounded-xl border border-slate-200 bg-(--card) text-sm  placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
             />
           </div>
         </div>
 
         {/* Priority Pills */}
         <div className="space-y-1.5">
-          <label className="block text-xs font-semibold text-slate-700">
-            Priority
-          </label>
+          <label className="block text-xs font-semibold ">Priority</label>
           <div className="flex items-center gap-2">
             {priorities.map((priority) => {
               const isSelected = selectedPriority === priority;
@@ -197,7 +193,7 @@ export function OrderTab() {
 
         {/* Clinical Indication */}
         <div className="space-y-1.5">
-          <label className="block text-xs font-semibold text-slate-700">
+          <label className="block text-xs font-semibold ">
             Clinical Indication
           </label>
           <input
@@ -205,13 +201,13 @@ export function OrderTab() {
             value={clinicalIndication}
             onChange={(e) => setClinicalIndication(e.target.value)}
             placeholder="Enter clinical reason for order..."
-            className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-(--card) text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+            className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-(--card) text-sm  placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
           />
         </div>
 
         {/* Special Instructions */}
         <div className="space-y-1.5">
-          <label className="block text-xs font-semibold text-slate-700">
+          <label className="block text-xs font-semibold ">
             Special Instructions
           </label>
           <textarea
@@ -219,7 +215,7 @@ export function OrderTab() {
             value={specialInstructions}
             onChange={(e) => setSpecialInstructions(e.target.value)}
             placeholder="Additional instructions for the order..."
-            className="w-full p-4 rounded-xl border border-slate-200 bg-(--card) text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all resize-none"
+            className="w-full p-4 rounded-xl border border-slate-200 bg-(--card) text-sm  placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all resize-none"
           />
         </div>
 
@@ -227,14 +223,12 @@ export function OrderTab() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Frequency */}
           <div className="space-y-1.5">
-            <label className="block text-xs font-semibold text-slate-700">
-              Frequency
-            </label>
+            <label className="block text-xs font-semibold ">Frequency</label>
             <div className="relative">
               <select
                 value={frequency}
                 onChange={(e) => setFrequency(e.target.value)}
-                className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-(--card) text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all appearance-none cursor-pointer"
+                className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-(--card) text-sm  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all appearance-none cursor-pointer"
               >
                 <option value="Once">Once</option>
                 <option value="Daily">Daily</option>
@@ -247,7 +241,7 @@ export function OrderTab() {
 
           {/* Scheduled Date & Time Container */}
           <div className="space-y-1.5">
-            <label className="block text-xs font-semibold text-slate-700">
+            <label className="block text-xs font-semibold ">
               Scheduled Date & Time
             </label>
             <div className="grid grid-cols-2 gap-2">
@@ -257,7 +251,7 @@ export function OrderTab() {
                   type="text"
                   value={scheduledDate}
                   onChange={(e) => setScheduledDate(e.target.value)}
-                  className="w-full h-11 pl-3 pr-9 rounded-xl border border-slate-200 bg-(--card) text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+                  className="w-full h-11 pl-3 pr-9 rounded-xl border border-slate-200 bg-(--card) text-xs  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
                 />
                 <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 pointer-events-none" />
               </div>
@@ -268,7 +262,7 @@ export function OrderTab() {
                   type="text"
                   value={scheduledTime}
                   onChange={(e) => setScheduledTime(e.target.value)}
-                  className="w-full h-11 pl-3 pr-9 rounded-xl border border-slate-200 bg-(--card) text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+                  className="w-full h-11 pl-3 pr-9 rounded-xl border border-slate-200 bg-(--card) text-xs  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
                 />
                 <Clock className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 pointer-events-none" />
               </div>

@@ -31,14 +31,14 @@ export function FollowUpsWidget({
         </div>
         <Link
           href="/dashboard/follow-ups"
-          className="text-sm font-semibold text-(--active-track) hover:text-(--primary) transition-colors shrink-0"
+          className="text-sm font-semibold text-(--link-track) hover:text-(--primary) transition-colors shrink-0"
         >
           View All
         </Link>
       </div>
 
       {/* Status Legend Indicators */}
-      <div className="flex items-center space-x-4 sm:space-x-6 text-[11px] xl:text-xs text-slate-500 font-medium pt-1 flex-wrap gap-y-2">
+      <div className="flex items-center space-x-4 sm:space-x-6 text-[11px] xl:text-xs text-(--shade) font-medium pt-1 flex-wrap gap-y-2">
         <div className="flex items-center space-x-2">
           <span className="w-2 h-2 rounded-full bg-(--graph-col-1) inline-block shrink-0"></span>
           <span>Available</span>
@@ -59,13 +59,13 @@ export function FollowUpsWidget({
           // Dynamic status pill styling based on state
           const isCheckedIn = item.status === "Checked In";
           const statusBadgeStyle = isCheckedIn
-            ? "bg-[#cce5ff] text-[#004085] border border-[#b8daff]"
-            : "bg-[#fff3cd] text-[#856404] border border-[#ffeeba]";
+            ? "bg-(--info-icon-bg) text-(--info-title)"
+            : "bg-(--warning-card) text-(--warning-title)";
 
           return (
             <div
               key={item.id}
-              className="bg-(--info-card) hover:bg-blue-100/60 transition-all p-4 sm:p-5 rounded-lg  flex items-center justify-between gap-3"
+              className="bg-(--info-card) hover:bg-(--background) cursor-pointer transition-all p-4 sm:p-5 rounded-lg  flex items-center justify-between gap-3"
             >
               <div className="space-y-1 min-w-0 pr-2">
                 <span className="text-[11px] xl:text-xs font-bold text-(--info-title) tracking-wide uppercase block truncate">
@@ -74,13 +74,13 @@ export function FollowUpsWidget({
                 <h3 className="text-sm sm:text-base font-bold truncate">
                   {item.name}
                 </h3>
-                <p className="text-[11px] xl:text-xs text-slate-500 font-medium truncate">
+                <p className="text-[11px] xl:text-xs text-(--shade) font-medium truncate">
                   {item.description}
                 </p>
               </div>
 
               {/* Status Badge */}
-              <div className="flex-shrink-0">
+              <div className="shrink-0">
                 <span
                   className={`inline-flex items-center px-3 py-1.5 rounded-full text-[11px] xl:text-xs font-bold shadow-2xs whitespace-nowrap ${statusBadgeStyle}`}
                 >

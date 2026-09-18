@@ -64,13 +64,13 @@ export function SearchBar({
         onChange={onChange}
         placeholder={placeholder}
         suppressHydrationWarning // <--- Prevents browser extensions from causing hydration mismatches
-        className="bg-transparent text-sm font-normal text-slate-800 placeholder:text-slate-500 focus:outline-none w-full truncate"
+        className="bg-transparent text-sm font-normal  placeholder:text-(--shade) focus:outline-none w-full truncate"
       />
 
       <button
         type="button"
         onClick={onFilterClick}
-        className="h-8 w-8 rounded-full bg-slate-50 hover:bg-slate-100 text-slate-700 flex items-center justify-center shrink-0 border border-slate-200/60 transition-colors shadow-2xs"
+        className="h-8 w-8 rounded-full bg-slate-50 hover:bg-slate-100  flex items-center justify-center shrink-0 border border-slate-200/60 transition-colors shadow-2xs"
         aria-label="Open filter options"
       >
         <SlidersHorizontal className="h-3.5 w-3.5 text-slate-600" />
@@ -116,11 +116,11 @@ export function FilterDropdown({
         onClick={() => setIsOpen(!isOpen)}
         className="bg-(--card) rounded-full pl-5 pr-1.5 py-1.5 shadow-xs border border-slate-200/70 flex items-center justify-between gap-4 w-full sm:w-auto min-w-[130px] hover:border-slate-300 transition-all"
       >
-        <span className="text-sm font-normal text-slate-800 truncate">
+        <span className="text-sm font-normal  truncate">
           {selectedOption || label}
         </span>
 
-        <div className="h-8 w-8 rounded-full bg-slate-50 hover:bg-slate-100 text-slate-700 flex items-center justify-center shrink-0 border border-slate-200/60 transition-colors shadow-2xs">
+        <div className="h-8 w-8 rounded-full bg-slate-50 hover:bg-slate-100  flex items-center justify-center shrink-0 border border-slate-200/60 transition-colors shadow-2xs">
           <SlidersHorizontal className="h-3.5 w-3.5 text-slate-600" />
         </div>
       </button>
@@ -140,7 +140,7 @@ export function FilterDropdown({
               className={`w-full text-left px-4 py-2 text-sm font-medium transition-colors ${
                 selectedOption === opt.label
                   ? "bg-blue-50 text-blue-600 font-semibold"
-                  : "text-slate-700 hover:bg-slate-50 hover:text-slate-900"
+                  : " hover:bg-slate-50 hover:"
               }`}
             >
               {opt.label}

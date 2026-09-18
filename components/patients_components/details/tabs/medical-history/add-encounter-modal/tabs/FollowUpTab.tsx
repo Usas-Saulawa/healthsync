@@ -26,14 +26,12 @@ export function FollowUpTab() {
 
         {/* Follow-Up Type */}
         <div className="space-y-1.5">
-          <label className="block text-xs font-semibold text-slate-700">
-            Follow-Up Type
-          </label>
+          <label className="block text-xs font-semibold ">Follow-Up Type</label>
           <div className="relative">
             <select
               value={followUpType}
               onChange={(e) => setFollowUpType(e.target.value)}
-              className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-(--card) text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all appearance-none cursor-pointer"
+              className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-(--card) text-sm  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all appearance-none cursor-pointer"
             >
               <option value="Office Visit">Office Visit</option>
               <option value="Telehealth">Telehealth</option>
@@ -46,14 +44,12 @@ export function FollowUpTab() {
 
         {/* Department */}
         <div className="space-y-1.5">
-          <label className="block text-xs font-semibold text-slate-700">
-            Department
-          </label>
+          <label className="block text-xs font-semibold ">Department</label>
           <div className="relative">
             <select
               value={department}
               onChange={(e) => setDepartment(e.target.value)}
-              className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-(--card) text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all appearance-none cursor-pointer"
+              className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-(--card) text-sm  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all appearance-none cursor-pointer"
             >
               <option value="Cardiology">Cardiology</option>
               <option value="Endocrinology">Endocrinology</option>
@@ -66,14 +62,12 @@ export function FollowUpTab() {
 
         {/* Provider */}
         <div className="space-y-1.5">
-          <label className="block text-xs font-semibold text-slate-700">
-            Provider
-          </label>
+          <label className="block text-xs font-semibold ">Provider</label>
           <div className="relative">
             <select
               value={provider}
               onChange={(e) => setProvider(e.target.value)}
-              className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-(--card) text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all appearance-none cursor-pointer"
+              className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-(--card) text-sm  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all appearance-none cursor-pointer"
             >
               <option value="Dr. Sarah Jenkins, MD">
                 Dr. Sarah Jenkins, MD
@@ -87,9 +81,7 @@ export function FollowUpTab() {
 
         {/* Priority Pills */}
         <div className="space-y-1.5">
-          <label className="block text-xs font-semibold text-slate-700">
-            Priority
-          </label>
+          <label className="block text-xs font-semibold ">Priority</label>
           <div className="flex items-center gap-2">
             {priorities.map((priority) => {
               const isSelected = selectedPriority === priority;
@@ -115,7 +107,7 @@ export function FollowUpTab() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Preferred Date */}
           <div className="space-y-1.5">
-            <label className="block text-xs font-semibold text-slate-700">
+            <label className="block text-xs font-semibold ">
               Preferred Date
             </label>
             <div className="relative">
@@ -123,7 +115,7 @@ export function FollowUpTab() {
                 type="text"
                 value={preferredDate}
                 onChange={(e) => setPreferredDate(e.target.value)}
-                className="w-full h-11 pl-4 pr-10 rounded-xl border border-slate-200 bg-(--card) text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+                className="w-full h-11 pl-4 pr-10 rounded-xl border border-slate-200 bg-(--card) text-sm  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
               />
               <Calendar className="absolute right-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 pointer-events-none" />
             </div>
@@ -131,7 +123,7 @@ export function FollowUpTab() {
 
           {/* Preferred Time */}
           <div className="space-y-1.5">
-            <label className="block text-xs font-semibold text-slate-700">
+            <label className="block text-xs font-semibold ">
               Preferred Time
             </label>
             <div className="relative">
@@ -139,7 +131,7 @@ export function FollowUpTab() {
                 type="text"
                 value={preferredTime}
                 onChange={(e) => setPreferredTime(e.target.value)}
-                className="w-full h-11 pl-4 pr-10 rounded-xl border border-slate-200 bg-(--card) text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+                className="w-full h-11 pl-4 pr-10 rounded-xl border border-slate-200 bg-(--card) text-sm  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
               />
               <Clock className="absolute right-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 pointer-events-none" />
             </div>
@@ -148,7 +140,7 @@ export function FollowUpTab() {
 
         {/* Reason for Follow-Up */}
         <div className="space-y-1.5">
-          <label className="block text-xs font-semibold text-slate-700">
+          <label className="block text-xs font-semibold ">
             Reason for Follow-Up
           </label>
           <input
@@ -156,13 +148,13 @@ export function FollowUpTab() {
             value={reason}
             onChange={(e) => setReason(e.target.value)}
             placeholder="Enter reason for follow-up visit..."
-            className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-(--card) text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+            className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-(--card) text-sm  placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
           />
         </div>
 
         {/* Special Instructions */}
         <div className="space-y-1.5">
-          <label className="block text-xs font-semibold text-slate-700">
+          <label className="block text-xs font-semibold ">
             Special Instructions
           </label>
           <textarea
@@ -170,7 +162,7 @@ export function FollowUpTab() {
             value={specialInstructions}
             onChange={(e) => setSpecialInstructions(e.target.value)}
             placeholder="Additional, instructions or notes..."
-            className="w-full p-4 rounded-xl border border-slate-200 bg-(--card) text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all resize-none"
+            className="w-full p-4 rounded-xl border border-slate-200 bg-(--card) text-sm  placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all resize-none"
           />
         </div>
       </div>

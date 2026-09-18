@@ -39,7 +39,7 @@ export function MasterFilterToolbar({
   onSearchIconClick,
 
   showFilter = true,
-  filterLabel = "Monthly",
+  filterLabel = "Filter",
   filterOptions = [],
   onFilterSelect,
 
@@ -84,7 +84,6 @@ export function MasterFilterToolbar({
       ? "bg-(--card) focus-within:bg-(--card-hover)"
       : "bg-(--background) border-0 focus-within:bg-(--card)";
 
-  // Icon container background: locked to #CCDFFF when inactive, changes when active/open
   const getIconContainerClass = (isActiveOrOpen: boolean) => {
     if (isActiveOrOpen) {
       return "bg-(--background)";
@@ -140,7 +139,7 @@ export function MasterFilterToolbar({
                     onFilterSelect?.(opt.value, opt.label);
                     setIsFilterOpen(false);
                   }}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all whitespace-nowrap flex items-center gap-1.5 ${
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all whitespace-nowrap flex items-center gap-1.5 cursor-pointer ${
                     isSelected
                       ? "bg-(--button) text-(--button-text) shadow-xs"
                       : "bg-(--background) hover:bg-(--background-hover)"
@@ -156,6 +155,8 @@ export function MasterFilterToolbar({
           <button
             type="button"
             onClick={() => {
+              // If already active, clicking the main button can also act as a quick reset toggle if desired,
+              // or just open/close the dropdown. Let's make it toggle the drawer safely:
               setIsFilterOpen(!isFilterOpen);
               setIsSortOpen(false);
             }}
@@ -181,7 +182,7 @@ export function MasterFilterToolbar({
       {showSort && (
         <div className="relative flex items-center">
           <div
-            className={`flex items-center gap-1.5 overflow-hidden transition-all duration-300 ease-in-out bg-(--card) rounded-full border border-blue-200 shadow-sm mr-2 ${
+            className={`flex items-center gap-1.5 overflow-hidden transition-all duration-300 ease-in-out bg-(--card) rounded-full shadow-sm mr-2 ${
               isSortOpen
                 ? "max-w-100 opacity-100 px-3 py-1.5"
                 : "max-w-0 opacity-0 px-0 py-1.5 border-transparent pointer-events-none"
@@ -197,10 +198,10 @@ export function MasterFilterToolbar({
                     onSortSelect?.(opt.value, opt.label);
                     setIsSortOpen(false);
                   }}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all whitespace-nowrap flex items-center gap-1.5 ${
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all whitespace-nowrap flex items-center gap-1.5 cursor-pointer ${
                     isSelected
-                      ? "bg-blue-600 text-white shadow-xs"
-                      : "bg-(--background) text-[#0f172a] hover:bg-blue-100/60 hover:text-blue-700"
+                      ? "bg-(--button) text-(--button-text) shadow-xs"
+                      : "bg-(--background) hover:bg-(--background-hover)"
                   }`}
                 >
                   {isSelected && <Check className="h-3 w-3 stroke-[2.5]" />}
@@ -218,7 +219,7 @@ export function MasterFilterToolbar({
             }}
             className={`flex h-11.25 w-30.25 shrink-0 items-center justify-between rounded-full pl-4 pr-1.25 text-xs sm:text-sm font-semibold transition-all duration-300 cursor-pointer shadow-2xs ${
               isSortActive || isSortOpen
-                ? "bg-blue-100/80 border border-blue-300 text-blue-700 ring-2 ring-blue-500/10"
+                ? "bg-(--card) hover:bg-(--card-hover)"
                 : baseBgClass
             }`}
           >

@@ -56,7 +56,7 @@ export default function MedicalHistoryPage({
             </button>
             <button
               type="button"
-              className="flex items-center gap-2 h-10 px-4 rounded-xl bg-(--card) text-slate-700 text-xs sm:text-sm font-semibold  shadow-xs hover:bg-slate-50 transition-colors cursor-pointer"
+              className="flex items-center gap-2 h-10 px-4 rounded-xl bg-(--card)  text-xs sm:text-sm font-semibold  shadow-xs hover:bg-slate-50 transition-colors cursor-pointer"
             >
               <span>Export</span>
             </button>

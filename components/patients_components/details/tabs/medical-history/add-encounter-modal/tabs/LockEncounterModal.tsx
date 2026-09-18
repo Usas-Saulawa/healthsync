@@ -46,7 +46,7 @@ export function LockEncounterModal({
             {/* Patient Avatar / Icon */}
             <div className="relative w-16 h-16 rounded-full overflow-hidden bg-amber-100 flex items-center justify-center shadow-inner">
               {/* Replace with your patient avatar image source if available */}
-              <div className="w-full h-full bg-[#fde047] flex items-center justify-center font-bold text-slate-800 text-xl">
+              <div className="w-full h-full bg-[#fde047] flex items-center justify-center font-bold  text-xl">
                 BM
               </div>
             </div>
@@ -56,7 +56,7 @@ export function LockEncounterModal({
               <h2 className="text-xl font-bold text-[#0f172a]">
                 Lock Encounter Note
               </h2>
-              <p className="text-xs text-slate-500 max-w-sm">
+              <p className="text-xs text-(--shade) max-w-sm">
                 You are about to permanently lock this encounter note. This
                 action cannot be undone.
               </p>
@@ -67,24 +67,16 @@ export function LockEncounterModal({
               <h4 className="text-xs font-bold text-[#0f172a]">
                 Discharge Planning Assessment
               </h4>
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-slate-500">
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-(--shade)">
                 <span>
-                  Type:{" "}
-                  <strong className="text-slate-700 font-medium">
-                    Inpatient
-                  </strong>
+                  Type: <strong className=" font-medium">Inpatient</strong>
                 </span>
                 <span>
-                  Date:{" "}
-                  <strong className="text-slate-700 font-medium">
-                    Oct 23, 2023
-                  </strong>
+                  Date: <strong className=" font-medium">Oct 23, 2023</strong>
                 </span>
                 <span>
                   Provider:{" "}
-                  <strong className="text-slate-700 font-medium">
-                    Dr. Robert Owens, MD
-                  </strong>
+                  <strong className=" font-medium">Dr. Robert Owens, MD</strong>
                 </span>
               </div>
               <div className="pt-1 flex items-center gap-1.5 text-[11px] font-semibold text-[#2563EB]">
@@ -101,7 +93,7 @@ export function LockEncounterModal({
                 onChange={(e) => setIsChecked(e.target.checked)}
                 className="mt-0.5 h-4 w-4 rounded border-slate-300 text-[#2563EB] focus:ring-blue-500/20 cursor-pointer"
               />
-              <span className="text-xs text-slate-600 group-hover:text-slate-900 leading-relaxed">
+              <span className="text-xs text-slate-600 group-hover: leading-relaxed">
                 I confirm that this note is complete and accurate, and I
                 understand it cannot be edited after locking.
               </span>
@@ -112,7 +104,7 @@ export function LockEncounterModal({
               <button
                 type="button"
                 onClick={onClose}
-                className="px-6 py-2.5 rounded-xl border border-slate-300 text-slate-700 text-xs font-semibold hover:bg-slate-50 transition-colors shadow-2xs cursor-pointer"
+                className="px-6 py-2.5 rounded-xl border border-slate-300  text-xs font-semibold hover:bg-slate-50 transition-colors shadow-2xs cursor-pointer"
               >
                 Cancel
               </button>

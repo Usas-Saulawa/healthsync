@@ -9,7 +9,7 @@ import { NoteTab } from "./tabs/NoteTab";
 import { OrderTab } from "./tabs/OrderTab";
 import { PrescriptionTab } from "./tabs/PrescriptionTab";
 import { FollowUpTab } from "./tabs/FollowUpTab";
-// import { NurseNotesTab } from "./tabs/NurseNotesTab";
+import { NurseNotesTab } from "./tabs/NurseNotesTab";
 
 interface AddEncounterModalProps {
   isOpen: boolean;
@@ -80,9 +80,7 @@ export function AddEncounterModal({ isOpen, onClose }: AddEncounterModalProps) {
                       type="button"
                       onClick={() => setActiveTab(tab.id as TabType)}
                       className={`pb-3 relative transition-colors cursor-pointer ${
-                        isActive
-                          ? "text-[#2563EB]"
-                          : "text-slate-500 hover:text-slate-800"
+                        isActive ? "text-[#2563EB]" : "text-(--shade) hover:"
                       }`}
                     >
                       {tab.label}
@@ -116,7 +114,7 @@ export function AddEncounterModal({ isOpen, onClose }: AddEncounterModalProps) {
                     {activeTab === "order" && <OrderTab />}
                     {activeTab === "prescription" && <PrescriptionTab />}
                     {activeTab === "follow-up" && <FollowUpTab />}
-                    {/* {activeTab === "nurse-notes" && <NurseNotesTab />} */}
+                    {activeTab === "nurse-notes" && <NurseNotesTab />}
                   </motion.div>
                 </AnimatePresence>
               </div>
@@ -127,7 +125,7 @@ export function AddEncounterModal({ isOpen, onClose }: AddEncounterModalProps) {
               <button
                 type="button"
                 onClick={onClose}
-                className="px-6 py-2.5 rounded-xl border border-slate-300 text-slate-700 text-sm font-semibold hover:bg-slate-100 transition-colors shadow-2xs cursor-pointer"
+                className="px-6 py-2.5 rounded-xl border border-slate-300  text-sm font-semibold hover:bg-slate-100 transition-colors shadow-2xs cursor-pointer"
               >
                 Cancel
               </button>
@@ -157,7 +155,7 @@ export function AddEncounterModal({ isOpen, onClose }: AddEncounterModalProps) {
                 <div className="flex items-center gap-3">
                   <button
                     type="button"
-                    className="px-6 py-2.5 rounded-xl border border-slate-300 bg-(--card) text-slate-700 text-sm font-semibold hover:bg-slate-50 transition-colors shadow-2xs cursor-pointer"
+                    className="px-6 py-2.5 rounded-xl border border-slate-300 bg-(--card)  text-sm font-semibold hover:bg-slate-50 transition-colors shadow-2xs cursor-pointer"
                   >
                     Save Draft
                   </button>

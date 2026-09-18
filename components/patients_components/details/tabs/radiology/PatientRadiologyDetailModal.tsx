@@ -98,9 +98,7 @@ export function PatientRadiologyDetailModal({
             <div className="w-7 h-7 rounded bg-blue-50 text-blue-600 flex items-center justify-center">
               <FileText className="h-4 w-4" />
             </div>
-            <h2 className="text-sm font-bold text-slate-900">
-              Imaging Study Detail
-            </h2>
+            <h2 className="text-sm font-bold ">Imaging Study Detail</h2>
           </div>
           <button
             type="button"
@@ -123,7 +121,7 @@ export function PatientRadiologyDetailModal({
                 <span className="text-slate-400 block text-[11px]">
                   Study Type
                 </span>
-                <span className="font-bold text-slate-900 mt-0.5 block">
+                <span className="font-bold  mt-0.5 block">
                   {data.studyType}
                 </span>
               </div>
@@ -131,7 +129,7 @@ export function PatientRadiologyDetailModal({
                 <span className="text-slate-400 block text-[11px]">
                   Modality
                 </span>
-                <span className="font-semibold text-slate-800 mt-0.5 block">
+                <span className="font-semibold  mt-0.5 block">
                   {data.modality}
                 </span>
               </div>
@@ -139,7 +137,7 @@ export function PatientRadiologyDetailModal({
                 <span className="text-slate-400 block text-[11px]">
                   Ordered By
                 </span>
-                <span className="font-semibold text-slate-800 mt-0.5 block">
+                <span className="font-semibold  mt-0.5 block">
                   {data.orderedBy}
                 </span>
               </div>
@@ -147,7 +145,7 @@ export function PatientRadiologyDetailModal({
                 <span className="text-slate-400 block text-[11px]">
                   Facility
                 </span>
-                <span className="font-semibold text-slate-800 mt-0.5 block truncate">
+                <span className="font-semibold  mt-0.5 block truncate">
                   {data.facility}
                 </span>
               </div>
@@ -155,7 +153,7 @@ export function PatientRadiologyDetailModal({
                 <span className="text-slate-400 block text-[11px]">
                   Radiologist
                 </span>
-                <span className="font-semibold text-slate-800 mt-0.5 block">
+                <span className="font-semibold  mt-0.5 block">
                   {data.radiologist}
                 </span>
               </div>
@@ -163,7 +161,7 @@ export function PatientRadiologyDetailModal({
                 <span className="text-slate-400 block text-[11px]">
                   Body Part
                 </span>
-                <span className="font-semibold text-slate-800 mt-0.5 block">
+                <span className="font-semibold  mt-0.5 block">
                   {data.bodyPart}
                 </span>
               </div>
@@ -171,7 +169,7 @@ export function PatientRadiologyDetailModal({
                 <span className="text-slate-400 block text-[11px]">
                   Date Ordered
                 </span>
-                <span className="font-semibold text-slate-800 mt-0.5 block">
+                <span className="font-semibold  mt-0.5 block">
                   {data.dateOrdered}
                 </span>
               </div>
@@ -179,7 +177,7 @@ export function PatientRadiologyDetailModal({
                 <span className="text-slate-400 block text-[11px]">
                   Date Completed
                 </span>
-                <span className="font-semibold text-slate-800 mt-0.5 block">
+                <span className="font-semibold  mt-0.5 block">
                   {data.dateCompleted}
                 </span>
               </div>
@@ -195,7 +193,7 @@ export function PatientRadiologyDetailModal({
               <span className="text-[11px] font-bold tracking-wider text-blue-700 uppercase">
                 KEY FINDING
               </span>
-              <h3 className="text-2xl font-extrabold text-slate-900 mt-1 tracking-tight">
+              <h3 className="text-2xl font-extrabold  mt-1 tracking-tight">
                 {data.keyFinding}
               </h3>
               <span className="text-xs text-slate-600 mt-1 block">
@@ -225,7 +223,7 @@ export function PatientRadiologyDetailModal({
             <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">
               RADIOLOGIST NOTES/ CLINICAL FINDINGS
             </span>
-            <p className="text-[11px] text-slate-700 leading-relaxed overflow-y-auto custom-scrollbar">
+            <p className="text-[11px]  leading-relaxed overflow-y-auto custom-scrollbar">
               {data.radiologistNotes}
             </p>
           </div>
@@ -253,7 +251,7 @@ export function PatientRadiologyDetailModal({
               <span className="text-[10px] font-bold tracking-wider text-orange-700 uppercase">
                 IMPRESSION
               </span>
-              <p className="text-xs font-medium text-slate-900 leading-snug">
+              <p className="text-xs font-medium  leading-snug">
                 {data.impression}
               </p>
             </div>
@@ -262,7 +260,7 @@ export function PatientRadiologyDetailModal({
 
         {/* Modal Footer */}
         <div className="w-[560px] h-[96px] border-t border-[#E5E7EB] px-6 py-4 flex flex-col justify-between shrink-0 bg-(--card)">
-          <div className="w-[512px] h-[16px] flex items-center justify-between text-[11px] text-slate-500">
+          <div className="w-[512px] h-[16px] flex items-center justify-between text-[11px] text-(--shade)">
             <span>Reviewed by: {data.reviewedBy}</span>
             <span>Acknowledged by Physician: {data.acknowledgedBy}</span>
           </div>
@@ -271,14 +269,14 @@ export function PatientRadiologyDetailModal({
             <button
               type="button"
               onClick={() => console.log("Adding clinical note...")}
-              className="flex-1 h-full bg-(--background) text-slate-700 text-xs font-semibold rounded-[6px] hover:bg-slate-200 transition-colors cursor-pointer"
+              className="flex-1 h-full bg-(--background)  text-xs font-semibold rounded-[6px] hover:bg-slate-200 transition-colors cursor-pointer"
             >
               Add Clinical Note
             </button>
             <button
               type="button"
               onClick={() => console.log("Printing report...")}
-              className="flex-1 h-full bg-(--background) text-slate-700 text-xs font-semibold rounded-[6px] hover:bg-slate-200 transition-colors cursor-pointer"
+              className="flex-1 h-full bg-(--background)  text-xs font-semibold rounded-[6px] hover:bg-slate-200 transition-colors cursor-pointer"
             >
               Print Report
             </button>

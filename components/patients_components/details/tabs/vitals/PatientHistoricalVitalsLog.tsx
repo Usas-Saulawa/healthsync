@@ -108,9 +108,9 @@ export function PatientHistoricalVitalsLog() {
           <button
             type="button"
             onClick={handleExportCSV}
-            className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl border border-slate-200 bg-(--card) text-slate-700 text-xs font-semibold hover:bg-slate-50 transition-colors shadow-2xs cursor-pointer w-full sm:w-auto"
+            className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl border border-slate-200 bg-(--card)  text-xs font-semibold hover:bg-slate-50 transition-colors shadow-2xs cursor-pointer w-full sm:w-auto"
           >
-            <Download className="h-3.5 w-3.5 text-slate-500" />
+            <Download className="h-3.5 w-3.5 text-(--shade)" />
             Export CSV
           </button>
         </div>
@@ -121,10 +121,10 @@ export function PatientHistoricalVitalsLog() {
             <table className="w-full text-left border-collapse">
               {/* Table Header */}
               <thead>
-                <tr className="bg-slate-50 border-b border-slate-200 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                <tr className="bg-slate-50 border-b border-slate-200 text-[11px] font-bold text-(--shade) uppercase tracking-wider">
                   <th
                     onClick={toggleSortOrder}
-                    className="py-3.5 px-4 cursor-pointer select-none hover:text-slate-800 transition-colors"
+                    className="py-3.5 px-4 cursor-pointer select-none hover: transition-colors"
                   >
                     <div className="flex items-center gap-1.5">
                       Date / Time
@@ -144,7 +144,7 @@ export function PatientHistoricalVitalsLog() {
               </thead>
 
               {/* Table Body */}
-              <tbody className="divide-y divide-slate-100 text-xs text-slate-700">
+              <tbody className="divide-y divide-slate-100 text-xs ">
                 {sortedVitalsData.map((row) => {
                   return (
                     <tr
@@ -152,10 +152,10 @@ export function PatientHistoricalVitalsLog() {
                       onClick={() => setSelectedVital(row)}
                       className="bg-(--background) hover:bg-blue-50/50 transition-colors cursor-pointer group"
                     >
-                      <td className="py-4 px-4 font-medium text-slate-900 whitespace-nowrap group-hover:text-[#2563EB]">
+                      <td className="py-4 px-4 font-medium  whitespace-nowrap group-hover:text-[#2563EB]">
                         {row.dateTime}
                       </td>
-                      <td className="py-4 px-4 font-bold text-slate-900 whitespace-nowrap">
+                      <td className="py-4 px-4 font-bold  whitespace-nowrap">
                         {row.bp}
                       </td>
                       <td className="py-4 px-4 font-normal text-slate-600 whitespace-nowrap">
@@ -173,7 +173,7 @@ export function PatientHistoricalVitalsLog() {
                       <td className="py-4 px-4 font-normal text-slate-600 whitespace-nowrap">
                         {row.weight}
                       </td>
-                      <td className="py-4 px-4 font-normal text-slate-500 max-w-xs leading-relaxed truncate">
+                      <td className="py-4 px-4 font-normal text-(--shade) max-w-xs leading-relaxed truncate">
                         {row.nursesNotes}
                       </td>
                     </tr>
@@ -190,7 +190,6 @@ export function PatientHistoricalVitalsLog() {
         isOpen={!!selectedVital}
         onClose={() => setSelectedVital(null)}
         vital={selectedVital}
-        onExportPDF={handleExportPDF}
       />
     </>
   );

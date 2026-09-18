@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowUpDown } from "lucide-react";
 import { MasterFilterToolbar } from "@/components/tools/filterTools";
+import { mockMedicalHistory } from "@/mock/mockDashboardData";
 
 interface MedicalHistoryItem {
   id: number;
@@ -19,51 +20,10 @@ interface PatientMedicationTabProps {
   patientId?: string;
 }
 
-const initialMedicalHistory: MedicalHistoryItem[] = [
-  {
-    id: 1,
-    date: "Oct 12, 2023",
-    condition: "Type 2 Diabetes Mellitus",
-    provider: "Dr. Sarah Jenkins, MD",
-    facility: "Metro Cardiology Group",
-    notes: "First diagnosed, initiated Metformin 500mg BID.",
-  },
-  {
-    id: 2,
-    date: "Nov 03, 2024",
-    condition: "Essential Hypertension",
-    provider: "Dr. Michael Chen, MD",
-    facility: "City General Hospital",
-    notes: "Blood pressure elevated, started Lisinopril 10mg.",
-  },
-  {
-    id: 3,
-    date: "Jan 15, 2022",
-    condition: "Asthma Exacerbation",
-    provider: "Dr. Amanda Ross, MD",
-    facility: "Pulmonary Care Clinic",
-    notes: "Prescribed Albuterol rescue inhaler.",
-  },
-  {
-    id: 4,
-    date: "Jul 22, 2025",
-    condition: "Acute Bronchitis",
-    provider: "Dr. Sarah Jenkins, MD",
-    facility: "Metro Cardiology Group",
-    notes: "Given course of Azithromycin and cough suppressants.",
-  },
-  {
-    id: 5,
-    date: "Mar 05, 2023",
-    condition: "Hyperlipidemia",
-    provider: "Dr. Robert Fox, MD",
-    facility: "Wellness Family Practice",
-    notes: "Dietary modifications and statin therapy discussed.",
-  },
-];
-
 type SortField = "date" | "condition";
 type SortDirection = "asc" | "desc";
+
+const ITEMS_PER_PAGE = 10;
 
 export function PatientMedicalHistoryTab({
   patientId = "1",
@@ -77,15 +37,16 @@ export function PatientMedicalHistoryTab({
   const [sortField, setSortField] = useState<SortField | null>(null);
   const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
 
-  const totalPatients = 24;
-  const totalPages = 2;
+  const totalRecords = mockMedicalHistory.length;
+  const totalPages = Math.ceil(totalRecords / ITEMS_PER_PAGE);
 
-  const handleFilterSelect = (value: string, label: string) => {
-    setFilterLabel(label);
+  const handleFilterSelect = (value: string, _label: string) => {
+    setFilterLabel(_label);
+    // Add filtering logic here if needed based on value
   };
 
-  const handleSortSelect = (value: string, label: string) => {
-    setSortLabel(label);
+  const handleSortSelect = (value: string, _label: string) => {
+    setSortLabel(_label);
     if (value === "newest") {
       setSortField("date");
       setSortDirection("desc");
@@ -109,21 +70,29 @@ export function PatientMedicalHistoryTab({
   };
 
   // Sort logic for records
-  const sortedHistory = [...initialMedicalHistory].sort((a, b) => {
+  const sortedHistory = [...mockMedicalHistory].sort((a, b) => {
     if (!sortField) return 0;
 
-    let valA = a[sortField];
-    let valB = b[sortField];
+    let valA: any = a[sortField];
+    let valB: any = b[sortField];
 
     if (sortField === "date") {
-      valA = new Date(a.date).getTime() as any;
-      valB = new Date(b.date).getTime() as any;
+      valA = new Date(a.date).getTime();
+      valB = new Date(b.date).getTime();
     }
 
     if (valA < valB) return sortDirection === "asc" ? -1 : 1;
     if (valA > valB) return sortDirection === "asc" ? 1 : -1;
     return 0;
   });
+
+  // Pagination calculation
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const currentTableData = sortedHistory.slice(
+    startIndex,
+    startIndex + ITEMS_PER_PAGE,
+  );
+  const endIndex = Math.min(startIndex + ITEMS_PER_PAGE, totalRecords);
 
   // Handler to push route to the individual medical history detail view
   const handleRowClick = (item: MedicalHistoryItem) => {
@@ -133,14 +102,14 @@ export function PatientMedicalHistoryTab({
   };
 
   return (
-    <div className="w-full bg-(--card) rounded-2xl  shadow-xs overflow-hidden p-6 sm:p-8 space-y-6">
+    <div className="w-full bg-white rounded-2xl shadow-xs overflow-hidden p-6 sm:p-8 space-y-6">
       {/* Top heading and actions */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-[#2563EB]">
             Medical History
           </h2>
-          <p className="mt-1 text-sm text-slate-500">
+          <p className="mt-1 text-sm text-(--shade)">
             All documented diagnoses, procedures, and hospitalizations
           </p>
         </div>
@@ -174,12 +143,12 @@ export function PatientMedicalHistoryTab({
       <div className="w-full overflow-x-auto">
         <div className="min-w-[950px] w-full">
           {/* Table header */}
-          <div className="grid grid-cols-[140px_minmax(220px,1.45fr)_minmax(160px,1fr)_minmax(170px,1.05fr)_minmax(260px,1.55fr)] items-center bg-[#F8FAFC] px-4 py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-400">
+          <div className="grid grid-cols-[140px_minmax(220px,1.45fr)_minmax(160px,1fr)_minmax(170px,1.05fr)_minmax(260px,1.55fr)] items-center bg-[#F8FAFC] px-4 py-3.5 rounded-[6px] text-xs font-bold uppercase tracking-wider text-slate-400">
             {/* Date Sort Header */}
             <button
               type="button"
               onClick={() => handleColumnSort("date")}
-              className="flex items-center gap-1 text-left hover:text-slate-700 transition-colors cursor-pointer focus:outline-none"
+              className="flex items-center gap-1 text-left hover: transition-colors cursor-pointer focus:outline-none"
             >
               <span>Date</span>
               <ArrowUpDown
@@ -194,7 +163,7 @@ export function PatientMedicalHistoryTab({
             <button
               type="button"
               onClick={() => handleColumnSort("condition")}
-              className="flex items-center gap-1 text-left hover:text-slate-700 transition-colors cursor-pointer focus:outline-none"
+              className="flex items-center gap-1 text-left hover: transition-colors cursor-pointer focus:outline-none"
             >
               <span>Condition / Procedure</span>
               <ArrowUpDown
@@ -211,31 +180,29 @@ export function PatientMedicalHistoryTab({
           </div>
 
           {/* Table rows */}
-          <div className="mt-3 space-y-2.5">
-            {sortedHistory.map((item) => (
+          <div className="mt-3 space-y-2">
+            {currentTableData.map((item) => (
               <div
                 key={item.id}
                 onClick={() => handleRowClick(item)}
-                className="grid grid-cols-[140px_minmax(220px,1.45fr)_minmax(160px,1fr)_minmax(170px,1.05fr)_minmax(260px,1.55fr)] items-center min-h-[64px] bg-[#EAF4FF]/70 hover:bg-[#EAF4FF] transition-colors px-4 rounded-xl border border-blue-100/40 cursor-pointer group"
+                className="grid grid-cols-[140px_minmax(220px,1.45fr)_minmax(160px,1fr)_minmax(170px,1.05fr)_minmax(260px,1.55fr)] items-center min-h-[64px] bg-app-bg hover:bg-[#EAF4FF] transition-colors px-4 rounded-[6px] border cursor-pointer group"
               >
                 {/* Date */}
-                <div className="text-sm font-semibold text-slate-900 group-hover:text-blue-600 transition-colors">
+                <div className="text-sm font-semibold  group-hover:text-blue-600 transition-colors">
                   {item.date}
                 </div>
 
                 {/* Condition */}
-                <div className="text-sm font-semibold text-slate-900">
-                  {item.condition}
-                </div>
+                <div className="text-sm font-semibold ">{item.condition}</div>
 
                 {/* Provider */}
-                <div className="text-sm text-slate-800">{item.provider}</div>
+                <div className="text-sm ">{item.provider}</div>
 
                 {/* Facility */}
-                <div className="text-sm text-slate-500">{item.facility}</div>
+                <div className="text-sm text-(--shade)">{item.facility}</div>
 
                 {/* Notes */}
-                <div className="text-sm text-slate-500 truncate pr-2">
+                <div className="text-sm text-(--shade) truncate pr-2">
                   {item.notes}
                 </div>
               </div>
@@ -245,9 +212,9 @@ export function PatientMedicalHistoryTab({
       </div>
 
       {/* Bottom pagination */}
-      <div className="flex items-center justify-between pt-4 ">
-        <p className="text-xs sm:text-sm text-slate-500">
-          Showing 1-5 of {totalPatients} history records
+      <div className="flex items-center justify-between pt-4">
+        <p className="text-xs sm:text-sm text-(--shade)">
+          Showing {startIndex + 1}-{endIndex} of {totalRecords} history records
         </p>
 
         <div className="flex items-center gap-2">
@@ -256,36 +223,26 @@ export function PatientMedicalHistoryTab({
             type="button"
             onClick={() => setCurrentPage((page) => Math.max(1, page - 1))}
             disabled={currentPage === 1}
-            className="flex h-9 items-center justify-center rounded-lg  bg-(--card) px-3 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex h-9 items-center justify-center rounded-lg bg-white border border-slate-200 px-3 text-xs font-semibold  transition-colors hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
           >
             Previous
           </button>
 
-          {/* Page 1 */}
-          <button
-            type="button"
-            onClick={() => setCurrentPage(1)}
-            className={`flex h-9 w-9 items-center justify-center rounded-lg text-xs font-semibold transition-colors ${
-              currentPage === 1
-                ? "bg-[#2563EB] text-white"
-                : "border border-slate-200 bg-(--card) text-slate-700 hover:bg-slate-50"
-            }`}
-          >
-            1
-          </button>
-
-          {/* Page 2 */}
-          <button
-            type="button"
-            onClick={() => setCurrentPage(2)}
-            className={`flex h-9 w-9 items-center justify-center rounded-lg text-xs font-semibold transition-colors ${
-              currentPage === 2
-                ? "bg-[#2563EB] text-white"
-                : "border border-slate-200 bg-(--card) text-slate-700 hover:bg-slate-50"
-            }`}
-          >
-            2
-          </button>
+          {/* Dynamic Page Buttons (1, 2, 3) */}
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+            <button
+              key={page}
+              type="button"
+              onClick={() => setCurrentPage(page)}
+              className={`flex h-9 w-9 items-center justify-center rounded-lg text-xs font-semibold transition-colors ${
+                currentPage === page
+                  ? "bg-[#2563EB] text-white"
+                  : "border border-slate-200 bg-white  hover:bg-slate-50"
+              }`}
+            >
+              {page}
+            </button>
+          ))}
 
           {/* Next */}
           <button
@@ -294,7 +251,7 @@ export function PatientMedicalHistoryTab({
               setCurrentPage((page) => Math.min(totalPages, page + 1))
             }
             disabled={currentPage === totalPages}
-            className="flex h-9 items-center justify-center rounded-lg  bg-(--card) px-3 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex h-9 items-center justify-center rounded-lg bg-white border border-slate-200 px-3 text-xs font-semibold  transition-colors hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
           >
             Next
           </button>

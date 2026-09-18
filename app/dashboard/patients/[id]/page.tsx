@@ -70,9 +70,7 @@ function PatientDetailContent({ params }: PatientDetailPageProps) {
   };
 
   return (
-    <div className="w-full min-h-screen bg-(--background) pb-10 pt-6 space-y-5">
-      <Header />
-
+    <div className="w-full min-h-screen bg-(--background) pt-3 space-y-3">
       {/* Pinned Patient Profile Header */}
       <PatientsProfileHeader patient={patientProfileData} />
 
@@ -96,7 +94,7 @@ function PatientDetailContent({ params }: PatientDetailPageProps) {
           "Admission & Discharge": <AdmissionAndDischargeTab />,
           Immunization: <PatientImmunizationTab />,
         }[activeTab] ?? (
-          <div className="bg-(--card) rounded-2xl p-6 text-slate-500 shadow-xs ">
+          <div className="bg-(--card) rounded-2xl p-6 text-(--shade) shadow-xs ">
             {activeTab} module under development.
           </div>
         )}
@@ -109,7 +107,7 @@ export default function PatientDetailPage(props: PatientDetailPageProps) {
   return (
     <Suspense
       fallback={
-        <div className="p-8 text-center text-slate-500">
+        <div className="p-8 text-center text-(--shade)">
           Loading patient details...
         </div>
       }

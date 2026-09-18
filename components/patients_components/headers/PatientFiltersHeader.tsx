@@ -33,6 +33,7 @@ const statusOptions = [
   "Critical",
   "Stable",
   "Recovering",
+  "Follow Up",
   "Discharged",
 ];
 const doctorOptions = [
@@ -88,13 +89,13 @@ export function PatientFiltersHeader({
   return (
     <section
       ref={containerRef}
-      className="w-full bg-(--background) px-6 sm:px-8 pt-6 pb-2"
+      className="w-full bg-(--background) pt-3 space-y-3"
     >
       {/* TOP HEADER */}
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
         {/* LEFT SIDE - Title + Patient Type */}
         <div className="flex flex-wrap items-center gap-6 sm:gap-10">
-          <h2 className="text-lg sm:text-xl font-bold tracking-tight text-slate-900">
+          <h2 className="text-lg sm:text-xl font-bold tracking-tight">
             All Patient
           </h2>
 
@@ -113,19 +114,17 @@ export function PatientFiltersHeader({
               <span
                 className={`relative flex h-4 w-4 items-center justify-center rounded-full border-2 transition-all ${
                   activeTab === "out-patient"
-                    ? "border-blue-600 bg-(--card)"
-                    : "border-slate-300 bg-(--card)"
+                    ? "border-(--checker) bg-(--card)"
+                    : "border-(--checker) bg-(--card)"
                 }`}
               >
                 {activeTab === "out-patient" && (
-                  <span className="h-2 w-2 rounded-full bg-blue-600" />
+                  <span className="h-2 w-2 rounded-full bg-(--checker)" />
                 )}
               </span>
               <span
                 className={`text-xs sm:text-sm font-semibold transition-colors ${
-                  activeTab === "out-patient"
-                    ? "text-blue-600"
-                    : "text-blue-500 "
+                  activeTab === "out-patient" ? "text-(--checker)" : ""
                 }`}
               >
                 Out-patient
@@ -145,19 +144,17 @@ export function PatientFiltersHeader({
               <span
                 className={`relative flex h-4 w-4 items-center justify-center rounded-full border-2 transition-all ${
                   activeTab === "in-patient"
-                    ? "border-blue-600 bg-(--card)"
-                    : "border-slate-300 bg-(--card)"
+                    ? "border-(--checker) bg-(--card)"
+                    : "border-(--checker) bg-(--card)"
                 }`}
               >
                 {activeTab === "in-patient" && (
-                  <span className="h-2 w-2 rounded-full bg-blue-600" />
+                  <span className="h-2 w-2 rounded-full bg-(--checker)" />
                 )}
               </span>
               <span
                 className={`text-xs sm:text-sm font-semibold transition-colors ${
-                  activeTab === "in-patient"
-                    ? "text-blue-600"
-                    : "text-blue-500 hover:text-blue-600"
+                  activeTab === "in-patient" ? "text-(--checker)" : ""
                 }`}
               >
                 In-patient
@@ -199,7 +196,7 @@ export function PatientFiltersHeader({
       </div>
 
       {/* FILTER ROW */}
-      <div className="mt-4 flex flex-wrap items-center gap-3 rounded-[8px] bg-(--card) px-4 py-3 shadow-xs">
+      <div className="flex flex-wrap items-center gap-3 rounded-xl bg-(--card) px-4 py-3 shadow-xs">
         {/* Ward / Clinic Filter */}
         <div className="relative">
           <button
@@ -207,20 +204,18 @@ export function PatientFiltersHeader({
             onClick={() =>
               setOpenDropdown(openDropdown === "ward" ? null : "ward")
             }
-            className="flex h-10 items-center gap-2 rounded-xl bg-slate-100 hover:bg-slate-200/70 px-3.5 text-xs font-medium transition-colors cursor-pointer"
+            className="flex h-10 items-center gap-2 rounded-lg bg-(--background) hover:bg-(--background-hover) px-3.5 text-xs font-medium transition-colors cursor-pointer"
           >
-            <span className="text-slate-500 font-normal">Ward/Clinic:</span>
-            <span className="font-semibold text-slate-900">
-              {selectedWard || "All Wards"}
-            </span>
+            <span className=" font-normal">Ward/Clinic:</span>
+            <span className="font-semibold">{selectedWard || "All Wards"}</span>
             <ChevronDown
-              className="h-3.5 w-3.5 text-slate-500"
+              className="h-3.5 w-3.5 text-(--shade)"
               strokeWidth={2}
             />
           </button>
 
           {openDropdown === "ward" && (
-            <div className="absolute left-0 mt-2 w-48 rounded-xl bg-(--card) p-1.5 shadow-xl z-50 border border-slate-100">
+            <div className="absolute left-0 mt-2 w-48 rounded-lg bg-(--card) p-1.5 shadow-xl z-50">
               {wardOptions.map((ward) => (
                 <button
                   key={ward}
@@ -229,12 +224,12 @@ export function PatientFiltersHeader({
                     onWardSelect(ward === "All Wards" ? "" : ward);
                     setOpenDropdown(null);
                   }}
-                  className="flex w-full items-center justify-between rounded-lg px-3 py-2 text-xs font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-colors"
+                  className="flex w-full items-center justify-between rounded-lg px-3 py-2 text-xs font-medium hover:bg-(--card-hover) transition-colors"
                 >
                   <span>{ward}</span>
                   {(selectedWard === ward ||
                     (!selectedWard && ward === "All Wards")) && (
-                    <Check className="h-3.5 w-3.5 text-slate-900" />
+                    <Check className="h-3.5 w-3.5" />
                   )}
                 </button>
               ))}
@@ -249,20 +244,20 @@ export function PatientFiltersHeader({
             onClick={() =>
               setOpenDropdown(openDropdown === "status" ? null : "status")
             }
-            className="flex h-10 items-center gap-2 rounded-xl bg-slate-100 hover:bg-slate-200/70 px-3.5 text-xs font-medium transition-colors cursor-pointer"
+            className="flex h-10 items-center gap-2 rounded-lg bg-(--background) hover:bg-(--background-hover) px-3.5 text-xs font-medium transition-colors cursor-pointer"
           >
-            <span className="text-slate-500 font-normal">Status:</span>
-            <span className="font-semibold text-slate-900">
+            <span className="font-normal">Status:</span>
+            <span className="font-semibold">
               {selectedStatus || "All Patients"}
             </span>
             <ChevronDown
-              className="h-3.5 w-3.5 text-slate-500"
+              className="h-3.5 w-3.5 text-(--shade)"
               strokeWidth={2}
             />
           </button>
 
           {openDropdown === "status" && (
-            <div className="absolute left-0 mt-2 w-48 rounded-xl bg-(--card) p-1.5 shadow-xl z-50 border border-slate-100">
+            <div className="absolute left-0 mt-2 w-48 rounded-xl bg-(--card) p-1.5 shadow-xl z-50">
               {statusOptions.map((status) => (
                 <button
                   key={status}
@@ -271,12 +266,12 @@ export function PatientFiltersHeader({
                     onStatusSelect(status === "All Patients" ? "" : status);
                     setOpenDropdown(null);
                   }}
-                  className="flex w-full items-center justify-between rounded-lg px-3 py-2 text-xs font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-colors"
+                  className="flex w-full items-center justify-between rounded-lg px-3 py-2 text-xs font-medium hover:bg-(--card-hover) hover transition-colors"
                 >
                   <span>{status}</span>
                   {(selectedStatus === status ||
                     (!selectedStatus && status === "All Patients")) && (
-                    <Check className="h-3.5 w-3.5 text-slate-900" />
+                    <Check className="h-3.5 w-3.5" />
                   )}
                 </button>
               ))}
@@ -291,22 +286,20 @@ export function PatientFiltersHeader({
             onClick={() =>
               setOpenDropdown(openDropdown === "doctor" ? null : "doctor")
             }
-            className="flex h-10 items-center gap-2 rounded-xl bg-slate-100 hover:bg-slate-200/70 px-3.5 text-xs font-medium transition-colors cursor-pointer"
+            className="flex h-10 items-center gap-2 rounded-xl bg-(--background) hover:bg-(--background-hover) px-3.5 text-xs font-medium transition-colors cursor-pointer"
           >
-            <span className="text-slate-500 font-normal">
-              Attending Doctor:
-            </span>
-            <span className="font-semibold text-slate-900">
+            <span className="font-normal">Attending Doctor:</span>
+            <span className="font-semibold">
               {selectedDoctor || "All Doctors"}
             </span>
             <ChevronDown
-              className="h-3.5 w-3.5 text-slate-500"
+              className="h-3.5 w-3.5 text-(--shade)"
               strokeWidth={2}
             />
           </button>
 
           {openDropdown === "doctor" && (
-            <div className="absolute left-0 mt-2 w-52 rounded-xl bg-(--card) p-1.5 shadow-xl z-50 border border-slate-100">
+            <div className="absolute left-0 mt-2 w-52 rounded-xl bg-(--card) p-1.5 shadow-xl z-50">
               {doctorOptions.map((doc) => (
                 <button
                   key={doc}
@@ -315,12 +308,12 @@ export function PatientFiltersHeader({
                     onDoctorSelect(doc === "All Doctors" ? "" : doc);
                     setOpenDropdown(null);
                   }}
-                  className="flex w-full items-center justify-between rounded-lg px-3 py-2 text-xs font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-colors"
+                  className="flex w-full items-center justify-between rounded-lg px-3 py-2 text-xs font-medium hover:bg-(--card-hover) hover transition-colors"
                 >
                   <span>{doc}</span>
                   {(selectedDoctor === doc ||
                     (!selectedDoctor && doc === "All Doctors")) && (
-                    <Check className="h-3.5 w-3.5 text-slate-900" />
+                    <Check className="h-3.5 w-3.5" />
                   )}
                 </button>
               ))}
@@ -335,26 +328,20 @@ export function PatientFiltersHeader({
             onClick={() =>
               setOpenDropdown(openDropdown === "date" ? null : "date")
             }
-            className="flex h-10 items-center gap-2.5 rounded-xl bg-slate-100 hover:bg-slate-200/70 px-3.5 text-xs font-medium transition-colors cursor-pointer"
+            className="flex h-10 items-center gap-2.5 rounded-xl bg-(--background) hover:bg-(--background-hover) px-3.5 text-xs font-medium transition-colors cursor-pointer"
           >
-            <Calendar className="h-4 w-4 text-slate-500" strokeWidth={2} />
-            <span
-              className={
-                dateRange
-                  ? "font-semibold text-slate-900"
-                  : "font-normal text-slate-500"
-              }
-            >
+            <Calendar className="h-4 w-4" strokeWidth={2} />
+            <span className={dateRange ? "font-semibold" : "font-normal"}>
               {dateRange || "Select date range"}
             </span>
             <ChevronDown
-              className="h-3.5 w-3.5 text-slate-500"
+              className="h-3.5 w-3.5 text-(--shade)"
               strokeWidth={2}
             />
           </button>
 
           {openDropdown === "date" && (
-            <div className="absolute left-0 mt-2 w-48 rounded-xl bg-(--card) p-1.5 shadow-xl z-50 border border-slate-100">
+            <div className="absolute left-0 mt-2 w-48 rounded-xl bg-(--card) p-1.5 shadow-xl z-50 border border-(--background)">
               {dateOptions.map((date) => (
                 <button
                   key={date}
@@ -363,12 +350,12 @@ export function PatientFiltersHeader({
                     onDateRangeSelect(date === "All Time" ? "" : date);
                     setOpenDropdown(null);
                   }}
-                  className="flex w-full items-center justify-between rounded-lg px-3 py-2 text-xs font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-colors"
+                  className="flex w-full items-center justify-between rounded-lg px-3 py-2 text-xs font-medium hover:bg-(--card-hover) hover transition-colors"
                 >
                   <span>{date}</span>
                   {(dateRange === date ||
                     (!dateRange && date === "All Time")) && (
-                    <Check className="h-3.5 w-3.5 text-slate-900" />
+                    <Check className="h-3.5 w-3.5" />
                   )}
                 </button>
               ))}

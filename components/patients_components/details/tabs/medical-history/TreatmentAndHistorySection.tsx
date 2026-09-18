@@ -96,7 +96,7 @@ export function TreatmentAndHistorySection() {
                     <p className="text-xs font-semibold text-blue-700 mt-0.5">
                       {item.doctor}
                     </p>
-                    <p className="text-[11px] font-medium text-slate-500">
+                    <p className="text-[11px] font-medium text-(--shade)">
                       {item.group}
                     </p>
                   </div>
@@ -106,7 +106,7 @@ export function TreatmentAndHistorySection() {
                     </span>
                   )}
                 </div>
-                <p className="text-xs text-slate-700 pt-1 leading-relaxed font-normal">
+                <p className="text-xs  pt-1 leading-relaxed font-normal">
                   {item.description}
                 </p>
               </div>

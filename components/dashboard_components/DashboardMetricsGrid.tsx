@@ -19,19 +19,36 @@ import { motion } from "framer-motion";
 import MetricsBar from "../ui/TopTreatmentMetrics";
 import { title } from "process";
 
-// Dynamic chart data points derived or scaled from metric properties
+// Dynamic chart data points with time periods for hover details
 const chartTrendData = [
-  { value: 25 },
-  { value: 45 },
-  { value: 20 },
-  { value: 35 },
-  { value: 50 },
-  { value: 30 },
-  { value: 65 },
-  { value: 40 },
-  { value: 25 },
-  { value: 38 },
+  { time: "Week 1", value: 25 },
+  { time: "Week 2", value: 45 },
+  { time: "Week 3", value: 20 },
+  { time: "Week 4", value: 35 },
+  { time: "Week 5", value: 50 },
+  { time: "Week 6", value: 30 },
+  { time: "Week 7", value: 65 },
+  { time: "Week 8", value: 40 },
+  { time: "Week 9", value: 25 },
+  { time: "Week 10", value: 38 },
 ];
+
+// Custom interactive Tooltip to display period and patient count on hover
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function CustomTooltip({ active, payload, label }: any) {
+  if (active && payload && payload.length) {
+    return (
+      <div className="rounded-lg bg-slate-900 px-3 py-2 shadow-lg border border-slate-800 text-white text-xs z-50">
+        <p className="font-medium text-slate-300 mb-0.5">Period: {label}</p>
+        <p className="font-bold text-blue-400">
+          {payload[0].value}{" "}
+          <span className="text-slate-400 font-normal">patients</span>
+        </p>
+      </div>
+    );
+  }
+  return null;
+}
 
 export function DashboardMetricsGrid() {
   const { data, isLoading, isError } = useDashboardData();
@@ -64,7 +81,7 @@ export function DashboardMetricsGrid() {
 
   if (isError || !data) {
     return (
-      <div className="w-full p-6 bg-red-50  rounded-3xl text-center text-red-600 text-sm">
+      <div className="w-full p-6 bg-red-50 rounded-3xl text-center text-red-600 text-sm">
         Unable to load dashboard metrics. Please check your connection.
       </div>
     );
@@ -167,7 +184,7 @@ export function DashboardMetricsGrid() {
             title: "Todays Appointments",
             onClick: () => {},
             count: todaysAppointments.count,
-            change: todaysAppointments.nextAppointmentTime,
+            change: `+${todaysAppointments.nextAppointmentTime}`,
             jsx: (
               <>
                 <div className="flex-1 flex flex-col gap-3 justify-end">
@@ -210,7 +227,7 @@ export function DashboardMetricsGrid() {
             title: "Critical Alerts",
             onClick: () => {},
             count: criticalAlerts.count,
-            change: 12,
+            change: "+12 alerts",
             jsx: (
               <div className="space-y-2.5 flex-1 flex flex-col justify-center">
                 <div className="bg-(--danger-card)  p-2.5 rounded-lg flex items-start gap-2.5">
@@ -254,7 +271,7 @@ export function DashboardMetricsGrid() {
             title: "Top Treatments",
             onClick: () => {},
             count: topTreatments.count,
-            change: 12,
+            change: `+7% this week`,
             jsx: (
               <>
                 <div className=" flex-1 grid grid-cols-3 gap-2 mb-3 text-xs font-medium">
@@ -309,8 +326,11 @@ export function DashboardMetricsGrid() {
               </>
             ),
           },
-        ].map((item) => (
-          <div className="bg-(--card) p-5 rounded-xl  shadow-xs flex flex-col">
+        ].map((item, i) => (
+          <div
+            key={i}
+            className="bg-(--card) p-5 rounded-xl  shadow-xs flex flex-col"
+          >
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2.5 min-w-0">
                 <div className="h-10 w-10 rounded-full bg-(--info-icon-bg) text-(--button) flex items-center justify-center shrink-0">
@@ -322,7 +342,7 @@ export function DashboardMetricsGrid() {
               </div>
               <button
                 onClick={item.onClick}
-                className="text-sm cursor-pointer font-semibold text-(--active-text) hover:text-(--primary) flex items-center gap-0.5 shrink-0"
+                className="text-sm cursor-pointer font-semibold text-(--link-text) hover:text-(--primary) flex items-center gap-0.5 shrink-0"
               >
                 View All
               </button>

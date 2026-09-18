@@ -56,7 +56,7 @@ export function PatientsWidget({
         </div>
         <Link
           href="/dashboard/patients"
-          className="text-sm font-semibold text-(--active-text) hover:text-(--primary) transition-colors shrink-0"
+          className="text-sm font-semibold text-(--link-text) hover:text-(--primary) transition-colors shrink-0"
         >
           View All
         </Link>

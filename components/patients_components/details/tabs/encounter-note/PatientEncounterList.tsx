@@ -62,7 +62,7 @@ export function PatientEncounterList({
               placeholder="Search encounter..."
               value={searchTerm}
               onChange={(e) => onSearchChange(e.target.value)}
-              className="w-full h-full pl-8 pr-3 bg-(--background)  rounded-[6px] text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-blue-600"
+              className="w-full h-full pl-8 pr-3 bg-(--background)  rounded-[6px] text-xs  focus:outline-none focus:ring-1 focus:ring-blue-600"
             />
           </div>
 
@@ -71,7 +71,7 @@ export function PatientEncounterList({
             <select
               value={selectedType}
               onChange={(e) => onTypeChange(e.target.value)}
-              className="w-full h-full appearance-none px-3 bg-(--background) ] rounded-[6px] text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-blue-600 cursor-pointer"
+              className="w-full h-full appearance-none px-3 bg-(--background) ] rounded-[6px] text-xs  focus:outline-none focus:ring-1 focus:ring-blue-600 cursor-pointer"
             >
               <option value="all">Encounter Type: All</option>
               <option value="Inpatient">Encounter Type: Inpatient</option>
@@ -100,9 +100,9 @@ export function PatientEncounterList({
         <table className="w-full text-left border-separate border-spacing-y-[5px] p-2">
           {/* Table Header (bg: #F9FAFB, h: 59px) */}
           <thead>
-            <tr className="bg-[#F9FAFB] text-[11px] font-bold text-slate-500 uppercase tracking-wider ">
+            <tr className="bg-[#F9FAFB] text-[11px] font-bold text-(--shade) uppercase tracking-wider ">
               <th className="py-3 px-4">
-                <div className="flex items-center gap-1.5 cursor-pointer hover:text-slate-800">
+                <div className="flex items-center gap-1.5 cursor-pointer hover:">
                   Date / Time
                   <ArrowUpDown className="h-3 w-3 text-slate-400" />
                 </div>
@@ -115,7 +115,7 @@ export function PatientEncounterList({
           </thead>
 
           {/* Table Body */}
-          <tbody className="text-xs text-slate-700">
+          <tbody className="text-xs ">
             {data.map((row) => {
               // Type badge styles matching screenshot
               let typeBadgeStyles = "";
@@ -147,7 +147,7 @@ export function PatientEncounterList({
                 >
                   {/* Date / Time */}
                   <td className="py-3 px-4 rounded-l-[6px]">
-                    <div className="font-bold text-slate-900">{row.date}</div>
+                    <div className="font-bold ">{row.date}</div>
                     <div className="text-[11px] text-slate-400 mt-0.5">
                       {row.time}
                     </div>
@@ -163,14 +163,10 @@ export function PatientEncounterList({
                   </td>
 
                   {/* Title / Subject */}
-                  <td className="py-3 px-4 font-bold text-slate-900">
-                    {row.title}
-                  </td>
+                  <td className="py-3 px-4 font-bold ">{row.title}</td>
 
                   {/* Provider */}
-                  <td className="py-3 px-4 text-slate-700 font-medium">
-                    {row.provider}
-                  </td>
+                  <td className="py-3 px-4  font-medium">{row.provider}</td>
 
                   {/* Status */}
                   <td className="py-3 px-4 rounded-r-[6px]">
@@ -187,7 +183,7 @@ export function PatientEncounterList({
         </table>
 
         {/* Table Pagination (bg: #F9FAFB, h: 49px, border-top: 1px solid #E5E7EB) */}
-        <div className="flex items-center justify-between px-4 py-3  text-xs text-slate-500">
+        <div className="flex items-center justify-between px-4 py-3  text-xs text-(--shade)">
           <p>
             Showing 1-{data.length} of {data.length} notes
           </p>

@@ -84,7 +84,7 @@ const mockLabResults: LabResultItem[] = [
 
 export function PatientLabResultTab() {
   // Set the 4th item expanded by default to match the reference screenshot
-  const [expandedId, setExpandedId] = useState<string | null>("4");
+  const [expandedId, setExpandedId] = useState<string | null>("0");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
   const [selectedLab, setSelectedLab] = useState<any>(null);
@@ -136,7 +136,7 @@ export function PatientLabResultTab() {
         <button
           type="button"
           onClick={handleNewOrder}
-          className="inline-flex items-center gap-1.5 w-[104px] h-[32px] px-3 py-2 bg-[#1C64F2] text-white text-xs font-bold rounded-[6px] hover:bg-blue-700 transition-colors shadow-xs cursor-pointer justify-center"
+          className="inline-flex items-center gap-1.5 w-26 h-8 px-3 py-2 bg-[#1C64F2] text-white text-xs font-bold rounded-[6px] hover:bg-blue-700 transition-colors shadow-xs cursor-pointer justify-center"
         >
           <Plus className="h-3 w-3 font-bold" />
           <span>New Order</span>
@@ -178,9 +178,7 @@ export function PatientLabResultTab() {
               <div key={item.id} className="relative flex items-start gap-6">
                 {/* Timeline Column */}
                 <div className="w-32 pt-3 flex-shrink-0 text-right">
-                  <div className="text-xs font-bold text-slate-900">
-                    {item.date}
-                  </div>
+                  <div className="text-xs font-bold ">{item.date}</div>
                   <div className="text-[11px] text-slate-400 mt-0.5">
                     {item.time}
                   </div>
@@ -202,7 +200,7 @@ export function PatientLabResultTab() {
                     )}
                   </div>
                   {index < mockLabResults.length - 1 && (
-                    <div className="absolute top-8 bottom-[-24px] w-[2px] bg-slate-200" />
+                    <div className="absolute top-8 -bottom-6 w-0.5 bg-slate-200" />
                   )}
                 </div>
 
@@ -214,14 +212,10 @@ export function PatientLabResultTab() {
                   >
                     <div className="flex items-center justify-between">
                       <div>
-                        <h3 className="text-sm font-bold text-slate-900">
-                          {item.testName}
-                        </h3>
+                        <h3 className="text-sm font-bold ">{item.testName}</h3>
                         <p className="text-xs text-slate-600 mt-1">
                           Result:{" "}
-                          <span className="font-semibold text-slate-900">
-                            {item.result}
-                          </span>{" "}
+                          <span className="font-semibold ">{item.result}</span>{" "}
                           | Reference Range: {item.referenceRange} | Units:{" "}
                           {item.units} | Flag:{" "}
                           <span className={flagBadgeColor}>{item.flag}</span>
@@ -247,7 +241,7 @@ export function PatientLabResultTab() {
                             <span className="block text-slate-400">
                               Recorded by
                             </span>
-                            <span className="font-semibold text-slate-800 mt-0.5 block">
+                            <span className="font-semibold  mt-0.5 block">
                               {item.recordedBy}
                             </span>
                           </div>
@@ -276,7 +270,7 @@ export function PatientLabResultTab() {
                               e.stopPropagation();
                               console.log("Downloading report for:", item.id);
                             }}
-                            className="px-4 py-2 bg-slate-100 text-slate-700 text-xs font-semibold rounded-[6px] hover:bg-slate-200 transition-colors cursor-pointer"
+                            className="px-4 py-2 bg-slate-100  text-xs font-semibold rounded-[6px] hover:bg-slate-200 transition-colors cursor-pointer"
                           >
                             Download
                           </button>

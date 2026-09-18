@@ -199,34 +199,39 @@ export function DataTable<T extends Record<string, any>>({
    */
   const sortedData = useMemo(() => {
     if (!sortColumn) {
-      return data;
+      return data.slice(
+        currentPage * rowsPerPage - rowsPerPage,
+        currentPage * rowsPerPage,
+      );
     }
 
-    return [...data].sort((a, b) => {
-      let aValue: any = a[sortColumn];
-      let bValue: any = b[sortColumn];
+    return [...data]
+      .slice(currentPage * rowsPerPage - rowsPerPage, currentPage * rowsPerPage)
+      .sort((a, b) => {
+        let aValue: any = a[sortColumn];
+        let bValue: any = b[sortColumn];
 
-      if (aValue == null) aValue = "";
-      if (bValue == null) bValue = "";
+        if (aValue == null) aValue = "";
+        if (bValue == null) bValue = "";
 
-      if (typeof aValue === "string") {
-        aValue = aValue.toLowerCase();
-      }
+        if (typeof aValue === "string") {
+          aValue = aValue.toLowerCase();
+        }
 
-      if (typeof bValue === "string") {
-        bValue = bValue.toLowerCase();
-      }
+        if (typeof bValue === "string") {
+          bValue = bValue.toLowerCase();
+        }
 
-      if (aValue < bValue) {
-        return sortOrder === "asc" ? -1 : 1;
-      }
+        if (aValue < bValue) {
+          return sortOrder === "asc" ? -1 : 1;
+        }
 
-      if (aValue > bValue) {
-        return sortOrder === "asc" ? 1 : -1;
-      }
+        if (aValue > bValue) {
+          return sortOrder === "asc" ? 1 : -1;
+        }
 
-      return 0;
-    });
+        return 0;
+      });
   }, [data, sortColumn, sortOrder]);
 
   /**
@@ -325,7 +330,7 @@ export function DataTable<T extends Record<string, any>>({
       <div className="w-full h-full min-h-0 overflow-x-auto">
         <div className="min-w-20 w-full h-full min-h-0 overflow-hidden bg-transparent shadow-2xs flex flex-col">
           <div
-            className="grid shrink-0 pb-3 px-2 items-center text-[13px] font-medium text-(--shade)"
+            className="grid shrink-0 pb-3 px-2 items-center text-[13px] gap-1 font-medium text-(--shade)"
             style={{
               gridTemplateColumns,
             }}
@@ -423,15 +428,15 @@ export function DataTable<T extends Record<string, any>>({
                     key={String(id)}
                     onClick={() => onRowClick?.(row)}
                     className={[
-                      "grid h-12.5",
+                      "grid h-12.5 gap-1",
                       "items-center",
                       "px-2",
                       "rounded-md",
                       "transition-colors",
                       onRowClick ? "cursor-pointer" : "cursor-default",
                       isSelected
-                        ? "bg-(--table-card) hover:bg-(--table-card)"
-                        : "bg-(--table-card) hover:bg-(--table-card)",
+                        ? "bg-(--table-card) hover:bg-(--table-card-hover)"
+                        : "bg-(--table-card) hover:bg-(--table-card-hover)",
                     ].join(" ")}
                     style={{
                       gridTemplateColumns,
@@ -499,8 +504,8 @@ export function DataTable<T extends Record<string, any>>({
           ============================================================ */}
 
           {pagination && (
-            <div className="flex shrink-0 h-18.5 items-center justify-between border-t border-slate-100 px-7 bg-(--card)">
-              <p className="text-[12px] font-normal leading-4 text-[#64748B]">
+            <div className="flex shrink-0 h-18.5 items-center justify-between border-t border-(--border) px-7">
+              <p className="text-xs font-normal leading-4">
                 Showing {firstRecord}-{lastRecord} of {totalRows} records
               </p>
 
@@ -510,7 +515,7 @@ export function DataTable<T extends Record<string, any>>({
                   type="button"
                   onClick={() => onPageChange?.(Math.max(1, currentPage - 1))}
                   disabled={currentPage === 1 || loading}
-                  className="flex h-8.75 items-center justify-center rounded-md border border-[#E1E6ED] bg-(--card) px-3 text-[12px] font-medium text-[#1E293B] transition-colors hover:bg-[#F7F9FC] disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
+                  className="flex h-8.75 items-center justify-center rounded-md border border-(--border) bg-(--card) px-3 text-[12px] font-medium transition-colors hover:bg-(--table-card) disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
                 >
                   Previous
                 </button>
@@ -531,8 +536,8 @@ export function DataTable<T extends Record<string, any>>({
                         "text-[12px] font-medium",
                         "transition-colors cursor-pointer",
                         isCurrentPage
-                          ? "bg-[#2167F3] text-white"
-                          : "border border-[#E1E6ED] bg-(--card) text-[#1E293B] hover:bg-[#F7F9FC]",
+                          ? "bg-(--button) text-(--button-text)"
+                          : "border border-(--border) bg-(--card) hover:bg-(--card-hover)",
                         loading ? "cursor-not-allowed opacity-50" : "",
                       ].join(" ")}
                     >
@@ -548,7 +553,7 @@ export function DataTable<T extends Record<string, any>>({
                     onPageChange?.(Math.min(totalPages, currentPage + 1))
                   }
                   disabled={currentPage === totalPages || loading}
-                  className="flex h-8.75 items-center justify-center rounded-md border border-[#E1E6ED] bg-(--card) px-3.75 text-[12px] font-medium text-[#1E293B] transition-colors hover:bg-[#F7F9FC] disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
+                  className="flex h-8.75 items-center justify-center rounded-md border border-(--border) bg-(--card) px-3.75 text-[12px] font-medium transition-colors hover:bg-(--card-hover) disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
                 >
                   Next
                 </button>

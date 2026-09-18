@@ -44,10 +44,10 @@ export function PatientProfileTabs({
   };
 
   return (
-    <div className="w-full px-4 sm:px-6">
+    <div className="w-full">
       {/* Container with overflow control for smaller screens, matching Figma specs: h-[71px], py-[16px], px-[15px], gap-[22px] */}
       <div className="w-full overflow-x-auto scrollbar-none">
-        <div className="flex items-center justify-start lg:justify-between h-[71px] py-[16px] px-[15px] gap-[22px] min-w-max lg:min-w-0 rounded-full shadow-2xs">
+        <div className="flex items-center justify-start py-[16px] px-[15px] gap-[22px] min-w-max lg:min-w-0 rounded-full shadow-2xs">
           {tabs.map((tab) => {
             const isActive = currentTab === tab;
 
@@ -62,7 +62,7 @@ export function PatientProfileTabs({
                   "border transition-all duration-200 ease-out cursor-pointer",
                   isActive
                     ? "border-[#2167F3] bg-[#2167F3] text-white shadow-sm shadow-blue-500/25"
-                    : "border-slate-200/80 bg-(--card) text-slate-700 hover:border-slate-300 hover:bg-slate-50",
+                    : "border-slate-200/80 bg-(--card)  hover:border-slate-300 hover:bg-slate-50",
                 ].join(" ")}
               >
                 {tab}

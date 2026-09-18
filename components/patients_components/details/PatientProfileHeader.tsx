@@ -39,11 +39,11 @@ export function PatientsProfileHeader({
 }: PatientsProfileHeaderProps) {
   return (
     /* Outer section wrapper using matching horizontal padding (px-4 sm:px-6) to align perfectly with the top navigation pill */
-    <section className="w-full px-4 sm:px-6">
-      <div className="relative flex h-[84px] w-full items-center rounded-[8px] bg-(--card) px-6 shadow-xs ">
+    <section className="w-full">
+      <div className="relative flex w-full items-center rounded-xl bg-(--card) p-5 shadow-xs ">
         {/* Patient photo & Admission Badge Container */}
         <div className="relative flex shrink-0 items-center justify-center mr-4">
-          <div className="flex h-[52px] w-[52px] items-center justify-center overflow-hidden rounded-xl bg-[#FFF2A8] shadow-2xs">
+          <div className="flex h-14 w-14 items-center justify-center overflow-hidden rounded-xl bg-(--warning-card) shadow-2xs">
             <img
               src={patient.avatarUrl || "/images/profile.jpeg"}
               alt={patient.name}
@@ -52,7 +52,7 @@ export function PatientsProfileHeader({
           </div>
 
           {/* Admission type badge cleanly anchored below the avatar */}
-          <span className="absolute -bottom-2 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-md bg-[#1769FF] px-2 py-0.5 text-[9px] font-semibold leading-none text-white shadow-xs">
+          <span className="absolute -bottom-2 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-md bg-(--primary) px-2 py-0.5 text-[9px] font-semibold leading-none text-white shadow-xs">
             {patient.admissionType}
           </span>
         </div>
@@ -61,59 +61,47 @@ export function PatientsProfileHeader({
         <div className="min-w-0 flex-1 flex flex-col justify-center gap-1.5">
           {/* Name and risk badge */}
           <div className="flex items-center gap-3">
-            <h2 className="truncate text-base font-bold tracking-tight text-slate-900">
+            <h2 className="truncate text-base font-bold tracking-tight ">
               {patient.name}
             </h2>
 
-            <span className="inline-flex h-5 items-center rounded-md  bg-rose-50 px-2 text-[10px] font-semibold text-rose-600 shadow-2xs">
+            <span className="inline-flex h-5 items-center rounded-md  bg-(--danger-card) px-2 text-[10px] font-semibold text-(--danger-text) shadow-2xs">
               {patient.riskLevel}
             </span>
           </div>
 
           {/* Patient metadata details row with refined typography colors */}
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-1 text-xs text-slate-500">
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-1 text-xs text-(--shade-text)">
             <div className="flex items-center gap-1.5">
               <span className="font-normal text-slate-400">Patient ID:</span>
-              <span className="font-semibold text-slate-700">
-                {patient.patientId}
-              </span>
+              <span className="font-semibold ">{patient.patientId}</span>
             </div>
 
             <div className="flex items-center gap-1.5">
               <span className="font-normal text-slate-400">Age:</span>
-              <span className="font-semibold text-slate-700">
-                {patient.age}
-              </span>
+              <span className="font-semibold ">{patient.age}</span>
             </div>
 
             <div className="flex items-center gap-1.5">
               <span className="font-normal text-slate-400">Sex:</span>
-              <span className="font-semibold text-slate-700">
-                {patient.sex}
-              </span>
+              <span className="font-semibold ">{patient.sex}</span>
             </div>
 
             <div className="flex items-center gap-1.5">
               <span className="font-normal text-slate-400">Blood group:</span>
-              <span className="font-semibold text-slate-700">
-                {patient.bloodGroup}
-              </span>
+              <span className="font-semibold ">{patient.bloodGroup}</span>
             </div>
 
             <div className="flex items-center gap-1.5">
               <span className="font-normal text-slate-400">Height:</span>
-              <span className="font-semibold text-slate-700">
-                {patient.height}
-              </span>
+              <span className="font-semibold ">{patient.height}</span>
             </div>
 
             <div className="flex items-center gap-1.5">
               <span className="font-normal text-slate-400">
                 Primary Physician:
               </span>
-              <span className="font-semibold text-slate-700">
-                {patient.primaryPhysician}
-              </span>
+              <span className="font-semibold ">{patient.primaryPhysician}</span>
             </div>
           </div>
         </div>
@@ -122,7 +110,7 @@ export function PatientsProfileHeader({
         <button
           type="button"
           aria-label="Patient options"
-          className="ml-4 flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-900 cursor-pointer"
+          className="ml-4 flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-(--shade-text) transition-colors hover:bg-slate-100 hover: cursor-pointer"
         >
           <MoreVertical className="h-5 w-5" strokeWidth={2} />
         </button>

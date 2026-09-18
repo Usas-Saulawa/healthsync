@@ -8,11 +8,13 @@
   --active-bg: #1f2a37;
   --active-track: #eff2f4;
   --active-text: #ffffff;
+  --link-text: #2563eb;
   --primary: #2563eb;
   --card-title: #1f2a37;
   --card: #ffffff;
   --card-hover: #fafafa;
   --table-card: #ebf5ff;
+  --table-card-hover: #c3ddfd;
   --info-card: #ebf5ff;
   --info-title: #1c64f2;
   --info-text: #111928;
@@ -38,8 +40,10 @@
   --danger-button-text: #ffffff;
 
   --shade: #637381;
+  --shade-text: #2e3440;
   --shade-hover: #f3f4f6;
   --border: #ccc;
+  --checker: #1a56db;
 }
 
 .dark {
@@ -50,11 +54,13 @@
   --active-bg: #1e2935;
   --active-track: #15181d;
   --active-text: #6695f2;
+  --link-text: #6695f2;
   --primary: #1a56db;
   --card-title: #f1f1f1;
   --card: #1a1d22;
   --card-hover: #2a323a;
   --table-card: #15181d;
+  --table-card-hover: #2a323a;
   --info-card: #21242b;
   --info-title: #4580f2;
   --info-text: #637381;
@@ -79,9 +85,11 @@
   --danger-button: #ee0022;
   --danger-button-text: #ffffff;
 
-  --shade: #637381;
+  --shade: #707c86;
+  --shade-text: #e1e1e1;
   --shade-hover: #c4c4c4;
   --border: #3f4348;
+  --checker: #c6d5f7;
 }
 
 body {

@@ -93,9 +93,7 @@ export function OrderRadiologyModal({
         {/* Modal Header */}
         <div className="flex items-center justify-between border-b border-[#E5E7EB] px-6 py-4 shrink-0">
           <div className="flex items-center gap-2">
-            <h2 className="text-base font-bold text-slate-900">
-              Order Imaging Study
-            </h2>
+            <h2 className="text-base font-bold ">Order Imaging Study</h2>
             <Info className="h-4 w-4 text-blue-600 cursor-pointer" />
           </div>
           <button
@@ -111,10 +109,8 @@ export function OrderRadiologyModal({
         <div className="p-6 flex flex-col gap-5 overflow-y-auto custom-scrollbar flex-grow">
           {/* Field: Study Category */}
           <div className="flex flex-col gap-1.5 w-full">
-            <label className="text-xs font-semibold text-slate-700">
-              Study Category
-            </label>
-            <div className="w-full h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center justify-between text-xs text-slate-900 cursor-pointer">
+            <label className="text-xs font-semibold ">Study Category</label>
+            <div className="w-full h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center justify-between text-xs  cursor-pointer">
               <span>{studyCategory}</span>
               <ChevronDown className="h-4 w-4 text-slate-400" />
             </div>
@@ -122,9 +118,7 @@ export function OrderRadiologyModal({
 
           {/* Field: Study Type */}
           <div className="flex flex-col gap-1.5 w-full">
-            <label className="text-xs font-semibold text-slate-700">
-              Study Type
-            </label>
+            <label className="text-xs font-semibold ">Study Type</label>
             <div className="w-full h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center gap-2.5">
               <Search className="h-4 w-4 text-slate-400 shrink-0" />
               <input
@@ -132,17 +126,15 @@ export function OrderRadiologyModal({
                 placeholder="Search imaging studies..."
                 value={studyType}
                 onChange={(e) => setStudyType(e.target.value)}
-                className="w-full text-xs text-slate-900 placeholder:text-slate-400 outline-none bg-transparent"
+                className="w-full text-xs  placeholder:text-slate-400 outline-none bg-transparent"
               />
             </div>
           </div>
 
           {/* Field: Body Part */}
           <div className="flex flex-col gap-1.5 w-full">
-            <label className="text-xs font-semibold text-slate-700">
-              Body Part
-            </label>
-            <div className="w-full h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center justify-between text-xs text-slate-900 cursor-pointer">
+            <label className="text-xs font-semibold ">Body Part</label>
+            <div className="w-full h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center justify-between text-xs  cursor-pointer">
               <span>{bodyPart}</span>
               <ChevronDown className="h-4 w-4 text-slate-400" />
             </div>
@@ -150,9 +142,7 @@ export function OrderRadiologyModal({
 
           {/* Field: Priority */}
           <div className="flex flex-col gap-2 w-full">
-            <label className="text-xs font-semibold text-slate-700">
-              Priority
-            </label>
+            <label className="text-xs font-semibold ">Priority</label>
             <div className="flex items-center gap-2 flex-wrap">
               {priorities.map((item) => {
                 const isSelected = priority === item;
@@ -165,7 +155,7 @@ export function OrderRadiologyModal({
                     className={`px-4 flex items-center justify-center text-xs font-semibold transition-colors cursor-pointer ${
                       isSelected
                         ? "bg-blue-50 text-blue-600 border border-blue-200"
-                        : "bg-slate-50 text-slate-700 hover:bg-slate-200"
+                        : "bg-slate-50  hover:bg-slate-200"
                     }`}
                   >
                     {item}
@@ -177,7 +167,7 @@ export function OrderRadiologyModal({
 
           {/* Field: Clinical Indication */}
           <div className="flex flex-col gap-1.5 w-full">
-            <label className="text-xs font-semibold text-slate-700">
+            <label className="text-xs font-semibold ">
               Clinical Indication
             </label>
             <div className="w-full h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center">
@@ -186,14 +176,14 @@ export function OrderRadiologyModal({
                 placeholder="Enter clinical reason for ordering..."
                 value={clinicalIndication}
                 onChange={(e) => setClinicalIndication(e.target.value)}
-                className="w-full text-xs text-slate-900 placeholder:text-slate-400 outline-none bg-transparent"
+                className="w-full text-xs  placeholder:text-slate-400 outline-none bg-transparent"
               />
             </div>
           </div>
 
           {/* Field: Special Instructions */}
           <div className="flex flex-col gap-1.5 w-full">
-            <label className="text-xs font-semibold text-slate-700">
+            <label className="text-xs font-semibold ">
               Special Instructions
             </label>
             <div className="w-full h-[70px] bg-(--card) border border-[#D1D5DB] rounded-[8px] p-3">
@@ -201,7 +191,7 @@ export function OrderRadiologyModal({
                 placeholder="Additional instructions for the radiologist..."
                 value={specialInstructions}
                 onChange={(e) => setSpecialInstructions(e.target.value)}
-                className="w-full h-full text-xs text-slate-900 placeholder:text-slate-400 outline-none bg-transparent resize-none"
+                className="w-full h-full text-xs  placeholder:text-slate-400 outline-none bg-transparent resize-none"
               />
             </div>
           </div>
@@ -210,7 +200,7 @@ export function OrderRadiologyModal({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
             {/* Contrast Required */}
             <div className="flex flex-col justify-end gap-1.5">
-              <label className="text-xs font-semibold text-slate-700 whitespace-nowrap">
+              <label className="text-xs font-semibold  whitespace-nowrap">
                 Contrast Required
               </label>
               <div className="flex items-center gap-2.5 h-[42px]">
@@ -231,7 +221,7 @@ export function OrderRadiologyModal({
                     }}
                   />
                 </button>
-                <span className="text-xs font-medium text-slate-700 whitespace-nowrap">
+                <span className="text-xs font-medium  whitespace-nowrap">
                   {contrastRequired ? "Yes (ON)" : "No (OFF)"}
                 </span>
               </div>
@@ -239,7 +229,7 @@ export function OrderRadiologyModal({
 
             {/* Sedation Required */}
             <div className="flex flex-col justify-end gap-1.5">
-              <label className="text-xs font-semibold text-slate-700 whitespace-nowrap">
+              <label className="text-xs font-semibold  whitespace-nowrap">
                 Sedation Required
               </label>
               <div className="flex items-center gap-2.5 h-[42px]">
@@ -260,7 +250,7 @@ export function OrderRadiologyModal({
                     }}
                   />
                 </button>
-                <span className="text-xs font-medium text-slate-700 whitespace-nowrap">
+                <span className="text-xs font-medium  whitespace-nowrap">
                   {sedationRequired ? "Yes (ON)" : "No (OFF)"}
                 </span>
               </div>
@@ -271,10 +261,8 @@ export function OrderRadiologyModal({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
             {/* Frequency */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-slate-700">
-                Frequency
-              </label>
-              <div className="w-full h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center justify-between text-xs text-slate-900 cursor-pointer">
+              <label className="text-xs font-semibold ">Frequency</label>
+              <div className="w-full h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center justify-between text-xs  cursor-pointer">
                 <span>{frequency}</span>
                 <ChevronDown className="h-4 w-4 text-slate-400" />
               </div>
@@ -282,28 +270,28 @@ export function OrderRadiologyModal({
 
             {/* Scheduled Date & Time with Reconciled Native Pickers */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-slate-700">
+              <label className="text-xs font-semibold ">
                 Scheduled Date & Time
               </label>
               <div className="flex items-center gap-2">
                 {/* Native Date Input Box */}
-                <div className="relative flex-1 h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3 flex items-center text-xs text-slate-900">
+                <div className="relative flex-1 h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3 flex items-center text-xs ">
                   <input
                     type="date"
                     value={scheduledDate}
                     onChange={(e) => setScheduledDate(e.target.value)}
-                    className="w-full bg-transparent outline-none cursor-pointer text-xs text-slate-900 pr-5 [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:right-2 [&::-webkit-calendar-picker-indicator]:w-5 [&::-webkit-calendar-picker-indicator]:h-5"
+                    className="w-full bg-transparent outline-none cursor-pointer text-xs  pr-5 [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:right-2 [&::-webkit-calendar-picker-indicator]:w-5 [&::-webkit-calendar-picker-indicator]:h-5"
                   />
                   <Calendar className="h-3.5 w-3.5 text-slate-400 shrink-0 pointer-events-none absolute right-3" />
                 </div>
 
                 {/* Native Time Input Box */}
-                <div className="relative w-[110px] h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3 flex items-center text-xs text-slate-900">
+                <div className="relative w-[110px] h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3 flex items-center text-xs ">
                   <input
                     type="time"
                     value={scheduledTime}
                     onChange={(e) => setScheduledTime(e.target.value)}
-                    className="w-full bg-transparent outline-none cursor-pointer text-xs text-slate-900 pr-5 [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:right-2 [&::-webkit-calendar-picker-indicator]:w-5 [&::-webkit-calendar-picker-indicator]:h-5"
+                    className="w-full bg-transparent outline-none cursor-pointer text-xs  pr-5 [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:right-2 [&::-webkit-calendar-picker-indicator]:w-5 [&::-webkit-calendar-picker-indicator]:h-5"
                   />
                   <Clock className="h-3.5 w-3.5 text-slate-400 shrink-0 pointer-events-none absolute right-3" />
                 </div>
@@ -317,7 +305,7 @@ export function OrderRadiologyModal({
           <button
             type="button"
             onClick={onClose}
-            className="w-[88px] h-[38px] bg-(--card) border border-[#D1D5DB] text-slate-700 text-xs font-semibold rounded-[8px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs"
+            className="w-[88px] h-[38px] bg-(--card) border border-[#D1D5DB]  text-xs font-semibold rounded-[8px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs"
           >
             Cancel
           </button>

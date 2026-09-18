@@ -109,7 +109,7 @@ export function PatientImmunizationTab() {
           <h2 className="text-xl font-bold text-[#2563EB] tracking-tight">
             Immunization
           </h2>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-(--shade) mt-1">
             Manage patient admissions, discharges, transfers, and referrals
           </p>
         </div>
@@ -124,7 +124,7 @@ export function PatientImmunizationTab() {
           <button
             type="button"
             onClick={() => console.log("View CDC Schedule clicked")}
-            className="inline-flex items-center px-4 py-2.5 bg-(--card) text-slate-700 border border-slate-200 text-xs font-bold rounded-[6px] hover:bg-slate-50 transition-colors shadow-2xs cursor-pointer"
+            className="inline-flex items-center px-4 py-2.5 bg-(--card)  border border-slate-200 text-xs font-bold rounded-[6px] hover:bg-slate-50 transition-colors shadow-2xs cursor-pointer"
           >
             <span>View CDC Schedule</span>
           </button>
@@ -134,8 +134,8 @@ export function PatientImmunizationTab() {
       {/* Table Container with gap-[4px] */}
       <div className="w-full rounded-[6px] overflow-hidden bg-(--card) shadow-2xs flex flex-col gap-[4px]">
         {/* Table Header */}
-        <div className="grid grid-cols-12 bg-slate-50/80 px-4 py-3 text-[11px] font-bold text-slate-500 tracking-wider uppercase border-b border-slate-100 items-center">
-          <div className="col-span-3 flex items-center gap-1.5 cursor-pointer hover:text-slate-700">
+        <div className="grid grid-cols-12 bg-slate-50/80 px-4 py-3 text-[11px] font-bold text-(--shade) tracking-wider uppercase border-b border-slate-100 items-center">
+          <div className="col-span-3 flex items-center gap-1.5 cursor-pointer hover:">
             <span>Vaccine Name</span>
             <ArrowUpDown className="w-3 h-3 text-slate-400" />
           </div>
@@ -158,14 +158,12 @@ export function PatientImmunizationTab() {
             return (
               <div
                 key={item.id}
-                className="grid grid-cols-12 items-center px-4 py-3.5 bg-(--background) border-b border-slate-100 text-xs text-slate-900 hover:bg-slate-100/60 transition-colors"
+                className="grid grid-cols-12 items-center px-4 py-3.5 bg-(--background) border-b border-slate-100 text-xs  hover:bg-slate-100/60 transition-colors"
               >
                 {/* Vaccine Name & Brand */}
                 <div className="col-span-3 flex flex-col gap-0.5">
-                  <span className="font-bold text-slate-900">
-                    {item.vaccineName}
-                  </span>
-                  <span className="text-[11px] text-slate-500 font-medium">
+                  <span className="font-bold ">{item.vaccineName}</span>
+                  <span className="text-[11px] text-(--shade) font-medium">
                     Brand: {item.brand}
                   </span>
                 </div>
@@ -176,12 +174,12 @@ export function PatientImmunizationTab() {
                 </div>
 
                 {/* Date Administered */}
-                <div className="col-span-2 font-medium text-slate-700">
+                <div className="col-span-2 font-medium ">
                   {item.dateAdministered}
                 </div>
 
                 {/* Administered By */}
-                <div className="col-span-2 font-medium text-slate-800">
+                <div className="col-span-2 font-medium ">
                   {item.administeredBy}
                 </div>
 
@@ -207,14 +205,14 @@ export function PatientImmunizationTab() {
 
       {/* Pagination Footer */}
       <div className="flex items-center justify-between pt-2 h-[46px]">
-        <span className="text-xs text-slate-500 font-medium">
+        <span className="text-xs text-(--shade) font-medium">
           Showing 1-5 of 24 patients
         </span>
         <div className="flex items-center gap-1.5">
           <button
             type="button"
             onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
-            className="px-3 py-1.5 bg-(--background) text-slate-700 text-xs font-semibold rounded-[6px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs border border-slate-200"
+            className="px-3 py-1.5 bg-(--background)  text-xs font-semibold rounded-[6px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs border border-slate-200"
           >
             Previous
           </button>
@@ -224,7 +222,7 @@ export function PatientImmunizationTab() {
             className={`w-8 h-8 text-xs font-semibold rounded-[6px] transition-colors cursor-pointer flex items-center justify-center ${
               currentPage === 1
                 ? "bg-[#1C64F2] text-white shadow-xs"
-                : "bg-(--background) text-slate-700 hover:bg-slate-50 border border-slate-200"
+                : "bg-(--background)  hover:bg-slate-50 border border-slate-200"
             }`}
           >
             1
@@ -235,7 +233,7 @@ export function PatientImmunizationTab() {
             className={`w-8 h-8 text-xs font-semibold rounded-[6px] transition-colors cursor-pointer flex items-center justify-center ${
               currentPage === 2
                 ? "bg-[#1C64F2] text-white shadow-xs"
-                : "bg-(--background) text-slate-700 hover:bg-slate-50 border border-slate-200"
+                : "bg-(--background)  hover:bg-slate-50 border border-slate-200"
             }`}
           >
             2
@@ -243,7 +241,7 @@ export function PatientImmunizationTab() {
           <button
             type="button"
             onClick={() => setCurrentPage((p) => Math.min(p + 1, 2))}
-            className="px-3 py-1.5 bg-(--background) text-slate-700 text-xs font-semibold rounded-[6px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs border border-slate-200"
+            className="px-3 py-1.5 bg-(--background)  text-xs font-semibold rounded-[6px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs border border-slate-200"
           >
             Next
           </button>

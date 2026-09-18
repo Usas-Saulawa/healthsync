@@ -1,12 +1,17 @@
 // components/dashboard_components/Header.tsx
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Activity, Settings, Bell, Menu, X } from "lucide-react";
 import { useHeader } from "@/hooks/dashboard_hooks/useHeader";
 import { NotificationDrawer } from "@/components/dashboard_components/NotificationDrawer";
+import { motion } from "framer-motion";
+import TrackSlider from "../ui/TrackSlider";
 
 export function Header() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const { doctorName, currentPath, router, navItems } = useHeader();
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -65,27 +70,36 @@ export function Header() {
             </button>
           </div>
 
-          {/* CENTER - MAIN NAVIGATION (Figma: height 71px, background #EFF2F4, padding top/bottom 4px, left/right 5px, gap 11px) */}
           <nav
-            className="hidden flex-1 h-full items-stretch rounded-full bg-(--active-track) px-1.25 py-1 md:flex"
+            ref={containerRef}
+            className="hidden relative flex-1 h-full z-1 items-stretch rounded-full bg-(--active-track) px-1.25 py-1 md:flex"
             aria-label="Main navigation"
           >
-            {navItems.map((item) => {
-              const isActive =
-                item.path === "/dashboard"
-                  ? currentPath === "/dashboard"
-                  : currentPath.startsWith(item.path);
+            <TrackSlider
+              navItems={navItems}
+              currentPath={currentPath}
+              containerRef={containerRef}
+              itemRefs={itemRefs}
+            />
+            {navItems.map((item, index) => {
+              const activeItem = navItems
+                .filter(
+                  (item) =>
+                    currentPath === item.path ||
+                    currentPath.startsWith(`${item.path}/`),
+                )
+                .sort((a, b) => b.path.length - a.path.length)[0];
 
+              const isActive = activeItem?.path === item.path;
               return (
                 <button
                   key={item.name}
                   type="button"
+                  ref={(element) => {
+                    itemRefs.current[index] = element;
+                  }}
                   onClick={() => router.push(item.path)}
-                  className={`flex flex-1 items-center justify-center rounded-full py-4 px-7 text-[16px] font-medium tracking-[-0.2px] transition-all duration-200 ${
-                    isActive
-                      ? "bg-(--active-bg) text-(--active-text)"
-                      : "text-(--text) hover:bg-(--card)/70"
-                  }`}
+                  className={`flex flex-1 items-center z-2 justify-center rounded-full py-4 px-7 text-[16px] font-medium tracking-[-0.2px] transition-all duration-200 cursor-pointer ${isActive ? "text-(--active-text)" : "text-(--text) hover:bg-(--card)/70"}`}
                 >
                   {item.name}
                 </button>

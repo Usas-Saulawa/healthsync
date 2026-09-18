@@ -87,7 +87,7 @@ export function AdmissionAndDischargeTab() {
           <h2 className="text-xl font-bold text-[#2563EB] tracking-tight">
             Admission & Discharge
           </h2>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-(--shade) mt-1">
             Manage patient admissions, discharges, transfers, and referrals
           </p>
         </div>
@@ -102,14 +102,14 @@ export function AdmissionAndDischargeTab() {
           <button
             type="button"
             onClick={() => setIsTransferModalOpen(true)}
-            className="inline-flex items-center px-4 py-2.5 bg-(--background) text-slate-700 border border-slate-200 text-xs font-bold rounded-[6px] hover:bg-slate-100 transition-colors shadow-2xs cursor-pointer"
+            className="inline-flex items-center px-4 py-2.5 bg-(--background)  border border-slate-200 text-xs font-bold rounded-[6px] hover:bg-slate-100 transition-colors shadow-2xs cursor-pointer"
           >
             <span>Transfer Request</span>
           </button>
           <button
             type="button"
             onClick={() => setIsReferralModalOpen(true)}
-            className="inline-flex items-center px-4 py-2.5 bg-(--background) text-slate-700 border border-slate-200 text-xs font-bold rounded-[6px] hover:bg-slate-100 transition-colors shadow-2xs cursor-pointer"
+            className="inline-flex items-center px-4 py-2.5 bg-(--background)  border border-slate-200 text-xs font-bold rounded-[6px] hover:bg-slate-100 transition-colors shadow-2xs cursor-pointer"
           >
             <span>Refer Patient</span>
           </button>
@@ -119,7 +119,7 @@ export function AdmissionAndDischargeTab() {
       {/* Table Container with gap-[4px] */}
       <div className="w-full rounded-[6px] overflow-hidden bg-(--card) shadow-2xs flex flex-col gap-[4px]">
         {/* Table Header */}
-        <div className="grid grid-cols-12 bg-slate-50/80 px-4 py-3 text-[11px] font-bold text-slate-500 tracking-wider uppercase border-b border-slate-100">
+        <div className="grid grid-cols-12 bg-slate-50/80 px-4 py-3 text-[11px] font-bold text-(--shade) tracking-wider uppercase border-b border-slate-100">
           <div className="col-span-2">Date</div>
           <div className="col-span-2">Type</div>
           <div className="col-span-4">Ward / Department</div>
@@ -148,15 +148,13 @@ export function AdmissionAndDischargeTab() {
             return (
               <div
                 key={item.id}
-                className="grid grid-cols-12 items-center px-4 py-3.5 bg-(--background) border-b border-slate-100 text-xs text-slate-900 hover:bg-slate-100/60 transition-colors"
+                className="grid grid-cols-12 items-center px-4 py-3.5 bg-(--background) border-b border-slate-100 text-xs  hover:bg-slate-100/60 transition-colors"
               >
-                <div className="col-span-2 font-medium text-slate-700">
-                  {item.date}
-                </div>
+                <div className="col-span-2 font-medium ">{item.date}</div>
                 <div className="col-span-2 font-bold text-[#1C64F2]">
                   {item.type}
                 </div>
-                <div className="col-span-4 font-medium text-slate-800">
+                <div className="col-span-4 font-medium ">
                   {item.wardOrDepartment}
                 </div>
                 <div className="col-span-3 font-medium text-slate-600">
@@ -173,14 +171,14 @@ export function AdmissionAndDischargeTab() {
 
       {/* Pagination Footer */}
       <div className="flex items-center justify-between pt-2 h-[46px]">
-        <span className="text-xs text-slate-500 font-medium">
+        <span className="text-xs text-(--shade) font-medium">
           Showing 1-5 of 24 patients
         </span>
         <div className="flex items-center gap-1.5">
           <button
             type="button"
             onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
-            className="px-3 py-1.5 bg-(--background) text-slate-700 text-xs font-semibold rounded-[6px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs border border-slate-200"
+            className="px-3 py-1.5 bg-(--background)  text-xs font-semibold rounded-[6px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs border border-slate-200"
           >
             Previous
           </button>
@@ -190,7 +188,7 @@ export function AdmissionAndDischargeTab() {
             className={`w-8 h-8 text-xs font-semibold rounded-[6px] transition-colors cursor-pointer flex items-center justify-center ${
               currentPage === 1
                 ? "bg-[#1C64F2] text-white shadow-xs"
-                : "bg-(--background) text-slate-700 hover:bg-slate-50 border border-slate-200"
+                : "bg-(--background)  hover:bg-slate-50 border border-slate-200"
             }`}
           >
             1
@@ -201,7 +199,7 @@ export function AdmissionAndDischargeTab() {
             className={`w-8 h-8 text-xs font-semibold rounded-[6px] transition-colors cursor-pointer flex items-center justify-center ${
               currentPage === 2
                 ? "bg-[#1C64F2] text-white shadow-xs"
-                : "bg-(--background) text-slate-700 hover:bg-slate-50 border border-slate-200"
+                : "bg-(--background)  hover:bg-slate-50 border border-slate-200"
             }`}
           >
             2
@@ -209,7 +207,7 @@ export function AdmissionAndDischargeTab() {
           <button
             type="button"
             onClick={() => setCurrentPage((p) => Math.min(p + 1, 2))}
-            className="px-3 py-1.5 bg-(--background) text-slate-700 text-xs font-semibold rounded-[6px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs border border-slate-200"
+            className="px-3 py-1.5 bg-(--background)  text-xs font-semibold rounded-[6px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs border border-slate-200"
           >
             Next
           </button>

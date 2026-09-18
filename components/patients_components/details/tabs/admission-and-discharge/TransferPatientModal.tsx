@@ -58,7 +58,7 @@ export function TransferPatientModal({
       <div className="relative w-full max-w-[540px] bg-(--card) rounded-[12px] shadow-xl border border-slate-100 flex flex-col max-h-[90vh]">
         {/* Modal Header */}
         <div className="flex items-center justify-between px-6 pt-5 pb-4 border-b border-slate-100">
-          <h2 className="text-lg font-bold text-slate-900 tracking-tight">
+          <h2 className="text-lg font-bold  tracking-tight">
             Transfer Patient
           </h2>
           <button
@@ -84,41 +84,41 @@ export function TransferPatientModal({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               {/* Transfer Date */}
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold text-slate-700">
+                <label className="text-xs font-semibold ">
                   Transfer Date <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
                   value={transferDate}
                   onChange={(e) => setTransferDate(e.target.value)}
-                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB]"
+                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  focus:outline-none focus:border-[#2563EB]"
                 />
               </div>
 
               {/* Transfer Time */}
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold text-slate-700">
+                <label className="text-xs font-semibold ">
                   Transfer Time <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
                   value={transferTime}
                   onChange={(e) => setTransferTime(e.target.value)}
-                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB]"
+                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  focus:outline-none focus:border-[#2563EB]"
                 />
               </div>
             </div>
 
             {/* Reason for Transfer */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-slate-700">
+              <label className="text-xs font-semibold ">
                 Reason for Transfer <span className="text-red-500">*</span>
               </label>
               <textarea
                 rows={2}
                 value={reasonForTransfer}
                 onChange={(e) => setReasonForTransfer(e.target.value)}
-                className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB] resize-none"
+                className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  focus:outline-none focus:border-[#2563EB] resize-none"
               />
             </div>
           </div>
@@ -132,9 +132,7 @@ export function TransferPatientModal({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               {/* Current Ward */}
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold text-slate-700">
-                  Current Ward
-                </label>
+                <label className="text-xs font-semibold ">Current Ward</label>
                 <input
                   type="text"
                   value={currentWard}
@@ -145,9 +143,7 @@ export function TransferPatientModal({
 
               {/* Current Bed */}
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold text-slate-700">
-                  Current Bed
-                </label>
+                <label className="text-xs font-semibold ">Current Bed</label>
                 <input
                   type="text"
                   value={currentBed}
@@ -167,14 +163,14 @@ export function TransferPatientModal({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               {/* Destination Department */}
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold text-slate-700">
+                <label className="text-xs font-semibold ">
                   Destination Department <span className="text-red-500">*</span>
                 </label>
                 <div className="relative">
                   <select
                     value={destinationDepartment}
                     onChange={(e) => setDestinationDepartment(e.target.value)}
-                    className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB] appearance-none cursor-pointer pr-8"
+                    className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  focus:outline-none focus:border-[#2563EB] appearance-none cursor-pointer pr-8"
                   >
                     <option value="Cardiology Intensive Care">
                       Cardiology Intensive Care
@@ -188,14 +184,14 @@ export function TransferPatientModal({
 
               {/* Destination Ward */}
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold text-slate-700">
+                <label className="text-xs font-semibold ">
                   Destination Ward <span className="text-red-500">*</span>
                 </label>
                 <div className="relative">
                   <select
                     value={destinationWard}
                     onChange={(e) => setDestinationWard(e.target.value)}
-                    className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB] appearance-none cursor-pointer pr-8"
+                    className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  focus:outline-none focus:border-[#2563EB] appearance-none cursor-pointer pr-8"
                   >
                     <option value="CICU - Ward C">CICU - Ward C</option>
                     <option value="Ward A - General">Ward A - General</option>
@@ -207,7 +203,7 @@ export function TransferPatientModal({
 
             {/* Preferred Bed Type */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-slate-700">
+              <label className="text-xs font-semibold ">
                 Preferred Bed Type
               </label>
               <div className="flex items-center gap-2 flex-wrap">
@@ -242,27 +238,27 @@ export function TransferPatientModal({
 
             {/* Transfer Summary */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-slate-700">
+              <label className="text-xs font-semibold ">
                 Transfer Summary <span className="text-red-500">*</span>
               </label>
               <textarea
                 rows={2}
                 value={transferSummary}
                 onChange={(e) => setTransferSummary(e.target.value)}
-                className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB] resize-none"
+                className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  focus:outline-none focus:border-[#2563EB] resize-none"
               />
             </div>
 
             {/* Special Requirements */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-slate-700">
+              <label className="text-xs font-semibold ">
                 Special Requirements
               </label>
               <input
                 type="text"
                 value={specialRequirements}
                 onChange={(e) => setSpecialRequirements(e.target.value)}
-                className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px] text-slate-800 focus:outline-none focus:border-[#2563EB]"
+                className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  focus:outline-none focus:border-[#2563EB]"
               />
             </div>
 
@@ -282,7 +278,7 @@ export function TransferPatientModal({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 bg-(--card) text-slate-700 text-xs font-semibold rounded-[8px] border border-slate-200 hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs"
+              className="px-4 py-2 bg-(--card)  text-xs font-semibold rounded-[8px] border border-slate-200 hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs"
             >
               Cancel
             </button>

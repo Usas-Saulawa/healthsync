@@ -171,9 +171,7 @@ export function PatientRadiologyTab() {
               <div key={item.id} className="relative flex items-start gap-6">
                 {/* Timeline Column */}
                 <div className="w-32 pt-3 flex-shrink-0 text-right">
-                  <div className="text-xs font-bold text-slate-900">
-                    {item.date}
-                  </div>
+                  <div className="text-xs font-bold ">{item.date}</div>
                   <div className="text-[11px] text-slate-400 mt-0.5">
                     {item.time}
                   </div>
@@ -207,12 +205,10 @@ export function PatientRadiologyTab() {
                   >
                     <div className="flex items-center justify-between">
                       <div>
-                        <h3 className="text-sm font-bold text-slate-900">
-                          {item.testName}
-                        </h3>
+                        <h3 className="text-sm font-bold ">{item.testName}</h3>
                         <p className="text-xs text-slate-600 mt-1">
                           Body Part:{" "}
-                          <span className="font-semibold text-slate-900">
+                          <span className="font-semibold ">
                             {item.bodyPart}
                           </span>{" "}
                           | Impression: {item.impression} | Flag:{" "}
@@ -239,7 +235,7 @@ export function PatientRadiologyTab() {
                             <span className="block text-slate-400">
                               Recorded by
                             </span>
-                            <span className="font-semibold text-slate-800 mt-0.5 block">
+                            <span className="font-semibold  mt-0.5 block">
                               {item.recordedBy}
                             </span>
                           </div>
@@ -268,7 +264,7 @@ export function PatientRadiologyTab() {
                               e.stopPropagation();
                               console.log("Downloading imaging for:", item.id);
                             }}
-                            className="px-4 py-2 bg-slate-100 text-slate-700 text-xs font-semibold rounded-[6px] hover:bg-slate-200 transition-colors cursor-pointer"
+                            className="px-4 py-2 bg-slate-100  text-xs font-semibold rounded-[6px] hover:bg-slate-200 transition-colors cursor-pointer"
                           >
                             Download
                           </button>
