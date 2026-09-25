@@ -6,6 +6,8 @@ import { useState } from "react";
 import { Plus } from "lucide-react";
 import { motion } from "framer-motion";
 import { OrderOrFollowUpModal } from "./OrderOrFollowUpModal";
+import { DataTable } from "@/components/ui/Table";
+import useColumns from "@/hooks/addons/useColumns";
 
 interface OrderItem {
   id: string;
@@ -187,6 +189,7 @@ const initialMockFollowUps: FollowUpItem[] = [
 ];
 
 export function PatientOrderAndFollowUpsTab() {
+  const { orderTabColumns, followUpColumns } = useColumns();
   const [activeSubTab, setActiveSubTab] = useState<"orders" | "follow-up">(
     "orders",
   );
@@ -226,13 +229,16 @@ export function PatientOrderAndFollowUpsTab() {
       setFollowUps([newFollowUp, ...followUps]);
     }
   };
+  function onPageChange(page: number) {
+    setCurrentPage(page);
+  }
 
   return (
-    <div className="w-full bg-(--card) rounded-[8px] p-10 shadow-xs flex flex-col gap-5">
+    <div className="w-full bg-(--card) rounded-xl p-5 shadow-xs flex flex-col gap-5">
       {/* Title Row */}
-      <div className="flex items-center justify-between w-full h-[64px]">
+      <div className="flex items-center justify-between w-full">
         <div>
-          <h2 className="text-xl font-bold text-[#2563EB] tracking-tight">
+          <h2 className="text-lg font-bold tracking-tight">
             Orders & Follow-up
           </h2>
           <p className="text-xs text-(--shade) mt-1">
@@ -243,7 +249,7 @@ export function PatientOrderAndFollowUpsTab() {
         <button
           type="button"
           onClick={() => setIsModalOpen(true)}
-          className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-[#1C64F2] text-white text-xs font-bold rounded-[6px] hover:bg-blue-700 transition-colors shadow-xs cursor-pointer"
+          className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-(--button) text-(--button-text) text-xs font-bold rounded-md transition-colors shadow-xs cursor-pointer justify-center"
         >
           <Plus className="h-4 w-4 font-bold" />
           <span>{activeSubTab === "orders" ? "New Order" : "Follow-up"}</span>
@@ -251,21 +257,21 @@ export function PatientOrderAndFollowUpsTab() {
       </div>
 
       {/* Sub-tabs Header */}
-      <div className="flex items-center gap-2 pb-[1px] relative">
+      <div className="flex items-center gap-2 pb-px relative">
         <button
           type="button"
           onClick={() => setActiveSubTab("orders")}
           className={`relative px-3.5 py-2.5 text-xs font-semibold transition-colors cursor-pointer ${
             activeSubTab === "orders"
-              ? "text-[#1C64F2]"
-              : "text-(--shade) hover:"
+              ? "text-(--primary)"
+              : "text-(--shade-text)"
           }`}
         >
           Orders
           {activeSubTab === "orders" && (
             <motion.div
               layoutId="activeSubTabIndicator"
-              className="absolute bottom-[-1px] left-0 right-0 h-[2px] bg-[#1C64F2]"
+              className="absolute -bottom-px left-0 right-0 h-0.5 bg-(--primary)"
               transition={{ type: "spring", stiffness: 380, damping: 30 }}
             />
           )}
@@ -276,15 +282,15 @@ export function PatientOrderAndFollowUpsTab() {
           onClick={() => setActiveSubTab("follow-up")}
           className={`relative px-3.5 py-2.5 text-xs font-semibold transition-colors cursor-pointer ${
             activeSubTab === "follow-up"
-              ? "text-[#1C64F2]"
-              : "text-(--shade) hover:"
+              ? "text-(--primary)"
+              : "text-(--shade-text)"
           }`}
         >
           Follow-up History
           {activeSubTab === "follow-up" && (
             <motion.div
               layoutId="activeSubTabIndicator"
-              className="absolute bottom-[-1px] left-0 right-0 h-[2px] bg-[#1C64F2]"
+              className="absolute -bottom-px left-0 right-0 h-0.5 bg-(--primary)"
               transition={{ type: "spring", stiffness: 380, damping: 30 }}
             />
           )}
@@ -293,196 +299,33 @@ export function PatientOrderAndFollowUpsTab() {
 
       {/* Main Content Area */}
       {activeSubTab === "orders" ? (
-        <div className="flex flex-col gap-4">
-          <div className="w-full rounded-[6px] overflow-hidden bg-(--card) shadow-2xs">
-            <div className="grid grid-cols-12 bg-slate-50/80 px-4 py-3 text-[11px] font-bold text-(--shade) tracking-wider uppercase">
-              <div className="col-span-4">Order Name</div>
-              <div className="col-span-2">Category</div>
-              <div className="col-span-2">Ordered By</div>
-              <div className="col-span-2">Date</div>
-              <div className="col-span-1">Priority</div>
-              <div className="col-span-1 text-right">Status</div>
-            </div>
-
-            <div className="flex flex-col gap-[4px] p-1 bg-(--card)">
-              {orders.map((item) => {
-                let priorityStyle = "bg-slate-100 ";
-                if (item.priority === "STAT")
-                  priorityStyle = "bg-red-100 text-red-600 font-bold";
-                if (item.priority === "Urgent")
-                  priorityStyle = "bg-amber-100 text-amber-700 font-bold";
-                if (item.priority === "Routine")
-                  priorityStyle = "bg-slate-200  font-semibold";
-
-                let statusStyle = "text-blue-600 font-bold";
-                if (item.statusType === "completed") {
-                  statusStyle =
-                    "bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-[11px] font-bold inline-block whitespace-nowrap shadow-2xs";
-                } else if (item.statusType === "completed-progress") {
-                  statusStyle =
-                    "bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-[11px] font-bold inline-block whitespace-nowrap shadow-2xs";
-                } else if (item.statusType === "pending") {
-                  statusStyle =
-                    "bg-amber-100 text-amber-700 px-3 py-1 rounded-full text-[11px] font-bold inline-block whitespace-nowrap shadow-2xs";
-                } else if (item.statusType === "pending-approval") {
-                  statusStyle =
-                    "bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-[10px] font-bold inline-block whitespace-nowrap shadow-2xs";
-                }
-
-                return (
-                  <div
-                    key={item.id}
-                    className="grid grid-cols-12 items-center px-4 py-3.5 bg-(--background) rounded-[6px] text-xs  hover:bg-slate-100/60 transition-colors"
-                  >
-                    <div className="col-span-4 font-bold ">
-                      {item.orderName}
-                    </div>
-                    <div className="col-span-2 text-slate-600">
-                      {item.category}
-                    </div>
-                    <div className="col-span-2 text-slate-600">
-                      {item.orderedBy}
-                    </div>
-                    <div className="col-span-2 text-slate-600">{item.date}</div>
-                    <div className="col-span-1">
-                      <span
-                        className={`px-2 py-0.5 rounded-[4px] text-[11px] inline-block ${priorityStyle}`}
-                      >
-                        {item.priority}
-                      </span>
-                    </div>
-                    <div className="col-span-1 text-right">
-                      <span className={statusStyle}>{item.status}</span>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          <div className="flex items-center justify-between pt-2">
-            <span className="text-xs text-(--shade) font-medium">
-              Showing 1-{orders.length} of {orders.length} orders
-            </span>
-            <div className="flex items-center gap-1.5">
-              <button
-                type="button"
-                onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
-                className="px-3 py-1.5 bg-(--card)  text-xs font-semibold rounded-[6px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs border border-slate-200"
-              >
-                Previous
-              </button>
-              <button
-                type="button"
-                onClick={() => setCurrentPage(1)}
-                className="w-8 h-8 text-xs font-semibold rounded-[6px] bg-[#1C64F2] text-white shadow-xs flex items-center justify-center cursor-pointer"
-              >
-                1
-              </button>
-              <button
-                type="button"
-                onClick={() => setCurrentPage(2)}
-                className="px-3 py-1.5 bg-(--card)  text-xs font-semibold rounded-[6px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs border border-slate-200"
-              >
-                Next
-              </button>
-            </div>
-          </div>
-        </div>
+        <DataTable
+          data={orders}
+          columns={orderTabColumns}
+          currentPage={currentPage}
+          rowsPerPage={5}
+          pagination={true}
+          loading={false}
+          onPageChange={onPageChange}
+          totalPages={Math.ceil(orders.length / 5)}
+          selectable={false}
+          rowKey="id"
+          // onRowClick={handleRowClick}
+        />
       ) : (
-        <div className="flex flex-col gap-4">
-          <div className="w-full rounded-[6px] overflow-hidden bg-(--card) shadow-2xs">
-            <div className="grid grid-cols-12 bg-slate-50/85 px-4 py-3 text-[11px] font-bold text-(--shade) tracking-wider uppercase">
-              <div className="col-span-3">Follow-up Type</div>
-              <div className="col-span-2">Scheduled Date</div>
-              <div className="col-span-2">Provider</div>
-              <div className="col-span-2">Department</div>
-              <div className="col-span-1 text-center">Status</div>
-              <div className="col-span-2 text-right">Notes</div>
-            </div>
-
-            <div className="flex flex-col gap-[4px] p-1 bg-(--card)">
-              {followUps.map((item) => {
-                let statusStyle =
-                  "bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-[11px] font-bold inline-block whitespace-nowrap shadow-2xs";
-                if (item.status === "Completed") {
-                  statusStyle =
-                    "bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-[11px] font-bold inline-block whitespace-nowrap shadow-2xs";
-                } else if (item.status === "Attended") {
-                  statusStyle =
-                    "bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-[11px] font-bold inline-block whitespace-nowrap shadow-2xs";
-                } else if (item.status === "Missed") {
-                  statusStyle =
-                    "bg-red-100 text-red-600 px-3 py-1 rounded-full text-[11px] font-bold inline-block whitespace-nowrap shadow-2xs";
-                } else if (item.status === "Scheduled") {
-                  statusStyle =
-                    "bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-[11px] font-bold inline-block whitespace-nowrap shadow-2xs";
-                } else if (item.status === "Cancelled") {
-                  statusStyle =
-                    "bg-amber-100 text-amber-700 px-3 py-1 rounded-full text-[11px] font-bold inline-block whitespace-nowrap shadow-2xs";
-                } else if (item.status === "Upcoming") {
-                  statusStyle =
-                    "bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-[11px] font-bold inline-block whitespace-nowrap shadow-2xs";
-                }
-
-                return (
-                  <div
-                    key={item.id}
-                    className="grid grid-cols-12 items-center px-4 py-3.5 bg-(--background) rounded-[6px] text-xs  hover:bg-slate-100/60 transition-colors"
-                  >
-                    <div className="col-span-3 font-bold ">
-                      {item.followUpType}
-                    </div>
-                    <div className="col-span-2 text-slate-600">
-                      {item.scheduledDate}
-                    </div>
-                    <div className="col-span-2 text-slate-600">
-                      {item.provider}
-                    </div>
-                    <div className="col-span-2 text-slate-600">
-                      {item.department}
-                    </div>
-                    <div className="col-span-1 text-center">
-                      <span className={statusStyle}>{item.status}</span>
-                    </div>
-                    <div className="col-span-2 text-right text-(--shade) truncate pl-2">
-                      {item.notes}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          <div className="flex items-center justify-between pt-2">
-            <span className="text-xs text-(--shade) font-medium">
-              Showing 1-{followUps.length} of {followUps.length} follow-ups
-            </span>
-            <div className="flex items-center gap-1.5">
-              <button
-                type="button"
-                onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
-                className="px-3 py-1.5 bg-(--card)  text-xs font-semibold rounded-[6px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs border border-slate-200"
-              >
-                Previous
-              </button>
-              <button
-                type="button"
-                onClick={() => setCurrentPage(1)}
-                className="w-8 h-8 text-xs font-semibold rounded-[6px] bg-[#1C64F2] text-white shadow-xs flex items-center justify-center cursor-pointer"
-              >
-                1
-              </button>
-              <button
-                type="button"
-                onClick={() => setCurrentPage((p) => Math.min(p + 1, 1))}
-                className="px-3 py-1.5 bg-(--card)  text-xs font-semibold rounded-[6px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs border border-slate-200"
-              >
-                Next
-              </button>
-            </div>
-          </div>
-        </div>
+        <DataTable
+          data={followUps}
+          columns={followUpColumns}
+          currentPage={currentPage}
+          rowsPerPage={5}
+          pagination={true}
+          loading={false}
+          onPageChange={onPageChange}
+          totalPages={Math.ceil(orders.length / 5)}
+          selectable={false}
+          rowKey="id"
+          // onRowClick={handleRowClick}
+        />
       )}
 
       {/* Reusable Unified Modal Component */}

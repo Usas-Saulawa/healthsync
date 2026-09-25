@@ -122,16 +122,16 @@ export function PatientRadiologyTab() {
   };
 
   return (
-    <div className="w-full bg-(--card) rounded-[8px] p-6 shadow-xs ">
+    <div className="w-full bg-(--card) rounded-lg p-5 ">
       {/* Header Row */}
-      <div className="flex items-center justify-between pb-6 ">
-        <h2 className="text-lg font-bold text-[#2563EB] tracking-tight">
-          Radiology/Imaging
+      <div className="flex items-center justify-between ">
+        <h2 className="text-lg font-bold tracking-tight">
+          Radiology / Imaging
         </h2>
         <button
           type="button"
           onClick={handleNewOrder}
-          className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#1C64F2] text-white text-xs font-bold rounded-[6px] hover:bg-blue-700 transition-colors shadow-xs cursor-pointer justify-center"
+          className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-(--button) text-(--button-text) text-xs font-bold rounded-md transition-colors shadow-xs cursor-pointer justify-center"
         >
           <Plus className="h-3.5 w-3.5 font-bold" />
           <span>New Order</span>
@@ -139,40 +139,37 @@ export function PatientRadiologyTab() {
       </div>
 
       {/* Main Content Layout with Timeline & Cards */}
-      <div className="relative pt-6">
-        <div className="space-y-6">
+      <div className="relative pt-5">
+        <div className="space-y-3">
           {mockRadiologyResults.map((item, index) => {
             const isExpanded = expandedId === item.id;
 
             // Card background styling
             const cardBgStyle =
-              index === 0
-                ? "bg-(--background) border border-slate-200/60"
-                : "bg-(--background) border border-slate-200/80 shadow-2xs";
+              index === 0 ? "bg-(--info-card)" : "bg-(--background)";
 
             // Flag badge colors
-            let flagBadgeColor = "text-blue-600 font-bold";
+            let flagBadgeColor = "text-(info-title)";
             if (item.flag === "Abnormal")
-              flagBadgeColor = "text-amber-600 font-bold";
+              flagBadgeColor = "text-(--warning-text) font-semibold";
             if (item.flag === "Critical")
-              flagBadgeColor = "text-red-600 font-bold";
+              flagBadgeColor = "text-(--danger-title) font-bold";
 
             // Timeline icon node styling
-            let timelineIconBg =
-              "bg-blue-50 text-blue-600 border border-blue-100";
+            let timelineIconBg = "bg-(--info-card) text-(--info-title)";
             if (item.iconType === "pulse")
               timelineIconBg =
-                "bg-emerald-50 text-emerald-600 border border-emerald-100";
+                "bg-(--lab-timeline-bg) text-(--lab-timeline-text)";
             if (item.iconType === "layers")
-              timelineIconBg =
-                "bg-amber-50 text-amber-600 border border-amber-100";
+              timelineIconBg = timelineIconBg =
+                "bg-(--warning-card) text-(--warning-title)";
 
             return (
-              <div key={item.id} className="relative flex items-start gap-6">
+              <div key={item.id} className="relative flex items-stretch gap-6">
                 {/* Timeline Column */}
-                <div className="w-32 pt-3 flex-shrink-0 text-right">
+                <div className="pt-3 shrink-0 text-right">
                   <div className="text-xs font-bold ">{item.date}</div>
-                  <div className="text-[11px] text-slate-400 mt-0.5">
+                  <div className="text-[11px] text-(--shade-text) mt-0.5">
                     {item.time}
                   </div>
                 </div>
@@ -193,12 +190,12 @@ export function PatientRadiologyTab() {
                     )}
                   </div>
                   {index < mockRadiologyResults.length - 1 && (
-                    <div className="absolute top-8 bottom-[-24px] w-[2px] bg-slate-200" />
+                    <div className="absolute top-8 -bottom-6 w-0.5 h-full bg-(--border)" />
                   )}
                 </div>
 
                 {/* Radiology Report Card Content */}
-                <div className="flex-grow">
+                <div className="grow">
                   <div
                     onClick={() => toggleExpand(item.id)}
                     className={`w-full rounded-lg p-4 transition-all cursor-pointer ${cardBgStyle}`}
@@ -206,7 +203,7 @@ export function PatientRadiologyTab() {
                     <div className="flex items-center justify-between">
                       <div>
                         <h3 className="text-sm font-bold ">{item.testName}</h3>
-                        <p className="text-xs text-slate-600 mt-1">
+                        <p className="text-xs text-(--shade) mt-1">
                           Body Part:{" "}
                           <span className="font-semibold ">
                             {item.bodyPart}
@@ -217,22 +214,22 @@ export function PatientRadiologyTab() {
                       </div>
                       <button
                         type="button"
-                        className="text-slate-400 hover:text-slate-600 transition-colors p-1"
+                        className="text-(--shade-text) hover:text-(--shade) transition-colors p-1"
                       >
                         {isExpanded ? (
-                          <ChevronUp className="h-4 w-4 text-slate-600" />
+                          <ChevronUp className="h-4 w-4 text-(--shade)" />
                         ) : (
-                          <ChevronDown className="h-4 w-4 text-slate-400" />
+                          <ChevronDown className="h-4 w-4 text-(--shade-text)" />
                         )}
                       </button>
                     </div>
 
                     {/* Expanded Dropdown Details Area */}
                     {isExpanded && (
-                      <div className="mt-4 pt-4 border-t border-slate-200/60 space-y-4">
+                      <div className="mt-4 pt-4 border-t border-(--border) space-y-3">
                         <div className="grid grid-cols-2 gap-4 text-xs">
                           <div>
-                            <span className="block text-slate-400">
+                            <span className="block text-(--shade-text)">
                               Recorded by
                             </span>
                             <span className="font-semibold  mt-0.5 block">
@@ -240,8 +237,10 @@ export function PatientRadiologyTab() {
                             </span>
                           </div>
                           <div>
-                            <span className="block text-slate-400">Status</span>
-                            <span className="font-semibold text-emerald-600 mt-0.5 block">
+                            <span className="block text-(--shade-text)">
+                              Status
+                            </span>
+                            <span className="font-semibold text-(--lab-timeline-text) mt-0.5 block">
                               {item.status}
                             </span>
                           </div>
@@ -254,7 +253,7 @@ export function PatientRadiologyTab() {
                               e.stopPropagation();
                               handleOpenModal(item);
                             }}
-                            className="px-4 py-2 bg-emerald-50 text-emerald-700 text-xs font-semibold rounded-[6px] hover:bg-emerald-100 transition-colors cursor-pointer"
+                            className="px-4 py-2 bg-(--lab-timeline-bg) text-(--lab-timeline-text) text-xs font-semibold rounded-sm transition-colors cursor-pointer"
                           >
                             View Details
                           </button>
@@ -264,7 +263,7 @@ export function PatientRadiologyTab() {
                               e.stopPropagation();
                               console.log("Downloading imaging for:", item.id);
                             }}
-                            className="px-4 py-2 bg-slate-100  text-xs font-semibold rounded-[6px] hover:bg-slate-200 transition-colors cursor-pointer"
+                            className="px-4 py-2 bg-(--card-hover)  text-xs font-semibold rounded-sm transition-colors cursor-pointer"
                           >
                             Download
                           </button>

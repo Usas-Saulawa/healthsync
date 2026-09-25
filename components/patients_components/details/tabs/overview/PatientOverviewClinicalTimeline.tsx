@@ -61,23 +61,32 @@ function TimelineIcon({
 
   if (type === "note") {
     return (
-      <div className="flex h-[28px] w-[28px] items-center justify-center rounded-full bg-[#E8F1FF]">
-        <FileText className={`${iconClasses} text-[#2167F3]`} strokeWidth={2} />
+      <div className="flex h-7 w-7 items-center justify-center rounded-full bg-(--info-icon-bg)">
+        <FileText
+          className={`${iconClasses} text-(--primary)`}
+          strokeWidth={2}
+        />
       </div>
     );
   }
 
   if (type === "laboratory") {
     return (
-      <div className="flex h-[28px] w-[28px] items-center justify-center rounded-full bg-[#DDF7EC]">
-        <Activity className={`${iconClasses} text-[#13B981]`} strokeWidth={2} />
+      <div className="flex h-7 w-7 items-center justify-center rounded-full bg-(--lab-timeline-bg)">
+        <Activity
+          className={`${iconClasses} text-(--lab-timeline-text)`}
+          strokeWidth={2}
+        />
       </div>
     );
   }
 
   return (
-    <div className="flex h-[28px] w-[28px] items-center justify-center rounded-full bg-[#FFF2BD]">
-      <Layers3 className={`${iconClasses} text-[#F5B800]`} strokeWidth={2} />
+    <div className="flex h-7 w-7 items-center justify-center rounded-full bg-(--warning-card)">
+      <Layers3
+        className={`${iconClasses} text-(--warning-title)`}
+        strokeWidth={2}
+      />
     </div>
   );
 }
@@ -86,14 +95,12 @@ export function PatientOverviewClinicalTimeline({
   items = mockTimelineItems,
 }: PatientOverviewClinicalTimelineProps) {
   return (
-    <section className="w-full overflow-hidden rounded-[15px] bg-(--card) px-[45px] pb-[27px] pt-[27px]">
+    <section className="w-full overflow-hidden flex flex-col gap-3 rounded-xl bg-(--card) p-5">
       {/* Section title */}
-      <h2 className="text-[15px] font-medium leading-[20px] text-[#111827]">
-        Clinical Timeline
-      </h2>
+      <h2 className="font-medium leading-5">Clinical Timeline</h2>
 
       {/* Timeline */}
-      <div className="mt-[20px]">
+      <div className="">
         {items.map((item, index) => {
           const isLast = index === items.length - 1;
 
@@ -103,25 +110,23 @@ export function PatientOverviewClinicalTimeline({
               className={[
                 "relative grid grid-cols-[126px_32px_minmax(0,1fr)]",
                 "items-start",
-                !isLast ? "pb-[20px]" : "",
+                !isLast ? "pb-5" : "",
               ].join(" ")}
             >
               {/* Date / time */}
-              <div className="pt-[7px]">
-                <p className="text-[12px] font-bold leading-[16px] text-[#172033]">
-                  {item.date}
-                </p>
-                <p className="mt-[1px] text-[11px] font-normal leading-[15px] text-[#64748B]">
+              <div className="pt-1.75">
+                <p className="text-[12px] font-bold leading-4">{item.date}</p>
+                <p className="mt-px text-[11px] font-normal leading-3.75 text-(--shade-text)">
                   {item.time}
                 </p>
               </div>
 
               {/* Timeline icon + connector */}
-              <div className="relative flex h-full justify-center">
+              <div className="relative flex h-full justify-center mr-3">
                 {!isLast && (
                   <span
                     aria-hidden="true"
-                    className="absolute left-1/2 top-[35px] h-[calc(100%+20px)] w-px -translate-x-1/2 bg-[#E4EAF2]"
+                    className="absolute left-1/2 top-8.75 h-[calc(100%+20px)] w-px -translate-x-1/2 bg-(--border)"
                   />
                 )}
 
@@ -133,18 +138,18 @@ export function PatientOverviewClinicalTimeline({
               {/* Event card */}
               <div
                 className={[
-                  "min-h-[66px] rounded-[7px] border px-[14px] py-[14px]",
+                  "min-h-16.5 rounded-[7px] p-3.5",
                   index === 0
-                    ? "border-transparent bg-[#EAF4FF]"
-                    : "border-[#E2E7EE] bg-(--card)",
+                    ? " bg-(--info-card)"
+                    : "border border-(--border)",
                 ].join(" ")}
               >
                 {/* Event heading */}
-                <div className="flex items-start justify-between gap-[20px]">
-                  <h3 className="min-w-0 text-[13px] font-bold leading-[17px] text-[#172033]">
+                <div className="flex items-start justify-between gap-5">
+                  <h3 className="min-w-0 text-[13px] font-bold leading-4.25">
                     {item.title}
                   </h3>
-                  <span className="shrink-0 pt-[1px] text-[11px] font-normal leading-[15px] text-[#64748B]">
+                  <span className="shrink-0 pt-px text-[11px] font-normal leading-3.75">
                     {item.author}
                   </span>
                 </div>

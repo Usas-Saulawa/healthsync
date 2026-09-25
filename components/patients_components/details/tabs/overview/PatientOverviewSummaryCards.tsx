@@ -75,34 +75,39 @@ function LungsIcon({ className = "h-5 w-5" }: { className?: string }) {
 
 function VitalIcon({ type }: { type: VitalSummary["icon"] }) {
   if (type === "weight") {
-    return <WeightIcon className="h-5 w-5" />;
+    return <WeightIcon className="h-5 w-5 text-(--primary)" />;
   }
 
   if (type === "heart-rate") {
-    return <Activity className="h-5 w-5 text-[#2167F3]" strokeWidth={1.8} />;
+    return <Activity className="h-5 w-5 text-(--primary)" />;
   }
 
   if (type === "oxygen") {
-    return <LungsIcon className="h-5 w-5" />;
+    return <LungsIcon className="h-5 w-5 text-(--primary)" />;
   }
 
-  return <Thermometer className="h-5 w-5 text-[#2167F3]" strokeWidth={1.8} />;
+  return <Thermometer className="h-5 w-5 text-(--primary)" />;
 }
 
 export function PatientOverviewSummaryCards({
   vitals = mockVitals,
 }: PatientOverviewSummaryCardsProps) {
   return (
-    <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
       {vitals.map((vital) => (
         <div
           key={vital.label}
-          className="flex h-[108px] w-full flex-col justify-between rounded-xl bg-(--card) px-5 py-4 border border-blue-100/60 shadow-xs transition-all hover:border-slate-300"
+          className="flex w-full flex-col gap-4 rounded-xl bg-(--card) p-5 shadow-xs transition-all hover:bg-(--card-hover)"
         >
           {/* Vital name and icon (No background wrapper) */}
           <div className="flex items-center gap-3">
             <VitalIcon type={vital.icon} />
-            <span className="text-sm font-semibold ">{vital.label}</span>
+            <span
+              className="text-sm font-semibold max-w-28 truncate"
+              title={vital.label}
+            >
+              {vital.label}
+            </span>
           </div>
 
           {/* Value and change */}
@@ -111,20 +116,20 @@ export function PatientOverviewSummaryCards({
               <span className="text-2xl font-bold tracking-tight ">
                 {vital.value}
               </span>
-              <span className="text-xs font-normal text-(--shade)">
+              <span className="text-xs font-normal text-(--shade-text)">
                 {vital.unit}
               </span>
             </div>
 
             <span
               className={[
-                "inline-flex h-5 min-w-[36px] items-center justify-center rounded-md px-1.5",
-                "text-[10px] font-semibold leading-none",
+                "inline-flex py-1 min-w-9 items-center justify-center rounded-full px-2",
+                "text-xs font-semibold leading-none",
                 vital.changeType === "negative"
-                  ? "bg-rose-100/90 text-rose-600 "
+                  ? "bg-(--danger-card) text-(--danger-text)"
                   : vital.changeType === "positive"
-                    ? "bg-emerald-100/90 text-emerald-600 "
-                    : "bg-blue-100/90 text-blue-600 ",
+                    ? "bg-(--lab-timeline-bg) text-(--lab-timeline-text)"
+                    : "bg-(--info-icon-bg) text-(--info-title)",
               ].join(" ")}
             >
               {vital.change}

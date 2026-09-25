@@ -8,16 +8,16 @@ import { PatientOverviewClinicalTimeline } from "./PatientOverviewClinicalTimeli
 
 export function PatientOverviewTab() {
   return (
-    <div className="w-full flex flex-col gap-5">
+    <div className="w-full flex flex-col gap-3">
       {/* Top Section: Two-column layout for Allergies vs (Vitals + Metrics Chart) */}
-      <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+      <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-3 items-start">
         {/* Left Column: Allergies & Medications Card */}
-        <div className="lg:col-span-4 w-full">
+        <div className="lg:col-span-4 h-full w-full">
           <PatientAllergiesCard />
         </div>
 
         {/* Right Column: Vitals Summary Cards + Health Metrics Timeline Chart */}
-        <div className="lg:col-span-8 w-full flex flex-col gap-5">
+        <div className="lg:col-span-8 w-full h-full flex flex-col gap-3">
           <PatientOverviewSummaryCards />
           <PatientOverViewMetricsChart />
         </div>

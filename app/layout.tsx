@@ -4,6 +4,7 @@ import { Nunito } from "next/font/google";
 import { QueryProvider } from "@/components/providers/QueryProvider";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
+import { useTheme } from "@/hooks/addons/useTheme";
 
 const nunito = Nunito({
   variable: "--font-nunito",

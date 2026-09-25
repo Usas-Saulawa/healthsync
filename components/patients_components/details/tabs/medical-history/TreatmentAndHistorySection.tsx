@@ -59,54 +59,50 @@ const encounterData = [
 
 export function TreatmentAndHistorySection() {
   return (
-    <div className="w-full bg-(--card) rounded-2xl border border-slate-200/80 shadow-xs p-6 space-y-6">
-      <h3 className="text-lg font-bold text-[#0f172a]">
-        Treatment & Encounter History
-      </h3>
+    <div className="sm:col-span-5 bg-(--card) rounded-xl h-full p-5 space-y-3">
+      <h3 className="text-lg font-bold">Treatment & Encounter History</h3>
 
       {/* Scrollable Container with Optimized Custom Scrollbar */}
-      <div className="max-h-[420px] overflow-y-auto pr-3 custom-scrollbar">
+      <div className="max-h-115 overflow-y-auto custom-scrollbar">
         {/* Timeline Container */}
-        <div className="relative pl-2 space-y-8 py-2">
+        <div className="relative space-y-3 py-2">
           {/* Vertical Timeline Line */}
-          <div className="absolute left-[112px] top-4 bottom-4 w-0.5 bg-slate-200" />
+          <div className="absolute left-28 top-4 bottom-4 w-0.5 bg-(--border)" />
 
           {encounterData.map((item) => (
             <div key={item.id} className="relative flex items-start gap-6">
               {/* Date & Time Column */}
               <div className="w-24 pt-2 text-right shrink-0">
-                <p className="text-xs font-bold text-[#0f172a]">{item.date}</p>
-                <p className="text-[11px] font-medium text-slate-400">
+                <p className="text-xs font-bold">{item.date}</p>
+                <p className="text-[11px] font-medium text-(--shade-text)">
                   {item.time}
                 </p>
               </div>
 
               {/* Icon Node */}
-              <div className="relative z-10 flex items-center justify-center w-8 h-8 rounded-full bg-blue-50 border border-blue-100 text-blue-600 shrink-0 mt-1 shadow-xs">
+              <div className="relative z-10 flex items-center justify-center w-8 h-8 rounded-full bg-(--info-card) text-(--info-title) shrink-0 mt-1 shadow-xs">
                 <FileText className="w-4 h-4" />
               </div>
 
               {/* Content Card with Increased Blue Tint (~50% richer: bg-blue-50/90 and border-blue-200/80) */}
-              <div className="flex-1 relative rounded-2xl bg-blue-50/90 hover:bg-blue-100/60   p-5 space-y-2 transition-colors shadow-2xs">
+              <div className="flex-1 relative rounded-md bg-(--info-card) hover:bg-(--table-card-hover) cursor-pointer p-4 space-y-3 transition-colors">
                 <div className="flex items-start justify-between">
-                  <div>
-                    <h4 className="text-sm font-bold text-[#0f172a]">
-                      {item.title}
-                    </h4>
-                    <p className="text-xs font-semibold text-blue-700 mt-0.5">
+                  <div className="">
+                    <h4 className="text-sm font-bold">{item.title}</h4>
+                    <p className="text-xs font-semibold text-(--primary) mt-0.5">
                       {item.doctor}
                     </p>
-                    <p className="text-[11px] font-medium text-(--shade)">
+                    <p className="text-xs font-medium text-(--shade-text)">
                       {item.group}
                     </p>
                   </div>
                   {item.badge && (
-                    <span className="flex items-center justify-center w-5 h-5 rounded-full bg-red-500 text-white text-[10px] font-bold shadow-xs">
+                    <span className="flex items-center justify-center w-5 h-5 rounded-full bg-(--badge-bg) text-(--badge-text) text-[10px] font-bold shadow-xs">
                       {item.badge}
                     </span>
                   )}
                 </div>
-                <p className="text-xs  pt-1 leading-relaxed font-normal">
+                <p className="text-xs text-(--shade-text) leading-relaxed font-normal">
                   {item.description}
                 </p>
               </div>
@@ -115,7 +111,6 @@ export function TreatmentAndHistorySection() {
         </div>
       </div>
 
-      {/* Best-Practice Custom Scrollbar Styles */}
       <style jsx>{`
         .custom-scrollbar {
           scrollbar-width: thin;

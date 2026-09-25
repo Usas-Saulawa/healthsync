@@ -17,7 +17,7 @@ export function FollowUpsWidget({
 }: FollowUpsWidgetProps) {
   return (
     <div
-      className={`bg-(--card)  p-5 shadow-xs rounded-xl space-y-4 overflow-hidden ${className}`}
+      className={`bg-(--card) p-5 shadow-xs rounded-xl space-y-4 overflow-hidden ${className}`}
     >
       {/* Widget Header */}
       <div className="flex items-center justify-between">

@@ -1,20 +1,22 @@
 // components/patients_components/details/tabs/medications/PatientMedicationsTab.tsx
 "use client";
 
-import { useState, useMemo } from "react";
-import { Plus } from "lucide-react";
+import { useState, useMemo, useRef } from "react";
+import { Download, Plus } from "lucide-react";
 import { MasterFilterToolbar } from "@/components/tools/filterTools";
-import {
-  PatientMedicationsList,
-  MedicationRow,
-} from "./PatientMedicationsList";
+import { MedicationRow } from "./PatientMedicationsList";
 import { AddPrescriptionModal } from "./AddPrescriptionModal";
 import { PatientMedicationDetailModal } from "./PatientMedicationDetailModal";
 import { mockMedicationsData } from "@/mock/mockDashboardData";
+import { DataTable } from "@/components/ui/Table";
+import useColumns from "@/hooks/addons/useColumns";
 
 export function PatientMedicationsTab() {
+  const { medmanagementColumns } = useColumns();
   const [medications, setMedications] =
     useState<MedicationRow[]>(mockMedicationsData);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [filterValue, setFilterValue] = useState("");
   const [filterLabel, setFilterLabel] = useState("Filter");
@@ -62,14 +64,6 @@ export function PatientMedicationsTab() {
 
     return result;
   }, [medications, filterValue, sortValue]);
-
-  // Paginated slice
-  const paginatedData = useMemo(() => {
-    const start = (currentPage - 1) * itemsPerPage;
-    return processedMedications.slice(start, start + itemsPerPage);
-  }, [processedMedications, currentPage]);
-
-  const totalPages = Math.ceil(processedMedications.length / itemsPerPage) || 1;
 
   const handleFilterSelect = (val: string, label: string) => {
     // If selecting the already active filter or choosing to reset, clear it
@@ -121,21 +115,25 @@ export function PatientMedicationsTab() {
     setIsDetailModalOpen(true);
   };
 
+  function onPageChange(page: number) {
+    setCurrentPage(page);
+  }
+
   return (
-    <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xs p-6 space-y-6">
+    <div className="bg-(--card) rounded-xl p-5 space-y-6">
       {/* Header & Action Bar Section */}
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 pb-4 border-b border-slate-100">
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
         <div>
-          <h2 className="text-xl font-bold text-[#2563EB] tracking-tight">
+          <h2 className="text-lg font-bold tracking-tight">
             Medication Management
           </h2>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-(--shade) mt-1">
             Active prescriptions, dosage schedules, and therapy history
           </p>
         </div>
 
         {/* Action Buttons & Filter Toolbar Wrapper */}
-        <div className="flex flex-wrap items-center gap-2.5 relative z-20">
+        <div className="flex flex-wrap items-center gap-3 relative z-20">
           <MasterFilterToolbar
             showSearch={false}
             showFilter={true}
@@ -151,8 +149,9 @@ export function PatientMedicationsTab() {
 
           <button
             type="button"
+            ref={buttonRef}
             onClick={handleNewPrescription}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-[6px] bg-[#2563EB] text-white text-xs font-semibold hover:bg-blue-700 transition-colors shadow-xs cursor-pointer h-[40px]"
+            className="flex items-center gap-1 py-2 pr-4 pl-3 rounded-md bg-(--button) text-(--button-text) text-sm font-semibold hover:bg-blue-700 transition-colors cursor-pointer"
           >
             <Plus className="h-4 w-4" />
             <span>New Prescription</span>
@@ -160,22 +159,27 @@ export function PatientMedicationsTab() {
 
           <button
             type="button"
-            onClick={handleExport}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-[6px] bg-(--background)  text-xs font-semibold hover:bg-slate-50 transition-colors shadow-2xs cursor-pointer h-[40px]"
+            style={{ width: buttonRef?.current?.clientWidth }}
+            className="flex items-center justify-center gap-1 py-2 pl-3 pr-4 rounded-md bg-(--background) text-sm sm:text-sm font-semibold hover:bg-(--card-hover) transition-colors cursor-pointer"
           >
-            Export
+            <Download className="h-4 w-4" />
+            <span>Export</span>
           </button>
         </div>
       </div>
 
       {/* Medications List Table Component with Dynamic Data & Pagination Props */}
-      <PatientMedicationsList
-        data={paginatedData}
+      <DataTable
+        data={processedMedications}
+        columns={medmanagementColumns}
         currentPage={currentPage}
-        totalPages={totalPages}
-        totalItems={processedMedications.length}
-        itemsPerPage={itemsPerPage}
-        onPageChange={setCurrentPage}
+        rowsPerPage={itemsPerPage}
+        pagination={true}
+        loading={loading}
+        onPageChange={onPageChange}
+        totalPages={Math.ceil(processedMedications.length / 5)}
+        selectable={false}
+        rowKey="id"
         onRowClick={handleRowClick}
       />
 

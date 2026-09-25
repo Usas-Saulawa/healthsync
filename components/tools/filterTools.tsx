@@ -77,18 +77,18 @@ export function MasterFilterToolbar({
   const baseBgClass =
     variant === "white"
       ? "bg-(--card) hover:bg-(--card-hover)"
-      : "bg-(--card) hover:opacity-90";
+      : "bg-(--background) hover:bg-(--background-hover)";
 
   const searchBgClass =
     variant === "white"
       ? "bg-(--card) focus-within:bg-(--card-hover)"
-      : "bg-(--background) border-0 focus-within:bg-(--card)";
+      : "bg-(--background) border-0 focus-within:bg-(--background-hover)";
 
   const getIconContainerClass = (isActiveOrOpen: boolean) => {
     if (isActiveOrOpen) {
       return "bg-(--background)";
     }
-    return "bg-(--background)";
+    return "bg-(--background-hover)";
   };
 
   return (
@@ -123,7 +123,7 @@ export function MasterFilterToolbar({
       {showFilter && (
         <div className="relative flex items-center">
           <div
-            className={`flex items-center gap-1.5 overflow-hidden transition-all duration-300 ease-in-out bg-(--card) rounded-full shadow-sm mr-2 ${
+            className={`flex items-center gap-1.5 overflow-hidden transition-all duration-300 ease-in-out bg-(--card) rounded-full shadow-sm ${
               isFilterOpen
                 ? "max-w-100 opacity-100 px-3 py-1.5"
                 : "max-w-0 opacity-0 px-0 py-1.5 border-transparent pointer-events-none"
@@ -162,7 +162,7 @@ export function MasterFilterToolbar({
             }}
             className={`flex h-11.25 w-30.25 shrink-0 items-center justify-between rounded-full pl-4 pr-1.25 text-xs sm:text-sm font-semibold transition-all duration-300 cursor-pointer shadow-2xs ${
               isFilterActive || isFilterOpen
-                ? "bg-(--card) hover:bg-(--card-hover)"
+                ? "bg-(--card-hover) hover:bg-(--card-hover)"
                 : baseBgClass
             }`}
           >
@@ -182,7 +182,7 @@ export function MasterFilterToolbar({
       {showSort && (
         <div className="relative flex items-center">
           <div
-            className={`flex items-center gap-1.5 overflow-hidden transition-all duration-300 ease-in-out bg-(--card) rounded-full shadow-sm mr-2 ${
+            className={`flex items-center gap-1.5 overflow-hidden transition-all duration-300 ease-in-out bg-(--card) rounded-full shadow-sm ${
               isSortOpen
                 ? "max-w-100 opacity-100 px-3 py-1.5"
                 : "max-w-0 opacity-0 px-0 py-1.5 border-transparent pointer-events-none"

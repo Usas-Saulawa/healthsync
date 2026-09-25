@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { ArrowUpDown } from "lucide-react";
 import { MasterFilterToolbar } from "@/components/tools/filterTools";
 import { mockMedicalHistory } from "@/mock/mockDashboardData";
+import { DataTable } from "@/components/ui/Table";
+import useColumns from "@/hooks/addons/useColumns";
 
 interface MedicalHistoryItem {
   id: number;
@@ -28,8 +30,10 @@ const ITEMS_PER_PAGE = 10;
 export function PatientMedicalHistoryTab({
   patientId = "1",
 }: PatientMedicationTabProps) {
+  const { medicationColumns } = useColumns();
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(false);
   const [filterLabel, setFilterLabel] = useState("Filter");
   const [sortLabel, setSortLabel] = useState("Sort by");
 
@@ -101,15 +105,17 @@ export function PatientMedicalHistoryTab({
     );
   };
 
+  function onPageChange(page: number) {
+    setCurrentPage(page);
+  }
+
   return (
-    <div className="w-full bg-white rounded-2xl shadow-xs overflow-hidden p-6 sm:p-8 space-y-6">
+    <div className="w-full bg-(--card) rounded-2xl shadow-xs overflow-hidden p-5 space-y-6">
       {/* Top heading and actions */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-[#2563EB]">
-            Medical History
-          </h2>
-          <p className="mt-1 text-sm text-(--shade)">
+          <h2 className="text-lg font-bold tracking-tight">Medical History</h2>
+          <p className="mt-1 text-sm text-(--shade-text)">
             All documented diagnoses, procedures, and hospitalizations
           </p>
         </div>
@@ -140,123 +146,23 @@ export function PatientMedicalHistoryTab({
       </div>
 
       {/* Medical history table container with horizontal scroll support */}
-      <div className="w-full overflow-x-auto">
-        <div className="min-w-[950px] w-full">
-          {/* Table header */}
-          <div className="grid grid-cols-[140px_minmax(220px,1.45fr)_minmax(160px,1fr)_minmax(170px,1.05fr)_minmax(260px,1.55fr)] items-center bg-[#F8FAFC] px-4 py-3.5 rounded-[6px] text-xs font-bold uppercase tracking-wider text-slate-400">
-            {/* Date Sort Header */}
-            <button
-              type="button"
-              onClick={() => handleColumnSort("date")}
-              className="flex items-center gap-1 text-left hover: transition-colors cursor-pointer focus:outline-none"
-            >
-              <span>Date</span>
-              <ArrowUpDown
-                className={`h-3.5 w-3.5 transition-colors ${
-                  sortField === "date" ? "text-blue-600" : "text-slate-400"
-                }`}
-                strokeWidth={2}
-              />
-            </button>
-
-            {/* Condition / Procedure Sort Header */}
-            <button
-              type="button"
-              onClick={() => handleColumnSort("condition")}
-              className="flex items-center gap-1 text-left hover: transition-colors cursor-pointer focus:outline-none"
-            >
-              <span>Condition / Procedure</span>
-              <ArrowUpDown
-                className={`h-3.5 w-3.5 transition-colors ${
-                  sortField === "condition" ? "text-blue-600" : "text-slate-400"
-                }`}
-                strokeWidth={2}
-              />
-            </button>
-
-            <div>Provider</div>
-            <div>Facility</div>
-            <div>Notes</div>
-          </div>
-
-          {/* Table rows */}
-          <div className="mt-3 space-y-2">
-            {currentTableData.map((item) => (
-              <div
-                key={item.id}
-                onClick={() => handleRowClick(item)}
-                className="grid grid-cols-[140px_minmax(220px,1.45fr)_minmax(160px,1fr)_minmax(170px,1.05fr)_minmax(260px,1.55fr)] items-center min-h-[64px] bg-app-bg hover:bg-[#EAF4FF] transition-colors px-4 rounded-[6px] border cursor-pointer group"
-              >
-                {/* Date */}
-                <div className="text-sm font-semibold  group-hover:text-blue-600 transition-colors">
-                  {item.date}
-                </div>
-
-                {/* Condition */}
-                <div className="text-sm font-semibold ">{item.condition}</div>
-
-                {/* Provider */}
-                <div className="text-sm ">{item.provider}</div>
-
-                {/* Facility */}
-                <div className="text-sm text-(--shade)">{item.facility}</div>
-
-                {/* Notes */}
-                <div className="text-sm text-(--shade) truncate pr-2">
-                  {item.notes}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Bottom pagination */}
-      <div className="flex items-center justify-between pt-4">
-        <p className="text-xs sm:text-sm text-(--shade)">
-          Showing {startIndex + 1}-{endIndex} of {totalRecords} history records
-        </p>
-
-        <div className="flex items-center gap-2">
-          {/* Previous */}
-          <button
-            type="button"
-            onClick={() => setCurrentPage((page) => Math.max(1, page - 1))}
-            disabled={currentPage === 1}
-            className="flex h-9 items-center justify-center rounded-lg bg-white border border-slate-200 px-3 text-xs font-semibold  transition-colors hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            Previous
-          </button>
-
-          {/* Dynamic Page Buttons (1, 2, 3) */}
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-            <button
-              key={page}
-              type="button"
-              onClick={() => setCurrentPage(page)}
-              className={`flex h-9 w-9 items-center justify-center rounded-lg text-xs font-semibold transition-colors ${
-                currentPage === page
-                  ? "bg-[#2563EB] text-white"
-                  : "border border-slate-200 bg-white  hover:bg-slate-50"
-              }`}
-            >
-              {page}
-            </button>
-          ))}
-
-          {/* Next */}
-          <button
-            type="button"
-            onClick={() =>
-              setCurrentPage((page) => Math.min(totalPages, page + 1))
-            }
-            disabled={currentPage === totalPages}
-            className="flex h-9 items-center justify-center rounded-lg bg-white border border-slate-200 px-3 text-xs font-semibold  transition-colors hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            Next
-          </button>
-        </div>
-      </div>
+      <DataTable
+        data={currentTableData}
+        columns={medicationColumns}
+        currentPage={currentPage}
+        rowsPerPage={10}
+        pagination
+        loading={loading}
+        onPageChange={onPageChange}
+        totalPages={Math.ceil(currentTableData.length / 10)}
+        selectable={false}
+        rowKey="id"
+        onRowClick={(row) =>
+          router.push(
+            `/dashboard/patients/${patientId}/medical-history?recordId=${row.id}`,
+          )
+        }
+      />
     </div>
   );
 }

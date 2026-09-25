@@ -55,16 +55,16 @@ export function LoginModal({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop with smooth fade-in and focus blur */}
       <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity animate-[fadeIn_0.2s_ease-out]"
+        className="absolute inset-0 bg-black/50 transition-opacity animate-[fadeIn_0.2s_ease-out]"
         onClick={onClose}
       />
 
       {/* Modal Card with pop-in scale animation */}
-      <div className="relative w-full max-w-sm rounded-2xl bg-(--card) p-6 shadow-2xl border border-gray-100 z-10 animate-[scaleUp_0.25s_cubic-bezier(0.16,1,0.3,1)] text-center">
+      <div className="relative w-full max-w-sm rounded-2xl bg-(--card) p-6 z-10 animate-[scaleUp_0.25s_cubic-bezier(0.16,1,0.3,1)] text-center">
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+          className="absolute top-4 right-4 text-(--shade) hover:text-(--shade-text) transition-colors"
         >
           <X className="h-5 w-5" />
         </button>
@@ -76,16 +76,16 @@ export function LoginModal({
         />
 
         {/* Text Content */}
-        <h3 className="text-lg font-bold text-gray-900 mb-1">{title}</h3>
-        <p className="text-sm text-gray-500 mb-6">{message}</p>
+        <h3 className="text-lg font-bold mb-1">{title}</h3>
+        <p className="text-sm text-(--shade) mb-6">{message}</p>
 
         {/* Action Button */}
         <button
           onClick={onClose}
-          className={`w-full py-2.5 px-4 rounded-xl text-white font-medium shadow-md transition-colors ${
+          className={`w-full py-2.5 px-4 rounded-lg text-white font-medium shadow-md transition-colors ${
             isSuccess
-              ? "bg-green-600 hover:bg-green-700"
-              : "bg-red-600 hover:bg-red-700"
+              ? "bg-(--lab-timeline-text) hover:bg-(--lab-timeline-bg)"
+              : "bg-(--danger-icon-bg) hover:bg-(--danger-card)"
           }`}
         >
           {isSuccess ? "Proceed to Dashboard" : "Try Again"}

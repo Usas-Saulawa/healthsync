@@ -81,7 +81,7 @@ function PatientDetailContent({ params }: PatientDetailPageProps) {
       />
 
       {/* Dynamic Tab Content Renderer Container */}
-      <div className="w-full px-4 sm:px-6">
+      <div className="w-full">
         {{
           Overview: <PatientOverviewTab />,
           "Medical History": <PatientMedicalHistoryTab patientId={patientId} />,

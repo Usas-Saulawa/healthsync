@@ -35,30 +35,26 @@ export function PatientAllergiesCard({
   medications = mockMedications,
 }: PatientAllergiesCardProps) {
   return (
-    <section className="h-[384px] w-full max-w-[416px] overflow-hidden rounded-t-[14px] bg-(--card) px-[27px] pt-[23px]">
+    <section className="h-full w-full flex flex-col gap-3 overflow-hidden rounded-xl bg-(--card) p-5">
       {/* Allergies */}
-      <div>
-        <h3 className="text-[13px] font-normal leading-[17px] text-[#64748B]">
+      <div className="flex-1">
+        <h3 className="text-[13px] font-normal leading-4.25 text-(--shade-text)">
           ALLERGIES
         </h3>
 
         {allergies !== "None" && (
-          <p className="mt-[7px] text-[12px] font-medium leading-[16px] text-[#172033]">
+          <p className="mt-1.75 text-[12px] font-medium leading-4]">
             {allergies}
           </p>
         )}
       </div>
 
       {/* Medications */}
-      <div className="mt-[125px]">
-        <div className="flex items-center gap-[9px]">
+      <div className="flex flex-col gap-2">
+        <div className="flex items-center gap-2.25">
           {/* Medication icon */}
-          <div className="flex h-[22px] w-[22px] shrink-0 items-center justify-center">
-            <svg
-              viewBox="0 0 24 24"
-              className="h-[22px] w-[22px]"
-              aria-hidden="true"
-            >
+          <div className="flex h-5.5 w-5.5 shrink-0 items-center justify-center">
+            <svg viewBox="0 0 24 24" className="h-5.5 w-5.5" aria-hidden="true">
               {/* Blue capsule */}
               <g transform="rotate(-28 9 8)">
                 <rect
@@ -102,23 +98,21 @@ export function PatientAllergiesCard({
             </svg>
           </div>
 
-          <h3 className="text-[13px] font-normal leading-[17px] text-[#64748B]">
+          <h3 className="text-[13px] font-normal leading-4.25 text-(--shade-text)">
             MEDICATIONS
           </h3>
         </div>
 
         {/* Medication list */}
-        <div className="mt-[5px] space-y-[6px]">
+        <div className="space-y-3">
           {medications.map((medication, index) => (
             <div
               key={`${medication.name}-${index}`}
-              className="h-[55px] w-full rounded-[10px] bg-[#EAF4FF] px-[10px] py-[10px]"
+              className="w-full rounded-md bg-(--info-card) px-4 py-3 space-y-1.5"
             >
-              <p className="text-[13px] font-bold leading-[16px] text-[#172033]">
-                {medication.name}
-              </p>
+              <p className="text-sm font-bold leading-4">{medication.name}</p>
 
-              <p className="mt-[2px] text-[10px] font-normal leading-[13px] text-[#718096]">
+              <p className="text-[10px] font-normal leading-3.25 text-(--shade-text)">
                 Route: {medication.route} • {medication.category}
               </p>
             </div>

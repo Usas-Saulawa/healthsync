@@ -1,6 +1,7 @@
 // components/providers/QueryProvider.tsx
 "use client";
 
+import { useTheme } from "@/hooks/addons/useTheme";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState, type ReactNode } from "react";
 
@@ -17,6 +18,7 @@ export function QueryProvider({ children }: { children: ReactNode }) {
         },
       }),
   );
+  useTheme();
 
   return (
     <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>

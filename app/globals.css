@@ -12,9 +12,9 @@
   --primary: #2563eb;
   --card-title: #1f2a37;
   --card: #ffffff;
-  --card-hover: #fafafa;
-  --table-card: #ebf5ff;
-  --table-card-hover: #c3ddfd;
+  --card-hover: #f9f9f9;
+  --table-card: #f1f8ff;
+  --table-card-hover: #d2e6ff;
   --info-card: #ebf5ff;
   --info-title: #1c64f2;
   --info-text: #111928;
@@ -78,8 +78,8 @@
   --graph-col-3: #2d3037;
   --button: #1a56db;
   --button-text: #ffffff;
-  --lab-timeline-bg: #def7ec;
-  --lab-timeline-text: #0e9f6e;
+  --lab-timeline-bg: #0b5635;
+  --lab-timeline-text: #1cb985;
   --badge-bg: #ee0022;
   --badge-text: #ffffff;
   --danger-button: #ee0022;
@@ -115,4 +115,8 @@ body {
 }
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #3b82f6;
+}
+
+.bg-steth {
+  background: url(/steth.png) center/contain no-repeat;
 }

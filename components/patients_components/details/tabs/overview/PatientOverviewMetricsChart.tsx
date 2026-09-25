@@ -125,15 +125,15 @@ export function PatientOverViewMetricsChart({
   const chartData = metricData[activeMetric];
 
   return (
-    <section className="w-full rounded-[15px] bg-(--card) px-[39px] pb-[37px] pt-[23px]">
+    <section className="w-full flex-1 flex flex-col rounded-xl bg-(--card) p-5">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h2 className="text-[15px] font-medium leading-[20px] text-[#111827]">
+        <h2 className="text-sm font-medium leading-5">
           Health Metrics Timeline
         </h2>
 
         {/* Metric Tabs */}
-        <div className="flex h-[32px] items-center rounded-[8px] bg-[#F1F3F7] p-0">
+        <div className="flex items-center rounded-lg bg-(--background)">
           {metricTabs.map((metric) => {
             const isActive = activeMetric === metric;
 
@@ -143,13 +143,13 @@ export function PatientOverViewMetricsChart({
                 type="button"
                 onClick={() => setActiveMetric(metric)}
                 className={[
-                  "h-[32px] whitespace-nowrap rounded-[7px]",
-                  "px-[16px] text-[12px] font-medium",
+                  "whitespace-nowrap rounded-md",
+                  "px-4 py-2 text-xs font-medium",
                   "leading-none transition-all duration-300 ease-out",
                   "focus:outline-none",
                   isActive
-                    ? "bg-[#2167F3] text-white shadow-[0_1px_2px_rgba(33,103,243,0.18)]"
-                    : "bg-transparent text-[#1F2937] hover:text-[#2167F3]",
+                    ? "bg-(--button) text-(--button-text) shadow-[0_1px_2px_rgba(33,103,243,0.18)]"
+                    : "bg-transparent hover:text-(--button)",
                 ].join(" ")}
               >
                 {metric}
@@ -160,7 +160,7 @@ export function PatientOverViewMetricsChart({
       </div>
 
       {/* Chart container */}
-      <div className="mt-4 h-[190px] w-full">
+      <div className="mt-4 min-h-50 flex-1 w-full">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart
             key={activeMetric}
@@ -180,13 +180,21 @@ export function PatientOverViewMetricsChart({
                 x2="0"
                 y2="1"
               >
-                <stop offset="0%" stopColor="#2167F3" stopOpacity={0.22} />
-                <stop offset="100%" stopColor="#2167F3" stopOpacity={0.02} />
+                <stop
+                  offset="0%"
+                  stopColor="var(--button)"
+                  stopOpacity={0.22}
+                />
+                <stop
+                  offset="100%"
+                  stopColor="var(--button)"
+                  stopOpacity={0.02}
+                />
               </linearGradient>
             </defs>
 
             <CartesianGrid
-              stroke="#DCE6F2"
+              stroke="var(--border)"
               strokeDasharray="4 4"
               vertical={true}
               horizontal={true}
@@ -198,7 +206,7 @@ export function PatientOverViewMetricsChart({
               tickLine={false}
               dy={8}
               tick={{
-                fill: "#6B8BC1",
+                fill: "var(--shade-text)",
                 fontSize: 11,
                 fontWeight: 400,
               }}
@@ -212,7 +220,7 @@ export function PatientOverViewMetricsChart({
               tickLine={false}
               width={35}
               tick={{
-                fill: "#6B8BC1",
+                fill: "var(--shade-text)",
                 fontSize: 12,
                 fontWeight: 400,
               }}
@@ -225,14 +233,14 @@ export function PatientOverViewMetricsChart({
               key={activeMetric}
               type="monotone"
               dataKey="value"
-              stroke="#2028F5"
+              stroke="var(--button)"
               strokeWidth={3}
               fill="url(#patientVitalsGradient)"
               fillOpacity={1}
               dot={false}
               activeDot={{
                 r: 6,
-                fill: "#2167F3",
+                fill: "var(--button)",
                 stroke: "#ffffff",
                 strokeWidth: 2,
               }}

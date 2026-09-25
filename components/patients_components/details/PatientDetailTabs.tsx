@@ -44,32 +44,29 @@ export function PatientProfileTabs({
   };
 
   return (
-    <div className="w-full">
-      {/* Container with overflow control for smaller screens, matching Figma specs: h-[71px], py-[16px], px-[15px], gap-[22px] */}
-      <div className="w-full overflow-x-auto scrollbar-none">
-        <div className="flex items-center justify-start py-[16px] px-[15px] gap-[22px] min-w-max lg:min-w-0 rounded-full shadow-2xs">
-          {tabs.map((tab) => {
-            const isActive = currentTab === tab;
+    <div className="w-full py-2 overflow-x-auto scrollbar-none">
+      <div className="flex items-center justify-start gap-3 min-w-max">
+        {tabs.map((tab) => {
+          const isActive = currentTab === tab;
 
-            return (
-              <button
-                key={tab}
-                type="button"
-                onClick={() => handleChange(tab)}
-                className={[
-                  "h-[38px] whitespace-nowrap rounded-full px-3.5 sm:px-4 flex-1 text-center",
-                  "text-xs font-semibold leading-none",
-                  "border transition-all duration-200 ease-out cursor-pointer",
-                  isActive
-                    ? "border-[#2167F3] bg-[#2167F3] text-white shadow-sm shadow-blue-500/25"
-                    : "border-slate-200/80 bg-(--card)  hover:border-slate-300 hover:bg-slate-50",
-                ].join(" ")}
-              >
-                {tab}
-              </button>
-            );
-          })}
-        </div>
+          return (
+            <button
+              key={tab}
+              type="button"
+              onClick={() => handleChange(tab)}
+              className={[
+                "px-4 py-3 whitespace-nowrap rounded-full flex-1 text-center",
+                "text-xs font-semibold leading-none",
+                "transition-all duration-200 ease-out cursor-pointer",
+                isActive
+                  ? "bg-(--button) text-(--button-text)"
+                  : " bg-(--card) hover:bg-(--card-hover)",
+              ].join(" ")}
+            >
+              {tab}
+            </button>
+          );
+        })}
       </div>
     </div>
   );

@@ -1,6 +1,10 @@
 // src/components/patients_components/details/tabs/medical-history/RelatedOrdersSection.tsx
 "use client";
 
+import { DataTable } from "@/components/ui/Table";
+import useColumns from "@/hooks/addons/useColumns";
+import { useState } from "react";
+
 const ordersData = [
   {
     id: 1,
@@ -82,62 +86,32 @@ const ordersData = [
 ];
 
 export function RelatedOrdersSection() {
+  const { orderColumns } = useColumns();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+
+  function onPageChange(page: number) {
+    setCurrentPage(page);
+  }
+
   return (
-    <div className="w-full bg-(--card) rounded-2xl border border-slate-200/80 shadow-xs p-6 space-y-4">
-      <h3 className="text-lg font-bold text-[#0f172a]">Related Orders</h3>
+    <div className="sm:col-span-5 bg-(--card) rounded-xl p-5 space-y-3 h-full">
+      <h3 className="text-lg font-bold">Related Orders</h3>
 
       {/* Scrollable Container capped strictly to 4 items */}
-      <div className="max-h-[295px] overflow-y-auto pr-2 custom-scrollbar">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
-            <thead className="sticky top-0 bg-(--card) z-10">
-              <tr className="border-b border-slate-200 text-xs font-semibold text-slate-400">
-                <th className="pb-3 pl-2">Order Name</th>
-                <th className="pb-3">Category</th>
-                <th className="pb-3">Ordered By</th>
-                <th className="pb-3">Date</th>
-                <th className="pb-3 pr-2">Status</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100 text-xs">
-              {ordersData.map((order) => (
-                <tr
-                  key={order.id}
-                  className="hover:bg-blue-50/40 transition-colors"
-                >
-                  <td className="py-4 pl-2 font-bold text-[#0f172a]">
-                    {order.name}
-                  </td>
-                  <td className="py-4 text-(--shade) font-medium">
-                    {order.category}
-                  </td>
-                  <td className="py-4">
-                    <p className="font-semibold text-[#0f172a]">
-                      {order.hospital}
-                    </p>
-                    <p className="text-[11px] text-slate-400">{order.doctor}</p>
-                  </td>
-                  <td className="py-4 text-(--shade) font-medium">
-                    {order.date}
-                    <br />
-                    <span className="text-[10px] text-slate-400">
-                      {order.time}
-                    </span>
-                  </td>
-                  <td className="py-4 pr-2">
-                    <span
-                      className={`inline-flex items-center px-2.5 py-0.5 rounded-md text-[11px] font-bold border ${order.statusStyle}`}
-                    >
-                      {order.status}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
+      <DataTable
+        data={ordersData}
+        columns={orderColumns}
+        currentPage={currentPage}
+        rowsPerPage={5}
+        pagination={false}
+        loading={loading}
+        onPageChange={onPageChange}
+        totalPages={Math.ceil(ordersData.length / 10)}
+        selectable={false}
+        rowKey="id"
+        // onRowClick={(row) => router.push(`/dashboard/patients/${row.id}`)}
+      />
       {/* Best-Practice Custom Scrollbar Styles */}
       <style jsx>{`
         .custom-scrollbar {

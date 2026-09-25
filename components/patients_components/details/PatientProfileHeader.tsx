@@ -73,34 +73,32 @@ export function PatientsProfileHeader({
           {/* Patient metadata details row with refined typography colors */}
           <div className="flex flex-wrap items-center gap-x-5 gap-y-1 text-xs text-(--shade-text)">
             <div className="flex items-center gap-1.5">
-              <span className="font-normal text-slate-400">Patient ID:</span>
+              <span className="font-normal ">Patient ID:</span>
               <span className="font-semibold ">{patient.patientId}</span>
             </div>
 
             <div className="flex items-center gap-1.5">
-              <span className="font-normal text-slate-400">Age:</span>
+              <span className="font-normal ">Age:</span>
               <span className="font-semibold ">{patient.age}</span>
             </div>
 
             <div className="flex items-center gap-1.5">
-              <span className="font-normal text-slate-400">Sex:</span>
+              <span className="font-normal ">Sex:</span>
               <span className="font-semibold ">{patient.sex}</span>
             </div>
 
             <div className="flex items-center gap-1.5">
-              <span className="font-normal text-slate-400">Blood group:</span>
+              <span className="font-normal ">Blood group:</span>
               <span className="font-semibold ">{patient.bloodGroup}</span>
             </div>
 
             <div className="flex items-center gap-1.5">
-              <span className="font-normal text-slate-400">Height:</span>
+              <span className="font-normal ">Height:</span>
               <span className="font-semibold ">{patient.height}</span>
             </div>
 
             <div className="flex items-center gap-1.5">
-              <span className="font-normal text-slate-400">
-                Primary Physician:
-              </span>
+              <span className="font-normal ">Primary Physician:</span>
               <span className="font-semibold ">{patient.primaryPhysician}</span>
             </div>
           </div>
@@ -110,7 +108,7 @@ export function PatientsProfileHeader({
         <button
           type="button"
           aria-label="Patient options"
-          className="ml-4 flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-(--shade-text) transition-colors hover:bg-slate-100 hover: cursor-pointer"
+          className="ml-4 flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-(--shade-text) transition-colors hover:bg-(--card-hover) hover: cursor-pointer"
         >
           <MoreVertical className="h-5 w-5" strokeWidth={2} />
         </button>
