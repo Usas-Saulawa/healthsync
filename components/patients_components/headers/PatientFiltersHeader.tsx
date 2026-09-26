@@ -286,7 +286,7 @@ export function PatientFiltersHeader({
             onClick={() =>
               setOpenDropdown(openDropdown === "doctor" ? null : "doctor")
             }
-            className="flex h-10 items-center gap-2 rounded-xl bg-(--background) hover:bg-(--background-hover) px-3.5 text-xs font-medium transition-colors cursor-pointer"
+            className="flex h-10 items-center gap-2 rounded-lg bg-(--background) hover:bg-(--background-hover) px-3.5 text-xs font-medium transition-colors cursor-pointer"
           >
             <span className="font-normal">Attending Doctor:</span>
             <span className="font-semibold">
@@ -328,7 +328,7 @@ export function PatientFiltersHeader({
             onClick={() =>
               setOpenDropdown(openDropdown === "date" ? null : "date")
             }
-            className="flex h-10 items-center gap-2.5 rounded-xl bg-(--background) hover:bg-(--background-hover) px-3.5 text-xs font-medium transition-colors cursor-pointer"
+            className="flex h-10 items-center gap-2.5 rounded-lg bg-(--background) hover:bg-(--background-hover) px-3.5 text-xs font-medium transition-colors cursor-pointer"
           >
             <Calendar className="h-4 w-4" strokeWidth={2} />
             <span className={dateRange ? "font-semibold" : "font-normal"}>

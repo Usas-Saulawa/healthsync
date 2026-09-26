@@ -27,7 +27,7 @@ export default function LoginPage() {
           <Activity className="h-30 w-30" />
         </div>
         <div className="p-5 bg-(--info-icon-bg)/40 mx-6 rounded-lg">
-          <span className="">
+          <span className="text-white">
             Patient reports increased thirst and frequent urination over the
             past 3 months. Denies blurred vision, numbness, or tingling in
             extremities. Reports occasional fatigue, especially after meals.
