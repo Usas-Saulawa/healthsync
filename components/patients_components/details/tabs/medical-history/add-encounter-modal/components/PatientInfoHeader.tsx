@@ -42,8 +42,8 @@ export function PatientInfoHeader({
               px-3 
               py-1 
               rounded-full 
-              bg-[#2563EB] 
-              text-white 
+              bg-(--button)
+              text-(--button-text) 
               text-[11px] 
               font-semibold 
               tracking-wide 

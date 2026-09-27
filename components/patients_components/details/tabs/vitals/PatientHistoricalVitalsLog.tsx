@@ -92,14 +92,12 @@ export function PatientHistoricalVitalsLog() {
 
   return (
     <>
-      <div className="bg-(--card) rounded-[16px] border border-slate-200/80 shadow-xs p-6 space-y-6">
+      <div className="bg-(--card) rounded-xl p-5 space-y-6">
         {/* Section Header & Export Button */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>
-            <h3 className="text-base font-bold text-[#2563EB]">
-              Historical Vitals Log
-            </h3>
-            <p className="text-xs text-slate-400 mt-0.5">
+            <h3 className="text-base font-bold">Historical Vitals Log</h3>
+            <p className="text-xs text-(--shade) mt-0.5">
               Longitudinal record of physical measurements and physiological
               statistics
             </p>
@@ -108,20 +106,20 @@ export function PatientHistoricalVitalsLog() {
           <button
             type="button"
             onClick={handleExportCSV}
-            className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl border border-slate-200 bg-(--card)  text-xs font-semibold hover:bg-slate-50 transition-colors shadow-2xs cursor-pointer w-full sm:w-auto"
+            className="flex items-center gap-1 py-2 pr-4 pl-3 rounded-md bg-transparent text-sm font-semibold transition-colors cursor-pointer border border-(--border) hover:bg-(--card-hover)"
           >
-            <Download className="h-3.5 w-3.5 text-(--shade)" />
+            <Download className="h-3.5 w-3.5" />
             Export CSV
           </button>
         </div>
 
         {/* Responsive Data Table */}
-        <div className="border border-slate-200/70 rounded-xl overflow-hidden">
+        <div className="rounded-xl overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               {/* Table Header */}
               <thead>
-                <tr className="bg-slate-50 border-b border-slate-200 text-[11px] font-bold text-(--shade) uppercase tracking-wider">
+                <tr className="bg-(--background) border-b border-(--border) text-[11px] font-bold text-(--shade) uppercase tracking-wider">
                   <th
                     onClick={toggleSortOrder}
                     className="py-3.5 px-4 cursor-pointer select-none hover: transition-colors"
@@ -129,7 +127,7 @@ export function PatientHistoricalVitalsLog() {
                     <div className="flex items-center gap-1.5">
                       Date / Time
                       <ArrowUpDown
-                        className={`h-3 w-3 text-slate-400 transition-transform ${sortOrder === "asc" ? "rotate-180 text-blue-600" : ""}`}
+                        className={`h-3 w-3 transition-transform ${sortOrder === "asc" ? "rotate-180 text-blue-600" : ""}`}
                       />
                     </div>
                   </th>
@@ -144,36 +142,36 @@ export function PatientHistoricalVitalsLog() {
               </thead>
 
               {/* Table Body */}
-              <tbody className="divide-y divide-slate-100 text-xs ">
+              <tbody className="divide-y divide-(--border) text-xs ">
                 {sortedVitalsData.map((row) => {
                   return (
                     <tr
                       key={row.id}
                       onClick={() => setSelectedVital(row)}
-                      className="bg-(--background) hover:bg-blue-50/50 transition-colors cursor-pointer group"
+                      className="bg-(--background) hover:bg-(--info-card)/50 transition-colors cursor-pointer group"
                     >
-                      <td className="py-4 px-4 font-medium  whitespace-nowrap group-hover:text-[#2563EB]">
+                      <td className="py-4 px-4 font-medium  whitespace-nowrap group-hover:text-(--primary)">
                         {row.dateTime}
                       </td>
                       <td className="py-4 px-4 font-bold  whitespace-nowrap">
                         {row.bp}
                       </td>
-                      <td className="py-4 px-4 font-normal text-slate-600 whitespace-nowrap">
+                      <td className="py-4 px-4 font-normal text-(--shade-text) whitespace-nowrap">
                         {row.hr}
                       </td>
-                      <td className="py-4 px-4 font-normal text-slate-600 whitespace-nowrap">
+                      <td className="py-4 px-4 font-normal text-(--shade-text) whitespace-nowrap">
                         {row.temp}
                       </td>
-                      <td className="py-4 px-4 font-normal text-slate-600 whitespace-nowrap">
+                      <td className="py-4 px-4 font-normal text-(--shade-text) whitespace-nowrap">
                         {row.spo2}
                       </td>
-                      <td className="py-4 px-4 font-normal text-slate-600 whitespace-nowrap">
+                      <td className="py-4 px-4 font-normal text-(--shade-text) whitespace-nowrap">
                         {row.rr}
                       </td>
-                      <td className="py-4 px-4 font-normal text-slate-600 whitespace-nowrap">
+                      <td className="py-4 px-4 font-normal text-(--shade-text) whitespace-nowrap">
                         {row.weight}
                       </td>
-                      <td className="py-4 px-4 font-normal text-(--shade) max-w-xs leading-relaxed truncate">
+                      <td className="py-4 px-4 font-normal text-(--shade-text) max-w-xs leading-relaxed truncate">
                         {row.nursesNotes}
                       </td>
                     </tr>

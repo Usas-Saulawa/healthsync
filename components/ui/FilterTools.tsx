@@ -56,7 +56,7 @@ export function SearchBar({
 }: SearchBarProps) {
   return (
     <div
-      className={`bg-(--card) rounded-full pl-5 pr-1.5 py-1.5 shadow-xs border border-slate-200/70 flex items-center justify-between gap-3 w-full sm:w-64 transition-all hover:border-slate-300 ${className}`}
+      className={`bg-(--card) rounded-full pl-5 pr-1.5 py-1.5 shadow-xs border border-(--border)/70 flex items-center justify-between gap-3 w-full sm:w-64 transition-all hover:border-slate-300 ${className}`}
     >
       <input
         type="text"
@@ -70,10 +70,10 @@ export function SearchBar({
       <button
         type="button"
         onClick={onFilterClick}
-        className="h-8 w-8 rounded-full bg-slate-50 hover:bg-slate-100  flex items-center justify-center shrink-0 border border-slate-200/60 transition-colors shadow-2xs"
+        className="h-8 w-8 rounded-full  hover:bg-slate-100  flex items-center justify-center shrink-0 border border-(--border)/60 transition-colors shadow-2xs"
         aria-label="Open filter options"
       >
-        <SlidersHorizontal className="h-3.5 w-3.5 text-slate-600" />
+        <SlidersHorizontal className="h-3.5 w-3.5 text-(--shade-text)" />
       </button>
     </div>
   );
@@ -114,14 +114,14 @@ export function FilterDropdown({
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="bg-(--card) rounded-full pl-5 pr-1.5 py-1.5 shadow-xs border border-slate-200/70 flex items-center justify-between gap-4 w-full sm:w-auto min-w-[130px] hover:border-slate-300 transition-all"
+        className="bg-(--card) rounded-full pl-5 pr-1.5 py-1.5 shadow-xs border border-(--border)/70 flex items-center justify-between gap-4 w-full sm:w-auto min-w-[130px] hover:border-slate-300 transition-all"
       >
         <span className="text-sm font-normal  truncate">
           {selectedOption || label}
         </span>
 
-        <div className="h-8 w-8 rounded-full bg-slate-50 hover:bg-slate-100  flex items-center justify-center shrink-0 border border-slate-200/60 transition-colors shadow-2xs">
-          <SlidersHorizontal className="h-3.5 w-3.5 text-slate-600" />
+        <div className="h-8 w-8 rounded-full  hover:bg-slate-100  flex items-center justify-center shrink-0 border border-(--border)/60 transition-colors shadow-2xs">
+          <SlidersHorizontal className="h-3.5 w-3.5 text-(--shade-text)" />
         </div>
       </button>
 
@@ -139,8 +139,8 @@ export function FilterDropdown({
               }}
               className={`w-full text-left px-4 py-2 text-sm font-medium transition-colors ${
                 selectedOption === opt.label
-                  ? "bg-blue-50 text-blue-600 font-semibold"
-                  : " hover:bg-slate-50 hover:"
+                  ? "bg-(--info-card) text-blue-600 font-semibold"
+                  : " hover: hover:"
               }`}
             >
               {opt.label}

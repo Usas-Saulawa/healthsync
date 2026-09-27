@@ -15,7 +15,7 @@ export function NoteTab() {
           value={note}
           onChange={(e) => setNote(e.target.value)}
           placeholder="Document subjective findings, patient-reported symptoms, onset duration, and history of present illness..."
-          className="w-full p-4 rounded-xl border border-slate-200 bg-white text-sm  placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all resize-none"
+          className="w-full p-4 rounded-xl border border-(--border) bg-white text-sm  placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all resize-none"
         />
       </div>
     </div>

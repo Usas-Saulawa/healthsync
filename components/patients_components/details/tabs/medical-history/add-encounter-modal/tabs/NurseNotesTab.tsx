@@ -15,7 +15,7 @@ export function NurseNotesTab({ nurseNotes }: NurseNotesTabProps) {
     <div className="space-y-4">
       <div className="space-y-1.5">
         <label className="block text-xs font-semibold ">Nurse Notes</label>
-        <div className="w-full min-h-[120px] p-4 rounded-xl border border-slate-200 bg-slate-50/70 text-sm  leading-relaxed select-text">
+        <div className="w-full min-h-[120px] p-4 rounded-xl border border-(--border) /70 text-sm  leading-relaxed select-text">
           {content}
         </div>
       </div>

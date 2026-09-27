@@ -478,18 +478,18 @@ export function PatientLabDetailModal({
 
       {/* Drawer Container */}
       <div
-        className={`relative w-[560px] h-screen bg-(--card) shadow-2xl flex flex-col justify-between transform transition-transform duration-300 ease-in-out ${
+        className={`relative w-140 h-screen bg-(--card) shadow-2xl flex flex-col justify-between transform transition-transform duration-300 ease-in-out ${
           isVisible ? "translate-x-0" : "translate-x-full"
         }`}
         style={{
           borderRadius: "6px 0 0 6px",
-          boxShadow: "0px 10px 15px -3px #0000001A, 0px 4px 6px 0px #0000000D",
+          // boxShadow: "0px 10px 15px -3px #0000001A, 0px 4px 6px 0px #0000000D",
         }}
       >
         {/* Modal Header */}
-        <div className="flex items-center justify-between w-[560px] h-[65px] px-6 py-5 border-b border-[#E5E7EB] shrink-0">
+        <div className="flex items-center justify-between w-full h-16.25 px-6 py-5 border-b border-(--border) shrink-0">
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded bg-blue-50 text-blue-600 flex items-center justify-center">
+            <div className="w-7 h-7 rounded bg-(--info-icon-bg) text-(--info-title) flex items-center justify-center">
               <FileText className="h-4 w-4" />
             </div>
             <h2 className="text-sm font-bold ">Lab Result Detail</h2>
@@ -497,28 +497,28 @@ export function PatientLabDetailModal({
           <button
             type="button"
             onClick={onClose}
-            className="text-slate-400 hover:text-slate-600 transition-colors cursor-pointer p-1"
+            className="text-(--shade-text) hover:text-(--shade-text) transition-colors cursor-pointer p-1"
           >
             <X className="h-5 w-5" />
           </button>
         </div>
 
         {/* Modal Body with Custom Scrollbar */}
-        <div className="w-[560px] h-[800px] p-6 flex flex-col gap-5 overflow-y-auto custom-scrollbar">
+        <div className="w-140 h-200 p-6 flex flex-col gap-5 overflow-y-auto custom-scrollbar">
           {/* Test Information Section */}
-          <div className="w-[512px] h-[262px] bg-(--background) rounded-[8px] p-4 flex flex-col gap-3 shrink-0">
-            <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">
+          <div className="w-lg h-65.5 bg-(--background) rounded-md p-4 flex flex-col gap-3 shrink-0">
+            <span className="text-[10px] font-bold tracking-wider text-(--shade-text) uppercase">
               TEST INFORMATION
             </span>
             <div className="grid grid-cols-2 gap-y-3 gap-x-6 text-xs">
               <div>
-                <span className="text-slate-400 block text-[11px]">
+                <span className="text-(--shade-text) block text-[11px]">
                   Test Name
                 </span>
                 <span className="font-bold  mt-0.5 block">{data.testName}</span>
               </div>
               <div>
-                <span className="text-slate-400 block text-[11px]">
+                <span className="text-(--shade-text) block text-[11px]">
                   Category
                 </span>
                 <span className="font-semibold  mt-0.5 block">
@@ -526,7 +526,7 @@ export function PatientLabDetailModal({
                 </span>
               </div>
               <div>
-                <span className="text-slate-400 block text-[11px]">
+                <span className="text-(--shade-text) block text-[11px]">
                   Ordered By
                 </span>
                 <span className="font-semibold  mt-0.5 block">
@@ -534,7 +534,7 @@ export function PatientLabDetailModal({
                 </span>
               </div>
               <div>
-                <span className="text-slate-400 block text-[11px]">
+                <span className="text-(--shade-text) block text-[11px]">
                   Lab Technician
                 </span>
                 <span className="font-semibold  mt-0.5 block">
@@ -542,7 +542,7 @@ export function PatientLabDetailModal({
                 </span>
               </div>
               <div className="col-span-2">
-                <span className="text-slate-400 block text-[11px]">
+                <span className="text-(--shade-text) block text-[11px]">
                   Facility
                 </span>
                 <span className="font-semibold  mt-0.5 block truncate">
@@ -550,7 +550,7 @@ export function PatientLabDetailModal({
                 </span>
               </div>
               <div className="col-span-2">
-                <span className="text-slate-400 block text-[11px]">
+                <span className="text-(--shade-text) block text-[11px]">
                   Date Collected
                 </span>
                 <span className="font-semibold  mt-0.5 block">
@@ -562,29 +562,29 @@ export function PatientLabDetailModal({
 
           {/* Result Hero Box */}
           <div
-            className="w-[512px] h-[129px] rounded-[8px] p-5 flex items-center justify-between shrink-0"
-            style={{ backgroundColor: "#FFEDD5" }}
+            className="w-lg h-32.25 rounded-md p-5 flex items-center justify-between shrink-0"
+            style={{ backgroundColor: "var(--warning-card)" }}
           >
             <div>
-              <span className="text-[11px] font-bold tracking-wider text-orange-700 uppercase">
+              <span className="text-[11px] font-bold tracking-wider text-(--warning-title) uppercase">
                 ASSAY RESULT
               </span>
               <div className="flex items-baseline gap-2 mt-1">
                 <span className="text-3xl font-extrabold ">{data.result}</span>
                 <span className="text-sm font-semibold ">{data.units}</span>
               </div>
-              <span className="text-xs text-slate-600 mt-1 block">
+              <span className="text-xs text-(--shade) mt-1 block">
                 Reference Range: {data.referenceRange}
               </span>
             </div>
             {/* High Flag Badge */}
             <div
-              className="flex items-center justify-center gap-1.5 text-white font-bold text-[11px] tracking-wide shrink-0"
+              className="flex items-center justify-center gap-1.5 font-bold text-[11px] tracking-wide shrink-0"
               style={{
                 width: "94px",
                 height: "28px",
                 borderRadius: "20px",
-                backgroundColor: "#EA580C",
+                backgroundColor: "var(--warning-icon-bg)",
                 paddingTop: "6px",
                 paddingRight: "14px",
                 paddingBottom: "6px",
@@ -597,8 +597,8 @@ export function PatientLabDetailModal({
           </div>
 
           {/* Clinical Notes */}
-          <div className="w-[512px] h-[136px] bg-(--background) rounded-[8px] p-4 flex flex-col gap-2 shrink-0">
-            <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">
+          <div className="w-lg h-34 bg-(--background) rounded-md p-4 flex flex-col gap-2 shrink-0">
+            <span className="text-[10px] font-bold tracking-wider text-(--shade-text) uppercase">
               LAB SCIENTIST NOTES
             </span>
             <p className="text-[11px]  leading-relaxed overflow-hidden">
@@ -607,31 +607,31 @@ export function PatientLabDetailModal({
           </div>
 
           {/* History Section */}
-          <div className="w-[512px] h-[165px] flex flex-col gap-2 shrink-0">
-            <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">
+          <div className="w-lg h-41.25 flex flex-col gap-2 shrink-0">
+            <span className="text-[10px] font-bold tracking-wider text-(--shade-text) uppercase">
               FASTING GLUCOSE HISTORICAL TREND (LAST 3 ASSAYS)
             </span>
-            <div className="w-[512px] h-[141px] bg-white rounded-[8px] border border-[#E5E7EB] overflow-hidden flex flex-col justify-between">
+            <div className="w-lg h-35.25 bg-(--background) rounded-md border border-(--border) overflow-hidden flex flex-col justify-between">
               {historyRecords.map((record, idx) => (
                 <div
                   key={idx}
-                  className="w-[512px] h-[47px] px-3 flex items-center justify-between text-xs"
+                  className="w-lg h-11.75 px-3 flex items-center justify-between text-xs"
                   style={{
                     borderBottom:
                       idx < historyRecords.length - 1
-                        ? "1px solid #E5E7EB"
+                        ? "1px solid var(--border)"
                         : "none",
                   }}
                 >
                   <div>
                     <span className="font-bold ">{record.date}</span>
-                    <span className="text-[11px] text-slate-400 ml-2">
+                    <span className="text-[11px] text-(--shade-text) ml-2">
                       {record.label}
                     </span>
                   </div>
                   <div className="flex items-center gap-3">
                     <span className="font-bold ">{record.value}</span>
-                    <span className="px-2 py-0.5 bg-orange-100 text-orange-700 text-[10px] font-bold rounded">
+                    <span className="px-2 py-0.5 bg-(--warning-card) text-(--warning-title) text-[10px] font-bold rounded">
                       {record.flag}
                     </span>
                   </div>
@@ -642,19 +642,19 @@ export function PatientLabDetailModal({
         </div>
 
         {/* Modal Footer */}
-        <div className="w-[560px] h-[96px] border-t border-[#E5E7EB] px-6 py-4 flex flex-col justify-between shrink-0 bg-(--card)">
-          <div className="w-[512px] h-[16px] flex items-center justify-between text-[11px] text-(--shade)">
+        <div className="w-140 h-24 border-t border-(--border) px-6 py-4 flex flex-col justify-between shrink-0 bg-(--card)">
+          <div className="w-lg h-4 flex items-center justify-between text-[11px] text-(--shade-text)">
             <span>Reviewed by Lab: {data.reviewedByLab}</span>
             <span>
               Acknowledged by Physician: {data.acknowledgedByPhysician}
             </span>
           </div>
 
-          <div className="w-[512px] h-[36px] flex items-center gap-2">
+          <div className="w-lg h-9 flex items-center gap-2">
             <button
               type="button"
               onClick={() => console.log("Adding clinical note...")}
-              className="flex-1 h-full bg-(--background)  text-xs font-semibold rounded-[6px] hover:bg-slate-200 transition-colors cursor-pointer"
+              className="flex-1 h-full bg-(--background)  text-xs font-semibold rounded-md hover:bg-(--card-hover) transition-colors cursor-pointer"
             >
               Add Clinical Note
             </button>
@@ -669,16 +669,16 @@ export function PatientLabDetailModal({
                 <button
                   type="button"
                   disabled={loading}
-                  className="w-full h-full inline-flex items-center justify-center gap-1.5 bg-app-bg  text-xs font-semibold rounded-[6px] hover:bg-slate-200 transition-colors cursor-pointer disabled:opacity-60"
+                  className="w-full h-full inline-flex items-center justify-center gap-1.5 bg-(--background)  text-xs font-semibold rounded-md hover:bg-(--card-hover) transition-colors cursor-pointer disabled:opacity-60"
                 >
                   {loading ? (
                     <>
-                      <Loader2 className="h-3.5 w-3.5 animate-spin text-(--shade)" />
+                      <Loader2 className="h-3.5 w-3.5 animate-spin" />
                       Preparing...
                     </>
                   ) : (
                     <>
-                      <Download className="h-3.5 w-3.5 text-(--shade)" />
+                      <Download className="h-3.5 w-3.5" />
                       Print Result
                     </>
                   )}
@@ -692,7 +692,7 @@ export function PatientLabDetailModal({
                 console.log("Acknowledging result...");
                 onClose();
               }}
-              className="flex-1 h-full bg-[#2563EB] text-white text-xs font-semibold rounded-[6px] hover:bg-blue-700 transition-colors cursor-pointer shadow-xs"
+              className="flex-1 h-full bg-(--button) text-(--button-text) text-xs font-semibold rounded-md hover:bg-blue-700 transition-colors cursor-pointer shadow-xs"
             >
               Acknowledge Result
             </button>

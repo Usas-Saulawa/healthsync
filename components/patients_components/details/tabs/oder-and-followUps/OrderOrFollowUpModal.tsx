@@ -43,24 +43,24 @@ export function OrderOrFollowUpModal({
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
         {/* Modal Box with Custom Scrollbar */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95, y: 10 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 10 }}
           transition={{ duration: 0.2, ease: "easeOut" }}
-          className="relative w-full max-w-[560px] max-h-[90vh] bg-(--card) rounded-[12px] shadow-xl flex flex-col overflow-hidden"
+          className="relative w-full max-w-140 max-h-[90vh] bg-(--card) rounded-xl flex flex-col overflow-hidden"
         >
           {/* Header */}
-          <div className="flex items-center justify-between px-6 py-5 border-b border-slate-100">
+          <div className="flex items-center justify-between border-b border-(--border) px-6 py-5">
             <h3 className="text-lg font-bold  tracking-tight">
               {mode === "order" ? "Add Order" : "Schedule Follow-Up"}
             </h3>
             <button
               type="button"
               onClick={onClose}
-              className="w-8 h-8 flex items-center justify-center rounded-full bg-slate-50 text-slate-400 hover: hover:bg-slate-100 transition-colors cursor-pointer"
+              className="w-8 h-8 flex items-center justify-center rounded-full text-(--shade) hover: hover:bg-(--card-hover) transition-colors cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
@@ -83,7 +83,7 @@ export function OrderOrFollowUpModal({
                   onChange={(e) =>
                     setFormData({ ...formData, type: e.target.value })
                   }
-                  className="w-full h-10 px-3 bg-(--card) border border-slate-200 rounded-[6px] text-xs font-medium  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1C64F2]"
+                  className="w-full h-10 px-3 bg-(--card) border border-(--border) rounded-md text-xs font-medium  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1C64F2]"
                 >
                   {mode === "order" ? (
                     <>
@@ -118,7 +118,7 @@ export function OrderOrFollowUpModal({
                     onChange={(e) =>
                       setFormData({ ...formData, department: e.target.value })
                     }
-                    className="w-full h-10 px-3 bg-(--card) border border-slate-200 rounded-[6px] text-xs font-medium  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1C64F2]"
+                    className="w-full h-10 px-3 bg-(--card) border border-(--border) rounded-md text-xs font-medium  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1C64F2]"
                   >
                     <option value="Cardiology">Cardiology</option>
                     <option value="Laboratory">Laboratory</option>
@@ -142,7 +142,7 @@ export function OrderOrFollowUpModal({
                     onChange={(e) =>
                       setFormData({ ...formData, nameOrTest: e.target.value })
                     }
-                    className="w-full h-10 px-3 bg-(--card) border border-slate-200 rounded-[6px] text-xs font-medium  placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1C64F2]"
+                    className="w-full h-10 px-3 bg-(--card) border border-(--border) rounded-md text-xs font-medium  placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1C64F2]"
                   />
                 </div>
               ) : (
@@ -153,7 +153,7 @@ export function OrderOrFollowUpModal({
                     onChange={(e) =>
                       setFormData({ ...formData, provider: e.target.value })
                     }
-                    className="w-full h-10 px-3 bg-(--card) border border-slate-200 rounded-[6px] text-xs font-medium  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1C64F2]"
+                    className="w-full h-10 px-3 bg-(--card) border border-(--border) rounded-md text-xs font-medium  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1C64F2]"
                   >
                     <option value="Dr. Sarah Jenkins, MD">
                       Dr. Sarah Jenkins, MD
@@ -189,10 +189,10 @@ export function OrderOrFollowUpModal({
                         onClick={() =>
                           setFormData({ ...formData, priority: prio })
                         }
-                        className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer border ${
+                        className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                           isSelected
-                            ? "bg-blue-50 text-[#1C64F2] border-blue-200 shadow-2xs"
-                            : "bg-(--card) text-slate-600 border-slate-200 hover:bg-slate-50"
+                            ? "bg-(--info-icon-bg) text-(--info-title)"
+                            : "bg-(--card-hover) text-(--shade-text) hover:bg-(--info-card)"
                         }`}
                       >
                         {prio}
@@ -217,7 +217,7 @@ export function OrderOrFollowUpModal({
                       onChange={(e) =>
                         setFormData({ ...formData, date: e.target.value })
                       }
-                      className="w-full h-10 pl-3 pr-9 bg-(--card) border border-slate-200 rounded-[6px] text-xs font-medium  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1C64F2]"
+                      className="w-full h-10 pl-3 pr-9 bg-(--card) border border-(--border) rounded-md text-xs font-medium  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1C64F2]"
                     />
                     <Calendar className="absolute right-3 top-2.5 w-4 h-4 text-slate-400 pointer-events-none" />
                   </div>
@@ -233,7 +233,7 @@ export function OrderOrFollowUpModal({
                       onChange={(e) =>
                         setFormData({ ...formData, frequency: e.target.value })
                       }
-                      className="w-full h-10 px-3 bg-(--card) border border-slate-200 rounded-[6px] text-xs font-medium  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1C64F2]"
+                      className="w-full h-10 px-3 bg-(--card) border border-(--border) rounded-md text-xs font-medium  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1C64F2]"
                     >
                       <option value="Once">Once</option>
                       <option value="BID">BID (Twice daily)</option>
@@ -248,7 +248,7 @@ export function OrderOrFollowUpModal({
                         onChange={(e) =>
                           setFormData({ ...formData, time: e.target.value })
                         }
-                        className="w-full h-10 pl-3 pr-9 bg-(--card) border border-slate-200 rounded-[6px] text-xs font-medium  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1C64F2]"
+                        className="w-full h-10 pl-3 pr-9 bg-(--card) border border-(--border) rounded-md text-xs font-medium  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1C64F2]"
                       />
                       <Clock className="absolute right-3 top-2.5 w-4 h-4 text-slate-400 pointer-events-none" />
                     </div>
@@ -277,7 +277,7 @@ export function OrderOrFollowUpModal({
                       clinicalIndication: e.target.value,
                     })
                   }
-                  className="w-full h-10 px-3 bg-(--card) border border-slate-200 rounded-[6px] text-xs font-medium  placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1C64F2]"
+                  className="w-full h-10 px-3 bg-(--card) border border-(--border) rounded-md text-xs font-medium  placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1C64F2]"
                 />
               </div>
 
@@ -300,25 +300,25 @@ export function OrderOrFollowUpModal({
                       specialInstructions: e.target.value,
                     })
                   }
-                  className="w-full p-3 bg-(--card) border border-slate-200 rounded-[6px] text-xs font-medium  placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1C64F2] resize-none"
+                  className="w-full p-3 bg-(--card) border border-(--border) rounded-md text-xs font-medium  placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1C64F2] resize-none"
                 />
               </div>
             </form>
           </div>
 
           {/* Footer */}
-          <div className="flex items-center justify-between px-6 py-4 bg-slate-50/75 border-t border-slate-100">
+          <div className="flex items-center justify-between px-6 py-4 border-t border-(--border)">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 bg-(--card)  border border-slate-200 text-xs font-semibold rounded-[6px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs"
+              className="px-4 py-2 bg-(--card)  border border-(--border) text-xs font-semibold rounded-md hover:bg-(--card-hover) transition-colors cursor-pointer shadow-2xs"
             >
               Cancel
             </button>
             <button
               type="submit"
               form="unified-modal-form"
-              className="px-5 py-2.5 bg-[#1C64F2] text-white text-xs font-bold rounded-[6px] hover:bg-blue-700 transition-colors shadow-xs cursor-pointer"
+              className="px-5 py-2.5 bg-(--button) text-(--button-white) text-xs font-bold rounded-md hover:bg-blue-700 transition-colors shadow-xs cursor-pointer"
             >
               {mode === "order" ? "Submit Order" : "Schedule Follow-Up"}
             </button>

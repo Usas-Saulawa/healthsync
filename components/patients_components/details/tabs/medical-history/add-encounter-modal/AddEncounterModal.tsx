@@ -44,7 +44,7 @@ export function AddEncounterModal({ isOpen, onClose }: AddEncounterModalProps) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 10 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="relative z-10 w-full max-w-3xl bg-(--card) rounded-2xl shadow-2xl border border-slate-200 overflow-hidden my-6 flex flex-col max-h-[92vh]"
+            className="relative z-10 w-full max-w-3xl bg-(--card) rounded-2xl shadow-2xl border border-(--border) overflow-hidden my-6 flex flex-col max-h-[92vh]"
           >
             {/* Modal Header Bar */}
             <div className="flex items-center justify-between px-8 pt-6 pb-4 border-b border-slate-100">
@@ -52,7 +52,7 @@ export function AddEncounterModal({ isOpen, onClose }: AddEncounterModalProps) {
               <button
                 type="button"
                 onClick={onClose}
-                className="flex h-9 w-9 items-center justify-center rounded-full bg-red-50 text-red-500 hover:bg-red-100 transition-colors shadow-2xs cursor-pointer"
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-red-50 text-(--danger-title) hover:bg-red-100 transition-colors shadow-2xs cursor-pointer"
                 aria-label="Close modal"
               >
                 <X className="h-5 w-5" strokeWidth={2.6} />
@@ -65,7 +65,7 @@ export function AddEncounterModal({ isOpen, onClose }: AddEncounterModalProps) {
               <PatientInfoHeader />
 
               {/* Tab Navigation Bar with Framer Motion Layout Indicator */}
-              <div className="flex items-center gap-8 border-b border-slate-200 text-sm font-semibold">
+              <div className="flex items-center gap-8 border-b border-(--border) text-sm font-semibold">
                 {[
                   { id: "note", label: "Note" },
                   { id: "order", label: "Order" },
@@ -80,14 +80,14 @@ export function AddEncounterModal({ isOpen, onClose }: AddEncounterModalProps) {
                       type="button"
                       onClick={() => setActiveTab(tab.id as TabType)}
                       className={`pb-3 relative transition-colors cursor-pointer ${
-                        isActive ? "text-[#2563EB]" : "text-(--shade) hover:"
+                        isActive ? "text-(--primary)" : "text-(--shade) hover:"
                       }`}
                     >
                       {tab.label}
                       {isActive && (
                         <motion.span
                           layoutId="activeTabIndicator"
-                          className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#2563EB] rounded-full"
+                          className="absolute bottom-0 left-0 right-0 h-0.5 bg-(--button) text-(--button-text) rounded-full"
                           transition={{
                             type: "spring",
                             stiffness: 500,
@@ -121,7 +121,7 @@ export function AddEncounterModal({ isOpen, onClose }: AddEncounterModalProps) {
             </div>
 
             {/* Modal Footer Actions - Dynamic based on active tab */}
-            <div className="flex items-center justify-between px-8 py-4 bg-slate-50 border-t border-slate-200">
+            <div className="flex items-center justify-between px-8 py-4  border-t border-(--border)">
               <button
                 type="button"
                 onClick={onClose}
@@ -133,21 +133,21 @@ export function AddEncounterModal({ isOpen, onClose }: AddEncounterModalProps) {
               {activeTab === "order" ? (
                 <button
                   type="button"
-                  className="px-6 py-2.5 rounded-xl bg-[#2563EB] text-white text-sm font-semibold hover:bg-blue-700 transition-colors shadow-xs cursor-pointer"
+                  className="px-6 py-2.5 rounded-xl bg-(--button) text-(--button-text) text-sm font-semibold hover:bg-blue-700 transition-colors shadow-xs cursor-pointer"
                 >
                   Request Order
                 </button>
               ) : activeTab === "prescription" ? (
                 <button
                   type="button"
-                  className="px-6 py-2.5 rounded-xl bg-[#2563EB] text-white text-sm font-semibold hover:bg-blue-700 transition-colors shadow-xs cursor-pointer"
+                  className="px-6 py-2.5 rounded-xl bg-(--button) text-(--button-text) text-sm font-semibold hover:bg-blue-700 transition-colors shadow-xs cursor-pointer"
                 >
                   Submit Prescription
                 </button>
               ) : activeTab === "follow-up" ? (
                 <button
                   type="button"
-                  className="px-6 py-2.5 rounded-xl bg-[#2563EB] text-white text-sm font-semibold hover:bg-blue-700 transition-colors shadow-xs cursor-pointer"
+                  className="px-6 py-2.5 rounded-xl bg-(--button) text-(--button-text) text-sm font-semibold hover:bg-blue-700 transition-colors shadow-xs cursor-pointer"
                 >
                   Request Follow-Up
                 </button>
@@ -155,13 +155,13 @@ export function AddEncounterModal({ isOpen, onClose }: AddEncounterModalProps) {
                 <div className="flex items-center gap-3">
                   <button
                     type="button"
-                    className="px-6 py-2.5 rounded-xl border border-slate-300 bg-(--card)  text-sm font-semibold hover:bg-slate-50 transition-colors shadow-2xs cursor-pointer"
+                    className="px-6 py-2.5 rounded-xl border border-slate-300 bg-(--card)  text-sm font-semibold hover: transition-colors shadow-2xs cursor-pointer"
                   >
                     Save Draft
                   </button>
                   <button
                     type="button"
-                    className="px-6 py-2.5 rounded-xl bg-[#2563EB] text-white text-sm font-semibold hover:bg-blue-700 transition-colors shadow-xs cursor-pointer"
+                    className="px-6 py-2.5 rounded-xl bg-(--button) text-(--button-text) text-sm font-semibold hover:bg-blue-700 transition-colors shadow-xs cursor-pointer"
                   >
                     Sign & Lock
                   </button>

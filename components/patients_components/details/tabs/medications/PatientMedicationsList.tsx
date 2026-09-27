@@ -73,10 +73,10 @@ export function PatientMedicationsList({
                     "bg-blue-100 text-blue-600 border border-blue-200/60 font-semibold px-3 py-1 rounded-full";
                 } else if (row.status === "Completed") {
                   statusBadgeStyles =
-                    "bg-slate-100 text-blue-600 border border-slate-200/60 font-semibold px-3 py-1 rounded-full";
+                    "bg-slate-100 text-blue-600 border border-(--border)/60 font-semibold px-3 py-1 rounded-full";
                 } else if (row.status === "Discontinued") {
                   statusBadgeStyles =
-                    "bg-red-100 text-red-500 border border-red-200/60 font-semibold px-3 py-1 rounded-full";
+                    "bg-red-100 text-(--danger-title) border border-red-200/60 font-semibold px-3 py-1 rounded-full";
                 }
 
                 return (
@@ -103,7 +103,7 @@ export function PatientMedicationsList({
                       {row.prescriptionsCount}
                     </td>
 
-                    <td className="py-4 px-6 text-slate-600 font-medium whitespace-nowrap">
+                    <td className="py-4 px-6 text-(--shade-text) font-medium whitespace-nowrap">
                       {row.date}
                     </td>
 
@@ -142,7 +142,7 @@ export function PatientMedicationsList({
             type="button"
             disabled={currentPage === 1}
             onClick={() => onPageChange(Math.max(1, currentPage - 1))}
-            className="px-3.5 py-1.5 rounded-[6px] border-0 bg-app-bg text-xs font-semibold text-slate-600 hover:bg-slate-200 transition-colors cursor-pointer shadow-2xs disabled:opacity-40 disabled:cursor-not-allowed"
+            className="px-3.5 py-1.5 rounded-[6px] border-0 bg-app-bg text-xs font-semibold text-(--shade-text) hover:bg-slate-200 transition-colors cursor-pointer shadow-2xs disabled:opacity-40 disabled:cursor-not-allowed"
           >
             Previous
           </button>
@@ -154,8 +154,8 @@ export function PatientMedicationsList({
               onClick={() => onPageChange(page)}
               className={`w-8 h-8 rounded-[6px] border-0 text-xs font-bold transition-colors cursor-pointer shadow-2xs ${
                 currentPage === page
-                  ? "bg-[#2563EB] text-white"
-                  : "bg-app-bg text-slate-600 hover:bg-slate-200"
+                  ? "bg-(--button) text-(--button-text)"
+                  : "bg-app-bg text-(--shade-text) hover:bg-slate-200"
               }`}
             >
               {page}
@@ -166,7 +166,7 @@ export function PatientMedicationsList({
             type="button"
             disabled={currentPage === totalPages || totalPages === 0}
             onClick={() => onPageChange(Math.min(totalPages, currentPage + 1))}
-            className="px-3.5 py-1.5 rounded-[6px] border-0 bg-app-bg text-xs font-semibold text-slate-600 hover:bg-slate-200 transition-colors cursor-pointer shadow-2xs disabled:opacity-40 disabled:cursor-not-allowed"
+            className="px-3.5 py-1.5 rounded-[6px] border-0 bg-app-bg text-xs font-semibold text-(--shade-text) hover:bg-slate-200 transition-colors cursor-pointer shadow-2xs disabled:opacity-40 disabled:cursor-not-allowed"
           >
             Next
           </button>

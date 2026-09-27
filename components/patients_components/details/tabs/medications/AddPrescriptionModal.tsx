@@ -54,17 +54,17 @@ export function AddPrescriptionModal({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 15 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="relative w-full max-w-[580px] bg-(--card) rounded-2xl shadow-xl overflow-hidden z-10 border border-slate-100"
+            className="relative w-full max-w-145 bg-(--card) rounded-2xl shadow-xl overflow-hidden z-10"
           >
             {/* Modal Header (Figma specs: h: 61px, padding: 20px top, 24px sides, 16px bottom, border-bottom 1px solid #E5E7EB) */}
-            <div className="flex items-center justify-between px-6 pt-5 pb-4 border-b border-[#E5E7EB]">
+            <div className="flex items-center justify-between px-6 pt-5 pb-4">
               <h3 className="text-base font-bold ">Add Prescription</h3>
               <button
                 type="button"
                 onClick={onClose}
-                className="text-slate-400 hover:text-slate-600 transition-colors cursor-pointer"
+                className="text-(--shade-text) hover:text-(--shade-text) transition-colors cursor-pointer"
               >
-                <X className="h-5 w-5 text-red-500" />
+                <X className="h-5 w-5 text-(--danger-title)" />
               </button>
             </div>
 
@@ -76,7 +76,7 @@ export function AddPrescriptionModal({
                   Medication Name
                 </label>
                 <div className="relative">
-                  <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                  <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-(--shade-text)">
                     <Search className="h-4 w-4" />
                   </span>
                   <input
@@ -89,7 +89,7 @@ export function AddPrescriptionModal({
                         medicationName: e.target.value,
                       })
                     }
-                    className="w-full pl-9 pr-4 py-2.5 bg-(--card) border border-slate-200 rounded-[8px] text-xs  focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600"
+                    className="w-full pl-9 pr-4 py-2.5 bg-(--card) border border-(--border) rounded-md text-xs  focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600"
                   />
                 </div>
               </div>
@@ -106,7 +106,7 @@ export function AddPrescriptionModal({
                     onChange={(e) =>
                       setFormData({ ...formData, dosage: e.target.value })
                     }
-                    className="w-full px-3.5 py-2.5 bg-(--card) border border-slate-200 rounded-[8px] text-xs  focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600"
+                    className="w-full px-3.5 py-2.5 bg-(--card) border border-(--border) rounded-md text-xs  focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600"
                   />
                 </div>
 
@@ -119,14 +119,14 @@ export function AddPrescriptionModal({
                       onChange={(e) =>
                         setFormData({ ...formData, route: e.target.value })
                       }
-                      className="w-full appearance-none px-3.5 py-2.5 bg-(--card) border border-slate-200 rounded-[8px] text-xs  focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 cursor-pointer"
+                      className="w-full appearance-none px-3.5 py-2.5 bg-(--card) border border-(--border) rounded-md text-xs  focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 cursor-pointer"
                     >
                       <option value="Oral">Oral</option>
                       <option value="Intravenous">Intravenous</option>
                       <option value="Topical">Topical</option>
                       <option value="Inhalation">Inhalation</option>
                     </select>
-                    <span className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-slate-400">
+                    <span className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-(--shade-text)">
                       <ChevronDown className="h-4 w-4" />
                     </span>
                   </div>
@@ -143,14 +143,14 @@ export function AddPrescriptionModal({
                       onChange={(e) =>
                         setFormData({ ...formData, frequency: e.target.value })
                       }
-                      className="w-full appearance-none px-3.5 py-2.5 bg-(--card) border border-slate-200 rounded-[8px] text-xs  focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 cursor-pointer"
+                      className="w-full appearance-none px-3.5 py-2.5 bg-(--card) border border-(--border) rounded-md text-xs  focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 cursor-pointer"
                     >
                       <option value="Once Daily">Once Daily</option>
                       <option value="Twice Daily">Twice Daily</option>
                       <option value="Thrice Daily">Thrice Daily</option>
                       <option value="As Needed">As Needed</option>
                     </select>
-                    <span className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-slate-400">
+                    <span className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-(--shade-text)">
                       <ChevronDown className="h-4 w-4" />
                     </span>
                   </div>
@@ -171,7 +171,7 @@ export function AddPrescriptionModal({
                           durationNumber: e.target.value,
                         })
                       }
-                      className="w-full px-3 py-2.5 bg-(--card) border border-slate-200 rounded-[8px] text-xs  focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600"
+                      className="w-full px-3 py-2.5 bg-(--card) border border-(--border) rounded-md text-xs  focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600"
                     />
                     <div className="relative">
                       <select
@@ -182,13 +182,13 @@ export function AddPrescriptionModal({
                             durationUnit: e.target.value,
                           })
                         }
-                        className="w-full appearance-none px-3 py-2.5 bg-(--card) border border-slate-200 rounded-[8px] text-xs  focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 cursor-pointer"
+                        className="w-full appearance-none px-3 py-2.5 bg-(--card) border border-(--border) rounded-md text-xs  focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 cursor-pointer"
                       >
                         <option value="Days">Days</option>
                         <option value="Weeks">Weeks</option>
                         <option value="Months">Months</option>
                       </select>
-                      <span className="absolute inset-y-0 right-0 pr-2.5 flex items-center pointer-events-none text-slate-400">
+                      <span className="absolute inset-y-0 right-0 pr-2.5 flex items-center pointer-events-none text-(--shade-text)">
                         <ChevronDown className="h-3.5 w-3.5" />
                       </span>
                     </div>
@@ -206,7 +206,7 @@ export function AddPrescriptionModal({
                     onChange={(e) =>
                       setFormData({ ...formData, quantity: e.target.value })
                     }
-                    className="w-full px-3.5 py-2.5 bg-(--card) border border-slate-200 rounded-[8px] text-xs  focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600"
+                    className="w-full px-3.5 py-2.5 bg-(--card) border border-(--border) rounded-md text-xs  focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600"
                   />
                 </div>
 
@@ -221,7 +221,7 @@ export function AddPrescriptionModal({
                     onChange={(e) =>
                       setFormData({ ...formData, refills: e.target.value })
                     }
-                    className="w-full px-3.5 py-2.5 bg-(--card) border border-slate-200 rounded-[8px] text-xs  focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600"
+                    className="w-full px-3.5 py-2.5 bg-(--card) border border-(--border) rounded-md text-xs  focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600"
                   />
                 </div>
               </div>
@@ -238,7 +238,7 @@ export function AddPrescriptionModal({
                   onChange={(e) =>
                     setFormData({ ...formData, notes: e.target.value })
                   }
-                  className="w-full p-3 bg-(--card) border border-slate-200 rounded-[8px] text-xs  focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 resize-none"
+                  className="w-full p-3 bg-(--card) border border-(--border) rounded-md text-xs  focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 resize-none"
                 />
               </div>
 
@@ -247,13 +247,13 @@ export function AddPrescriptionModal({
                 <button
                   type="button"
                   onClick={onClose}
-                  className="px-5 py-2.5 rounded-[8px] border border-slate-200 bg-(--card) text-xs font-semibold  hover:bg-slate-50 transition-colors cursor-pointer"
+                  className="px-5 py-2.5 rounded-md border border-(--border) bg-(--card) text-xs font-semibold  hover:bg-(--card-hover) transition-colors cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2.5 rounded-[8px] bg-[#2563EB] text-white text-xs font-semibold hover:bg-blue-700 transition-colors shadow-xs cursor-pointer"
+                  className="px-5 py-2.5 rounded-md bg-(--button) text-(--button-text) text-xs font-semibold hover:bg-blue-700 transition-colors cursor-pointer"
                 >
                   Submit Prescription
                 </button>

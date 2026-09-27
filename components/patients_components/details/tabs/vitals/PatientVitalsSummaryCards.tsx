@@ -47,21 +47,19 @@ const vitalsCardsData = [
 export function PatientVitalsSummaryCards() {
   return (
     // Restored 4-column row layout across large screens to match the original Figma design
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
       {vitalsCardsData.map((card) => (
         <div
           key={card.id}
-          className="bg-(--card) rounded-[16px] shadow-xs p-5 flex flex-col justify-between space-y-4 hover:shadow-md transition-shadow"
+          className="bg-(--card) rounded-xl p-5 flex flex-col justify-between space-y-3 hover:shadow-md transition-shadow"
         >
           {/* Card Header: Vital Title */}
-          <h3 className="text-sm font-bold text-[#0f172a] tracking-tight">
-            {card.title}
-          </h3>
+          <h3 className="text-sm font-bold tracking-tight">{card.title}</h3>
 
           {/* Current & Previous Metrics Info */}
           <div className="space-y-1.5 text-xs">
             <div className="flex items-center justify-between">
-              <span className="text-slate-400 font-normal">Current</span>
+              <span className="text-(--shade-text) font-normal">Current</span>
               <span
                 className={`font-bold text-xs sm:text-sm ${card.textColor}`}
               >
@@ -69,8 +67,8 @@ export function PatientVitalsSummaryCards() {
               </span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-slate-400 font-normal">Previous</span>
-              <span className="text-slate-600 font-semibold text-xs">
+              <span className="text-(--shade-text) font-normal">Previous</span>
+              <span className="text-(--shade) font-semibold text-xs">
                 {card.previous}
               </span>
             </div>

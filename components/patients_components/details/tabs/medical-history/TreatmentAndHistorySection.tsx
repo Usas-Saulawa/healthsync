@@ -84,7 +84,7 @@ export function TreatmentAndHistorySection() {
                 <FileText className="w-4 h-4" />
               </div>
 
-              {/* Content Card with Increased Blue Tint (~50% richer: bg-blue-50/90 and border-blue-200/80) */}
+              {/* Content Card with Increased Blue Tint (~50% richer: bg-(--info-card)/90 and border-blue-200/80) */}
               <div className="flex-1 relative rounded-md bg-(--info-card) hover:bg-(--table-card-hover) cursor-pointer p-4 space-y-3 transition-colors">
                 <div className="flex items-start justify-between">
                   <div className="">

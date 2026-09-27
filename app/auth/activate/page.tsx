@@ -27,7 +27,7 @@ export default function ActivateAccountPage() {
   } = useActivation();
 
   return (
-    <div className="flex min-h-screen w-full bg-blue-50 font-sans">
+    <div className="flex min-h-screen w-full bg-(--info-card) font-sans">
       {/* Left Side: Desktop Blue Gradient Hero Panel */}
       <div className="hidden lg:flex lg:w-1/2 bg-linear-to-br from-primary-700 via-primary-600 to-primary-900 p-12 flex-col justify-between text-white relative overflow-hidden">
         <div className="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-(--card)/10 blur-3xl pointer-events-none" />
@@ -179,7 +179,7 @@ export default function ActivateAccountPage() {
 
           <Link
             href="/"
-            className="w-full flex items-center justify-center rounded-xl border border-blue-600/30 bg-(--card) py-3.5 text-sm font-semibold text-blue-600 hover:bg-blue-50/50 transition-all shadow-sm"
+            className="w-full flex items-center justify-center rounded-xl border border-blue-600/30 bg-(--card) py-3.5 text-sm font-semibold text-blue-600 hover:bg-(--info-card)/50 transition-all shadow-sm"
           >
             Sign in
           </Link>

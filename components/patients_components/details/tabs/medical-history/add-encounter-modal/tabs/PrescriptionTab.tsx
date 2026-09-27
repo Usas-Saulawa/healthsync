@@ -19,11 +19,11 @@ export function PrescriptionTab() {
   return (
     <div className="space-y-6">
       {/* ALL PRESCRIPTIONS Foldable Section */}
-      <div className="border border-slate-200 rounded-xl overflow-hidden bg-(--card)">
+      <div className="border border-(--border) rounded-xl overflow-hidden bg-(--card)">
         <button
           type="button"
           onClick={() => setIsAllPrescriptionsOpen(!isAllPrescriptionsOpen)}
-          className="w-full flex items-center justify-between px-5 py-3.5 bg-slate-50/50 hover:bg-slate-50 transition-colors cursor-pointer text-left"
+          className="w-full flex items-center justify-between px-5 py-3.5 /50 hover: transition-colors cursor-pointer text-left"
         >
           <span className="text-xs font-bold uppercase tracking-wider text-[#0f172a]">
             All Prescriptions
@@ -36,7 +36,7 @@ export function PrescriptionTab() {
         </button>
 
         {isAllPrescriptionsOpen && (
-          <div className="p-4 border-t border-slate-200 text-xs text-(--shade) text-center">
+          <div className="p-4 border-t border-(--border) text-xs text-(--shade) text-center">
             No past prescriptions recorded for this encounter.
           </div>
         )}
@@ -60,7 +60,7 @@ export function PrescriptionTab() {
               value={medicationSearch}
               onChange={(e) => setMedicationSearch(e.target.value)}
               placeholder="Search medications..."
-              className="w-full h-11 pl-11 pr-4 rounded-xl border border-slate-200 bg-(--card) text-sm  placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+              className="w-full h-11 pl-11 pr-4 rounded-xl border border-(--border) bg-(--card) text-sm  placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
             />
           </div>
         </div>
@@ -75,7 +75,7 @@ export function PrescriptionTab() {
               value={dosage}
               onChange={(e) => setDosage(e.target.value)}
               placeholder="e.g., 500mg"
-              className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-(--card) text-sm  placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+              className="w-full h-11 px-4 rounded-xl border border-(--border) bg-(--card) text-sm  placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
             />
           </div>
 
@@ -86,7 +86,7 @@ export function PrescriptionTab() {
               <select
                 value={route}
                 onChange={(e) => setRoute(e.target.value)}
-                className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-(--card) text-sm  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all appearance-none cursor-pointer"
+                className="w-full h-11 px-4 rounded-xl border border-(--border) bg-(--card) text-sm  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all appearance-none cursor-pointer"
               >
                 <option value="Oral">Oral</option>
                 <option value="Intravenous">Intravenous</option>
@@ -108,7 +108,7 @@ export function PrescriptionTab() {
               <select
                 value={frequency}
                 onChange={(e) => setFrequency(e.target.value)}
-                className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-(--card) text-sm  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all appearance-none cursor-pointer"
+                className="w-full h-11 px-4 rounded-xl border border-(--border) bg-(--card) text-sm  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all appearance-none cursor-pointer"
               >
                 <option value="Once Daily">Once Daily</option>
                 <option value="Twice Daily">Twice Daily</option>
@@ -128,13 +128,13 @@ export function PrescriptionTab() {
                 type="text"
                 value={durationNumber}
                 onChange={(e) => setDurationNumber(e.target.value)}
-                className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-(--card) text-sm  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+                className="w-full h-11 px-4 rounded-xl border border-(--border) bg-(--card) text-sm  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
               />
               <div className="relative">
                 <select
                   value={durationUnit}
                   onChange={(e) => setDurationUnit(e.target.value)}
-                  className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-(--card) text-sm  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all appearance-none cursor-pointer"
+                  className="w-full h-11 px-4 rounded-xl border border-(--border) bg-(--card) text-sm  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all appearance-none cursor-pointer"
                 >
                   <option value="Days">Days</option>
                   <option value="Weeks">Weeks</option>
@@ -155,7 +155,7 @@ export function PrescriptionTab() {
               type="text"
               value={quantity}
               onChange={(e) => setQuantity(e.target.value)}
-              className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-(--card) text-sm  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+              className="w-full h-11 px-4 rounded-xl border border-(--border) bg-(--card) text-sm  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
             />
           </div>
 
@@ -166,7 +166,7 @@ export function PrescriptionTab() {
               type="text"
               value={refills}
               onChange={(e) => setRefills(e.target.value)}
-              className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-(--card) text-sm  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+              className="w-full h-11 px-4 rounded-xl border border-(--border) bg-(--card) text-sm  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
             />
           </div>
         </div>
@@ -179,7 +179,7 @@ export function PrescriptionTab() {
             value={pharmacyNotes}
             onChange={(e) => setPharmacyNotes(e.target.value)}
             placeholder="Additional notes for the pharmacy..."
-            className="w-full p-4 rounded-xl border border-slate-200 bg-(--card) text-sm  placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all resize-none"
+            className="w-full p-4 rounded-xl border border-(--border) bg-(--card) text-sm  placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all resize-none"
           />
         </div>
       </div>

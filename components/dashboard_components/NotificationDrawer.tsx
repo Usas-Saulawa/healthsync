@@ -47,7 +47,7 @@ export function NotificationDrawer({
           <h3 className="text-lg font-bold  tracking-tight">Notifications</h3>
           <button
             onClick={onClose}
-            className="h-9 w-9 rounded-full bg-slate-50 hover:bg-slate-100 text-(--shade) hover: flex items-center justify-center transition-colors "
+            className="h-9 w-9 rounded-full  hover:bg-slate-100 text-(--shade) hover: flex items-center justify-center transition-colors "
             aria-label="Close notifications"
           >
             <X className="h-4 w-4" />
@@ -56,7 +56,7 @@ export function NotificationDrawer({
 
         {/* Drawer Body (Empty State matching mockup) */}
         <div className="flex-1 flex flex-col items-center justify-center p-8 text-center">
-          <div className="h-14 w-14 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4 shadow-2xs ">
+          <div className="h-14 w-14 rounded-2xl bg-(--info-card) text-blue-600 flex items-center justify-center mb-4 shadow-2xs ">
             <Bell className="h-6 w-6" />
           </div>
           <h4 className="text-base font-bold  mb-1">

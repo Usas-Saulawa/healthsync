@@ -41,7 +41,7 @@ export function LockEncounterModal({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 10 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="relative z-10 w-full max-w-lg bg-(--card) rounded-2xl shadow-2xl border border-slate-200 overflow-hidden p-8 flex flex-col items-center text-center space-y-6"
+            className="relative z-10 w-full max-w-lg bg-(--card) rounded-2xl shadow-2xl border border-(--border) overflow-hidden p-8 flex flex-col items-center text-center space-y-6"
           >
             {/* Patient Avatar / Icon */}
             <div className="relative w-16 h-16 rounded-full overflow-hidden bg-amber-100 flex items-center justify-center shadow-inner">
@@ -63,8 +63,8 @@ export function LockEncounterModal({
             </div>
 
             {/* Encounter Summary Card */}
-            <div className="w-full bg-slate-50/80 border border-slate-200/80 rounded-xl p-4 text-left space-y-2">
-              <h4 className="text-xs font-bold text-[#0f172a]">
+            <div className="w-full /80 border border-(--border)/80 rounded-xl p-4 text-left space-y-2">
+              <h4 className="text-xs font-bold">
                 Discharge Planning Assessment
               </h4>
               <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-(--shade)">
@@ -79,8 +79,8 @@ export function LockEncounterModal({
                   <strong className=" font-medium">Dr. Robert Owens, MD</strong>
                 </span>
               </div>
-              <div className="pt-1 flex items-center gap-1.5 text-[11px] font-semibold text-[#2563EB]">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB]" />
+              <div className="pt-1 flex items-center gap-1.5 text-[11px] font-semibold text-(--primary)">
+                <span className="w-1.5 h-1.5 rounded-full bg-(--primary)" />
                 Current Status: Signed
               </div>
             </div>
@@ -91,9 +91,9 @@ export function LockEncounterModal({
                 type="checkbox"
                 checked={isChecked}
                 onChange={(e) => setIsChecked(e.target.checked)}
-                className="mt-0.5 h-4 w-4 rounded border-slate-300 text-[#2563EB] focus:ring-blue-500/20 cursor-pointer"
+                className="mt-0.5 h-4 w-4 rounded border-(--border) text-(--primary) focus:ring-blue-500/20 cursor-pointer"
               />
-              <span className="text-xs text-slate-600 group-hover: leading-relaxed">
+              <span className="text-xs text-(--shade-text) group-hover: leading-relaxed">
                 I confirm that this note is complete and accurate, and I
                 understand it cannot be edited after locking.
               </span>
@@ -104,7 +104,7 @@ export function LockEncounterModal({
               <button
                 type="button"
                 onClick={onClose}
-                className="px-6 py-2.5 rounded-xl border border-slate-300  text-xs font-semibold hover:bg-slate-50 transition-colors shadow-2xs cursor-pointer"
+                className="px-6 py-2.5 rounded-xl border border-(--border)  text-xs font-semibold hover: transition-colors shadow-2xs cursor-pointer"
               >
                 Cancel
               </button>
@@ -112,9 +112,9 @@ export function LockEncounterModal({
                 type="button"
                 disabled={!isChecked}
                 onClick={onConfirmLock}
-                className={`px-6 py-2.5 rounded-xl text-xs font-semibold text-white transition-colors shadow-xs ${
+                className={`px-6 py-2.5 rounded-xl text-xs font-semibold text-(--button-text) transition-colors shadow-xs ${
                   isChecked
-                    ? "bg-[#2563EB] hover:bg-blue-700 cursor-pointer"
+                    ? "bg-(--button) hover:bg-blue-700 cursor-pointer"
                     : "bg-blue-300 cursor-not-allowed"
                 }`}
               >
@@ -123,7 +123,7 @@ export function LockEncounterModal({
             </div>
 
             {/* Footer Compliance Notice */}
-            <p className="text-[10px] text-slate-400 max-w-xs leading-normal">
+            <p className="text-[10px] text-(--shade-text) max-w-xs leading-normal">
               Locked notes become part of the permanent medical record and
               comply with regulatory retention requirements.
             </p>

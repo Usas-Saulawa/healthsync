@@ -56,7 +56,7 @@ export function RecordVaccinationModal({
           <button
             type="button"
             onClick={onClose}
-            className="w-8 h-8 rounded-full border border-red-200 text-red-500 bg-red-50/50 flex items-center justify-center hover:bg-red-100 transition-colors cursor-pointer"
+            className="w-8 h-8 flex items-center justify-center rounded-full text-(--shade) hover: hover:bg-(--card-hover) transition-colors cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
@@ -76,7 +76,7 @@ export function RecordVaccinationModal({
                 <select
                   value={vaccineName}
                   onChange={(e) => setVaccineName(e.target.value)}
-                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  focus:outline-none focus:border-[#2563EB] appearance-none cursor-pointer pr-8"
+                  className="w-full px-3 py-2 text-xs bg-(--card) border border-(--border) rounded-md  focus:outline-none focus:border-(--shade) appearance-none cursor-pointer pr-8"
                 >
                   <option value="" disabled>
                     Search vaccine...
@@ -110,7 +110,7 @@ export function RecordVaccinationModal({
                 placeholder="e.g., Sanofi Pasteur"
                 value={manufacturer}
                 onChange={(e) => setManufacturer(e.target.value)}
-                className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  placeholder:text-slate-400 focus:outline-none focus:border-[#2563EB]"
+                className="w-full px-3 py-2 text-xs bg-(--card) border border-(--border) rounded-md  placeholder:text-slate-400 focus:outline-none focus:border-(--shade)"
               />
             </div>
           </div>
@@ -124,7 +124,7 @@ export function RecordVaccinationModal({
                 <select
                   value={doseNumber}
                   onChange={(e) => setDoseNumber(e.target.value)}
-                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  focus:outline-none focus:border-[#2563EB] appearance-none cursor-pointer pr-8"
+                  className="w-full px-3 py-2 text-xs bg-(--card) border border-(--border) rounded-md  focus:outline-none focus:border-(--shade) appearance-none cursor-pointer pr-8"
                 >
                   <option value="Dose 1">Dose 1</option>
                   <option value="Dose 2">Dose 2</option>
@@ -145,7 +145,7 @@ export function RecordVaccinationModal({
                 placeholder="e.g., FL2023-4521"
                 value={lotNumber}
                 onChange={(e) => setLotNumber(e.target.value)}
-                className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  placeholder:text-slate-400 focus:outline-none focus:border-[#2563EB]"
+                className="w-full px-3 py-2 text-xs bg-(--card) border border-(--border) rounded-md  placeholder:text-slate-400 focus:outline-none focus:border-(--shade)"
               />
             </div>
           </div>
@@ -161,7 +161,7 @@ export function RecordVaccinationModal({
                 <select
                   value={dateAdministered}
                   onChange={(e) => setDateAdministered(e.target.value)}
-                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  focus:outline-none focus:border-[#2563EB] appearance-none cursor-pointer pr-8"
+                  className="w-full px-3 py-2 text-xs bg-(--card) border border-(--border) rounded-md  focus:outline-none focus:border-(--shade) appearance-none cursor-pointer pr-8"
                 >
                   <option value="Oct 24, 2023">Oct 24, 2023</option>
                   <option value="Oct 23, 2023">Oct 23, 2023</option>
@@ -177,7 +177,7 @@ export function RecordVaccinationModal({
                 <select
                   value={expirationDate}
                   onChange={(e) => setExpirationDate(e.target.value)}
-                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  focus:outline-none focus:border-[#2563EB] appearance-none cursor-pointer pr-8"
+                  className="w-full px-3 py-2 text-xs bg-(--card) border border-(--border) rounded-md  focus:outline-none focus:border-(--shade) appearance-none cursor-pointer pr-8"
                 >
                   <option value="" disabled>
                     Select date...
@@ -199,7 +199,7 @@ export function RecordVaccinationModal({
                 <select
                   value={administeredBy}
                   onChange={(e) => setAdministeredBy(e.target.value)}
-                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  focus:outline-none focus:border-[#2563EB] appearance-none cursor-pointer pr-8"
+                  className="w-full px-3 py-2 text-xs bg-(--card) border border-(--border) rounded-md  focus:outline-none focus:border-(--shade) appearance-none cursor-pointer pr-8"
                 >
                   <option value="" disabled>
                     Select provider...
@@ -223,7 +223,7 @@ export function RecordVaccinationModal({
                 <select
                   value={administrationSite}
                   onChange={(e) => setAdministrationSite(e.target.value)}
-                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  focus:outline-none focus:border-[#2563EB] appearance-none cursor-pointer pr-8"
+                  className="w-full px-3 py-2 text-xs bg-(--card) border border-(--border) rounded-md  focus:outline-none focus:border-(--shade) appearance-none cursor-pointer pr-8"
                 >
                   <option value="Left Deltoid">Left Deltoid</option>
                   <option value="Right Deltoid">Right Deltoid</option>
@@ -244,7 +244,7 @@ export function RecordVaccinationModal({
                 <select
                   value={route}
                   onChange={(e) => setRoute(e.target.value)}
-                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  focus:outline-none focus:border-[#2563EB] appearance-none cursor-pointer pr-8"
+                  className="w-full px-3 py-2 text-xs bg-(--card) border border-(--border) rounded-md  focus:outline-none focus:border-(--shade) appearance-none cursor-pointer pr-8"
                 >
                   <option value="Intramuscular">Intramuscular</option>
                   <option value="Subcutaneous">Subcutaneous</option>
@@ -262,7 +262,7 @@ export function RecordVaccinationModal({
                 <select
                   value={visDate}
                   onChange={(e) => setVisDate(e.target.value)}
-                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  focus:outline-none focus:border-[#2563EB] appearance-none cursor-pointer pr-8"
+                  className="w-full px-3 py-2 text-xs bg-(--card) border border-(--border) rounded-md  focus:outline-none focus:border-(--shade) appearance-none cursor-pointer pr-8"
                 >
                   <option value="" disabled>
                     Select date...
@@ -283,7 +283,7 @@ export function RecordVaccinationModal({
               placeholder="Additional notes about this vaccination..."
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  placeholder:text-slate-400 focus:outline-none focus:border-[#2563EB] resize-none"
+              className="w-full px-3 py-2 text-xs bg-(--card) border border-(--border) rounded-md  placeholder:text-slate-400 focus:outline-none focus:border-(--shade) resize-none"
             />
           </div>
 
@@ -292,13 +292,13 @@ export function RecordVaccinationModal({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 bg-(--card)  text-xs font-semibold rounded-[8px] border border-slate-200 hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs"
+              className="px-4 py-2 bg-(--card)  text-xs font-semibold rounded-md border border-(--border) hover: transition-colors cursor-pointer shadow-2xs"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-[#2563EB] text-white text-xs font-bold rounded-[8px] hover:bg-blue-700 transition-colors cursor-pointer shadow-xs"
+              className="px-4 py-2 bg-(--button) text-(--button-text) text-xs font-bold rounded-md hover:bg-blue-700 transition-colors cursor-pointer shadow-xs"
             >
               Record Vaccination
             </button>

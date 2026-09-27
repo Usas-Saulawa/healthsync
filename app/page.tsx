@@ -74,7 +74,7 @@ export default function LoginPage() {
                   : "bg-transparent text-(--shade-text) shadow-none"
               }`}
             >
-              Residential ID
+              KRID
             </button>
           </div>
 

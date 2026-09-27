@@ -81,7 +81,7 @@ export function OrderRadiologyModal({
 
       {/* Modal Container */}
       <div
-        className={`relative w-full max-w-[580px] max-h-[90vh] bg-(--card) shadow-2xl flex flex-col transform transition-all duration-300 ease-in-out ${
+        className={`relative w-full max-w-145 max-h-[90vh] bg-(--card) shadow-2xl flex flex-col transform transition-all duration-300 ease-in-out ${
           isVisible ? "scale-100 opacity-100" : "scale-95 opacity-0"
         }`}
         style={{
@@ -91,26 +91,26 @@ export function OrderRadiologyModal({
         }}
       >
         {/* Modal Header */}
-        <div className="flex items-center justify-between border-b border-[#E5E7EB] px-6 py-4 shrink-0">
+        <div className="flex items-center justify-between border-b border-(--border) px-6 py-4 shrink-0">
           <div className="flex items-center gap-2">
             <h2 className="text-base font-bold ">Order Imaging Study</h2>
-            <Info className="h-4 w-4 text-blue-600 cursor-pointer" />
+            <Info className="h-4 w-4 text-(--info-title) cursor-pointer" />
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="text-slate-400 hover:text-slate-600 transition-colors cursor-pointer p-1"
+            className="text-(--shade) hover:text-(--shade-text) transition-colors cursor-pointer p-1"
           >
             <X className="h-5 w-5" />
           </button>
         </div>
 
         {/* Modal Body */}
-        <div className="p-6 flex flex-col gap-5 overflow-y-auto custom-scrollbar flex-grow">
+        <div className="p-6 flex flex-col gap-5 overflow-y-auto custom-scrollbar grow">
           {/* Field: Study Category */}
           <div className="flex flex-col gap-1.5 w-full">
             <label className="text-xs font-semibold ">Study Category</label>
-            <div className="w-full h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center justify-between text-xs  cursor-pointer">
+            <div className="w-full h-10.5 bg-(--card) border border-(--border) rounded-md px-3.5 flex items-center justify-between text-xs  cursor-pointer">
               <span>{studyCategory}</span>
               <ChevronDown className="h-4 w-4 text-slate-400" />
             </div>
@@ -119,7 +119,7 @@ export function OrderRadiologyModal({
           {/* Field: Study Type */}
           <div className="flex flex-col gap-1.5 w-full">
             <label className="text-xs font-semibold ">Study Type</label>
-            <div className="w-full h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center gap-2.5">
+            <div className="w-full h-10.5 bg-(--card) border border-(--border) rounded-md px-3.5 flex items-center gap-2.5">
               <Search className="h-4 w-4 text-slate-400 shrink-0" />
               <input
                 type="text"
@@ -134,7 +134,7 @@ export function OrderRadiologyModal({
           {/* Field: Body Part */}
           <div className="flex flex-col gap-1.5 w-full">
             <label className="text-xs font-semibold ">Body Part</label>
-            <div className="w-full h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center justify-between text-xs  cursor-pointer">
+            <div className="w-full h-10.5 bg-(--card) border border-(--border) rounded-md px-3.5 flex items-center justify-between text-xs  cursor-pointer">
               <span>{bodyPart}</span>
               <ChevronDown className="h-4 w-4 text-slate-400" />
             </div>
@@ -152,10 +152,10 @@ export function OrderRadiologyModal({
                     type="button"
                     onClick={() => setPriority(item)}
                     style={{ height: "34px", borderRadius: "20px" }}
-                    className={`px-4 flex items-center justify-center text-xs font-semibold transition-colors cursor-pointer ${
+                    className={`px-4 flex items-center justify-center text-xs font-semibold transition-colors border cursor-pointer ${
                       isSelected
-                        ? "bg-blue-50 text-blue-600 border border-blue-200"
-                        : "bg-slate-50  hover:bg-slate-200"
+                        ? "bg-(--card-hover)  border-(--shade) shadow-xs"
+                        : "bg-(--card) text-(--shade-text) border-(--border) hover:bg-(--card-hover)"
                     }`}
                   >
                     {item}
@@ -170,7 +170,7 @@ export function OrderRadiologyModal({
             <label className="text-xs font-semibold ">
               Clinical Indication
             </label>
-            <div className="w-full h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center">
+            <div className="w-full h-10.5 bg-(--card) border border-(--border) rounded-md px-3.5 flex items-center">
               <input
                 type="text"
                 placeholder="Enter clinical reason for ordering..."
@@ -186,7 +186,7 @@ export function OrderRadiologyModal({
             <label className="text-xs font-semibold ">
               Special Instructions
             </label>
-            <div className="w-full h-[70px] bg-(--card) border border-[#D1D5DB] rounded-[8px] p-3">
+            <div className="w-full h-17.5 bg-(--card) border border-(--border) rounded-md p-3">
               <textarea
                 placeholder="Additional instructions for the radiologist..."
                 value={specialInstructions}
@@ -203,17 +203,17 @@ export function OrderRadiologyModal({
               <label className="text-xs font-semibold  whitespace-nowrap">
                 Contrast Required
               </label>
-              <div className="flex items-center gap-2.5 h-[42px]">
+              <div className="flex items-center gap-2.5 h-10.5">
                 <button
                   type="button"
                   onClick={() => setContrastRequired(!contrastRequired)}
-                  className="w-[44px] h-[24px] rounded-[12px] p-[2px] transition-colors cursor-pointer flex items-center shrink-0"
+                  className="w-11 h-6 rounded-xl p-0.5 transition-colors cursor-pointer flex items-center shrink-0"
                   style={{
                     backgroundColor: contrastRequired ? "#1C64F2" : "#CBD5E1",
                   }}
                 >
                   <div
-                    className="w-[20px] h-[20px] rounded-full bg-(--card) shadow-md transform transition-transform duration-200"
+                    className="w-5 h-5 rounded-full bg-(--card) shadow-md transform transition-transform duration-200"
                     style={{
                       transform: contrastRequired
                         ? "translateX(20px)"
@@ -232,17 +232,17 @@ export function OrderRadiologyModal({
               <label className="text-xs font-semibold  whitespace-nowrap">
                 Sedation Required
               </label>
-              <div className="flex items-center gap-2.5 h-[42px]">
+              <div className="flex items-center gap-2.5 h-10.5">
                 <button
                   type="button"
                   onClick={() => setSedationRequired(!sedationRequired)}
-                  className="w-[44px] h-[24px] rounded-[12px] p-[2px] transition-colors cursor-pointer flex items-center shrink-0"
+                  className="w-11 h-6 rounded-xl p-0.5 transition-colors cursor-pointer flex items-center shrink-0"
                   style={{
                     backgroundColor: sedationRequired ? "#1C64F2" : "#CBD5E1",
                   }}
                 >
                   <div
-                    className="w-[20px] h-[20px] rounded-full bg-(--card) shadow-md transform transition-transform duration-200"
+                    className="w-5 h-5 rounded-full bg-(--card) shadow-md transform transition-transform duration-200"
                     style={{
                       transform: sedationRequired
                         ? "translateX(20px)"
@@ -262,7 +262,7 @@ export function OrderRadiologyModal({
             {/* Frequency */}
             <div className="flex flex-col gap-1.5">
               <label className="text-xs font-semibold ">Frequency</label>
-              <div className="w-full h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3.5 flex items-center justify-between text-xs  cursor-pointer">
+              <div className="w-full h-10.5 bg-(--card) border border-(--border) rounded-md px-3.5 flex items-center justify-between text-xs  cursor-pointer">
                 <span>{frequency}</span>
                 <ChevronDown className="h-4 w-4 text-slate-400" />
               </div>
@@ -275,7 +275,7 @@ export function OrderRadiologyModal({
               </label>
               <div className="flex items-center gap-2">
                 {/* Native Date Input Box */}
-                <div className="relative flex-1 h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3 flex items-center text-xs ">
+                <div className="relative flex-1 h-10.5 bg-(--card) border border-(--border) rounded-md px-3 flex items-center text-xs ">
                   <input
                     type="date"
                     value={scheduledDate}
@@ -286,7 +286,7 @@ export function OrderRadiologyModal({
                 </div>
 
                 {/* Native Time Input Box */}
-                <div className="relative w-[110px] h-[42px] bg-(--card) border border-[#D1D5DB] rounded-[8px] px-3 flex items-center text-xs ">
+                <div className="relative w-27.5 h-10.5 bg-(--card) border border-(--border) rounded-md px-3 flex items-center text-xs ">
                   <input
                     type="time"
                     value={scheduledTime}
@@ -301,18 +301,18 @@ export function OrderRadiologyModal({
         </div>
 
         {/* Modal Footer */}
-        <div className="border-t border-[#E5E7EB] px-6 py-4 flex items-center justify-between shrink-0 bg-(--card) rounded-b-[16px]">
+        <div className="border-t border-(--border) px-6 py-4 flex items-center justify-between shrink-0 bg-(--card) rounded-b-2xl">
           <button
             type="button"
             onClick={onClose}
-            className="w-[88px] h-[38px] bg-(--card) border border-[#D1D5DB]  text-xs font-semibold rounded-[8px] hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs"
+            className="w-22 h-9.5 bg-(--card) border border-(--border)  text-xs font-semibold rounded-md transition-colors cursor-pointer shadow-2xs"
           >
             Cancel
           </button>
           <button
             type="button"
             onClick={handleSubmit}
-            className="w-[115px] h-[38px] bg-[#2563EB] text-white text-xs font-semibold rounded-[8px] hover:bg-blue-700 transition-colors cursor-pointer shadow-xs"
+            className="w-28.75 h-9.5 bg-(--button) text-(--button-text) text-xs font-semibold rounded-md hover:bg-blue-700 transition-colors cursor-pointer shadow-xs"
           >
             Submit Order
           </button>

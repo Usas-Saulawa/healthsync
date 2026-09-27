@@ -46,14 +46,14 @@ export function ReferPatientModal({ isOpen, onClose }: ReferPatientModalProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 overflow-y-auto">
-      <div className="relative w-full max-w-[540px] bg-(--card) rounded-[12px] shadow-xl border border-slate-100 flex flex-col max-h-[90vh]">
+      <div className="relative w-full max-w-135 bg-(--card) rounded-xl flex flex-col max-h-[90vh]">
         {/* Modal Header */}
-        <div className="flex items-center justify-between px-6 pt-5 pb-4 border-b border-slate-100">
+        <div className="flex items-center justify-between px-6 pt-5 pb-4 border-b border-(--border)">
           <h2 className="text-lg font-bold  tracking-tight">Refer Patient</h2>
           <button
             type="button"
             onClick={onClose}
-            className="w-8 h-8 rounded-full border border-red-200 text-red-500 bg-red-50/50 flex items-center justify-center hover:bg-red-100 transition-colors cursor-pointer"
+            className="w-8 h-8 flex items-center justify-center rounded-full text-(--shade) hover: hover:bg-(--card-hover) transition-colors cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
@@ -66,20 +66,20 @@ export function ReferPatientModal({ isOpen, onClose }: ReferPatientModalProps) {
         >
           {/* SECTION 1: REFERRAL DETAILS */}
           <div className="flex flex-col gap-3.5">
-            <h3 className="text-xs font-bold text-[#2563EB] tracking-wider uppercase">
+            <h3 className="text-xs font-bold text-(--primary) tracking-wider uppercase">
               Referral Details
             </h3>
 
             {/* Referral Type */}
             <div className="flex flex-col gap-1.5">
               <label className="text-xs font-semibold ">
-                Referral Type <span className="text-red-500">*</span>
+                Referral Type <span className="text-(--danger-title)">*</span>
               </label>
               <div className="relative">
                 <select
                   value={referralType}
                   onChange={(e) => setReferralType(e.target.value)}
-                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  focus:outline-none focus:border-[#2563EB] appearance-none cursor-pointer pr-8"
+                  className="w-full px-3 py-2 text-xs bg-(--card) border border-(--border) rounded-md  focus:outline-none focus:border-(--shade) appearance-none cursor-pointer pr-8"
                 >
                   <option value="Outpatient Consultation">
                     Outpatient Consultation
@@ -104,12 +104,12 @@ export function ReferPatientModal({ isOpen, onClose }: ReferPatientModalProps) {
                       key={u}
                       type="button"
                       onClick={() => setUrgency(u)}
-                      className={`px-3 py-1.5 rounded-[8px] text-xs font-semibold transition-colors cursor-pointer border ${
+                      className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-colors cursor-pointer border ${
                         isSelected
                           ? u === "Emergency"
-                            ? "bg-(--card) text-red-600 border-red-500 shadow-xs"
-                            : "bg-(--card)  border-slate-800 shadow-xs"
-                          : "bg-(--card) text-slate-600 border-slate-200 hover:bg-slate-50"
+                            ? "bg-(--danger-card) text-(--danger-title) border-(--danger-title) shadow-xs"
+                            : "bg-(--card-hover)  border-(--shade) shadow-xs"
+                          : "bg-(--card) text-(--shade-text) border-(--border) hover:bg-(--card-hover)"
                       }`}
                     >
                       {u}
@@ -122,20 +122,20 @@ export function ReferPatientModal({ isOpen, onClose }: ReferPatientModalProps) {
             {/* Referral Date */}
             <div className="flex flex-col gap-1.5">
               <label className="text-xs font-semibold ">
-                Referral Date <span className="text-red-500">*</span>
+                Referral Date <span className="text-(--danger-title)">*</span>
               </label>
               <input
                 type="text"
                 value={referralDate}
                 onChange={(e) => setReferralDate(e.target.value)}
-                className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  focus:outline-none focus:border-[#2563EB]"
+                className="w-full px-3 py-2 text-xs bg-(--card) border border-(--border) rounded-md  focus:outline-none focus:border-(--shade)"
               />
             </div>
           </div>
 
           {/* SECTION 2: REFERRING TO */}
           <div className="flex flex-col gap-3.5 pt-1">
-            <h3 className="text-xs font-bold text-[#2563EB] tracking-wider uppercase">
+            <h3 className="text-xs font-bold text-(--primary) tracking-wider uppercase">
               Referring To
             </h3>
 
@@ -143,13 +143,14 @@ export function ReferPatientModal({ isOpen, onClose }: ReferPatientModalProps) {
               {/* Specialty / Department */}
               <div className="flex flex-col gap-1.5">
                 <label className="text-xs font-semibold ">
-                  Specialty / Department <span className="text-red-500">*</span>
+                  Specialty / Department{" "}
+                  <span className="text-(--danger-title)">*</span>
                 </label>
                 <div className="relative">
                   <select
                     value={specialty}
                     onChange={(e) => setSpecialty(e.target.value)}
-                    className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  focus:outline-none focus:border-[#2563EB] appearance-none cursor-pointer pr-8"
+                    className="w-full px-3 py-2 text-xs bg-(--card) border border-(--border) rounded-md  focus:outline-none focus:border-(--shade) appearance-none cursor-pointer pr-8"
                   >
                     <option value="Endocrinology">Endocrinology</option>
                     <option value="Cardiology">Cardiology</option>
@@ -168,7 +169,7 @@ export function ReferPatientModal({ isOpen, onClose }: ReferPatientModalProps) {
                   <select
                     value={preferredProvider}
                     onChange={(e) => setPreferredProvider(e.target.value)}
-                    className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  focus:outline-none focus:border-[#2563EB] appearance-none cursor-pointer pr-8"
+                    className="w-full px-3 py-2 text-xs bg-(--card) border border-(--border) rounded-md  focus:outline-none focus:border-(--shade) appearance-none cursor-pointer pr-8"
                   >
                     <option value="Dr. Alan Marcus, MD">
                       Dr. Alan Marcus, MD
@@ -185,13 +186,13 @@ export function ReferPatientModal({ isOpen, onClose }: ReferPatientModalProps) {
             {/* Facility */}
             <div className="flex flex-col gap-1.5">
               <label className="text-xs font-semibold ">
-                Facility <span className="text-red-500">*</span>
+                Facility <span className="text-(--danger-title)">*</span>
               </label>
               <div className="relative">
                 <select
                   value={facility}
                   onChange={(e) => setFacility(e.target.value)}
-                  className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  focus:outline-none focus:border-[#2563EB] appearance-none cursor-pointer pr-8"
+                  className="w-full px-3 py-2 text-xs bg-(--card) border border-(--border) rounded-md  focus:outline-none focus:border-(--shade) appearance-none cursor-pointer pr-8"
                 >
                   <option value="Same Facility (General Hospital)">
                     Same Facility (General Hospital)
@@ -207,20 +208,21 @@ export function ReferPatientModal({ isOpen, onClose }: ReferPatientModalProps) {
 
           {/* SECTION 3: CLINICAL INFORMATION */}
           <div className="flex flex-col gap-3.5 pt-1">
-            <h3 className="text-xs font-bold text-[#2563EB] tracking-wider uppercase">
+            <h3 className="text-xs font-bold text-(--primary) tracking-wider uppercase">
               Clinical Information
             </h3>
 
             {/* Reason for Referral */}
             <div className="flex flex-col gap-1.5">
               <label className="text-xs font-semibold ">
-                Reason for Referral <span className="text-red-500">*</span>
+                Reason for Referral{" "}
+                <span className="text-(--danger-title)">*</span>
               </label>
               <textarea
                 rows={2}
                 value={reasonForReferral}
                 onChange={(e) => setReasonForReferral(e.target.value)}
-                className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  focus:outline-none focus:border-[#2563EB] resize-none"
+                className="w-full px-3 py-2 text-xs bg-(--card) border border-(--border) rounded-md  focus:outline-none focus:border-(--shade) resize-none"
               />
             </div>
 
@@ -231,7 +233,7 @@ export function ReferPatientModal({ isOpen, onClose }: ReferPatientModalProps) {
                 rows={2}
                 value={relevantHistory}
                 onChange={(e) => setRelevantHistory(e.target.value)}
-                className="w-full px-3 py-2 text-xs bg-(--card) border border-slate-200 rounded-[8px]  focus:outline-none focus:border-[#2563EB] resize-none"
+                className="w-full px-3 py-2 text-xs bg-(--card) border border-(--border) rounded-md  focus:outline-none focus:border-(--shade) resize-none"
               />
             </div>
 
@@ -243,7 +245,7 @@ export function ReferPatientModal({ isOpen, onClose }: ReferPatientModalProps) {
               <button
                 type="button"
                 onClick={() => console.log("Attach files clicked")}
-                className="w-full py-3 border border-dashed border-slate-300 rounded-[8px] bg-slate-50/50 hover:bg-slate-50 text-blue-600 text-xs font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                className="w-full py-3 border border-dashed border-(--shade) rounded-md /50 hover: text-blue-600 text-xs font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer"
               >
                 <Activity className="w-4 h-4" />
                 <span>+ Attach Lab Results, ECG or Imaging</span>
@@ -251,10 +253,10 @@ export function ReferPatientModal({ isOpen, onClose }: ReferPatientModalProps) {
             </div>
 
             {/* Info Notice Box */}
-            <div className="relative flex items-start gap-2.5 bg-blue-50/70 border border-blue-100 rounded-[8px] p-3 overflow-hidden">
-              <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#2563EB]" />
-              <Info className="w-4 h-4 text-[#2563EB] shrink-0 mt-0.5" />
-              <p className="text-[11px] text-[#1E40AF] leading-relaxed">
+            <div className="relative flex items-start gap-2.5 bg-(--info-icon-bg) rounded-md p-3 overflow-hidden">
+              <div className="absolute left-0 top-0 bottom-0 w-1 bg-(--info-title)" />
+              <Info className="w-4 h-4 text-(--primary) shrink-0 mt-0.5" />
+              <p className="text-[11px] text-(--info-title) leading-relaxed">
                 Referral will be sent to the receiving department. You will be
                 notified when it is accepted or if additional information is
                 required.
@@ -263,17 +265,17 @@ export function ReferPatientModal({ isOpen, onClose }: ReferPatientModalProps) {
           </div>
 
           {/* Modal Footer Buttons */}
-          <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-100 mt-1">
+          <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-(--border) mt-1">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 bg-(--card)  text-xs font-semibold rounded-[8px] border border-slate-200 hover:bg-slate-50 transition-colors cursor-pointer shadow-2xs"
+              className="px-4 py-2 bg-(--card)  text-xs font-semibold rounded-md border border-(--border) hover:bg-(--card-hover) transition-colors cursor-pointer shadow-2xs"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-[#2563EB] text-white text-xs font-bold rounded-[8px] hover:bg-blue-700 transition-colors cursor-pointer shadow-xs"
+              className="px-4 py-2 bg-(--button) text-(--button-text) text-xs font-bold rounded-md hover:bg-blue-700 transition-colors cursor-pointer shadow-xs"
             >
               Submit Referral
             </button>

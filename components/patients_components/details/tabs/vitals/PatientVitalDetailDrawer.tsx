@@ -272,38 +272,38 @@ export function PatientVitalDetailDrawer({
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", damping: 30, stiffness: 300 }}
-            className="relative w-full max-w-[608px] h-full bg-(--card) shadow-2xl flex flex-col z-10 overflow-y-auto"
+            className="relative w-full max-w-152 h-full bg-(--card) flex flex-col z-10 overflow-y-auto"
           >
             {/* UI Content Wrapper */}
-            <div className="bg-white flex flex-col flex-1">
+            <div className="bg-(--card) flex flex-col flex-1">
               {/* Details Header */}
-              <div className="px-9 pt-[45px] pb-4 flex items-start justify-between min-h-[126px]">
+              <div className="px-9 pt-11.25 pb-4 flex items-start justify-between min-h-31.5">
                 <div className="flex items-start gap-3.5">
                   <div className="flex flex-col items-center gap-1.5 shrink-0">
-                    <div className="w-[52px] h-[52px] rounded-full bg-amber-200 overflow-hidden border-2 border-white shadow-xs flex items-center justify-center">
+                    <div className="w-13 h-13 rounded-full bg-amber-200 overflow-hidden border border-(--border) flex items-center justify-center">
                       <img
                         src="/images/profile.jpeg"
                         alt="Bashir Musa"
                         className="w-full h-full object-cover"
                       />
                     </div>
-                    <span className="px-2.5 py-0.5 bg-[#2167F3] text-white text-[9px] font-bold rounded-full shadow-2xs whitespace-nowrap">
+                    <span className="px-2.5 py-0.5 bg-(--button) text-(--button-text) text-[9px] font-bold rounded-full shadow-2xs whitespace-nowrap">
                       In-Patient
                     </span>
                   </div>
 
                   <div className="space-y-1">
-                    <h4 className="text-base font-bold text-[#111827] tracking-tight">
+                    <h4 className="text-base font-bold tracking-tight">
                       Bashir Musa
                     </h4>
-                    <p className="text-xs text-(--shade) font-medium flex flex-wrap items-center gap-1.5">
+                    <p className="text-xs text-(--shade-text) font-medium flex flex-wrap items-center gap-1.5">
                       <span>Male, 10/11/1995</span>
                       <span>&bull;</span>
                       <span className=" font-semibold">{vital.timeOnly}</span>
                       <span>&bull;</span>
                       <span className=" font-semibold">{vital.dateOnly}</span>
                     </p>
-                    <p className="text-[11px] text-(--shade) leading-tight">
+                    <p className="text-[11px] text-(--shade-text) leading-tight">
                       Cardiology A - Bed 12 &bull; Nurse Sarah Jenkins &bull;
                       Hospital: Medical Centre
                     </p>
@@ -312,60 +312,70 @@ export function PatientVitalDetailDrawer({
 
                 <button
                   onClick={onClose}
-                  className="p-2 rounded-full hover:bg-slate-100 text-slate-400 hover: transition-colors cursor-pointer shrink-0"
+                  className="p-2 rounded-full hover:bg-(--card-hover) text-(--shade-text) hover: transition-colors cursor-pointer shrink-0"
                 >
                   <X className="h-5 w-5" />
                 </button>
               </div>
 
               {/* Dashed Border Separator */}
-              <div className="mx-[38px] my-2 border-t border-dashed border-[#DCDEE0]" />
+              <div className="mx-9.5 my-2 border-t border-dashed border-(--shade)" />
 
               {/* Inner Drawer Details Container */}
-              <div className="mx-[36px] mt-4 w-[535px] bg-slate-50 rounded-[17px] p-[21px] shadow-2xs">
+              <div className="mx-9 mt-4 w-133.75 bg-(--background) rounded-md p-5 shadow-2xs">
                 <div className="space-y-3.5">
-                  <div className="flex items-center justify-between text-xs py-1 border-b border-slate-200/60">
-                    <span className="text-slate-400 font-normal">
+                  <div className="flex items-center justify-between text-xs py-1 border-b border-(--border)">
+                    <span className="text-(--shade-text) font-normal">
                       References Number
                     </span>
                     <span className="font-semibold ">
                       {vital.referenceNumber}
                     </span>
                   </div>
-                  <div className="flex items-center justify-between text-xs py-1 border-b border-slate-200/60">
-                    <span className="text-slate-400 font-normal">Date</span>
+                  <div className="flex items-center justify-between text-xs py-1 border-b border-(--border)">
+                    <span className="text-(--shade-text) font-normal">
+                      Date
+                    </span>
                     <span className="font-semibold ">{vital.dateOnly}</span>
                   </div>
-                  <div className="flex items-center justify-between text-xs py-1 border-b border-slate-200/60">
-                    <span className="text-slate-400 font-normal">Time</span>
+                  <div className="flex items-center justify-between text-xs py-1 border-b border-(--border)">
+                    <span className="text-(--shade-text) font-normal">
+                      Time
+                    </span>
                     <span className="font-semibold ">{vital.timeOnly}</span>
                   </div>
-                  <div className="flex items-center justify-between text-xs py-1 border-b border-slate-200/60">
-                    <span className="text-slate-400 font-normal">
+                  <div className="flex items-center justify-between text-xs py-1 border-b border-(--border)">
+                    <span className="text-(--shade-text) font-normal">
                       BP (mmHg)
                     </span>
                     <span className="font-bold ">{vital.bp}</span>
                   </div>
-                  <div className="flex items-center justify-between text-xs py-1 border-b border-slate-200/60">
-                    <span className="text-slate-400 font-normal">HR (bpm)</span>
+                  <div className="flex items-center justify-between text-xs py-1 border-b border-(--border)">
+                    <span className="text-(--shade-text) font-normal">
+                      HR (bpm)
+                    </span>
                     <span className="font-semibold ">{vital.hr}</span>
                   </div>
-                  <div className="flex items-center justify-between text-xs py-1 border-b border-slate-200/60">
-                    <span className="text-slate-400 font-normal">
+                  <div className="flex items-center justify-between text-xs py-1 border-b border-(--border)">
+                    <span className="text-(--shade-text) font-normal">
                       Temp (°F)
                     </span>
                     <span className="font-semibold ">{vital.temp}</span>
                   </div>
-                  <div className="flex items-center justify-between text-xs py-1 border-b border-slate-200/60">
-                    <span className="text-slate-400 font-normal">SpO2</span>
+                  <div className="flex items-center justify-between text-xs py-1 border-b border-(--border)">
+                    <span className="text-(--shade-text) font-normal">
+                      SpO2
+                    </span>
                     <span className="font-semibold ">{vital.spo2}</span>
                   </div>
-                  <div className="flex items-center justify-between text-xs py-1 border-b border-slate-200/60">
-                    <span className="text-slate-400 font-normal">RR (bpm)</span>
+                  <div className="flex items-center justify-between text-xs py-1 border-b border-(--border)">
+                    <span className="text-(--shade-text) font-normal">
+                      RR (bpm)
+                    </span>
                     <span className="font-semibold ">{vital.rr}</span>
                   </div>
                   <div className="flex items-center justify-between text-xs py-1">
-                    <span className="text-slate-400 font-normal">
+                    <span className="text-(--shade-text) font-normal">
                       Weight (lbs)
                     </span>
                     <span className="font-semibold ">{vital.weight}</span>
@@ -374,14 +384,14 @@ export function PatientVitalDetailDrawer({
               </div>
 
               {/* Nurses Notes Section */}
-              <div className="mx-[36px] my-6 space-y-6">
-                <div className="border-t border-dashed border-[#DCDEE0]" />
+              <div className="mx-9 my-6 space-y-6">
+                <div className="border-t border-dashed border-(--shade)" />
 
                 <div className="space-y-2">
                   <h5 className="text-xs font-bold  tracking-wider">
                     NURSES NOTES
                   </h5>
-                  <p className="text-xs text-slate-600 leading-relaxed">
+                  <p className="text-xs text-(--shade-text) leading-relaxed">
                     {vital.nursesNotes}
                   </p>
                 </div>
@@ -389,7 +399,7 @@ export function PatientVitalDetailDrawer({
             </div>
 
             {/* Bottom PDF Export Action Button via React-PDF */}
-            <div className="mx-[36px] mb-6">
+            <div className="mx-9 mb-6">
               <PDFDownloadLink
                 document={<VitalsPDFDocument vital={vital} />}
                 fileName={`Vitals_Report_${vital.referenceNumber}.pdf`}
@@ -399,16 +409,16 @@ export function PatientVitalDetailDrawer({
                   <button
                     type="button"
                     disabled={loading}
-                    className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 border border-slate-200 bg-white  text-xs font-bold rounded-xl hover:bg-slate-50 transition-colors shadow-xs cursor-pointer disabled:opacity-60"
+                    className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 bg-transparent border border-(--border) text-xs font-bold rounded-md hover:bg-(--card-hover) transition-colors cursor-pointer disabled:opacity-60"
                   >
                     {loading ? (
                       <>
-                        <Loader2 className="h-4 w-4 text-(--shade) animate-spin" />
+                        <Loader2 className="h-4 w-4 text-(--shade-text) animate-spin" />
                         Preparing PDF...
                       </>
                     ) : (
                       <>
-                        <Download className="h-4 w-4 text-(--shade)" />
+                        <Download className="h-4 w-4 text-(--shade-text)" />
                         Get PDF Vitals
                       </>
                     )}

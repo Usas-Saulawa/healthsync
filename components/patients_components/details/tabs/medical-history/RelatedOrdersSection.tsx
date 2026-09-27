@@ -15,7 +15,7 @@ const ordersData = [
     date: "24th Oct 2024",
     time: "10:30 pm",
     status: "Unread",
-    statusStyle: "bg-sky-50 text-sky-600 border-sky-100",
+    statusStyle: "bg-(--info-card) text-(--info-title)",
   },
   {
     id: 2,
@@ -26,7 +26,7 @@ const ordersData = [
     date: "2nd Sep 2024",
     time: "08:30 pm",
     status: "Completed",
-    statusStyle: "bg-emerald-50 text-emerald-600 border-emerald-100",
+    statusStyle: "bg-(--lab-timeline-bg) text-(--lab-timeline-text)",
   },
   {
     id: 3,
@@ -37,7 +37,7 @@ const ordersData = [
     date: "24th Oct 2024",
     time: "10:30 pm",
     status: "Pending",
-    statusStyle: "bg-amber-50 text-amber-600 border-amber-100",
+    statusStyle: "bg-(--warning-card) text-(--warning-title)",
   },
   {
     id: 4,
@@ -48,7 +48,7 @@ const ordersData = [
     date: "15th Aug 2024",
     time: "09:00 am",
     status: "Completed",
-    statusStyle: "bg-emerald-50 text-emerald-600 border-emerald-100",
+    statusStyle: "bg-(--lab-timeline-bg) text-(--lab-timeline-text)",
   },
   {
     id: 5,
@@ -59,7 +59,7 @@ const ordersData = [
     date: "10th Jul 2024",
     time: "02:15 pm",
     status: "Pending",
-    statusStyle: "bg-amber-50 text-amber-600 border-amber-100",
+    statusStyle: "bg-(--warning-card) text-(--warning-title) ",
   },
   {
     id: 6,
@@ -70,7 +70,7 @@ const ordersData = [
     date: "05. Jun 2024",
     time: "11:00 am",
     status: "Completed",
-    statusStyle: "bg-emerald-50 text-emerald-600 border-emerald-100",
+    statusStyle: "bg-(--lab-timeline-bg) text-(--lab-timeline-text)",
   },
   {
     id: 7,
@@ -81,7 +81,7 @@ const ordersData = [
     date: "20th May 2024",
     time: "04:30 pm",
     status: "Unread",
-    statusStyle: "bg-sky-50 text-sky-600 border-sky-100",
+    statusStyle: "bg-(--info-card) text-(--info-title)",
   },
 ];
 

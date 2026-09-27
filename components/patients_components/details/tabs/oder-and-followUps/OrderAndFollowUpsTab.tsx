@@ -249,7 +249,7 @@ export function PatientOrderAndFollowUpsTab() {
         <button
           type="button"
           onClick={() => setIsModalOpen(true)}
-          className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-(--button) text-(--button-text) text-xs font-bold rounded-md transition-colors shadow-xs cursor-pointer justify-center"
+          className="flex items-center gap-1 py-2 pr-4 pl-3 rounded-md bg-(--button) text-(--button-text) text-sm font-semibold hover:bg-blue-700 transition-colors cursor-pointer"
         >
           <Plus className="h-4 w-4 font-bold" />
           <span>{activeSubTab === "orders" ? "New Order" : "Follow-up"}</span>

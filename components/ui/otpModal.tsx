@@ -67,7 +67,7 @@ export function OtpModal({
       <div className="relative w-full max-w-lg rounded-3xl bg-(--card) p-8 sm:p-10 shadow-2xl border border-gray-100 z-10 text-center animate-[scaleUp_0.25s_cubic-bezier(0.16,1,0.3,1)]">
         {/* Top Shield Icon Badge */}
         <div className="flex justify-center mb-4">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-50 text-blue-600 border border-blue-100">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-(--info-card) text-blue-600 border border-blue-100">
             <ShieldCheck className="h-6 w-6" />
           </div>
         </div>
@@ -93,7 +93,7 @@ export function OtpModal({
               value={digit}
               onChange={(e) => handleChange(e.target.value, index)}
               onKeyDown={(e) => handleKeyDown(e, index)}
-              className="w-11 h-12 sm:w-14 sm:h-14 text-center text-xl sm:text-2xl font-bold rounded-xl border border-gray-200 bg-blue-50/20 text-gray-900 focus:border-blue-600 focus:bg-(--card) focus:outline-none focus:ring-2 focus:ring-blue-600/20 transition-all shadow-sm"
+              className="w-11 h-12 sm:w-14 sm:h-14 text-center text-xl sm:text-2xl font-bold rounded-xl border border-gray-200 bg-(--info-card)/20 text-gray-900 focus:border-blue-600 focus:bg-(--card) focus:outline-none focus:ring-2 focus:ring-blue-600/20 transition-all shadow-sm"
             />
           ))}
         </div>

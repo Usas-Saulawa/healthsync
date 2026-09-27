@@ -56,11 +56,11 @@ export function OrderTab() {
   return (
     <div className="space-y-6">
       {/* ALL ORDERS Foldable Section */}
-      <div className="border border-slate-200 rounded-xl overflow-hidden bg-(--card)">
+      <div className="border border-(--border) rounded-xl overflow-hidden bg-(--card)">
         <button
           type="button"
           onClick={() => setIsAllOrdersOpen(!isAllOrdersOpen)}
-          className="w-full flex items-center justify-between px-5 py-3.5 bg-slate-50/50 hover:bg-slate-50 transition-colors cursor-pointer text-left"
+          className="w-full flex items-center justify-between px-5 py-3.5 /50 hover: transition-colors cursor-pointer text-left"
         >
           <span className="text-xs font-bold uppercase tracking-wider text-[#0f172a]">
             All Orders
@@ -73,10 +73,10 @@ export function OrderTab() {
         </button>
 
         {isAllOrdersOpen && (
-          <div className="p-4 border-t border-slate-200 overflow-x-auto max-h-[240px] overflow-y-auto custom-scrollbar">
-            <table className="w-full text-left border-collapse bg-blue-50/90">
+          <div className="p-4 border-t border-(--border) overflow-x-auto max-h-[240px] overflow-y-auto custom-scrollbar">
+            <table className="w-full text-left border-collapse bg-(--info-card)/90">
               <thead>
-                <tr className="border-b border-slate-200 text-xs font-semibold text-slate-400">
+                <tr className="border-b border-(--border) text-xs font-semibold text-slate-400">
                   <th className="pb-3 pl-2">Order Name</th>
                   <th className="pb-3">Category</th>
                   <th className="pb-3">Ordered By</th>
@@ -88,7 +88,7 @@ export function OrderTab() {
                 {ordersData.map((order) => (
                   <tr
                     key={order.id}
-                    className="hover:bg-blue-50/40 transition-colors"
+                    className="hover:bg-(--info-card)/40 transition-colors"
                   >
                     <td className="py-3 pl-2 font-bold text-[#0f172a]">
                       {order.name}
@@ -139,7 +139,7 @@ export function OrderTab() {
             <select
               value={orderType}
               onChange={(e) => setOrderType(e.target.value)}
-              className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-(--card) text-sm  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all appearance-none cursor-pointer"
+              className="w-full h-11 px-4 rounded-xl border border-(--border) bg-(--card) text-sm  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all appearance-none cursor-pointer"
             >
               <option value="Laboratory">Laboratory</option>
               <option value="Consultation">Consultation</option>
@@ -162,7 +162,7 @@ export function OrderTab() {
               value={orderSearch}
               onChange={(e) => setOrderSearch(e.target.value)}
               placeholder="Search orders..."
-              className="w-full h-11 pl-11 pr-4 rounded-xl border border-slate-200 bg-(--card) text-sm  placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+              className="w-full h-11 pl-11 pr-4 rounded-xl border border-(--border) bg-(--card) text-sm  placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
             />
           </div>
         </div>
@@ -180,8 +180,8 @@ export function OrderTab() {
                   onClick={() => setSelectedPriority(priority)}
                   className={`px-5 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer border ${
                     isSelected
-                      ? "bg-blue-50 text-[#2563EB] border-blue-200 shadow-2xs"
-                      : "bg-(--card) text-slate-600 border-slate-200 hover:bg-slate-50"
+                      ? "bg-(--info-card) text-(--primary) border-blue-200 shadow-2xs"
+                      : "bg-(--card) text-(--shade-text) border-(--border) hover:"
                   }`}
                 >
                   {priority}
@@ -201,7 +201,7 @@ export function OrderTab() {
             value={clinicalIndication}
             onChange={(e) => setClinicalIndication(e.target.value)}
             placeholder="Enter clinical reason for order..."
-            className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-(--card) text-sm  placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+            className="w-full h-11 px-4 rounded-xl border border-(--border) bg-(--card) text-sm  placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
           />
         </div>
 
@@ -215,7 +215,7 @@ export function OrderTab() {
             value={specialInstructions}
             onChange={(e) => setSpecialInstructions(e.target.value)}
             placeholder="Additional instructions for the order..."
-            className="w-full p-4 rounded-xl border border-slate-200 bg-(--card) text-sm  placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all resize-none"
+            className="w-full p-4 rounded-xl border border-(--border) bg-(--card) text-sm  placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all resize-none"
           />
         </div>
 
@@ -228,7 +228,7 @@ export function OrderTab() {
               <select
                 value={frequency}
                 onChange={(e) => setFrequency(e.target.value)}
-                className="w-full h-11 px-4 rounded-xl border border-slate-200 bg-(--card) text-sm  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all appearance-none cursor-pointer"
+                className="w-full h-11 px-4 rounded-xl border border-(--border) bg-(--card) text-sm  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all appearance-none cursor-pointer"
               >
                 <option value="Once">Once</option>
                 <option value="Daily">Daily</option>
@@ -251,7 +251,7 @@ export function OrderTab() {
                   type="text"
                   value={scheduledDate}
                   onChange={(e) => setScheduledDate(e.target.value)}
-                  className="w-full h-11 pl-3 pr-9 rounded-xl border border-slate-200 bg-(--card) text-xs  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+                  className="w-full h-11 pl-3 pr-9 rounded-xl border border-(--border) bg-(--card) text-xs  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
                 />
                 <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 pointer-events-none" />
               </div>
@@ -262,7 +262,7 @@ export function OrderTab() {
                   type="text"
                   value={scheduledTime}
                   onChange={(e) => setScheduledTime(e.target.value)}
-                  className="w-full h-11 pl-3 pr-9 rounded-xl border border-slate-200 bg-(--card) text-xs  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+                  className="w-full h-11 pl-3 pr-9 rounded-xl border border-(--border) bg-(--card) text-xs  focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
                 />
                 <Clock className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 pointer-events-none" />
               </div>

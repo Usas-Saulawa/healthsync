@@ -6,7 +6,7 @@ import { PatientHistoricalVitalsLog } from "./PatientHistoricalVitalsLog";
 
 export function PatientVitalTab() {
   return (
-    <div className="w-full flex flex-col gap-5">
+    <div className="w-full flex flex-col gap-3">
       {/* Summary Cards & Historical Vitals Log Table taking full width */}
       <PatientVitalsSummaryCards />
       <PatientHistoricalVitalsLog />

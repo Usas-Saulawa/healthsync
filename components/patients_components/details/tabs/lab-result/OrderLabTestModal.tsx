@@ -269,7 +269,7 @@ export function OrderLabTestModal({
           <button
             type="button"
             onClick={handleSubmit}
-            className="w-28.75 h-9.5 bg-[#2563EB] text-white text-xs font-semibold rounded-lg hover:bg-blue-700 transition-colors cursor-pointer shadow-xs"
+            className="w-28.75 h-9.5 bg-(--button) text-(--button-text) text-xs font-semibold rounded-lg hover:bg-blue-700 transition-colors cursor-pointer shadow-xs"
           >
             Submit Order
           </button>

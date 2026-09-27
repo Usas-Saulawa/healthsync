@@ -84,7 +84,7 @@ export function PatientRadiologyDetailModal({
 
       {/* Drawer Container */}
       <div
-        className={`relative w-[560px] h-screen bg-(--card) shadow-2xl flex flex-col justify-between transform transition-transform duration-300 ease-in-out ${
+        className={`relative w-140 h-screen bg-(--card) shadow-2xl flex flex-col justify-between transform transition-transform duration-300 ease-in-out ${
           isVisible ? "translate-x-0" : "translate-x-full"
         }`}
         style={{
@@ -93,9 +93,9 @@ export function PatientRadiologyDetailModal({
         }}
       >
         {/* Modal Header */}
-        <div className="flex items-center justify-between w-[560px] h-[65px] px-6 py-5 border-b border-[#E5E7EB] shrink-0">
+        <div className="flex items-center justify-between w-140 h-16.25 px-6 py-5 border-b border-(--border) shrink-0">
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded bg-blue-50 text-blue-600 flex items-center justify-center">
+            <div className="w-7 h-7 rounded bg-(--info-icon-bg) text-(--info-title) flex items-center justify-center">
               <FileText className="h-4 w-4" />
             </div>
             <h2 className="text-sm font-bold ">Imaging Study Detail</h2>
@@ -103,22 +103,22 @@ export function PatientRadiologyDetailModal({
           <button
             type="button"
             onClick={onClose}
-            className="text-slate-400 hover:text-slate-600 transition-colors cursor-pointer p-1"
+            className="text-(--shade-text) hover:text-(--shade-text) transition-colors cursor-pointer p-1"
           >
             <X className="h-5 w-5" />
           </button>
         </div>
 
         {/* Modal Body with Custom Scrollbar */}
-        <div className="w-[560px] h-[800px] p-6 flex flex-col gap-5 overflow-y-auto custom-scrollbar">
+        <div className="w-140 h-200 p-6 flex flex-col gap-5 overflow-y-auto custom-scrollbar">
           {/* Study Information Section */}
-          <div className="w-[512px] h-[210px] bg-(--background) rounded-[8px] p-4 flex flex-col gap-3 shrink-0">
-            <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">
+          <div className="w-lg h-52.5 bg-(--background) rounded-md p-4 flex flex-col gap-3 shrink-0">
+            <span className="text-[10px] font-bold tracking-wider text-(--shade-text) uppercase">
               STUDY INFORMATION
             </span>
             <div className="grid grid-cols-2 gap-y-3 gap-x-6 text-xs">
               <div>
-                <span className="text-slate-400 block text-[11px]">
+                <span className="text-(--shade-text) block text-[11px]">
                   Study Type
                 </span>
                 <span className="font-bold  mt-0.5 block">
@@ -126,7 +126,7 @@ export function PatientRadiologyDetailModal({
                 </span>
               </div>
               <div>
-                <span className="text-slate-400 block text-[11px]">
+                <span className="text-(--shade-text) block text-[11px]">
                   Modality
                 </span>
                 <span className="font-semibold  mt-0.5 block">
@@ -134,7 +134,7 @@ export function PatientRadiologyDetailModal({
                 </span>
               </div>
               <div>
-                <span className="text-slate-400 block text-[11px]">
+                <span className="text-(--shade-text) block text-[11px]">
                   Ordered By
                 </span>
                 <span className="font-semibold  mt-0.5 block">
@@ -142,7 +142,7 @@ export function PatientRadiologyDetailModal({
                 </span>
               </div>
               <div>
-                <span className="text-slate-400 block text-[11px]">
+                <span className="text-(--shade-text) block text-[11px]">
                   Facility
                 </span>
                 <span className="font-semibold  mt-0.5 block truncate">
@@ -150,7 +150,7 @@ export function PatientRadiologyDetailModal({
                 </span>
               </div>
               <div>
-                <span className="text-slate-400 block text-[11px]">
+                <span className="text-(--shade-text) block text-[11px]">
                   Radiologist
                 </span>
                 <span className="font-semibold  mt-0.5 block">
@@ -158,7 +158,7 @@ export function PatientRadiologyDetailModal({
                 </span>
               </div>
               <div>
-                <span className="text-slate-400 block text-[11px]">
+                <span className="text-(--shade-text) block text-[11px]">
                   Body Part
                 </span>
                 <span className="font-semibold  mt-0.5 block">
@@ -166,7 +166,7 @@ export function PatientRadiologyDetailModal({
                 </span>
               </div>
               <div>
-                <span className="text-slate-400 block text-[11px]">
+                <span className="text-(--shade-text) block text-[11px]">
                   Date Ordered
                 </span>
                 <span className="font-semibold  mt-0.5 block">
@@ -174,7 +174,7 @@ export function PatientRadiologyDetailModal({
                 </span>
               </div>
               <div>
-                <span className="text-slate-400 block text-[11px]">
+                <span className="text-(--shade-text) block text-[11px]">
                   Date Completed
                 </span>
                 <span className="font-semibold  mt-0.5 block">
@@ -186,28 +186,28 @@ export function PatientRadiologyDetailModal({
 
           {/* Key Finding Hero Box */}
           <div
-            className="w-[512px] h-[129px] rounded-[8px] p-5 flex items-center justify-between shrink-0"
-            style={{ backgroundColor: "#E1EFFE" }}
+            className="w-lg h-32.25 rounded-md p-5 flex items-center justify-between shrink-0"
+            style={{ backgroundColor: "var(--info-card)" }}
           >
             <div>
-              <span className="text-[11px] font-bold tracking-wider text-blue-700 uppercase">
+              <span className="text-[11px] font-bold tracking-wider text-(--primary) uppercase">
                 KEY FINDING
               </span>
               <h3 className="text-2xl font-extrabold  mt-1 tracking-tight">
                 {data.keyFinding}
               </h3>
-              <span className="text-xs text-slate-600 mt-1 block">
+              <span className="text-xs text-(--shade-text) mt-1 block">
                 Clinical correlation: {data.clinicalCorrelation}
               </span>
             </div>
             {/* Flag Pill Hero Button */}
             <div
-              className="flex items-center justify-center text-white font-bold text-[11px] tracking-wide shrink-0"
+              className="flex items-center justify-center text-(--button-text) font-bold text-[11px] tracking-wide shrink-0"
               style={{
                 width: "82px",
                 height: "27px",
                 borderRadius: "20px",
-                backgroundColor: "#1A56DB",
+                backgroundColor: "var(--button)",
                 paddingTop: "6px",
                 paddingRight: "14px",
                 paddingBottom: "6px",
@@ -219,8 +219,8 @@ export function PatientRadiologyDetailModal({
           </div>
 
           {/* Radiologist Notes / Clinical Findings */}
-          <div className="w-[512px] h-[140px] bg-(--background) rounded-[8px] p-4 flex flex-col gap-2 shrink-0">
-            <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">
+          <div className="w-lg h-35 bg-(--background) rounded-md p-4 flex flex-col gap-2 shrink-0">
+            <span className="text-[10px] font-bold tracking-wider text-(--shade-text) uppercase">
               RADIOLOGIST NOTES/ CLINICAL FINDINGS
             </span>
             <p className="text-[11px]  leading-relaxed overflow-y-auto custom-scrollbar">
@@ -230,10 +230,9 @@ export function PatientRadiologyDetailModal({
 
           {/* Impression Block with Accent Bar */}
           <div
-            className="w-[512px] h-[100px] rounded-[8px] p-4 flex items-center gap-3 shrink-0"
+            className="w-lg h-25 rounded-md p-4 flex items-center gap-3 shrink-0"
             style={{
-              backgroundColor: "#FFF7ED",
-              border: "1px solid #FCD6A8",
+              backgroundColor: "var(--warning-card)",
             }}
           >
             {/* Accent Bar */}
@@ -243,12 +242,12 @@ export function PatientRadiologyDetailModal({
                 width: "4px",
                 height: "68px",
                 borderRadius: "2px",
-                backgroundColor: "#F97316",
+                backgroundColor: "var(--warning-title)",
               }}
             />
             {/* Impression Text Content */}
             <div className="flex flex-col gap-1 overflow-y-auto">
-              <span className="text-[10px] font-bold tracking-wider text-orange-700 uppercase">
+              <span className="text-[10px] font-bold tracking-wider text-(--warning-title) uppercase">
                 IMPRESSION
               </span>
               <p className="text-xs font-medium  leading-snug">
@@ -259,24 +258,24 @@ export function PatientRadiologyDetailModal({
         </div>
 
         {/* Modal Footer */}
-        <div className="w-[560px] h-[96px] border-t border-[#E5E7EB] px-6 py-4 flex flex-col justify-between shrink-0 bg-(--card)">
-          <div className="w-[512px] h-[16px] flex items-center justify-between text-[11px] text-(--shade)">
+        <div className="w-140 h-24 border-t border-(--border) px-6 py-4 flex flex-col justify-between shrink-0 bg-(--card)">
+          <div className="w-lg h-4 flex items-center justify-between text-[11px] text-(--shade-text)">
             <span>Reviewed by: {data.reviewedBy}</span>
             <span>Acknowledged by Physician: {data.acknowledgedBy}</span>
           </div>
 
-          <div className="w-[512px] h-[36px] flex items-center gap-2">
+          <div className="w-lg h-9 flex items-center gap-2">
             <button
               type="button"
               onClick={() => console.log("Adding clinical note...")}
-              className="flex-1 h-full bg-(--background)  text-xs font-semibold rounded-[6px] hover:bg-slate-200 transition-colors cursor-pointer"
+              className="flex-1 h-full bg-(--background)  text-xs font-semibold rounded-md hover:bg-(--card-hover) transition-colors cursor-pointer"
             >
               Add Clinical Note
             </button>
             <button
               type="button"
               onClick={() => console.log("Printing report...")}
-              className="flex-1 h-full bg-(--background)  text-xs font-semibold rounded-[6px] hover:bg-slate-200 transition-colors cursor-pointer"
+              className="flex-1 h-full bg-(--background)  text-xs font-semibold rounded-md hover:bg-(--card-hover) transition-colors cursor-pointer"
             >
               Print Report
             </button>
@@ -286,7 +285,7 @@ export function PatientRadiologyDetailModal({
                 console.log("Launching DICOM viewer...");
                 onClose();
               }}
-              className="flex-1 h-full bg-[#2563EB] text-white text-xs font-semibold rounded-[6px] hover:bg-blue-700 transition-colors cursor-pointer shadow-xs"
+              className="flex-1 h-full bg-(--button) text-(--button-text) text-xs font-semibold rounded-md hover:bg-(--primary) transition-colors cursor-pointer shadow-xs"
             >
               Launch DICOM Viewer
             </button>
